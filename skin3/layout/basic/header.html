@@ -1,0 +1,99 @@
+<header id="header" class="mf-hd" data-ez="contents-08uul6g-1">
+	<div class="mf-hd__inner">
+		<div class="mf-hd__logo" module="Layout_LogoTop">
+			<a href="/"><img src="svg/logo.svg" alt="MEDIFAB"></a>
+		</div>
+
+		<nav class="mf-hd__nav" aria-label="주 메뉴">
+			<div class="mf-hd__item">
+				<a href="/shopinfo/company.html" class="mf-hd__link">COMPANY</a>
+				<div class="mf-hd__sub">
+					<a href="/shopinfo/company.html">About</a>
+					<a href="/shopinfo/company.html">History</a>
+					<a href="/shopinfo/company.html">Core Value</a>
+					<a href="/shopinfo/company.html">Leaders</a>
+					<a href="/shopinfo/company.html">Global Network</a>
+				</div>
+			</div>
+			<div class="mf-hd__item">
+				<a href="#home-rd" class="mf-hd__link">R&amp;D</a>
+				<div class="mf-hd__sub">
+					<a href="#home-rd">Chitogen™</a>
+					<a href="#home-rd">Regentrix™</a>
+					<a href="#home-rd">Chitogenix™</a>
+					<a href="#home-rd">Lab Introduction</a>
+					<a href="#home-rd">GMP Facility</a>
+				</div>
+			</div>
+			<div class="mf-hd__item">
+				<a href="#home-prod" class="mf-hd__link">PRODUCTS</a>
+				<div class="mf-hd__sub">
+					<a href="#home-prod">Skin Booster</a>
+					<a href="#home-prod">Medical Device MD</a>
+					<a href="#home-prod">Medical Aesthetics</a>
+					<a href="#home-prod">Resnovae</a>
+					<a href="#home-prod">Others</a>
+				</div>
+			</div>
+			<div class="mf-hd__item">
+				<a href="#home-media" class="mf-hd__link">MEDIA</a>
+				<div class="mf-hd__sub">
+					<a href="#home-media">News</a>
+					<a href="#home-media">Exhibition &amp; Conference</a>
+				</div>
+			</div>
+			<div class="mf-hd__item">
+				<a href="#footer" class="mf-hd__link">CONTACT</a>
+				<div class="mf-hd__sub">
+					<a href="#footer">Product Inquiry</a>
+					<a href="#footer">Careers</a>
+				</div>
+			</div>
+			<span class="mf-hd__sep" aria-hidden="true"></span>
+			<a href="#" class="mf-hd__link">ACADEMY</a>
+		</nav>
+
+		<div class="mf-hd__util">
+			<button type="button" class="mf-hd__lang" id="mfLangBtn">
+				<img src="/SkinImg/img/medifab/icon_earth.svg" alt="" width="24" height="24">
+				<span>LANGUAGE</span>
+			</button>
+			<button type="button" class="mf-hd__menu eNavFold" aria-label="메뉴 열기">
+				<span></span><span></span><span></span>
+			</button>
+		</div>
+	</div>
+
+	<div module="Layout_SearchHeader" class="mf-hd__search">
+		<!--
+			$product_page=/product/detail.html
+			$category_page=/product/list.html
+		-->
+		<fieldset>
+			<legend>검색</legend>
+			<div class="wrap_search_box">
+				<div class="search_find_product">Find Product</div>
+				<div class="top_search_box">
+					<button type="button" class="btnClose"><img src="/SkinImg/img/pc_search_close.svg" alt="닫기"></button>
+					{$form.keyword}<button type="button" class="btnDelete">삭제</button><button type="button" class="btnSearch" onclick="{$action_search_submit}"><img src="/SkinImg/img/top_search.svg" alt="검색"></button><ul class="autoDrop" id="{$search_auto_id}"></ul>
+				</div>
+			</div>
+		</fieldset>
+	</div>
+</header>
+<div class="translate-wrap" id="mfTranslate" hidden>
+	<div id="google_translate_element"></div>
+</div>
+<script>
+	function googleTranslateElementInit() {
+		if (!window.google || !google.translate || !google.translate.TranslateElement) return;
+		new google.translate.TranslateElement({
+			pageLanguage: 'ko',
+			includedLanguages: 'ko,en,ja,zh-CN,zh-TW,ru',
+			autoDisplay: false,
+			layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+		}, 'google_translate_element');
+	}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!--#ez="1/1"-->

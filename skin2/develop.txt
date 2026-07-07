@@ -1,0 +1,177 @@
+================================================================================
+  MEDIFAB / SKIN2 개발 히스토리
+  작성일: 2026-06-20
+================================================================================
+
+■ 2026-06-20 | Cursor SFTP 자동 업로드 설정
+--------------------------------------------------------------------------------
+
+[배경]
+- FileZilla로 Cafe24 SFTP 수동 업로드 중이었으나, 로컬 저장 시 서버에
+  바로 반영되는 워크플로우가 필요함.
+- FileZilla는 저장 시 자동 업로드 기능을 지원하지 않음.
+
+[적용 내용]
+- Cursor(VS Code) SFTP 확장 사용
+  - 확장명: SFTP (Natizyskunk) — Natizyskunk.vscode-sftp
+- 설정 파일 생성: skin2/.vscode/sftp.json
+- uploadOnSave: true — 파일 저장(Cmd+S) 시 자동 업로드
+
+[서버 연결 정보]
+- 프로토콜   : SFTP
+- 호스트     : ecimg-ftp-c01.cafe24img.com
+- 포트       : 8103
+- 사용자     : xognsroqkf (Cafe24 몰 ID)
+- 원격 경로  : /skin2
+- 로컬 경로  : skin2/ (Cursor 워크스페이스 루트)
+
+[업로드 매핑]
+- 로컬 skin2/index.html  →  서버 /skin2/index.html
+- 로컬 skin2/layout/...  →  서버 /skin2/layout/...
+
+[업로드 제외 (ignore)]
+- .git
+- .DS_Store
+- .vscode
+
+[기존 설정 참고]
+- 상위 폴더 medifab/.vscode/sftp.json 도 존재 (remotePath: /)
+- skin2 단독 워크스페이스에서는 skin2/.vscode/sftp.json 이 사용됨
+
+[사용 방법]
+1. Cursor 확장에서 SFTP(Natizyskunk) 설치
+2. Cmd+Shift+P → "SFTP: List" 로 연결 확인
+3. 파일 수정 후 Cmd+S 저장 → 자동 업로드
+
+[보안]
+- sftp.json 비밀번호는 medifab/.gitignore 에 등록되어 Git 커밋 제외
+- 비밀번호는 sftp.json 에만 보관, 본 문서에는 기록하지 않음
+
+================================================================================
+260621
+index.html 번역코드 제외
+================================================================================
+
+<div class="translate-wrap">
+	<div id="google_translate_element"></div>
+</div>
+
+<style>
+	.translate-wrap {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 8px 0;
+	}
+
+	#google_translate_element {
+		line-height: 1;
+	}
+
+	#google_translate_element .goog-te-gadget {
+		font-size: 0;
+		color: transparent;
+	}
+
+	#google_translate_element .goog-te-gadget-simple {
+		display: inline-flex !important;
+		align-items: center;
+		min-height: 36px;
+		padding: 0 12px !important;
+		border: 1px solid #ddd !important;
+		border-radius: 999px !important;
+		background: #fff !important;
+		box-sizing: border-box;
+	}
+
+	#google_translate_element .goog-te-gadget-simple span {
+		border: 0 !important;
+	}
+
+	#google_translate_element .goog-te-menu-value {
+		display: inline-flex !important;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px !important;
+		color: #111 !important;
+		line-height: 1;
+	}
+
+	#google_translate_element .goog-te-menu-value span {
+		color: #111 !important;
+	}
+
+	#google_translate_element .goog-te-menu-value img,
+	#google_translate_element .goog-te-gadget-icon {
+		display: none !important;
+	}
+</style>
+
+<script>
+	function googleTranslateElementInit() {
+		if (!window.google || !google.translate || !google.translate.TranslateElement) {
+			return;
+		}
+
+		new google.translate.TranslateElement(
+			{
+				pageLanguage: 'ko',
+				includedLanguages: 'ko,en,ja,zh-CN,zh-TW,ru',
+				autoDisplay: false,
+				layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+			},
+			'google_translate_element'
+		);
+	}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+================================================================================
+layout/basic/header.html 상단 유틸 영역 제거
+<!-- 상단 유틸 영역 (PC) -->
+		<div class="toparea display_pc_only">
+
+			<div class="toparea_shoppinginfo">
+				<div module="Layout_multishopList">
+					<button type="button" class="toggle">{$current_language} <i aria-hidden="true" class="icon icoArrowBottom"></i></button>
+					<ul module="Layout_multishopListitem">
+						<li class="{$selected_class}">
+							<a href="//{$shop_domain}/">{$locale_language}</a>
+						</li>
+						<li class="{$selected_class}">
+							<a href="//{$shop_domain}/">{$locale_language}</a>
+						</li>
+					</ul>
+				</div>
+
+				<div data-ez-group="shopping-info" data-ez-role="list">
+					<ul module="Layout_shoppingInfo">
+						<li class="{$use_mileage|display}"><a href="/myshop/mileage/historyList.html">{$mileage_name} <strong>{$mileage}</strong></a></li>
+						<li class="{$use_deposit|display}"><a href="/myshop/deposits/historyList.html">{$deposit_name} <strong>{$deposit}</strong></a></li>
+						<li class="{$use_coupon_cnt|display}"><a href="/myshop/coupon/coupon.html">쿠폰 <strong>{$coupon_cnt}</strong></a></li>
+						<li class="{$use_interest_prd|display}"><a href="/myshop/wish_list.html">관심상품 <strong>{$interest_prd_cnt}</strong></a></li>
+						<li class="{$use_like_product_cnt|display}">{$like_prd_tag}</li>
+						<li class="{$use_basket_cnt|display}"><a href="/order/basket.html">장바구니 <strong>{$basket_cnt}<span class="{$use_basket_price|display}">({$basket_price})</span></strong></a></li>
+					</ul>
+				</div>
+			</div><!-- //toparea_shoppinginfo -->
+
+			<div class="toparea_state" data-ez-group="top-util-menu" data-ez-role="list">
+				<a data-ez-item="join" module="Layout_statelogoff" href="/member/agreement.html">회원가입</a>
+				<a data-ez-item="login" module="Layout_statelogoff" href="/member/login.html">로그인</a>
+				<a data-ez-item="modify" module="Layout_stateLogon" href="/member/modify.html">내정보수정</a>
+				<a data-ez-item="logout" module="Layout_stateLogon" href="{$action_logout}">로그아웃</a>
+				<a data-ez-item="order" href="/myshop/order/list.html">주문조회</a>
+				<a data-ez-item="mypage" module="Layout_stateLogon" href="/myshop/index.html">마이페이지</a>
+				<a data-ez-item="recent" href="/product/recent_view_product.html">최근본상품</a>
+				<div class="toparea_state_board">
+					<a data-ez-item="board" href="#none">고객센터<i aria-hidden="true" class="icon icoArrowBottom"></i></a>
+					<ul module="Layout_BoardInfo">
+						<li><a href="{$link_board_list}">{$board_name}</a></li>
+						<li><a href="{$link_board_list}">{$board_name}</a></li>
+					</ul>
+				</div>
+			</div><!-- //toparea_state -->
+		</div><!-- //toparea -->
+
+ㅇㅇ

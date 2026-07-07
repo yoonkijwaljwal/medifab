@@ -1,0 +1,110 @@
+---
+description: MEDIFAB skin3 피그마 페이지 개발 규칙 (Cafe24 스킨)
+alwaysApply: true
+---
+
+# MEDIFAB skin3 — 피그마 페이지 개발
+
+## 타이포그래피 (Figma Typography)
+
+폰트 패밀리:
+- **에디토리얼(Display)**: `Noto Serif KR`, `Noto Serif` — Light(300)
+- **본문/헤딩**: `Noto Sans KR`, `Noto Sans` — Light(300), Regular(400), Medium(500)
+
+CSS 변수 (`layout.css` `:root`):
+| 토큰 | 스펙 | 용도 |
+|------|------|------|
+| `--mf-d64` | Serif 64px / LH 110% | 히어로 에디토리얼 |
+| `--mf-d48` | Serif 48px / LH 118% | 에디토리얼 서브 |
+| `--mf-d32` | Serif 32px / LH 125% | 섹션 인트로 |
+| `--mf-h48` | Sans Light 48px / LH 115% | 섹션 대제목 |
+| `--mf-h32` | Sans Regular 32px / LH 130% | 페이지 헤딩 |
+| `--mf-h24` | Sans Regular 24px / LH 135% | 카드 타이틀 |
+| `--mf-h24l` | Sans Light 24px / LH 135% | 서브 헤딩 라이트 |
+| `--mf-h20` | Sans Regular 20px / LH 140% | 소제목 |
+| `--mf-b18` | Sans Regular 18px / LH 160% | 리드 카피 |
+| `--mf-b16` | Sans Regular 16px / LH 160% | 일반 본문 |
+| `--mf-b16l` | Sans Light 16px / LH 160% | 본문 라이트 |
+| `--mf-b14` | Sans Regular 14px / LH 158% | 보조 본문 |
+| `--mf-b13` | Sans Regular 13px / LH 155% | 힌트 |
+| `--mf-c12` | Sans Medium 12px / LH 150% | 라벨/태그 |
+
+유틸 클래스: `.mf-d64`, `.mf-d48`, `.mf-h24`, `.mf-b16` 등 (`layout.css` 참고)
+
+## 프로젝트 컨텍스트
+
+- Cafe24 호스팅 쇼핑몰 스킨 (`skin3`, 몰 ID: xognsroqkf)
+- 로컬 단독 실행 불가 — Cafe24 서버에서 렌더링
+- 공통 레이아웃: `layout/basic/layout.html` → header / sidebar / footer 감싸기
+- 페이지 HTML 상단: `<!--@layout(/layout/basic/layout.html)-->`
+- CSS/JS 로드: `<!--@css(/경로)-->`, `<!--@js(/경로)-->`
+- `module="..."`, `{$변수}`, `<!--#ez="..."-->` 는 Cafe24 엔진 전용 — 임의 수정 금지
+- `layout/basic/css/common.css` 는 전체 페이지 영향 — 신규 스타일은 페이지 전용 CSS에 작성
+
+## 페이지 개발 패턴
+
+```html
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">...</div>
+<div class="section titleArea"><h2>페이지명</h2></div>
+
+<div class="pg-about"><!-- 페이지 루트: pg-{페이지약어} -->
+  <!--@css(/css/module/.../about.css)-->
+  <section class="about-hero">...</section>
+</div>
+```
+
+- 기존 서브페이지(`shopinfo/company.html` 등)와 동일하게 `section path` + `titleArea` 유지
+- 피그마 커스텀 영역은 **페이지 루트 클래스 하나**로 감싸고, 하위 스타일은 그 안에서만 작성
+- CSS는 `css/module/` 하위에 페이지별 파일로 분리 (기존 패턴 따름)
+- JS 필요 시 `js/module/` 하위, Cafe24 기본 모듈 JS와 충돌 주의
+- 신규 파일 생성 전 사용자 확인
+
+## HTML/CSS 클래스명
+
+- **짧고 직관적** — 역할이 바로 보이게 (`hero`, `intro`, `gallery`, `cta`)
+- **페이지 접두어** — 루트 `pg-about`, 섹션 `about-hero`, `about-intro` (2~3단어 이내)
+- kebab-case 사용 (`about-card-list` ✅ / `aboutCardListWrapper` ❌)
+- Cafe24 기존 클래스(`ec-base-*`, `xans-*`, `section`, `titleArea`, `module`)는 유지·재사용
+- 의미 없는 이름 금지 (`box1`, `wrap2`, `txt01`)
+- 상태/변형은 `--` modifier (`about-btn--primary`)
+- JS 훅이 필요하면 `data-*` 속성 사용 (클래스에 `js-` 접두어 남용 금지)
+
+```html
+<!-- ✅ GOOD -->
+<div class="pg-brand">
+  <section class="brand-hero">...</section>
+  <ul class="brand-list">...</ul>
+</div>
+
+<!-- ❌ BAD -->
+<div class="brand_page_main_content_wrapper_section">
+```
+
+## CSS 작성 규칙
+
+- **`!important` 사용 금지** — specificity·스코프·선택자 구조로 해결
+- 모든 신규 스타일은 페이지 루트 아래에 스코프:
+
+```css
+.pg-about .about-hero { ... }
+.pg-about .about-intro { ... }
+```
+
+- 전역 CSS(`common.css`, `layout.css`) 수정 최소화
+- 기존 Cafe24 스타일 덮어쓸 때: `.pg-about .ec-base-table` 처럼 루트로 specificity 확보
+- 반응형: 프로젝트 기존 브레이크포인트 따름 (보통 1024px / 768px)
+- 인라인 `style=""` 지양 — 피그마 수치는 CSS 파일에만
+
+## JS
+
+- 기능 동작 우선, 디자인보다 스크립트 안정성 먼저
+- jQuery/Cafe24 모듈과 충돌 없는지 확인
+- DOM 선택은 `data-*` 또는 페이지 루트 범위 내 클래스
+
+## 작업 시 체크
+
+1. `module`, `{$변수}`, EZ 마커 건드리지 않았는가
+2. 클래스명이 짧고 역할이 명확한가
+3. `!important` 없이 스타일이 적용되는가
+4. CSS가 페이지 루트로 스코프되어 있는가
