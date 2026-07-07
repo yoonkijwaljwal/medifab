@@ -1,0 +1,29 @@
+---
+description: OpenWiki 프로젝트 컨텍스트 참조 (구조·Cafe24 패턴)
+alwaysApply: true
+---
+
+# OpenWiki 컨텍스트
+
+이 저장소는 `openwiki/` 디렉터리에 에이전트용 문서가 있습니다.
+
+## 읽는 순서
+
+1. `openwiki/quickstart.md` — 저장소 구조, Cafe24 스킨 패턴
+2. 필요 시 `openwiki/architecture/cafe24-skin.md` — 레이아웃·CSS/JS 전략
+
+## 기존 규칙과의 우선순위
+
+**충돌 시 `figma-page-dev` 규칙이 우선합니다.**
+
+| 이 규칙 (openwiki-context) | figma-page-dev |
+|---------------------------|----------------|
+| 프로젝트 구조·Cafe24 문법 이해 | 타이포그래피, 클래스명, CSS/JS 작성 규칙 |
+| 어디에 파일을 두는지 | 어떻게 스타일·마크업을 쓰는지 |
+
+- skin3 UI·피그마 페이지 작업: **figma-page-dev 규칙을 따름**
+- 이 규칙은 위키를 먼저 읽고 맥락을 파악하라는 안내용
+
+## OpenWiki 갱신
+
+문서 갱신: `openwiki --update` (API 키는 `~/.openwiki/.env`)
