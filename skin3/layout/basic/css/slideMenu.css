@@ -176,3 +176,16 @@ body.expand {left:0;}
     .navigation-menu__board { padding:23px 50px 25px 0; }
     .navigation-menu__board .menu a { display:block; padding:10px 0; font-size:16px; font-weight:300; text-decoration:none; }
 }
+
+/* MEDIFAB MO full-screen menu — override slide drawer */
+#aside.mf-mo {
+	left: 0 !important;
+	width: 100% !important;
+	min-width: 0;
+}
+body.expand #aside.mf-mo {
+	left: 0 !important;
+}
+body.expand:has(#aside.mf-mo) {
+	left: 0 !important;
+}

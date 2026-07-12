@@ -63,16 +63,76 @@ function handleNav() {
     var btnNavs = document.querySelectorAll('.eNavFold');
     var btnClose = document.querySelector('#aside .btnClose');
     var dimmed = document.querySelector('#layoutDimmed');
-    var elements = document.getElementsByClassName("test");
-    btnNavs.forEach( function(btnNav) {
-        btnNav.addEventListener('click', function(){
-            document.body.classList.add('expand');
+    var aside = document.getElementById('aside');
+
+    function openNav() {
+        document.body.classList.add('expand');
+        if (aside) aside.setAttribute('aria-hidden', 'false');
+    }
+    function closeNav() {
+        document.body.classList.remove('expand');
+        if (aside) aside.setAttribute('aria-hidden', 'true');
+    }
+
+    btnNavs.forEach(function(btnNav) {
+        btnNav.addEventListener('click', openNav);
+    });
+    if (btnClose) {
+        btnClose.addEventListener('click', closeNav);
+    }
+    if (dimmed) {
+        handleDimmed(dimmed, document.body, 'expand');
+        dimmed.addEventListener('click', function() {
+            if (aside) aside.setAttribute('aria-hidden', 'true');
+        });
+    }
+
+    if (!aside || !aside.classList.contains('mf-mo')) return;
+
+    aside.addEventListener('click', function(e) {
+        var btn = e.target.closest('.mf-mo__btn');
+        if (btn) {
+            var item = btn.closest('.mf-mo__item');
+            var sub = item ? item.querySelector('.mf-mo__sub') : null;
+            if (!item || !sub) return;
+            var isOpen = item.classList.contains('is-open');
+            aside.querySelectorAll('.mf-mo__item.is-open').forEach(function(el) {
+                el.classList.remove('is-open');
+                var b = el.querySelector('.mf-mo__btn');
+                var s = el.querySelector('.mf-mo__sub');
+                if (b) b.setAttribute('aria-expanded', 'false');
+                if (s) s.hidden = true;
+            });
+            if (!isOpen) {
+                item.classList.add('is-open');
+                btn.setAttribute('aria-expanded', 'true');
+                sub.hidden = false;
+            }
+            return;
+        }
+
+        var link = e.target.closest('a[href]');
+        if (link && link.getAttribute('href') && link.getAttribute('href') !== '#') {
+            closeNav();
+        }
+    });
+
+    aside.querySelectorAll('.mf-mo__lang-btn').forEach(function(langBtn) {
+        langBtn.addEventListener('click', function() {
+            aside.querySelectorAll('.mf-mo__lang-btn').forEach(function(b) {
+                b.classList.remove('is-active');
+            });
+            langBtn.classList.add('is-active');
+            var lang = langBtn.getAttribute('data-lang');
+            var combo = document.querySelector('.goog-te-combo');
+            if (combo && lang) {
+                combo.value = lang;
+                if (typeof combo.dispatchEvent === 'function') {
+                    combo.dispatchEvent(new Event('change'));
+                }
+            }
         });
     });
-    btnClose.addEventListener('click', function(){
-        document.body.classList.remove('expand');
-    });
-    handleDimmed(dimmed, document.body, 'expand');
 }
 
 

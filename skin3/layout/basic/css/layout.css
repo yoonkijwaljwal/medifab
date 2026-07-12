@@ -618,6 +618,170 @@ body:has(.pg-home) textarea,
 }
 #header.mf-hd .mf-hd__search { display: none; }
 
+/* ===== MEDIFAB MO Menu ===== */
+#aside.mf-mo {
+	visibility: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1002;
+	width: 100%;
+	min-width: 0;
+	max-width: none;
+	overflow: auto;
+	overflow-x: hidden;
+	background: var(--Neutral\/Warm White);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.25s ease, visibility 0.25s ease;
+	font-family: var(--mf-sans);
+	box-sizing: border-box;
+}
+body.expand #aside.mf-mo {
+	visibility: visible;
+	left: 0;
+	opacity: 1;
+	pointer-events: auto;
+}
+body.expand:has(#aside.mf-mo) {
+	overflow: hidden;
+	left: 0;
+	position: relative;
+}
+body.expand:has(#aside.mf-mo) #layoutDimmed {
+	display: none;
+}
+#aside.mf-mo .mf-mo__hd {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 16px 12px 20px;
+	background: var(--Neutral\/Warm White);
+}
+#aside.mf-mo .mf-mo__logo a {
+	display: block;
+	line-height: 0;
+}
+#aside.mf-mo .mf-mo__logo img {
+	height: 20px;
+	width: auto;
+	filter: brightness(0);
+}
+#aside.mf-mo .mf-mo__close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: static;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+	text-indent: 0;
+	font-size: inherit;
+	line-height: normal;
+	color: inherit;
+	white-space: normal;
+}
+#aside.mf-mo .mf-mo__close img { display: none; }
+#aside.mf-mo .mf-mo__nav {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 20px 40px;
+}
+#aside.mf-mo .mf-mo__item {
+	border-bottom: 1px solid rgba(51, 51, 51, 0.08);
+}
+#aside.mf-mo .mf-mo__btn,
+#aside.mf-mo .mf-mo__direct {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 20px 0;
+	border: 0;
+	background: none;
+	color: var(--Neutral\/Dark Gray);
+	font: var(--mf-b16);
+	text-align: left;
+	text-decoration: none;
+	cursor: pointer;
+	font-family: inherit;
+	box-sizing: border-box;
+}
+#aside.mf-mo .mf-mo__direct {
+	border-bottom: 1px solid rgba(51, 51, 51, 0.08);
+}
+#aside.mf-mo .mf-mo__chevron {
+	flex-shrink: 0;
+	transition: transform 0.2s ease;
+}
+#aside.mf-mo .mf-mo__item.is-open .mf-mo__chevron {
+	transform: rotate(180deg);
+}
+#aside.mf-mo .mf-mo__sub {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 0 0 20px;
+}
+#aside.mf-mo .mf-mo__sub[hidden] {
+	display: none;
+}
+#aside.mf-mo .mf-mo__sub > a,
+#aside.mf-mo .mf-mo__group-title {
+	color: var(--Neutral\/Dark Gray);
+	font: var(--mf-b14);
+	text-decoration: none;
+}
+#aside.mf-mo .mf-mo__group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+#aside.mf-mo .mf-mo__nested {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+#aside.mf-mo .mf-mo__nested a {
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b13);
+	text-decoration: none;
+}
+#aside.mf-mo .mf-mo__lang {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 32px 20px 40px;
+}
+#aside.mf-mo .mf-mo__lang-label {
+	margin: 0;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-c12);
+	letter-spacing: 0.04em;
+}
+#aside.mf-mo .mf-mo__langs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+#aside.mf-mo .mf-mo__lang-btn {
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+	cursor: pointer;
+	font-family: inherit;
+}
+#aside.mf-mo .mf-mo__lang-btn.is-active {
+	color: var(--Neutral\/Dark Gray);
+}
+
 body:has(.pg-home) #header.mf-hd + .translate-wrap,
 #mfTranslate { display: none; }
 body:has(.pg-home) #header.mf-hd + .translate-wrap.is-open,
