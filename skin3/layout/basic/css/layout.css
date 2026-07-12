@@ -656,9 +656,9 @@ body:has(.pg-home) #header.mf-hd + .translate-wrap.is-open,
 }
 .mf-btn__bridge {
 	flex-shrink: 0;
-	width: 15px;
+	width: 18px;
 	height: 56px;
-	margin-right: -6px;
+	margin-right: -7px;
 }
 .mf-btn__arrow {
 	display: flex;
@@ -813,7 +813,9 @@ body:has(.pg-home) #header.mf-hd + .translate-wrap.is-open,
 		margin-right: -5px;
 	}
 	.mf-btn__bridge {
-		height: 28px;
+		width: 15px;
+		height: 54px;
+		margin-right: -6px;
 	}
 	.mf-btn__arrow {
 		width: 46px;
