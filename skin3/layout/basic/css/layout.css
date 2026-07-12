@@ -429,7 +429,9 @@ a:hover {text-decoration:none;}
 :root {
 	--Accent\/Gold: #A1865D;
 	--Neutral\/White: #FFFFFF;
-	--Neutral\/Warm: #FBFAF9;
+	--Neutral\/Warm White: #FBFAF9;
+	--Neutral\/Warm Cream: #FBF8F3;
+	--Neutral\/Cool Beige: #E5E2DC;
 	--Neutral\/Warm: #FBF8F3;
 	--Neutral\/Cool: #E5E2DC;
 	--Neutral\/Wood: #9B9892;
@@ -798,4 +800,28 @@ body:has(.pg-home) #header.mf-hd + .translate-wrap.is-open,
 	#footer.mf-ft .mf-ft__links { flex-wrap: wrap; }
 	#footer.mf-ft .mf-ft__bottom { flex-direction: column; align-items: flex-start; }
 	#footer.mf-ft .mf-ft__inner { padding: 80px 40px 60px; }
+}
+@media (max-width: 768px) {
+	#header.mf-hd .mf-hd__inner { padding: 20px; }
+	#footer.mf-ft .mf-ft__inner { padding: 80px 20px 40px; }
+	.mf-btn { height: 46px; }
+	.mf-btn__txt {
+		height: auto;
+		padding: 12px 20px;
+		font: var(--mf-b14);
+		margin-right: -5px;
+	}
+	.mf-btn__bridge {
+		width: 16px;
+		height: 28px;
+		margin-right: -5px;
+	}
+	.mf-btn__arrow {
+		width: 46px;
+		height: 46px;
+	}
+	.mf-btn__arrow svg {
+		width: 20px;
+		height: 20px;
+	}
 }
