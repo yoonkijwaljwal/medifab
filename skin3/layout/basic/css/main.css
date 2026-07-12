@@ -13,54 +13,6 @@ body.home-warp-lock {
 	font: var(--mf-b16);
 }
 
-/* 공통 버튼 */
-.pg-home .mf-btn,
-.mf-ft .mf-btn {
-	display: inline-flex;
-	align-items: center;
-	text-decoration: none;
-	color: inherit;
-}
-.pg-home .mf-btn__txt,
-.mf-ft .mf-btn__txt {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 56px;
-	padding: 8px 20px;
-	border-radius: 99px;
-	font: var(--mf-b18);
-	white-space: nowrap;
-}
-.pg-home .mf-btn__gap,
-.mf-ft .mf-btn__gap {
-	width: 15px;
-	height: 30px;
-	margin: 0 -5px;
-	background: color-mix(in srgb, var(--Neutral\/Dark Gray) 8%, transparent);
-	clip-path: polygon(0 0, 100% 50%, 0 100%);
-}
-.pg-home .mf-btn__arrow,
-.mf-ft .mf-btn__arrow {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 56px;
-	height: 56px;
-	border-radius: 99px;
-	background: color-mix(in srgb, var(--Neutral\/Dark Gray) 8%, transparent);
-	color: inherit;
-}
-.pg-home .mf-btn--light .mf-btn__txt,
-.pg-home .mf-btn--light .mf-btn__gap,
-.pg-home .mf-btn--light .mf-btn__arrow,
-.mf-ft .mf-btn--light .mf-btn__txt,
-.mf-ft .mf-btn--light .mf-btn__gap,
-.mf-ft .mf-btn--light .mf-btn__arrow { color: var(--Neutral\/White); background-color: color-mix(in srgb, var(--Neutral\/Dark Gray) 8%, transparent); }
-.pg-home .mf-btn--dark .mf-btn__txt,
-.pg-home .mf-btn--dark .mf-btn__gap,
-.pg-home .mf-btn--dark .mf-btn__arrow { color: var(--Neutral\/Dark Gray); background-color: color-mix(in srgb, var(--Neutral\/Dark Gray) 8%, transparent); }
-
 /* 라벨 */
 .pg-home .mf-label {
 	display: inline-flex;

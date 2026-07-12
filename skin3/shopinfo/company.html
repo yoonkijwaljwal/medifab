@@ -1,75 +1,303 @@
 <!--@layout(/layout/basic/layout.html)-->
 <div class="section path">
-    <span>현재 위치</span>
-    <ol>
-        <li><a href="/">홈</a></li>
-        <li title="현재 위치"><strong>회사소개</strong></li>
-    </ol>
+	<span>현재 위치</span>
+	<ol>
+		<li><a href="/">홈</a></li>
+		<li title="현재 위치"><strong>회사소개</strong></li>
+	</ol>
 </div>
 
 <div class="section titleArea">
-    <h2>회사소개</h2>
+	<h2>회사소개</h2>
 </div>
 
 <div module="mall_company" class="section">
-    <!--@css(/css/module/mall/company.css)-->
+	<!--@css(/css/module/mall/company.css)-->
 
-    <div class="titleArea titleArea--middle">
-        <h3>회사소개 정보</h3>
-    </div>
-    <div class="info">{$info}</div>
+	<div class="company-legacy" hidden aria-hidden="true">
+		<div class="titleArea titleArea--middle">
+			<h3>회사소개 정보</h3>
+		</div>
+		<div class="info">{$info}</div>
+		<div class="{$map_display|display}">
+			<div class="titleArea titleArea--middle">
+				<h3>회사위치 정보</h3>
+			</div>
+			<div class="map">{$map_image}</div>
+		</div>
+		<div class="ec-base-table" module="Layout_footer">
+			<table border="1">
+				<caption>회사소개</caption>
+				<colgroup>
+					<col style="width:180px;">
+					<col style="width:auto;">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row">상점명</th>
+						<td>{$mall_name}</td>
+					</tr>
+					<tr>
+						<th scope="row">대표이사</th>
+						<td><a href="mailto:{$email}">{$president_name}</a></td>
+					</tr>
+					<tr>
+						<th scope="row">대표전화</th>
+						<td><a href="tel:{$phone}">{$phone}</a></td>
+					</tr>
+					<tr>
+						<th scope="row">주소</th>
+						<td>{$mall_addr1}<br>{$mall_addr2}</td>
+					</tr>
+					<tr>
+						<th scope="row">사업자등록번호</th>
+						<td>{$company_regno}</td>
+					</tr>
+					<tr>
+						<th scope="row">통신판매업신고</th>
+						<td>{$network_regno}</td>
+					</tr>
+					<tr class="{$cpo_email|display}">
+						<th scope="row">개인정보 관리책임</th>
+						<td><a href="mailto:{$cpo_email}">{$cpo_name}</a></td>
+					</tr>
+					<tr>
+						<th scope="row">호스팅제공</th>
+						<td>카페24(주)</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
+	<div class="pg-company">
 
-    <div class="{$map_display|display}">
-        <div class="titleArea titleArea--middle">
-            <h3>회사위치 정보</h3>
-        </div>
-        <div class="map">{$map_image}</div>
-    </div>
+		<section class="co-hero">
+			<div class="co-hero__head co-wrap">
+				<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">about</span></div>
+				<h1 class="co-hero__title">Our Company</h1>
+			</div>
+			<div class="co-hero__visual">
+				<img src="/SkinImg/img/medifab/hero_bg.jpg" alt="">
+				<span class="co-hero__overlay" aria-hidden="true"></span>
+			</div>
+			<div class="co-hero__intro co-wrap">
+				<h2 class="co-hero__lead">A global medical aesthetics company spanning aesthetics, therapeutics, and cosmetics</h2>
+				<p class="co-hero__desc">MEDIFAB Co., Ltd. delivers science-backed total anti-aging solutions to the world — from professional clinical settings to everyday home care — under the vision of Clinic to Home, built on three proprietary ingredient platforms.</p>
+			</div>
+		</section>
 
-    <div class="ec-base-table" module="Layout_footer">
-        <table border="1">
-            <caption>회사소개</caption>
-            <colgroup>
-                <col style="width:180px;">
-                <col style="width:auto;">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th scope="row">상점명</th>
-                    <td>{$mall_name}</td>
-                </tr>
-                <tr>
-                    <th scope="row">대표이사</th>
-                    <td><a href="mailto:{$email}">{$president_name}</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">대표전화</th>
-                    <td><a href="tel:{$phone}">{$phone}</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">주소</th>
-                    <td>{$mall_addr1}<br />{$mall_addr2}</td>
-                </tr>
-                <tr>
-                    <th scope="row">사업자등록번호</th>
-                    <td>{$company_regno}</td>
-                </tr>
-                <tr>
-                    <th scope="row">통신판매업신고</th>
-                    <td>{$network_regno}</td>
-                </tr>
-                <tr class="{$cpo_email|display}">
-                    <th scope="row">개인정보 관리책임</th>
-                    <td><a href="mailto:{$cpo_email}">{$cpo_name}</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">호스팅제공</th>
-                    <td>카페24(주)</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+		<section class="co-history">
+			<div class="co-history__head co-wrap">
+				<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">history</span></div>
+				<h2 class="co-history__title">Our journey</h2>
+			</div>
+			<div class="co-history__list co-wrap">
+				<div class="co-history__row co-history__row--active">
+					<p class="co-history__stage">Scale-UP Stage</p>
+					<p class="co-history__year">2025</p>
+					<div class="co-history__detail">
+						<p>Res Novae Scalp MD: kFDA approval &amp; FDA/CE Listing</p>
+						<p>Applied for clinical trial IND for chitosan LTG-Syno</p>
+						<p>Selected for govt-funded R&amp;D project (USD 1.73M)</p>
+					</div>
+				</div>
+				<div class="co-history__row">
+					<p class="co-history__stage co-history__stage--empty" aria-hidden="true">Scale-UP Stage</p>
+					<p class="co-history__year">2024</p>
+					<div class="co-history__detail">
+						<p>Launched Res Novae beauty business division</p>
+						<p>Applied for clinical trial IND for chitosan LTG-S</p>
+						<p>Selected for govt-funded R&amp;D project (USD 1.55M)</p>
+					</div>
+				</div>
+				<div class="co-history__row">
+					<p class="co-history__stage">Preparation Stage</p>
+					<p class="co-history__year">2023</p>
+					<div class="co-history__detail">
+						<p>Launched Res Novae product brand</p>
+						<p>Entered into export agreement (USD 5M)</p>
+						<p>Obtained regulatory approval from Thailand (Husteon)</p>
+					</div>
+				</div>
+				<div class="co-history__row">
+					<p class="co-history__stage co-history__stage--empty" aria-hidden="true">Scale-UP Stage</p>
+					<p class="co-history__year">2022</p>
+					<div class="co-history__detail">
+						<p>Selected for govt-funded R&amp;D project (USD 0.44M)</p>
+						<p>Relocation &amp; expansion, factory registration</p>
+						<p>Entered into export agreement (USD 2M)</p>
+						<p>Obtained kFDA approval for Husteon Mesh/Nasal</p>
+					</div>
+				</div>
+				<div class="co-history__row">
+					<p class="co-history__stage co-history__stage--empty" aria-hidden="true">Scale-UP Stage</p>
+					<p class="co-history__year">2021</p>
+					<div class="co-history__detail">
+						<p>Selected as &quot;Innovation Enterprise National Representative 1000&quot;</p>
+						<p>Obtained kFDA approval for Husteon Mesh</p>
+						<p>Completed FDA listing for Husteon Nasal</p>
+						<p>Launched Echrever (for export)</p>
+					</div>
+				</div>
+				<div class="co-history__row">
+					<p class="co-history__stage co-history__stage--empty" aria-hidden="true">Scale-UP Stage</p>
+					<p class="co-history__year">2020</p>
+					<div class="co-history__detail">
+						<p>Obtained medical device manufacturing license</p>
+						<p>Acquired export approval for Husteon</p>
+						<p>Obtained ISO13485 certification</p>
+						<p>Selected for govt-funded R&amp;D project (USD 1.7M)</p>
+					</div>
+				</div>
+				<div class="co-history__row">
+					<p class="co-history__stage">Early Stage</p>
+					<p class="co-history__year">2019</p>
+					<div class="co-history__detail">
+						<p>Govt-funded R&amp;D project (USD 0.5M)</p>
+						<p>ISO9001, ISO14001 Certification</p>
+					</div>
+				</div>
+				<div class="co-history__row">
+					<p class="co-history__stage co-history__stage--empty" aria-hidden="true">Scale-UP Stage</p>
+					<p class="co-history__year">2018</p>
+					<div class="co-history__detail">
+						<p>Govt-funded R&amp;D project (USD 0.6M)</p>
+						<p>Certified as venture enterprise</p>
+					</div>
+				</div>
+				<div class="co-history__row co-history__row--last">
+					<p class="co-history__stage co-history__stage--empty" aria-hidden="true">Scale-UP Stage</p>
+					<p class="co-history__year">2016</p>
+					<div class="co-history__detail">
+						<p>Medifab incorporated</p>
+					</div>
+				</div>
+			</div>
+		</section>
 
+		<section class="co-value">
+			<div class="co-value__con co-wrap">
+				<div class="co-value__visual">
+					<img src="/SkinImg/img/medifab/hero_bg.jpg" alt="">
+					<span class="co-value__overlay" aria-hidden="true"></span>
+				</div>
+				<div class="co-value__text">
+					<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">core value</span></div>
+					<h2 class="co-value__title">Our Challenge</h2>
+					<p class="co-value__desc">Aging begins not at the surface, but at the cellular level. Conventional skincare addresses only visible symptoms, while the true drivers of aging remain unresolved. MEDIFAB takes a science-first approach, tackling the root mechanisms of skin aging through three proprietary ingredient platforms — Chitogen™, Regentrix™, and Chitogenix™. Our challenge is to bridge the gap between clinical precision and the needs of everyday skincare, making advanced anti-aging science both accessible and effective.</p>
+				</div>
+			</div>
+		</section>
 
+		<section class="co-leaders">
+			<div class="co-leaders__con co-wrap">
+				<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">leaders</span></div>
+				<div class="co-leaders__grid">
+					<p class="co-leaders__intro">Science meets strategy —<br>the people behind MEDIFAB</p>
+					<div class="co-leaders__cards">
+						<article class="co-leaders__card">
+							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/hero_bg.jpg" alt=""></div>
+							<div class="co-leaders__info">
+								<h3>Dr. Cha</h3>
+								<p>CEO / FOUNDER</p>
+							</div>
+							<a href="#" class="co-leaders__link">
+								<span>View Profile</span>
+								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</a>
+						</article>
+						<article class="co-leaders__card">
+							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/hero_bg.jpg" alt=""></div>
+							<div class="co-leaders__info">
+								<h3>Dr. Cha</h3>
+								<p>CEO / FOUNDER</p>
+							</div>
+							<a href="#" class="co-leaders__link">
+								<span>View Profile</span>
+								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</a>
+						</article>
+						<article class="co-leaders__card">
+							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/hero_bg.jpg" alt=""></div>
+							<div class="co-leaders__info">
+								<h3>Dr. Cha</h3>
+								<p>CEO / FOUNDER</p>
+							</div>
+							<a href="#" class="co-leaders__link">
+								<span>View Profile</span>
+								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</a>
+						</article>
+						<article class="co-leaders__card">
+							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/hero_bg.jpg" alt=""></div>
+							<div class="co-leaders__info">
+								<h3>Dr. Cha</h3>
+								<p>CEO / FOUNDER</p>
+							</div>
+							<a href="#" class="co-leaders__link">
+								<span>View Profile</span>
+								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</a>
+						</article>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="co-global">
+			<div class="co-global__con co-wrap">
+				<div class="co-global__head">
+					<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">global network</span></div>
+					<h2 class="co-global__title">Global Expansion</h2>
+				</div>
+				<div class="co-global__stats">
+					<div class="co-global__stat">
+						<p class="co-global__stat-label">Global partners</p>
+						<p class="co-global__stat-num">50+</p>
+						<p class="co-global__stat-sub">N. America · China · Middle East · Europe</p>
+					</div>
+					<div class="co-global__stat">
+						<p class="co-global__stat-label">China live-commerce revenue</p>
+						<p class="co-global__stat-num">KRW 1B+</p>
+						<p class="co-global__stat-sub">RES NOVAE brand</p>
+					</div>
+				</div>
+				<div class="co-global__list">
+					<div class="co-global__row">
+						<p class="co-global__region">Greater China</p>
+						<div class="co-global__detail">
+							<p>3 live sessions with Xu Shan, KRW 1B+</p>
+							<p>MOU with Shanghai Yanxinuowei</p>
+							<p>RES NOVAE Core Impact initial export to Taiwan (2026)</p>
+						</div>
+					</div>
+					<div class="co-global__row">
+						<p class="co-global__region">Japan</p>
+						<div class="co-global__detail">
+							<p>Launched on Qoo10 &amp; Rakuten via partner collaboration</p>
+							<p>Expanded reach through local influencer group-buy campaigns</p>
+						</div>
+					</div>
+					<div class="co-global__row">
+						<p class="co-global__region">Southeast Asia — Thailand</p>
+						<p class="co-global__detail">Filler export scheduled 2026 — identified as key regional hub</p>
+					</div>
+					<div class="co-global__row">
+						<p class="co-global__region">Middle East — Iraq</p>
+						<p class="co-global__detail">Filler export scheduled 2026</p>
+					</div>
+					<div class="co-global__row co-global__row--last">
+						<p class="co-global__region">Europe · N. America · Global</p>
+						<div class="co-global__detail">
+							<p>Cosmoprof Bologna 2024 — 14+ companies &amp; 200+ visitors</p>
+							<p>Dongkook Pharmaceutical OEM</p>
+							<p>50+ partner network incl. Russia</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</div>
 </div>
