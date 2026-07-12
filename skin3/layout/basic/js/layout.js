@@ -1,7 +1,7 @@
 window.addEventListener('load', function(){
-	bottomNav();
-    fixedHeader();
     handleNav();
+    fixedHeader();
+	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
     //toggleClass('.xans-layout-info.info__customer', '.xans-layout-info.info__customer .toggle', 'selected'); 사용안함 210805 서정환 수정
@@ -43,19 +43,22 @@ function toggleClass(element, handler, className){
 function fixedHeader() { // 210804 서정환 수정
     var header = document.getElementById("header");
 	var fixed_margin = document.getElementById("contents");
+	if (!header) return;
 	var scrollY = window.pageYOffset || document.documentElement.scrollTop;
-	var header_height = document.getElementById("header").scrollHeight+'px';
+	var header_height = header.scrollHeight+'px';
 
 	if(scrollY > header.offsetTop) {
         header.classList.add("fixed");
-		if (header.classList.contains('mf-hd')) {
-			fixed_margin.style.marginTop = '0px';
-		} else {
-			fixed_margin.style.marginTop = header_height;
+		if (fixed_margin) {
+			if (header.classList.contains('mf-hd')) {
+				fixed_margin.style.marginTop = '0px';
+			} else {
+				fixed_margin.style.marginTop = header_height;
+			}
 		}
     } else {
         header.classList.remove("fixed");
-		fixed_margin.style.marginTop  = '0px';
+		if (fixed_margin) fixed_margin.style.marginTop  = '0px';
     }
 }
 
@@ -208,22 +211,23 @@ function bottomNav(){
     if(fixedButton){
         document.body.classList.add("button--fixed");
     };
+	if (!btnTop) return;
 
 	window.addEventListener("scroll", function(){
 		var scroll = window.pageYOffset || document.documentElement.scrollTop;
         var nav = document.querySelector('.bottom-nav');
-		if (scroll > lastScrollTop){
-			nav.classList.add('bottom-nav--hide');
-		} else {
-			nav.classList.remove('bottom-nav--hide');
-		}
-		// scroll bottom
-		if(scroll === document.body.scrollHeight - document.documentElement.offsetHeight){
-			nav.classList.remove('bottom-nav--hide');
+		if (nav) {
+			if (scroll > lastScrollTop){
+				nav.classList.add('bottom-nav--hide');
+			} else {
+				nav.classList.remove('bottom-nav--hide');
+			}
+			if(scroll === document.body.scrollHeight - document.documentElement.offsetHeight){
+				nav.classList.remove('bottom-nav--hide');
+			}
 		}
 		lastScrollTop = scroll <= 0 ? 0 : scroll;
 
-        // top button
         var currentScrollPercentage = getCurrentScrollPercentage();
         if(currentScrollPercentage > 30){
         	btnTop.classList.add('bottom-nav__top--show');
