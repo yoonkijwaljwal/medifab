@@ -196,54 +196,68 @@
 				<div class="co-leaders__grid">
 					<p class="co-leaders__intro">Science meets strategy —<br>the people behind MEDIFAB</p>
 					<div class="co-leaders__cards">
-						<article class="co-leaders__card">
-							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/company_leader.jpg" alt=""></div>
+						<article class="co-leaders__card co-leaders__card--photo" data-profile="cha">
+							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/company_leader.jpg" alt="Dr. Cha"></div>
 							<div class="co-leaders__info">
 								<h3>Dr. Cha</h3>
 								<p>CEO / FOUNDER</p>
 							</div>
-							<a href="#" class="co-leaders__link">
+							<button type="button" class="co-leaders__link" data-profile-open="cha">
 								<span>View Profile</span>
-								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-							</a>
+								<span class="co-leaders__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</button>
 						</article>
-						<article class="co-leaders__card">
-							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/company_leader.jpg" alt=""></div>
+						<article class="co-leaders__card" data-profile="shin">
 							<div class="co-leaders__info">
-								<h3>Dr. Cha</h3>
-								<p>CEO / FOUNDER</p>
+								<h3>Mr. Shin</h3>
+								<p>COO</p>
 							</div>
-							<a href="#" class="co-leaders__link">
+							<button type="button" class="co-leaders__link" data-profile-open="shin">
 								<span>View Profile</span>
-								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-							</a>
+								<span class="co-leaders__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</button>
 						</article>
-						<article class="co-leaders__card">
-							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/company_leader.jpg" alt=""></div>
+						<article class="co-leaders__card" data-profile="seo">
 							<div class="co-leaders__info">
-								<h3>Dr. Cha</h3>
-								<p>CEO / FOUNDER</p>
+								<h3>Mr. Seo</h3>
+								<p>CFO</p>
 							</div>
-							<a href="#" class="co-leaders__link">
+							<button type="button" class="co-leaders__link" data-profile-open="seo">
 								<span>View Profile</span>
-								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-							</a>
+								<span class="co-leaders__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</button>
 						</article>
-						<article class="co-leaders__card">
-							<div class="co-leaders__photo"><img src="/SkinImg/img/medifab/company_leader.jpg" alt=""></div>
+						<article class="co-leaders__card" data-profile="kim">
 							<div class="co-leaders__info">
-								<h3>Dr. Cha</h3>
-								<p>CEO / FOUNDER</p>
+								<h3>Dr. Kim</h3>
+								<p>CTO</p>
 							</div>
-							<a href="#" class="co-leaders__link">
+							<button type="button" class="co-leaders__link" data-profile-open="kim">
 								<span>View Profile</span>
-								<span class="co-leaders__arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-							</a>
+								<span class="co-leaders__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+							</button>
 						</article>
 					</div>
 				</div>
 			</div>
 		</section>
+
+		<div class="co-profile" id="coProfile" hidden aria-hidden="true">
+			<div class="co-profile__dim" data-profile-close tabindex="-1"></div>
+			<button type="button" class="co-profile__close" data-profile-close aria-label="Close profile">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+			</button>
+			<div class="co-profile__panel" role="dialog" aria-modal="true" aria-labelledby="coProfileName">
+				<div class="co-profile__info">
+					<div class="co-profile__photo"><img id="coProfileImg" src="/SkinImg/img/medifab/company_leader.jpg" alt=""></div>
+					<div class="co-profile__who">
+						<p class="co-profile__name" id="coProfileName"></p>
+						<p class="co-profile__role" id="coProfileRole"></p>
+					</div>
+				</div>
+				<div class="co-profile__body" id="coProfileBody"></div>
+			</div>
+		</div>
 
 		<section class="co-global">
 			<div class="co-global__con co-wrap">
@@ -301,3 +315,126 @@
 
 	</div>
 </div>
+
+<script>
+(function () {
+	var root = document.getElementById('coProfile');
+	if (!root) return;
+
+	var imgEl = document.getElementById('coProfileImg');
+	var nameEl = document.getElementById('coProfileName');
+	var roleEl = document.getElementById('coProfileRole');
+	var bodyEl = document.getElementById('coProfileBody');
+	var lastFocus = null;
+
+	var profiles = {
+		cha: {
+			name: 'Dr. Cha',
+			role: 'CEO / FOUNDER',
+			img: '/SkinImg/img/medifab/company_leader.jpg',
+			sections: [
+				{ title: 'Academic Background', items: ['Ph.D. in Engineering, Korea University'] },
+				{
+					title: 'Professional Experience',
+					items: [
+						'2015~Present: Medifab CEO',
+						'Research professor, Seoul National University Boramae Medical Center',
+						'Associate professor with full-time equivalent status, Seoul National University'
+					]
+				},
+				{
+					title: 'Major Achievements',
+					items: [
+						'25 yrs of R&D experience in biomaterials and nanobiotechnology',
+						'55 SCI(Science Citation Index) papers, approximately 40 patents',
+						'Member, MFDS Medical Device Evaluation Committee'
+					]
+				}
+			]
+		},
+		shin: {
+			name: 'Mr. Shin',
+			role: 'COO',
+			img: '/SkinImg/img/medifab/company_leader.jpg',
+			sections: [
+				{ title: 'Professional Experience', items: ['Chief Operating Officer, MEDIFAB'] }
+			]
+		},
+		seo: {
+			name: 'Mr. Seo',
+			role: 'CFO',
+			img: '/SkinImg/img/medifab/company_leader.jpg',
+			sections: [
+				{ title: 'Professional Experience', items: ['Chief Financial Officer, MEDIFAB'] }
+			]
+		},
+		kim: {
+			name: 'Dr. Kim',
+			role: 'CTO',
+			img: '/SkinImg/img/medifab/company_leader.jpg',
+			sections: [
+				{ title: 'Professional Experience', items: ['Chief Technology Officer, MEDIFAB'] }
+			]
+		}
+	};
+
+	function renderSections(sections) {
+		var html = '';
+		for (var i = 0; i < sections.length; i++) {
+			var sec = sections[i];
+			html += '<div class="co-profile__sec">';
+			html += '<p class="co-profile__sec-title">' + sec.title + '</p>';
+			html += '<ul class="co-profile__list">';
+			for (var j = 0; j < sec.items.length; j++) {
+				html += '<li>' + sec.items[j] + '</li>';
+			}
+			html += '</ul></div>';
+		}
+		return html;
+	}
+
+	function openProfile(id) {
+		var data = profiles[id];
+		if (!data) return;
+		lastFocus = document.activeElement;
+		imgEl.src = data.img;
+		imgEl.alt = data.name;
+		nameEl.textContent = data.name;
+		roleEl.textContent = data.role;
+		bodyEl.innerHTML = renderSections(data.sections);
+		root.hidden = false;
+		root.setAttribute('aria-hidden', 'false');
+		document.body.classList.add('co-profile-open');
+		root.querySelector('.co-profile__close').focus();
+	}
+
+	function closeProfile() {
+		if (root.hidden) return;
+		root.hidden = true;
+		root.setAttribute('aria-hidden', 'true');
+		document.body.classList.remove('co-profile-open');
+		if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+	}
+
+	document.addEventListener('click', function (e) {
+		if (e.target.closest('[data-profile-close]')) {
+			e.preventDefault();
+			closeProfile();
+			return;
+		}
+		var openBtn = e.target.closest('[data-profile-open]');
+		var card = e.target.closest('[data-profile]');
+		var id = openBtn
+			? openBtn.getAttribute('data-profile-open')
+			: (card ? card.getAttribute('data-profile') : null);
+		if (id) {
+			e.preventDefault();
+			openProfile(id);
+		}
+	});
+
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape') closeProfile();
+	});
+})();
+</script>
