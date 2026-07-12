@@ -1,0 +1,147 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">
+	<span>현재 위치</span>
+	<ol>
+		<li><a href="/">홈</a></li>
+		<li title="현재 위치"><strong>Infrastructures</strong></li>
+	</ol>
+</div>
+
+<div class="section titleArea">
+	<h2>Infrastructures</h2>
+</div>
+
+<div class="section">
+	<!--@css(/css/module/mall/infrastructure.css)-->
+
+	<div class="pg-infra" data-infra-root>
+		<section class="infra-hero">
+			<div class="infra-wrap">
+				<p class="infra-hero__eyebrow">Infrastructurs</p>
+				<h1 class="infra-hero__title">
+					From research to production —<br>
+					MEDIFAB R&amp;D infrastructure
+				</h1>
+			</div>
+		</section>
+
+		<section class="infra-lab">
+			<div class="infra-wrap">
+				<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">Lab Introduction</span></div>
+				<div class="infra-lab__text">
+					<h2 class="infra-lab__title">Laboratory</h2>
+					<p class="infra-lab__desc">MEDIFAB's research laboratory is dedicated to the development of three proprietary ingredient platforms — Chitogen™, Regentrix™, and Chitogenix™. Led by Ph.D.-level researchers in biomaterials and nanobiotechnology, the lab handles everything from fundamental research to commercialization.</p>
+				</div>
+			</div>
+			<div class="infra-wrap infra-lab__media" data-infra-slider>
+				<div class="infra-lab__track">
+					<div class="infra-lab__slide is-active">
+						<img src="/SkinImg/img/medifab/infra_lab_01.jpg" alt="MEDIFAB research laboratory">
+					</div>
+					<div class="infra-lab__slide">
+						<img src="/SkinImg/img/medifab/infra_lab_02.jpg" alt="MEDIFAB laboratory equipment">
+					</div>
+				</div>
+				<button type="button" class="infra-lab__next" data-infra-next aria-label="Next image">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				</button>
+			</div>
+		</section>
+
+		<section class="infra-status">
+			<div class="infra-wrap">
+				<div class="infra-status__head">
+					<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">R&amp;D STATUS</span></div>
+					<p class="infra-status__lead">Built on Chitogen™, Regentrix™, and Chitogenix™, MEDIFAB maintains an active product pipeline spanning skin boosters, derma cosmetics, and devices.</p>
+				</div>
+				<div class="infra-status__kpis">
+					<article class="infra-kpi">
+						<p class="infra-kpi__label">SCI papers</p>
+						<div class="infra-kpi__body">
+							<p class="infra-kpi__num">55+</p>
+							<p class="infra-kpi__sub">Published in international journals</p>
+						</div>
+					</article>
+					<article class="infra-kpi">
+						<p class="infra-kpi__label">Patents</p>
+						<div class="infra-kpi__body">
+							<p class="infra-kpi__num">40+</p>
+							<p class="infra-kpi__sub">Filed &amp; registered globally</p>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="infra-gmp">
+			<div class="infra-wrap">
+				<div class="infra-gmp__head">
+					<div class="mf-label"><span class="mf-label__dot"></span><span class="mf-label__txt">GMP FACILITY</span></div>
+					<div class="infra-gmp__text">
+						<h2 class="infra-gmp__title">GMP production facility</h2>
+						<p class="infra-gmp__desc">MEDIFAB's GMP-certified production facility ensures consistent quality and safety across all products — from raw material intake to finished product release, every step is managed under strict quality controls.</p>
+					</div>
+				</div>
+				<div class="infra-gmp__con">
+					<div class="infra-gmp__rows">
+						<div class="infra-gmp__row">
+							<p class="infra-gmp__key">Location</p>
+							<p class="infra-gmp__val">TBD</p>
+						</div>
+						<div class="infra-gmp__row">
+							<p class="infra-gmp__key">Research staff</p>
+							<p class="infra-gmp__val">TBD</p>
+						</div>
+						<div class="infra-gmp__row">
+							<p class="infra-gmp__key">Lab area</p>
+							<p class="infra-gmp__val">TBD</p>
+						</div>
+						<div class="infra-gmp__row">
+							<p class="infra-gmp__key">Key equipment</p>
+							<p class="infra-gmp__val">TBD</p>
+						</div>
+						<div class="infra-gmp__row infra-gmp__row--last">
+							<p class="infra-gmp__key">Established</p>
+							<p class="infra-gmp__val">TBD</p>
+						</div>
+					</div>
+					<div class="infra-gmp__visual">
+						<img src="/SkinImg/img/medifab/infra_gmp.jpg" alt="MEDIFAB GMP production facility">
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<script>
+	(function () {
+		var root = document.querySelector('[data-infra-root]');
+		if (!root) return;
+
+		var slider = root.querySelector('[data-infra-slider]');
+		if (!slider) return;
+
+		var slides = slider.querySelectorAll('.infra-lab__slide');
+		var nextBtn = slider.querySelector('[data-infra-next]');
+		if (!slides.length || !nextBtn) return;
+
+		var index = 0;
+
+		function show(i) {
+			var n;
+			index = (i + slides.length) % slides.length;
+			for (n = 0; n < slides.length; n++) {
+				if (n === index) {
+					slides[n].classList.add('is-active');
+				} else {
+					slides[n].classList.remove('is-active');
+				}
+			}
+		}
+
+		nextBtn.addEventListener('click', function () {
+			show(index + 1);
+		});
+	})();
+	</script>
+</div>
