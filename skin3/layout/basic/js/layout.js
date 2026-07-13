@@ -1,6 +1,7 @@
 window.addEventListener('load', function(){
     handleNav();
     fixedHeader();
+	mfHeaderTone();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -19,12 +20,63 @@ function handleScroll(){
         scrollPosition = window.scrollY || window.pageYOffset;
         if (ticking) return;
         window.requestAnimationFrame(function() {
-            fixedHeader()
+            fixedHeader();
+			mfHeaderTone();
             //setQuickScrollEvent(scrollPosition, quickMenu) 사용안함 210805 서정환 수정
             ticking = false;
         });
         ticking = true;
 	});
+	window.addEventListener('resize', function() {
+		mfHeaderTone();
+	});
+}
+
+/* 헤더 아래 배경 밝기에 따라 텍스트 색 전환 (data-hd="light"|"dark") */
+function mfHeaderTone() {
+	var header = document.getElementById('header');
+	if (!header || !header.classList.contains('mf-hd')) return;
+	if (typeof document.elementsFromPoint !== 'function') return;
+
+	var h = header.offsetHeight || 100;
+	var x = Math.floor(window.innerWidth / 2);
+	var y = Math.min(Math.max(Math.floor(h * 0.5), 1), window.innerHeight - 1);
+	var tone = null;
+
+	try {
+		var nodes = document.elementsFromPoint(x, y);
+		for (var i = 0; i < nodes.length; i++) {
+			var el = nodes[i];
+			if (!el || el === header || (header.contains && header.contains(el))) continue;
+			if (el.id === 'aside' || (el.closest && el.closest('#aside'))) continue;
+			if (el.id === 'mfTranslate' || (el.closest && el.closest('#mfTranslate'))) continue;
+			if (el.classList && el.classList.contains('layout')) continue;
+			var host = el.closest ? el.closest('[data-hd]') : null;
+			if (host) {
+				tone = host.getAttribute('data-hd');
+				break;
+			}
+		}
+	} catch (err) {
+		return;
+	}
+
+	if (tone === 'light') {
+		header.classList.add('mf-hd--on-light');
+		header.classList.remove('mf-hd--on-dark');
+	} else if (tone === 'dark') {
+		header.classList.add('mf-hd--on-dark');
+		header.classList.remove('mf-hd--on-light');
+	} else {
+		header.classList.remove('mf-hd--on-light');
+		header.classList.remove('mf-hd--on-dark');
+	}
+}
+
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', mfHeaderTone);
+} else {
+	mfHeaderTone();
 }
 
 function toggleClass(element, handler, className){

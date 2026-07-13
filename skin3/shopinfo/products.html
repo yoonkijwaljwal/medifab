@@ -1,0 +1,188 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="section path">
+	<span>현재 위치</span>
+	<ol>
+		<li><a href="/">홈</a></li>
+		<li title="현재 위치"><strong>Products</strong></li>
+	</ol>
+</div>
+
+<div class="section titleArea">
+	<h2>Products</h2>
+</div>
+
+<div class="section">
+	<!--@css(/css/module/mall/products.css)-->
+
+	<div class="pg-prod" data-prod-root>
+		<section class="prod-gate" data-hd="light">
+			<div class="prod-wrap prod-gate__head">
+				<p class="prod-gate__eyebrow">Products</p>
+				<h1 class="prod-gate__title">From clinic to home care —<br>the MEDIFAB product line</h1>
+			</div>
+
+			<div class="prod-wrap prod-gate__body">
+				<nav class="prod-nav" aria-label="Product categories">
+					<button type="button" class="prod-nav__item is-active" data-prod-tab="skin-booster" aria-selected="true">
+						<span class="prod-nav__dot" aria-hidden="true"></span>
+						<span class="prod-nav__label">Skin Booster</span>
+					</button>
+					<button type="button" class="prod-nav__item" data-prod-tab="medical-aesthetic" aria-selected="false">
+						<span class="prod-nav__dot" aria-hidden="true"></span>
+						<span class="prod-nav__label">Medical Aesthetic</span>
+					</button>
+					<button type="button" class="prod-nav__item" data-prod-tab="medinovae" aria-selected="false">
+						<span class="prod-nav__dot" aria-hidden="true"></span>
+						<span class="prod-nav__label">MEDINOVAE</span>
+					</button>
+					<button type="button" class="prod-nav__item" data-prod-tab="res-novae" aria-selected="false">
+						<span class="prod-nav__dot" aria-hidden="true"></span>
+						<span class="prod-nav__label">res novae</span>
+					</button>
+					<button type="button" class="prod-nav__item" data-prod-tab="odm" aria-selected="false">
+						<span class="prod-nav__dot" aria-hidden="true"></span>
+						<span class="prod-nav__label">ODM</span>
+					</button>
+				</nav>
+
+				<div class="prod-visual" data-prod-visual>
+					<div class="prod-visual__track" data-prod-track>
+						<div class="prod-visual__slide prod-visual__slide--boost" data-prod-slide="skin-booster">
+							<img src="/SkinImg/img/medifab/products_skin_booster.jpg" alt="Skin Booster">
+						</div>
+						<div class="prod-visual__slide" data-prod-slide="medical-aesthetic">
+							<img src="/SkinImg/img/medifab/products_medical_aesthetic.jpg" alt="Medical Aesthetic">
+						</div>
+						<div class="prod-visual__slide" data-prod-slide="medinovae">
+							<img src="/SkinImg/img/medifab/products_medinovae.jpg" alt="MEDINOVAE">
+						</div>
+						<div class="prod-visual__slide" data-prod-slide="res-novae">
+							<img src="/SkinImg/img/medifab/products_resnovae.jpg" alt="res novae">
+						</div>
+						<div class="prod-visual__slide" data-prod-slide="odm">
+							<img src="/SkinImg/img/medifab/products_odm.jpg" alt="ODM">
+						</div>
+					</div>
+				</div>
+
+				<div class="prod-info">
+					<div class="prod-info__panel is-active" data-prod-panel="skin-booster">
+						<p class="prod-info__desc">Professional skin boosters built on C-LTG Solution — the world's first hybrid formula for regeneration and elasticity in one.</p>
+						<a href="/product/list.html" class="mf-btn mf-btn--dark">
+							<span class="mf-btn__txt">View Products</span>
+							<svg class="mf-btn__bridge" viewBox="92 0 18 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M108 13C104.693 16.5 103 23.5502 103 26.357C103 31.3599 103.665 35.7697 105.705 39.8806C106.872 41.4717 107.565 43 107.565 43C106.846 41.9767 106.23 40.9385 105.705 39.8806C104.437 38.1536 102.61 36.3526 100.5 36.3526C98.1917 36.3526 95.2643 40.3351 94.0591 42.1351C93.8803 42.4221 93.6947 42.7102 93.5022 43C93.5022 43 93.7073 42.6605 94.0591 42.1351C96.8657 37.6292 98 33.3717 98 26.5484C98 22.6774 96.5 17 93 13C94.9018 15.0131 97.4999 17.2736 100.5 17.2736C103.5 17.2736 106.098 15.013 108 13Z" fill="#333333" fill-opacity="0.08"/></svg>
+							<span class="mf-btn__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</a>
+					</div>
+					<div class="prod-info__panel" data-prod-panel="medical-aesthetic" hidden>
+						<p class="prod-info__desc">Medical aesthetic solutions designed for professional clinics — precision care that bridges regenerative science and visible results.</p>
+						<a href="/product/list.html" class="mf-btn mf-btn--dark">
+							<span class="mf-btn__txt">View Products</span>
+							<svg class="mf-btn__bridge" viewBox="92 0 18 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M108 13C104.693 16.5 103 23.5502 103 26.357C103 31.3599 103.665 35.7697 105.705 39.8806C106.872 41.4717 107.565 43 107.565 43C106.846 41.9767 106.23 40.9385 105.705 39.8806C104.437 38.1536 102.61 36.3526 100.5 36.3526C98.1917 36.3526 95.2643 40.3351 94.0591 42.1351C93.8803 42.4221 93.6947 42.7102 93.5022 43C93.5022 43 93.7073 42.6605 94.0591 42.1351C96.8657 37.6292 98 33.3717 98 26.5484C98 22.6774 96.5 17 93 13C94.9018 15.0131 97.4999 17.2736 100.5 17.2736C103.5 17.2736 106.098 15.013 108 13Z" fill="#333333" fill-opacity="0.08"/></svg>
+							<span class="mf-btn__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</a>
+					</div>
+					<div class="prod-info__panel" data-prod-panel="medinovae" hidden>
+						<p class="prod-info__desc">MEDINOVAE devices extend clinical anti-aging care into everyday routines — engineered for consistency, comfort, and lasting results.</p>
+						<a href="/product/list.html" class="mf-btn mf-btn--dark">
+							<span class="mf-btn__txt">View Products</span>
+							<svg class="mf-btn__bridge" viewBox="92 0 18 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M108 13C104.693 16.5 103 23.5502 103 26.357C103 31.3599 103.665 35.7697 105.705 39.8806C106.872 41.4717 107.565 43 107.565 43C106.846 41.9767 106.23 40.9385 105.705 39.8806C104.437 38.1536 102.61 36.3526 100.5 36.3526C98.1917 36.3526 95.2643 40.3351 94.0591 42.1351C93.8803 42.4221 93.6947 42.7102 93.5022 43C93.5022 43 93.7073 42.6605 94.0591 42.1351C96.8657 37.6292 98 33.3717 98 26.5484C98 22.6774 96.5 17 93 13C94.9018 15.0131 97.4999 17.2736 100.5 17.2736C103.5 17.2736 106.098 15.013 108 13Z" fill="#333333" fill-opacity="0.08"/></svg>
+							<span class="mf-btn__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</a>
+					</div>
+					<div class="prod-info__panel" data-prod-panel="res-novae" hidden>
+						<p class="prod-info__desc">res novae brings clinical-grade derma cosmetics into daily home care — post-treatment recovery and everyday anti-aging in one line.</p>
+						<a href="/product/list.html" class="mf-btn mf-btn--dark">
+							<span class="mf-btn__txt">View Products</span>
+							<svg class="mf-btn__bridge" viewBox="92 0 18 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M108 13C104.693 16.5 103 23.5502 103 26.357C103 31.3599 103.665 35.7697 105.705 39.8806C106.872 41.4717 107.565 43 107.565 43C106.846 41.9767 106.23 40.9385 105.705 39.8806C104.437 38.1536 102.61 36.3526 100.5 36.3526C98.1917 36.3526 95.2643 40.3351 94.0591 42.1351C93.8803 42.4221 93.6947 42.7102 93.5022 43C93.5022 43 93.7073 42.6605 94.0591 42.1351C96.8657 37.6292 98 33.3717 98 26.5484C98 22.6774 96.5 17 93 13C94.9018 15.0131 97.4999 17.2736 100.5 17.2736C103.5 17.2736 106.098 15.013 108 13Z" fill="#333333" fill-opacity="0.08"/></svg>
+							<span class="mf-btn__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</a>
+					</div>
+					<div class="prod-info__panel" data-prod-panel="odm" hidden>
+						<p class="prod-info__desc">ODM partnerships tailored to global brands — from formulation to finished product, built on MEDIFAB's proprietary platforms.</p>
+						<a href="/product/list.html" class="mf-btn mf-btn--dark">
+							<span class="mf-btn__txt">View Products</span>
+							<svg class="mf-btn__bridge" viewBox="92 0 18 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M108 13C104.693 16.5 103 23.5502 103 26.357C103 31.3599 103.665 35.7697 105.705 39.8806C106.872 41.4717 107.565 43 107.565 43C106.846 41.9767 106.23 40.9385 105.705 39.8806C104.437 38.1536 102.61 36.3526 100.5 36.3526C98.1917 36.3526 95.2643 40.3351 94.0591 42.1351C93.8803 42.4221 93.6947 42.7102 93.5022 43C93.5022 43 93.7073 42.6605 94.0591 42.1351C96.8657 37.6292 98 33.3717 98 26.5484C98 22.6774 96.5 17 93 13C94.9018 15.0131 97.4999 17.2736 100.5 17.2736C103.5 17.2736 106.098 15.013 108 13Z" fill="#333333" fill-opacity="0.08"/></svg>
+							<span class="mf-btn__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<script>
+	(function () {
+		var root = document.querySelector('[data-prod-root]');
+		if (!root) return;
+
+		var tabs = root.querySelectorAll('[data-prod-tab]');
+		var panels = root.querySelectorAll('[data-prod-panel]');
+		var slides = root.querySelectorAll('[data-prod-slide]');
+		var track = root.querySelector('[data-prod-track]');
+		var visual = root.querySelector('[data-prod-visual]');
+		var order = [];
+		var current = 'skin-booster';
+		var i;
+
+		for (i = 0; i < slides.length; i++) {
+			order.push(slides[i].getAttribute('data-prod-slide'));
+		}
+
+		function slideOffset(idx) {
+			var h = visual ? visual.offsetHeight : 0;
+			return idx * h;
+		}
+
+		function activate(name) {
+			var idx = order.indexOf(name);
+			if (idx < 0) idx = 0;
+			current = order[idx];
+
+			for (i = 0; i < tabs.length; i++) {
+				var on = tabs[i].getAttribute('data-prod-tab') === current;
+				tabs[i].classList.toggle('is-active', on);
+				tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+			}
+
+			for (i = 0; i < panels.length; i++) {
+				var match = panels[i].getAttribute('data-prod-panel') === current;
+				panels[i].classList.toggle('is-active', match);
+				if (match) {
+					panels[i].removeAttribute('hidden');
+				} else {
+					panels[i].setAttribute('hidden', '');
+				}
+			}
+
+			if (track) {
+				track.style.transform = 'translateY(-' + slideOffset(idx) + 'px)';
+			}
+		}
+
+		for (i = 0; i < tabs.length; i++) {
+			tabs[i].addEventListener('click', function () {
+				var name = this.getAttribute('data-prod-tab');
+				activate(name);
+				if (history.replaceState) {
+					history.replaceState(null, '', '#' + name);
+				} else {
+					location.hash = name;
+				}
+			});
+		}
+
+		function fromHash() {
+			var hash = (location.hash || '').replace(/^#/, '');
+			if (order.indexOf(hash) !== -1) {
+				activate(hash);
+			}
+		}
+		fromHash();
+		window.addEventListener('hashchange', fromHash);
+		window.addEventListener('resize', function () {
+			activate(current);
+		});
+	})();
+	</script>
+</div>

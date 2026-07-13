@@ -1,0 +1,309 @@
+/* MEDIFAB Products Gate — Figma PC_products_gate (49:4302) */
+body:has(.pg-prod) .section.path,
+body:has(.pg-prod) .section.titleArea { display: none; }
+body:has(.pg-prod) #container #contents {
+	max-width: none;
+	width: 100%;
+	padding: 0;
+	margin-top: 0;
+}
+body:has(.pg-prod) #contents > .section {
+	max-width: none;
+	width: 100%;
+	margin-left: 0;
+	margin-right: 0;
+}
+body:has(.pg-prod) .footer_margin { display: none; }
+
+.pg-prod {
+	--prod-px: 80px;
+	--prod-visual-w: 522px;
+	--prod-visual-h: 720px;
+	--prod-col: 305px;
+	color: var(--Neutral\/Dark Gray);
+	font: var(--mf-b16);
+	background: var(--Neutral\/White);
+}
+
+.pg-prod .prod-wrap {
+	max-width: 1440px;
+	margin: 0 auto;
+	padding-left: var(--prod-px);
+	padding-right: var(--prod-px);
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.prod-gate {
+	padding: 280px 0 240px;
+	border-radius: 0 0 40px 40px;
+	background: var(--Neutral\/White);
+	position: relative;
+	z-index: 1;
+	margin-bottom: -40px;
+}
+
+.prod-gate__head {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 180px;
+}
+
+.prod-gate__eyebrow {
+	margin: 0;
+	font: 400 20px/1.6 var(--mf-sans);
+	color: var(--Neutral\/Dark Gray);
+	opacity: 0.8;
+}
+
+.prod-gate__title {
+	margin: 0;
+	font: var(--mf-d48);
+	letter-spacing: -0.24px;
+	color: var(--Neutral\/Dark Gray);
+	word-break: keep-all;
+}
+
+.prod-gate__body {
+	display: flex;
+	align-items: stretch;
+	gap: 74px;
+	min-height: var(--prod-visual-h);
+}
+
+/* Left nav */
+.prod-nav {
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 22px;
+	max-width: var(--prod-col);
+	min-width: 180px;
+}
+
+.prod-nav__item {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+	text-align: left;
+	font: 400 24px/1.35 var(--mf-sans);
+	color: var(--Neutral\/Wood);
+	font-family: inherit;
+	transition: color 0.25s ease;
+}
+
+.prod-nav__item:hover {
+	color: var(--Neutral\/Dark Gray);
+}
+
+.prod-nav__item.is-active {
+	color: var(--Neutral\/Dark Gray);
+}
+
+.prod-nav__dot {
+	flex-shrink: 0;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--Accent\/Gold);
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+
+.prod-nav__item.is-active .prod-nav__dot {
+	opacity: 1;
+}
+
+.prod-nav__label {
+	flex: 1;
+	min-width: 0;
+	word-break: keep-all;
+}
+
+/* Center visual */
+.prod-visual {
+	flex-shrink: 0;
+	width: var(--prod-visual-w);
+	height: var(--prod-visual-h);
+	overflow: hidden;
+	position: relative;
+	background: var(--Neutral\/Warm White);
+}
+
+.prod-visual__track {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: transform;
+}
+
+.prod-visual__slide {
+	width: 100%;
+	height: var(--prod-visual-h);
+	position: relative;
+	overflow: hidden;
+	background: var(--Neutral\/Warm White);
+}
+
+.prod-visual__slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* Skin Booster — 가로 이미지 크롭 + 그라데이션 배경 (Figma) */
+.prod-visual__slide--boost {
+	background: linear-gradient(180deg, #efe4e3 0%, #dad9e4 100%);
+}
+
+.prod-visual__slide--boost img {
+	width: 225%;
+	height: 103%;
+	max-width: none;
+	object-fit: cover;
+	object-position: left center;
+	position: absolute;
+	left: -12%;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/* Right info */
+.prod-info {
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: var(--prod-col);
+	min-width: 240px;
+}
+
+.prod-info__panel {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 40px;
+}
+
+.prod-info__panel[hidden] {
+	display: none !important;
+}
+
+.prod-info__desc {
+	margin: 0;
+	font: 400 20px/1.6 var(--mf-sans);
+	color: var(--Neutral\/Dark Gray);
+	word-break: keep-all;
+	min-height: 160px;
+}
+
+/* PC only for now — tablet/mobile 최소 대응 */
+@media all and (max-width: 1439px) {
+	.pg-prod {
+		--prod-px: 48px;
+		--prod-visual-w: min(522px, 38vw);
+		--prod-visual-h: calc(var(--prod-visual-w) * 720 / 522);
+		--prod-col: min(280px, 22vw);
+	}
+
+	.prod-gate {
+		padding: 200px 0 160px;
+	}
+
+	.prod-gate__head {
+		margin-bottom: 100px;
+	}
+
+	.prod-gate__body {
+		gap: 40px;
+	}
+
+	.prod-nav__item {
+		font-size: 20px;
+	}
+
+	.prod-info__desc {
+		font-size: 18px;
+		min-height: 0;
+	}
+}
+
+@media all and (max-width: 1024px) {
+	.pg-prod { --prod-px: 24px; }
+
+	.prod-gate {
+		padding: 140px 0 100px;
+		border-radius: 0 0 24px 24px;
+	}
+
+	.prod-gate__head {
+		margin-bottom: 60px;
+	}
+
+	.prod-gate__title {
+		font-size: 32px;
+	}
+
+	.prod-gate__body {
+		flex-direction: column;
+		gap: 40px;
+		align-items: stretch;
+	}
+
+	.prod-nav {
+		max-width: none;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 12px 24px;
+		justify-content: flex-start;
+	}
+
+	.prod-nav__item {
+		width: auto;
+		font-size: 16px;
+		gap: 10px;
+	}
+
+	.prod-visual {
+		width: 100%;
+		max-width: 522px;
+		height: auto;
+		aspect-ratio: 522 / 720;
+		margin: 0 auto;
+	}
+
+	.prod-visual__slide {
+		height: 100%;
+		min-height: 100%;
+	}
+
+	.prod-visual__track {
+		height: 100%;
+	}
+
+	.prod-info {
+		max-width: none;
+		min-width: 0;
+	}
+
+	.prod-info__desc {
+		font-size: 16px;
+		min-height: 0;
+	}
+
+	.prod-info__panel {
+		gap: 24px;
+	}
+}

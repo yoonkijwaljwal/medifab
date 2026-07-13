@@ -106,7 +106,7 @@ a:hover {text-decoration:none;}
 #header .inner .top_nav_box .top_mypage a {font-size:16px;font-weight:400;line-height:1;color:#1a1a1a;padding:0 16px;border:0;display:flex;align-items:center;position:relative;}
 #header .inner .top_nav_box .top_mypage a.xans-layout-orderbasketcount .count {position:absolute;top:40px;right:8px;width:18px;height:18px;border-radius:50%;background-color:#000;color:#fff;text-align:center;line-height:1;font-size:12px;display:flex;align-items:center;justify-content:center;margin-left:5px;}
 #header .inner .top_nav_box .top_mypage a.eNavFold {display:none;}
-#header.fixed {position:fixed;top:0;left:0;right:0;z-index:998;margin:0 auto;border-bottom:1px solid #e8e8e8 !important;-webkist-transform:translateY(-70px);-ms-transform:translateY(-70px);transform:translateY(-70px);}
+#header.fixed {position:fixed;top:0;left:0;right:0;z-index:998;margin:0 auto;border-bottom:1px solid #e8e8e8;-webkist-transform:translateY(-70px);-ms-transform:translateY(-70px);transform:translateY(-70px);}
 
 /* 카테고리가 대량일때 //주석 22.06.17
 #header .inner .top_nav_box .top_category > ul > li {display:none;}
@@ -506,6 +506,8 @@ body:has(.pg-home) textarea,
 #header.mf-hd.fixed {
 	background: color-mix(in srgb, var(--Neutral\/Dark Gray) 92%, transparent);
 	backdrop-filter: blur(12px);
+	border-bottom: 0;
+	transform: none;
 }
 #header.mf-hd:hover,
 #header.mf-hd.fixed:hover {
@@ -515,6 +517,154 @@ body:has(.pg-home) textarea,
 #header.mf-hd:has(.mf-hd__item:hover) {
 	padding-bottom: 160px;
 	background: #333333
+}
+
+/* 밝은 배경 위: 검정 텍스트 (기본은 흰색) */
+#header.mf-hd.mf-hd--on-light,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark),
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark),
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark),
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) {
+	background: transparent;
+}
+#header.mf-hd.mf-hd--on-light.fixed,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark).fixed,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark).fixed,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark).fixed,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark).fixed {
+	background: color-mix(in srgb, var(--Neutral\/White) 88%, transparent);
+	backdrop-filter: blur(12px);
+}
+#header.mf-hd.mf-hd--on-light .mf-hd__logo img,
+#header.mf-hd.mf-hd--on-light .mf-hd__lang img,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__logo img,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang img,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__logo img,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang img,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__logo img,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang img,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__logo img,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang img {
+	filter: invert(1);
+}
+#header.mf-hd.mf-hd--on-light .mf-hd__link,
+#header.mf-hd.mf-hd--on-light .mf-hd__sub a,
+#header.mf-hd.mf-hd--on-light .mf-hd__lang,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__link,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sub a,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__link,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sub a,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__link,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sub a,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__link,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sub a,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__lang {
+	color: var(--Neutral\/Dark Gray);
+}
+#header.mf-hd.mf-hd--on-light .mf-hd__sep,
+#header.mf-hd.mf-hd--on-light .mf-hd__menu span,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sep,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__menu span,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sep,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__menu span,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sep,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__menu span,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__sep,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark) .mf-hd__menu span {
+	background: var(--Neutral\/Dark Gray);
+}
+/* hover / 서브메뉴 펼침 시 다크 헤더 + 흰 텍스트로 복원 */
+#header.mf-hd.mf-hd--on-light:hover,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover),
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover),
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover),
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover),
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) {
+	background: #333333;
+	backdrop-filter: none;
+}
+#header.mf-hd.mf-hd--on-light:hover .mf-hd__logo img,
+#header.mf-hd.mf-hd--on-light:hover .mf-hd__lang img,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover) .mf-hd__logo img,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover) .mf-hd__lang img,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__logo img,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang img,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__logo img,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang img,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__logo img,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang img,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__logo img,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang img,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__logo img,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang img,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__logo img,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang img,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__logo img,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang img,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__logo img,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang img {
+	filter: none;
+}
+#header.mf-hd.mf-hd--on-light:hover .mf-hd__link,
+#header.mf-hd.mf-hd--on-light:hover .mf-hd__sub a,
+#header.mf-hd.mf-hd--on-light:hover .mf-hd__lang,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover) .mf-hd__link,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover) .mf-hd__sub a,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover) .mf-hd__lang,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__link,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sub a,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__link,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sub a,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__link,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sub a,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__link,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sub a,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__link,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sub a,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__link,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sub a,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__link,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sub a,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__lang,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__link,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sub a,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__lang {
+	color: var(--Neutral\/White);
+}
+#header.mf-hd.mf-hd--on-light:hover .mf-hd__sep,
+#header.mf-hd.mf-hd--on-light:hover .mf-hd__menu span,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover) .mf-hd__sep,
+#header.mf-hd.mf-hd--on-light:has(.mf-hd__item:hover) .mf-hd__menu span,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sep,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__menu span,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sep,
+body:has(.pg-company) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__menu span,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sep,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__menu span,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sep,
+body:has(.pg-rd) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__menu span,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sep,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__menu span,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sep,
+body:has(.pg-infra) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__menu span,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__sep,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):hover .mf-hd__menu span,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__sep,
+body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .mf-hd__menu span {
+	background: var(--Neutral\/White);
 }
 #header.mf-hd .mf-hd__inner {
 	display: flex;
@@ -533,6 +683,7 @@ body:has(.pg-home) textarea,
 #header.mf-hd .mf-hd__logo img {
 	height: 20px;
 	width: auto;
+	transition: filter 0.2s ease;
 }
 #header.mf-hd .mf-hd__nav {
 	display: flex;
@@ -548,7 +699,7 @@ body:has(.pg-home) textarea,
 	font: var(--mf-b16);
 	text-decoration: none;
 	opacity: 0.7;
-	transition: opacity 0.2s;
+	transition: opacity 0.2s, color 0.2s ease;
 	white-space: nowrap;
 }
 #header.mf-hd .mf-hd__link:hover,
@@ -577,6 +728,7 @@ body:has(.pg-home) textarea,
 	height: 10px;
 	background: var(--Neutral\/White);
 	opacity: 0.7;
+	transition: background 0.2s ease;
 }
 #header.mf-hd .mf-hd__util {
 	display: flex;
@@ -595,6 +747,7 @@ body:has(.pg-home) textarea,
 	opacity: 0.7;
 	cursor: pointer;
 	font-family: inherit;
+	transition: opacity 0.2s, color 0.2s ease;
 }
 #header.mf-hd .mf-hd__lang:hover { opacity: 1; }
 #header.mf-hd .mf-hd__menu {
@@ -615,6 +768,7 @@ body:has(.pg-home) textarea,
 	height: 2px;
 	margin: 0 auto;
 	background: var(--Neutral\/White);
+	transition: background 0.2s ease;
 }
 #header.mf-hd .mf-hd__search { display: none; }
 
