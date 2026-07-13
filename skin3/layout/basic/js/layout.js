@@ -36,42 +36,21 @@ function handleScroll(){
 function mfHeaderTone() {
 	var header = document.getElementById('header');
 	if (!header || !header.classList.contains('mf-hd')) return;
-	if (typeof document.elementsFromPoint !== 'function') return;
 
-	var h = header.offsetHeight || 100;
-	var y = Math.min(Math.max(Math.floor(h * 0.5), 1), window.innerHeight - 1);
-	/* 로고 / 네비 / 유틸 아래를 각각 샘플 — 네비 영역에서도 배경 톤 반영 */
-	var sampleXs = [
-		Math.min(120, Math.floor(window.innerWidth * 0.1)),
-		Math.floor(window.innerWidth / 2),
-		Math.max(window.innerWidth - 120, Math.floor(window.innerWidth * 0.9))
-	];
+	var y = (header.offsetHeight || 100) * 0.5;
+	var zones = document.querySelectorAll('[data-hd]');
 	var tone = null;
-	var prevPointer = header.style.pointerEvents;
+	var i;
+	var rect;
 
-	try {
-		header.style.pointerEvents = 'none';
-		for (var s = 0; s < sampleXs.length; s++) {
-			var nodes = document.elementsFromPoint(sampleXs[s], y);
-			for (var i = 0; i < nodes.length; i++) {
-				var el = nodes[i];
-				if (!el) continue;
-				if (el.id === 'aside' || (el.closest && el.closest('#aside'))) continue;
-				if (el.id === 'mfTranslate' || (el.closest && el.closest('#mfTranslate'))) continue;
-				if (el.classList && el.classList.contains('layout')) continue;
-				var host = el.closest ? el.closest('[data-hd]') : null;
-				if (host) {
-					tone = host.getAttribute('data-hd');
-					break;
-				}
-			}
-			if (tone) break;
+	for (i = 0; i < zones.length; i++) {
+		rect = zones[i].getBoundingClientRect();
+		if (rect.height <= 0 && rect.width <= 0) continue;
+		if (rect.top <= y && rect.bottom >= y) {
+			/* 트리 순서로 덮어씀 → 안쪽(자식) data-hd가 최종 반영 */
+			tone = zones[i].getAttribute('data-hd');
 		}
-	} catch (err) {
-		header.style.pointerEvents = prevPointer;
-		return;
 	}
-	header.style.pointerEvents = prevPointer;
 
 	if (tone === 'light') {
 		header.classList.add('mf-hd--on-light');
