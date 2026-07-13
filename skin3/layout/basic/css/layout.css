@@ -925,7 +925,6 @@ body:has(.pg-home) #header.mf-hd + .translate-wrap.is-open,
 	height: 56px;
 	text-decoration: none;
 	color: inherit;
-	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 }
 .mf-btn__txt {

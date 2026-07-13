@@ -237,7 +237,7 @@ body:has(.pg-company) .footer_margin { display: none; }
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
-	width: calc(50% - 10px);
+	width: calc(100%);
 	min-width: 280px;
 	padding: var(--co-card-pad);
 	background: var(--Neutral\/White);
