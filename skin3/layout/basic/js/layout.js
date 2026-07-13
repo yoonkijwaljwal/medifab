@@ -39,27 +39,39 @@ function mfHeaderTone() {
 	if (typeof document.elementsFromPoint !== 'function') return;
 
 	var h = header.offsetHeight || 100;
-	var x = Math.floor(window.innerWidth / 2);
 	var y = Math.min(Math.max(Math.floor(h * 0.5), 1), window.innerHeight - 1);
+	/* 로고 / 네비 / 유틸 아래를 각각 샘플 — 네비 영역에서도 배경 톤 반영 */
+	var sampleXs = [
+		Math.min(120, Math.floor(window.innerWidth * 0.1)),
+		Math.floor(window.innerWidth / 2),
+		Math.max(window.innerWidth - 120, Math.floor(window.innerWidth * 0.9))
+	];
 	var tone = null;
+	var prevPointer = header.style.pointerEvents;
 
 	try {
-		var nodes = document.elementsFromPoint(x, y);
-		for (var i = 0; i < nodes.length; i++) {
-			var el = nodes[i];
-			if (!el || el === header || (header.contains && header.contains(el))) continue;
-			if (el.id === 'aside' || (el.closest && el.closest('#aside'))) continue;
-			if (el.id === 'mfTranslate' || (el.closest && el.closest('#mfTranslate'))) continue;
-			if (el.classList && el.classList.contains('layout')) continue;
-			var host = el.closest ? el.closest('[data-hd]') : null;
-			if (host) {
-				tone = host.getAttribute('data-hd');
-				break;
+		header.style.pointerEvents = 'none';
+		for (var s = 0; s < sampleXs.length; s++) {
+			var nodes = document.elementsFromPoint(sampleXs[s], y);
+			for (var i = 0; i < nodes.length; i++) {
+				var el = nodes[i];
+				if (!el) continue;
+				if (el.id === 'aside' || (el.closest && el.closest('#aside'))) continue;
+				if (el.id === 'mfTranslate' || (el.closest && el.closest('#mfTranslate'))) continue;
+				if (el.classList && el.classList.contains('layout')) continue;
+				var host = el.closest ? el.closest('[data-hd]') : null;
+				if (host) {
+					tone = host.getAttribute('data-hd');
+					break;
+				}
 			}
+			if (tone) break;
 		}
 	} catch (err) {
+		header.style.pointerEvents = prevPointer;
 		return;
 	}
+	header.style.pointerEvents = prevPointer;
 
 	if (tone === 'light') {
 		header.classList.add('mf-hd--on-light');
