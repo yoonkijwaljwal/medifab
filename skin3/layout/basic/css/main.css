@@ -10,7 +10,7 @@ body.home-warp-lock {
 
 .pg-home {
 	--home-px: 120px;
-	--home-py: 150px;
+	--home-py: 100px;
 	--home-gap: 80px;
 	--home-head-mb: 180px;
 	--home-card-pad: 80px;
@@ -415,7 +415,7 @@ body.home-warp-lock {
 @media (max-width: 1200px) {
 	.pg-home {
 		--home-px: 40px;
-		--home-py: 100px;
+		--home-py: 60px;
 		--home-head-mb: 80px;
 		--home-card-pad: 48px;
 		--home-card-min-h: 400px;
