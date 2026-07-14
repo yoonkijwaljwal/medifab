@@ -137,7 +137,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 /* overview — Warm White, label left / copy right */
 .pg-rd .rd-overview {
 	padding: var(--rd-py) 0 160px;
-	background: var(--Neutral\/Warm Cream);
+	background: var(--Neutral\/Warm);
 }
 .pg-rd .rd-overview__head {
 	display: flex;
