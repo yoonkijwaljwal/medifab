@@ -416,7 +416,7 @@ body.home-warp-lock {
 	.pg-home {
 		--home-px: 40px;
 		--home-py: 60px;
-		--home-head-mb: 80px;
+		--home-head-mb: 100px;
 		--home-card-pad: 48px;
 		--home-card-min-h: 400px;
 	}
@@ -477,6 +477,9 @@ body.home-warp-lock {
 		--home-label: var(--mf-b13);
 		--home-card-title: var(--mf-b18);
 		--home-card-body: var(--mf-b14);
+	}
+	.home-rd__head {
+		gap: 20px;
 	}
 	.pg-home .mf-label { gap: 10px; }
 	.pg-home .mf-label__dot { width: 3px; height: 3px; }
