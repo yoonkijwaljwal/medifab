@@ -238,7 +238,7 @@ body.home-warp-lock {
 	padding: var(--home-card-pad);
 }
 .home-rd__card--cream { background: var(--Neutral\/Warm\ Cream); color: var(--Neutral\/Dark\ Gray); }
-.home-rd__card--dark { background: var(--Neutral\/Cool\ Beige); color: var(--Neutral\/White); }
+.home-rd__card--dark { background: var(--Neutral\/Cool\ Beige); color: var(--Neutral\/Black); }
 .home-rd__card--gold { background: var(--Accent\/Gold); color: var(--Neutral\/White); }
 .home-rd__card-top {
 	display: flex;
