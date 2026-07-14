@@ -266,6 +266,10 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	color: var(--Accent\/Gold);
 	font: var(--rd-body);
 }
+.pg-rd .rd-compare__table th.rd-compare__th-accent,
+.pg-rd .rd-compare__table td.rd-compare__accent:last-child {
+	border-left: 1px solid rgba(51, 51, 51, 0.08);
+}
 .pg-rd .rd-compare__table th.rd-compare__th-accent {
 	font: var(--mf-b18);
 	color: var(--Accent\/Gold);
