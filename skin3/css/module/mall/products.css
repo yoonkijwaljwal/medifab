@@ -30,12 +30,13 @@ body:has(.pg-prod) .footer_margin { display: none; }
 	margin: 0 auto;
 	padding-left: var(--prod-px);
 	padding-right: var(--prod-px);
+	padding-top: 140px;
 	box-sizing: border-box;
 	width: 100%;
 }
 
 .prod-gate {
-	padding: 280px 0 240px;
+	padding: 0px 0 240px;
 	border-radius: 0 0 40px 40px;
 	background: var(--Neutral\/White);
 	position: relative;
