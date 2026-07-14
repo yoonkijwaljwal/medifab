@@ -464,7 +464,7 @@ body.home-warp-lock {
 @media (max-width: 768px) {
 	.pg-home {
 		--home-px: 20px;
-		--home-py: 80px;
+		--home-py: 0px;
 		--home-head-mb: 80px;
 		--home-card-pad: 32px 20px;
 		--home-card-min-h: auto;
