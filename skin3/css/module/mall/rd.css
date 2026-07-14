@@ -244,7 +244,8 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	color: var(--Neutral\/Dark Gray);
 	word-break: keep-all;
 }
-.pg-rd .rd-compare__table th {
+.pg-rd .rd-compare__table th,
+.pg-rd .rd-compare__table thead th {
 	background: var(--Neutral\/Warm Cream);
 	font: var(--mf-b18);
 	font-weight: 400;
