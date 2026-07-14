@@ -27,7 +27,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	--rd-body-l: var(--mf-b16l);
 	--rd-card-title: var(--mf-h24);
 	--rd-tab: var(--mf-h20);
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	font: var(--mf-b16);
 }
 
@@ -59,7 +59,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	font: 400 18px/1.2 var(--mf-sans);
 	letter-spacing: 7.2px;
 	text-transform: uppercase;
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 }
 
 /* hero — pt 280 / pb 160 / gap 180 */
@@ -80,7 +80,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	margin: 0;
 	font: var(--rd-title);
 	letter-spacing: -0.005em;
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 }
 .pg-rd .rd-hero__accent {
 	color: var(--Accent\/Gold);
@@ -107,7 +107,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	margin: 0 0 -1px;
 	padding: 0 0 20px;
 	font: var(--rd-tab);
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	opacity: 0.3;
 	cursor: pointer;
 	border-bottom: 2px solid transparent;
@@ -125,7 +125,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	width: 100%;
 	aspect-ratio: 1280 / 720;
 	overflow: hidden;
-	background: var(--Neutral\/Warm Cream);
+	background: var(--Neutral\/Warm\ Cream);
 }
 .pg-rd .rd-hero__visual img {
 	width: 100%;
@@ -241,12 +241,12 @@ body:has(.pg-rd) .footer_margin { display: none; }
 	vertical-align: middle;
 	border-bottom: 1px solid rgba(51, 51, 51, 0.08);
 	font: var(--rd-body-l);
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	word-break: keep-all;
 }
 .pg-rd .rd-compare__table th,
 .pg-rd .rd-compare__table thead th {
-	background: var(--Neutral\/Warm Cream);
+	background: var(--Neutral\/Warm\ Cream);
 	font: var(--mf-b18);
 	font-weight: 400;
 }
@@ -281,7 +281,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 /* archive — company history 동일 패턴 */
 .pg-rd .rd-archive {
 	padding: var(--rd-py) 0 160px;
-	background: var(--Neutral\/Warm White);
+	background: var(--Neutral\/Warm\ White);
 	border-radius: 0 0 var(--rd-radius) var(--rd-radius);
 }
 .pg-rd .rd-archive__head {
@@ -461,7 +461,7 @@ body:has(.pg-rd) .footer_margin { display: none; }
 		padding: 16px 8px;
 		font: var(--mf-b13);
 		vertical-align: top;
-		border-color: var(--Neutral\/Cool Beige);
+		border-color: var(--Neutral\/Cool\ Beige);
 	}
 	.pg-rd .rd-compare__table th { font: var(--mf-b13); }
 	.pg-rd .rd-compare__table th:first-child,

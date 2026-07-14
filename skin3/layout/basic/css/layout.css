@@ -429,14 +429,14 @@ a:hover {text-decoration:none;}
 :root {
 	--Accent\/Gold: #A1865D;
 	--Neutral\/White: #FFFFFF;
-	--Neutral\/Warm White: #FBFAF9;
-	--Neutral\/Warm Cream: #FBF8F3;
-	--Neutral\/Cool Beige: #E5E2DC;
+	--Neutral\/Warm\ White: #FBFAF9;
+	--Neutral\/Warm\ Cream: #FBF8F3;
+	--Neutral\/Cool\ Beige: #E5E2DC;
 	--Neutral\/Warm: #FBFAF9;
 	--Neutral\/Cool: #E5E2DC;
 	--Neutral\/Wood: #9B9892;
 	--Neutral\/Dark: #333333;
-	--Neutral\/Dark Gray: #333333;
+	--Neutral\/Dark\ Gray: #333333;
 	--Neutral\/Black: #1F1F1F;
 	--mf-serif: "Noto Serif KR", "Noto Serif", serif;
 	--mf-sans: "Noto Sans KR", "Noto Sans", sans-serif;
@@ -507,7 +507,7 @@ body:has(.pg-home) textarea,
 	transition: background 0.25s ease, padding-bottom 0.25s ease, backdrop-filter 0.25s ease;
 }
 #header.mf-hd.fixed {
-	background: color-mix(in srgb, var(--Neutral\/Dark Gray) 92%, transparent);
+	background: color-mix(in srgb, var(--Neutral\/Dark\ Gray) 92%, transparent);
 	backdrop-filter: blur(12px);
 	border-bottom: 0;
 	transform: none;
@@ -753,7 +753,7 @@ body:has(.pg-prod) #header.mf-hd:not(.mf-hd--on-dark):has(.mf-hd__item:hover) .m
 	max-width: none;
 	overflow: auto;
 	overflow-x: hidden;
-	background: var(--Neutral\/Warm White);
+	background: var(--Neutral\/Warm\ White);
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.25s ease, visibility 0.25s ease;
@@ -779,7 +779,7 @@ body.expand:has(#aside.mf-mo) #layoutDimmed {
 	align-items: center;
 	justify-content: space-between;
 	padding: 12px 16px 12px 20px;
-	background: var(--Neutral\/Warm White);
+	background: var(--Neutral\/Warm\ White);
 }
 #aside.mf-mo .mf-mo__logo a {
 	display: block;
@@ -825,7 +825,7 @@ body.expand:has(#aside.mf-mo) #layoutDimmed {
 	padding: 20px 0;
 	border: 0;
 	background: none;
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	font: var(--mf-b16);
 	text-align: left;
 	text-decoration: none;
@@ -854,7 +854,7 @@ body.expand:has(#aside.mf-mo) #layoutDimmed {
 }
 #aside.mf-mo .mf-mo__sub > a,
 #aside.mf-mo .mf-mo__group-title {
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	font: var(--mf-b14);
 	text-decoration: none;
 }
@@ -900,7 +900,7 @@ body.expand:has(#aside.mf-mo) #layoutDimmed {
 	font-family: inherit;
 }
 #aside.mf-mo .mf-mo__lang-btn.is-active {
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 }
 
 body:has(.pg-home) #header.mf-hd + .translate-wrap,
@@ -956,7 +956,7 @@ body:has(.pg-home) #header.mf-hd + .translate-wrap.is-open,
 	color: inherit;
 }
 .mf-btn--light { color: var(--Neutral\/White); }
-.mf-btn--dark { color: var(--Neutral\/Dark Gray); }
+.mf-btn--dark { color: var(--Neutral\/Dark\ Gray); }
 
 #footer.mf-ft {
 	position: relative;
@@ -1047,7 +1047,7 @@ body:has(.pg-home) #header.mf-hd + .translate-wrap.is-open,
 	height: 56px;
 	border: 0;
 	border-radius: 99px;
-	background: color-mix(in srgb, var(--Neutral\/Dark Gray) 8%, transparent);
+	background: color-mix(in srgb, var(--Neutral\/Dark\ Gray) 8%, transparent);
 	color: var(--Neutral\/White);
 	cursor: pointer;
 	backdrop-filter: blur(20px);

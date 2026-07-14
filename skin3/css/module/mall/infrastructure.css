@@ -26,7 +26,7 @@ body:has(.pg-infra) .footer_margin { display: none; }
 	--infra-body: var(--mf-b16);
 	--infra-stat-num: var(--mf-d64);
 	--infra-stat-sub: var(--mf-b18);
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	font: var(--mf-b16);
 }
 
@@ -49,14 +49,14 @@ body:has(.pg-infra) .footer_margin { display: none; }
 	width: 4px;
 	height: 4px;
 	border-radius: 50%;
-	background: var(--Neutral\/Dark Gray);
+	background: var(--Neutral\/Dark\ Gray);
 	flex-shrink: 0;
 }
 .pg-infra .mf-label__txt {
 	font: var(--mf-h20);
 	letter-spacing: 7.2px;
 	text-transform: uppercase;
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 }
 
 /* hero */
@@ -149,7 +149,7 @@ body:has(.pg-infra) .footer_margin { display: none; }
 	background: rgba(51, 51, 51, 0.08);
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	cursor: pointer;
 	transform: translateY(-50%);
 	box-sizing: border-box;
@@ -183,7 +183,7 @@ body:has(.pg-infra) .footer_margin { display: none; }
 	flex-direction: column;
 	gap: 40px;
 	padding: var(--infra-card-pad);
-	background: var(--Neutral\/Warm White);
+	background: var(--Neutral\/Warm\ White);
 	box-sizing: border-box;
 	min-width: 0;
 }
@@ -211,7 +211,7 @@ body:has(.pg-infra) .footer_margin { display: none; }
 /* gmp */
 .pg-infra .infra-gmp {
 	padding: var(--infra-py) 0 160px;
-	background: var(--Neutral\/Warm White);
+	background: var(--Neutral\/Warm\ White);
 	border-radius: 0 0 var(--infra-radius) var(--infra-radius);
 }
 .pg-infra .infra-gmp__head {
@@ -398,7 +398,7 @@ body:has(.pg-infra) .footer_margin { display: none; }
 	}
 	.pg-infra .infra-gmp__desc {
 		opacity: 0.8;
-		color: var(--Neutral\/Dark Gray);
+		color: var(--Neutral\/Dark\ Gray);
 	}
 	.pg-infra .infra-gmp__con { gap: var(--infra-gap); }
 	.pg-infra .infra-gmp__visual {
@@ -415,11 +415,11 @@ body:has(.pg-infra) .footer_margin { display: none; }
 		flex: 0 0 120px;
 		padding: 16px 0;
 		font: var(--mf-b14);
-		color: var(--Neutral\/Dark Gray);
+		color: var(--Neutral\/Dark\ Gray);
 	}
 	.pg-infra .infra-gmp__val {
 		padding: 16px 0;
 		font: 300 14px/1.58 var(--mf-sans);
-		color: var(--Neutral\/Dark Gray);
+		color: var(--Neutral\/Dark\ Gray);
 	}
 }

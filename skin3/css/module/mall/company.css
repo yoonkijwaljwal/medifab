@@ -35,7 +35,7 @@ body:has(.pg-company) .footer_margin { display: none; }
 	--co-card-role: var(--mf-b16l);
 	--co-card-link: var(--mf-b14);
 	--co-stat-num: var(--mf-d64);
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	font: var(--mf-b16);
 }
 
@@ -277,7 +277,7 @@ body:has(.pg-company) .footer_margin { display: none; }
 	cursor: pointer;
 	text-align: left;
 	text-decoration: none;
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	font: var(--co-card-link);
 	font-family: inherit;
 }
@@ -331,7 +331,7 @@ body.co-profile-open {
 	background: rgba(51, 51, 51, 0.08);
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
-	color: var(--Neutral\/Dark Gray);
+	color: var(--Neutral\/Dark\ Gray);
 	cursor: pointer;
 	flex-shrink: 0;
 }
