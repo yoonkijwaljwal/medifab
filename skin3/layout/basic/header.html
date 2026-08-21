@@ -1,63 +1,24 @@
 <header id="header" class="mf-hd" data-ez="contents-08uul6g-1">
 	<div class="mf-hd__inner">
-		<div class="mf-hd__logo" module="Layout_LogoTop">
-			<a href="/"><img src="/svg/logo.svg" alt="MEDIFAB"></a>
+		<div class="mf-hd__left">
+			<div class="mf-hd__logo" module="Layout_LogoTop">
+				<a href="/"><img src="svg/logo.svg" alt="MEDIFAB" width="134" height="32"></a>
+			</div>
+			<nav class="mf-hd__nav" aria-label="주 메뉴">
+				<a href="/product/list.html" class="mf-hd__link">PRODUCTS</a>
+				<a href="/board/free/list.html?board_no=1" class="mf-hd__link">ACADEMY</a>
+			</nav>
 		</div>
 
-		<nav class="mf-hd__nav" aria-label="주 메뉴">
-			<div class="mf-hd__item">
-				<a href="/shopinfo/company.html" class="mf-hd__link">COMPANY</a>
-				<div class="mf-hd__sub">
-					<a href="/shopinfo/company.html">About</a>
-					<a href="/shopinfo/company.html">History</a>
-					<a href="/shopinfo/company.html">Core Value</a>
-					<a href="/shopinfo/company.html">Leaders</a>
-					<a href="/shopinfo/company.html">Global Network</a>
-				</div>
-			</div>
-			<div class="mf-hd__item">
-				<a href="/shopinfo/rd.html" class="mf-hd__link">R&D</a>
-				<div class="mf-hd__sub">
-					<a href="/shopinfo/rd.html">Core technologies</a>
-					<a href="/shopinfo/rd.html#chitogen">Chitogen™</a>
-					<a href="/shopinfo/rd.html#regentrix">Regentrix™</a>
-					<a href="/shopinfo/rd.html#chitogenix">Chitogenix™</a>
-					<a href="/shopinfo/infrastructure.html">Infrastructurs</a>
-				</div>
-			</div>
-			<div class="mf-hd__item">
-				<a href="/shopinfo/products.html" class="mf-hd__link">PRODUCTS</a>
-				<div class="mf-hd__sub">
-					<a href="/shopinfo/products.html#skin-booster">Skin Booster</a>
-					<a href="/shopinfo/products.html#medical-aesthetic">Medical Aesthetic</a>
-					<a href="/shopinfo/products.html#medinovae">MEDINOVAE</a>
-					<a href="/shopinfo/products.html#res-novae">res novae</a>
-					<a href="/shopinfo/products.html#odm">ODM</a>
-				</div>
-			</div>
-			<div class="mf-hd__item">
-				<a href="#home-media" class="mf-hd__link">MEDIA</a>
-				<div class="mf-hd__sub">
-					<a href="#home-media">News</a>
-					<a href="#home-media">Exhibition &amp; Conference</a>
-				</div>
-			</div>
-			<div class="mf-hd__item">
-				<a href="#footer" class="mf-hd__link">CONTACT</a>
-				<div class="mf-hd__sub">
-					<a href="#footer">Product Inquiry</a>
-					<a href="#footer">Careers</a>
-				</div>
-			</div>
-			<span class="mf-hd__sep" aria-hidden="true"></span>
-			<a href="#" class="mf-hd__link">ACADEMY</a>
-		</nav>
-
 		<div class="mf-hd__util">
-			<button type="button" class="mf-hd__lang" id="mfLangBtn">
-				<img src="/SkinImg/img/medifab/icon_earth.svg" alt="" width="24" height="24">
-				<span>LANGUAGE</span>
+			<button type="button" class="mf-hd__link mf-hd__search-btn eSearch">
+				<span class="mf-hd__search-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 19c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M22 22l-5-5"/></svg></span>
+				<span>SEARCH</span>
 			</button>
+			<a href="/myshop/index.html" class="mf-hd__link">ACCOUNT</a>
+			<span module="Layout_orderBasketcount">
+				<a href="/order/basket.html" class="mf-hd__link">CART(<span class="{$basket_count_class}">{$basket_count}</span>)</a>
+			</span>
 			<button type="button" class="mf-hd__menu eNavFold" aria-label="메뉴 열기">
 				<span></span><span></span><span></span>
 			</button>
@@ -81,19 +42,4 @@
 		</fieldset>
 	</div>
 </header>
-<div class="translate-wrap" id="mfTranslate" hidden>
-	<div id="google_translate_element"></div>
-</div>
-<script>
-	function googleTranslateElementInit() {
-		if (!window.google || !google.translate || !google.translate.TranslateElement) return;
-		new google.translate.TranslateElement({
-			pageLanguage: 'ko',
-			includedLanguages: 'ko,en,ja,zh-CN,zh-TW,ru',
-			autoDisplay: false,
-			layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-		}, 'google_translate_element');
-	}
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <!--#ez="1/1"-->
