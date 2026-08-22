@@ -1,12 +1,16 @@
 /* MEDIFAB B2B Home / Search */
 body:has(.pg-home),
-body:has(.pg-search) { max-width: none; background: var(--Neutral\/White); }
+body:has(.pg-search),
+body:has(.pg-detail) { max-width: none; background: var(--Neutral\/White); }
 body:has(.pg-home) #container #contents,
-body:has(.pg-search) #container #contents { max-width: none; width: 100%; padding: 0; margin-top: 0; }
+body:has(.pg-search) #container #contents,
+body:has(.pg-detail) #container #contents { max-width: none; width: 100%; padding: 0; margin-top: 0; }
 body:has(.pg-home) #header.mf-hd,
-body:has(.pg-search) #header.mf-hd { border-bottom: 0; }
+body:has(.pg-search) #header.mf-hd,
+body:has(.pg-detail) #header.mf-hd { border-bottom: 0; }
 body:has(.pg-home) .footer_margin,
-body:has(.pg-search) .footer_margin { display: none; }
+body:has(.pg-search) .footer_margin,
+body:has(.pg-detail) .footer_margin { display: none; }
 
 .pg-home {
 	color: var(--Neutral\/Dark);

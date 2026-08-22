@@ -435,6 +435,7 @@ a:hover {text-decoration:none;}
 	--Neutral\/Dark: #333333;
 	--Neutral\/Dark Gray: #333333;
 	--Neutral\/Black: #1F1F1F;
+	--Neutral\/Gray: #CACACA;
 	--mf-serif: "Noto Serif KR", "Noto Serif", serif;
 	--mf-sans: "Noto Sans KR", "Noto Sans", sans-serif;
 	/* Display — Noto Serif Light */
@@ -484,6 +485,11 @@ body:has(.pg-search) button,
 body:has(.pg-search) input,
 body:has(.pg-search) select,
 body:has(.pg-search) textarea,
+body:has(.pg-detail),
+body:has(.pg-detail) button,
+body:has(.pg-detail) input,
+body:has(.pg-detail) select,
+body:has(.pg-detail) textarea,
 #header.mf-hd,
 #header.mf-hd button,
 #footer.mf-ft {

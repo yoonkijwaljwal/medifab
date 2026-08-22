@@ -1,5 +1,7 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="section path" module="product_headcategory" data-ez-module="product-head-breadcrumb/1">
+<!--@css(/layout/basic/css/main.css)-->
+<div class="pg-detail" data-hd="light">
+<div class="section path pg-detail__hide" module="product_headcategory" data-ez-module="product-head-breadcrumb/1">
     <span>현재 위치</span>
     <ol>
         <li><a href="/">홈</a></li>
@@ -66,7 +68,9 @@
         <div class="infoArea" data-ez-role="ez-discount-tag">
             <div class="headingArea">
 				<div class="icon">{$soldout_icon} {$stock_icon} {$recommend_icon} {$new_icon} {$product_icons} {$today_arrival_icon} {$pickup_icon} {$benefit_icons} {$regular_delivery_icon} {$cultural_tax_icon}</div>
+				<p class="pg-detail__brand">{$manufacturer}</p>
                 <h1>{$name}</h1>
+				<p class="pg-detail__sub">{$simple_desc}</p>
                 <span class="delivery {$delvtype_display|display}">(해외배송 가능상품)</span>
             </div>
             <div class="topLogo {$supply_link_display|display}">
@@ -561,7 +565,7 @@
                 <div class="{$action_display|display} action_button">
 					<span class="sub_sold {$soldout_display|display}">SOLD OUT</span>
                     <a href="#none" class="btnSubmit sizeL {$buy_display|display}" onclick="{$action_buy}"><span id="{$btn_buy_mobile_id}">BUY IT NOW</span><span class="{$btn_reserve_class|display}" id="{$btn_reserve_mobile_id}">예약주문</span><span id="{$btn_regular_delivery_id}" class="{$btn_regular_delivery|display}">REGULAR DELIVERY</span></a>
-					<button type="button" class="btnNormal sizeL actionCart {$basket_display|display}" onclick="{$action_basket}" id="actionCart">CART</button>
+					<button type="button" class="btnNormal sizeL actionCart {$basket_display|display}" onclick="{$action_basket}" id="actionCart">Add To Cart</button>
 					<button type="button" class="btnNormal sizeL actionWish {$wishlist_display|display}" onclick="{$action_wishlist}" id="actionWish">WISH LIST</button>
                 </div>
                 <div class="ec-base-button soldout {$action_soldout_display|display}">
@@ -585,10 +589,22 @@
                 </div>
 				<div class="eventArea {$common_event_b|display}">{$common_event_b}</div>
             </div>
+			<div class="pg-detail__tabs" data-detail-tabs>
+				<button type="button" class="is-on" data-tab="desc">Description</button>
+				<button type="button" data-tab="pay">Payment</button>
+				<button type="button" data-tab="ship">Shipping</button>
+				<button type="button" data-tab="ret">Returns</button>
+			</div>
+			<div class="pg-detail__panels" data-detail-panels>
+				<div data-panel="desc">{$simple_desc}</div>
+				<div data-panel="pay" hidden></div>
+				<div data-panel="ship" hidden></div>
+				<div data-panel="ret" hidden></div>
+			</div>
             <div module="product_action" class="ec-base-button gFixed" id="orderFixArea">
                 <div class="ec-base-button gColumn {$action_display|display}">
 					<a href="#none" class="btnSubmit sizeM {$buy_display|display}" onclick="{$action_buy}"><span id="{$btn_buy_mobile_id}">BUY IT NOW</span><span class="{$btn_reserve_class|display}" id="{$btn_reserve_mobile_id}">예약주문</span><span id="{$btn_regular_delivery_id}" class="{$btn_regular_delivery|display}">REGULAR DELIVERY</span></a>
-                    <button type="button" class="btnNormal sizeM actionCart {$basket_display|display}" onclick="{$action_basket}">CART</button>
+                    <button type="button" class="btnNormal sizeM actionCart {$basket_display|display}" onclick="{$action_basket}">Add To Cart</button>
                 </div>
                 <div class="ec-base-button gColumn {$action_soldout_display|display}">
                     <button type="button" class="btnSubmit sizeM {$soldout_display|display}">SOLD OUT</button>
@@ -868,5 +884,6 @@
 			</div>
 		</div><!-- //detail_guide -->
 	</div><!-- //prdInfo -->
+</div>
 </div>
 <!--@define(cmc_log)-->

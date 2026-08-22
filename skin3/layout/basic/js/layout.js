@@ -4,6 +4,7 @@ window.addEventListener('load', function(){
 	mfHeaderTone();
 	mfSearchPanel();
 	mfSearchKeyword();
+	mfDetailPage();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -130,6 +131,53 @@ function mfSearchKeyword() {
 		q = decodeURIComponent(q.replace(/\+/g, ' '));
 	} catch (err) {}
 	el.textContent = q ? '\u2018' + q + '\u2019' : '';
+}
+
+function mfDetailPage() {
+	var page = document.querySelector('.pg-detail');
+	if (!page) return;
+
+	var imgArea = page.querySelector('.imgArea');
+	var desc = page.querySelector('#prdDetail > div');
+	if (imgArea && desc && !desc.classList.contains('pg-detail__long')) {
+		desc.classList.add('pg-detail__long');
+		imgArea.appendChild(desc);
+	}
+
+	var brand = page.querySelector('.pg-detail__brand');
+	if (brand && !String(brand.textContent || '').trim()) {
+		var cate = page.querySelector('.path ol li:nth-child(2) a');
+		if (cate) brand.textContent = cate.textContent;
+	}
+
+	var tabs = page.querySelector('[data-detail-tabs]');
+	var panels = page.querySelector('[data-detail-panels]');
+	if (!tabs || !panels) return;
+
+	var folds = page.querySelectorAll('#prdInfo .detail_guide .ec-base-fold .contents');
+	var pay = panels.querySelector('[data-panel="pay"]');
+	var ship = panels.querySelector('[data-panel="ship"]');
+	var ret = panels.querySelector('[data-panel="ret"]');
+	if (pay && folds[0]) pay.innerHTML = folds[0].innerHTML;
+	if (ship && folds[1]) ship.innerHTML = folds[1].innerHTML;
+	if (ret && folds[2]) ret.innerHTML = folds[2].innerHTML;
+
+	tabs.addEventListener('click', function(e) {
+		var btn = e.target.closest('[data-tab]');
+		if (!btn) return;
+		e.preventDefault();
+		var id = btn.getAttribute('data-tab');
+		tabs.querySelectorAll('[data-tab]').forEach(function(item) {
+			item.classList.toggle('is-on', item === btn);
+		});
+		panels.querySelectorAll('[data-panel]').forEach(function(panel) {
+			if (panel.getAttribute('data-panel') === id) {
+				panel.removeAttribute('hidden');
+			} else {
+				panel.setAttribute('hidden', 'hidden');
+			}
+		});
+	});
 }
 
 function toggleClass(element, handler, className){
