@@ -642,6 +642,7 @@ body:has(.pg-home) textarea,
 	color: var(--Neutral\/Wood);
 }
 #footer.mf-ft .mf-ft__info p { margin: 0 0 4px; }
+#footer.mf-ft .mf-ft__policy { display: none; }
 #footer.mf-ft .mf-ft__copy {
 	margin: 10px 0 0;
 }
@@ -657,4 +658,71 @@ body:has(.pg-home) textarea,
 	#footer.mf-ft .mf-ft__inner { padding: 48px 40px 60px; }
 	#footer.mf-ft .mf-ft__logo { margin-bottom: 48px; }
 	#footer.mf-ft .mf-ft__bottom { flex-direction: column; }
+}
+
+@media (max-width: 768px) {
+	body:has(.pg-home) #header.mf-hd .mf-hd__inner {
+		align-items: center;
+		padding: 20px;
+	}
+	body:has(.pg-home) #header.mf-hd .mf-hd__logo a { height: auto; }
+	body:has(.pg-home) #header.mf-hd .mf-hd__logo img {
+		width: 101px;
+		height: 24px;
+	}
+	body:has(.pg-home) #header.mf-hd .mf-hd__nav,
+	body:has(.pg-home) #header.mf-hd .mf-hd__menu,
+	body:has(.pg-home) #header.mf-hd .mf-hd__search-ico,
+	body:has(.pg-home) #header.mf-hd .mf-hd__util > a { display: none; }
+	body:has(.pg-home) #header.mf-hd .mf-hd__util {
+		gap: 12px;
+		height: auto;
+	}
+	body:has(.pg-home) #header.mf-hd .mf-hd__search-btn span:last-child,
+	body:has(.pg-home) #header.mf-hd .mf-hd__util > span { display: inline-flex; }
+	body:has(.pg-home) #header.mf-hd .mf-hd__link {
+		font-size: 12px;
+		line-height: 1.36;
+		letter-spacing: -0.01em;
+		opacity: 1;
+		color: var(--Neutral\/Dark);
+	}
+	body:has(.pg-home) #footer.mf-ft .mf-ft__inner { padding: 40px 20px; }
+	body:has(.pg-home) #footer.mf-ft .mf-ft__logo { margin: 0 0 16px; }
+	body:has(.pg-home) #footer.mf-ft .mf-ft__logo img {
+		width: 96px;
+		height: 23px;
+	}
+	body:has(.pg-home) #footer.mf-ft .mf-ft__policy {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin: 0 0 16px;
+	}
+	body:has(.pg-home) #footer.mf-ft .mf-ft__policy a {
+		color: var(--Neutral\/Wood);
+		font-size: 11px;
+		line-height: 1.42;
+		text-decoration: none;
+		letter-spacing: 0;
+	}
+	body:has(.pg-home) #footer.mf-ft .mf-ft__bottom { gap: 16px; }
+	body:has(.pg-home) #footer.mf-ft .mf-ft__cs {
+		font-size: 11px;
+		line-height: 1.42;
+		color: var(--Neutral\/Wood);
+		gap: 0;
+	}
+	body:has(.pg-home) #footer.mf-ft .mf-ft__cs a {
+		color: var(--Neutral\/Wood);
+		font-size: 11px;
+		text-decoration: none;
+	}
+	body:has(.pg-home) #footer.mf-ft .mf-ft__info,
+	body:has(.pg-home) #footer.mf-ft .mf-ft__copy {
+		font-size: 11px;
+		line-height: 1.42;
+		color: #CACACA;
+		margin: 0;
+	}
 }
