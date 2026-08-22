@@ -1,8 +1,12 @@
-/* MEDIFAB B2B Home */
-body:has(.pg-home) { max-width: none; background: var(--Neutral\/White); }
-body:has(.pg-home) #container #contents { max-width: none; width: 100%; padding: 0; margin-top: 0; }
-body:has(.pg-home) #header.mf-hd { border-bottom: 0; }
-body:has(.pg-home) .footer_margin { display: none; }
+/* MEDIFAB B2B Home / Search */
+body:has(.pg-home),
+body:has(.pg-search) { max-width: none; background: var(--Neutral\/White); }
+body:has(.pg-home) #container #contents,
+body:has(.pg-search) #container #contents { max-width: none; width: 100%; padding: 0; margin-top: 0; }
+body:has(.pg-home) #header.mf-hd,
+body:has(.pg-search) #header.mf-hd { border-bottom: 0; }
+body:has(.pg-home) .footer_margin,
+body:has(.pg-search) .footer_margin { display: none; }
 
 .pg-home {
 	color: var(--Neutral\/Dark);
@@ -527,5 +531,132 @@ body:has(.pg-home) .footer_margin { display: none; }
 	.home-acd__meta {
 		font-size: 11px;
 		line-height: 1.42;
+	}
+}
+
+/* Search results — B2B_search_results */
+.pg-search {
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b16);
+	letter-spacing: -0.01em;
+	background: var(--Neutral\/White);
+}
+.pg-search__inner {
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 0 80px;
+	box-sizing: border-box;
+}
+.pg-search__bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 20px;
+	padding: 200px 0 32px;
+	font: var(--mf-b16);
+	letter-spacing: -0.01em;
+	color: var(--Neutral\/Dark);
+}
+.pg-search__kw,
+.pg-search__count {
+	flex: 1 1 0;
+	min-width: 0;
+	margin: 0;
+}
+.pg-search__count { text-align: right; }
+.pg-search__empty {
+	flex-basis: 100%;
+	margin: 8px 0 0;
+	font: var(--mf-b14);
+	color: var(--Neutral\/Wood);
+}
+.pg-search__list { padding: 0 0 160px; }
+.pg-search .ec-base-product { margin: 0; }
+.pg-search .ec-base-product .prdList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	margin: 0;
+	text-align: left;
+}
+.pg-search .ec-base-product .prdList > li {
+	display: block;
+	width: calc((100% - 60px) / 4);
+	margin: 0;
+}
+.pg-search .ec-base-product .prdList .prdList__item { margin: 0; }
+.pg-search .ec-base-product .prdList .thumbnail {
+	aspect-ratio: 413 / 520;
+	margin: 0;
+	background: var(--Neutral\/Warm);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+.pg-search .ec-base-product .prdList .thumbnail a {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+.pg-search .ec-base-product .prdList .thumbnail a img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border: 0;
+}
+.pg-search .ec-base-product .prdList .likeButton,
+.pg-search .ec-base-product .prdList .badge,
+.pg-search .ec-base-product .prdList .icon__box,
+.pg-search .ec-base-product .prdList .spec,
+.pg-search .ec-base-product .prdList .icon,
+.pg-search .ec-base-product .prdList .ec-base-help,
+.pg-search .ec-base-product .more { display: none; }
+.pg-search .ec-base-product .prdList .description {
+	margin: 16px 0 0;
+	padding: 0;
+}
+.pg-search .ec-base-product .prdList .description .name a {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b16);
+	letter-spacing: -0.01em;
+	text-decoration: none;
+}
+.pg-search .ec-base-product .prdList .description .name .title {
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+	letter-spacing: -0.01em;
+}
+.pg-search__pager {
+	max-width: 1440px;
+	margin: 0 auto 80px;
+	padding: 0 80px;
+	box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+	.pg-search__inner,
+	.pg-search__pager { padding-left: 40px; padding-right: 40px; }
+	.pg-search__bar { padding-top: 160px; }
+	.pg-search__list { padding-bottom: 80px; }
+	.pg-search .ec-base-product .prdList > li { width: calc((100% - 20px) / 2); }
+}
+
+@media (max-width: 768px) {
+	.pg-search__inner,
+	.pg-search__pager { padding-left: 20px; padding-right: 20px; }
+	.pg-search__bar { padding-top: 96px; padding-bottom: 16px; }
+	.pg-search__list { padding-bottom: 48px; }
+	.pg-search .ec-base-product .prdList { gap: 28px 13px; }
+	.pg-search .ec-base-product .prdList > li { width: calc((100% - 13px) / 2); }
+	.pg-search .ec-base-product .prdList .thumbnail {
+		height: 200px;
+		aspect-ratio: auto;
 	}
 }

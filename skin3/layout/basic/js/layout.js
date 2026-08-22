@@ -3,6 +3,7 @@ window.addEventListener('load', function(){
     fixedHeader();
 	mfHeaderTone();
 	mfSearchPanel();
+	mfSearchKeyword();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -118,6 +119,17 @@ function mfSearchPanel() {
 			}
 		});
 	}
+}
+
+function mfSearchKeyword() {
+	var el = document.querySelector('[data-search-keyword]');
+	if (!el) return;
+	var params = new URLSearchParams(window.location.search);
+	var q = params.get('keyword') || '';
+	try {
+		q = decodeURIComponent(q.replace(/\+/g, ' '));
+	} catch (err) {}
+	el.textContent = q ? '\u2018' + q + '\u2019' : '';
 }
 
 function toggleClass(element, handler, className){
