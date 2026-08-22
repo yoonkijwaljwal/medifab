@@ -335,7 +335,8 @@
 
 /* 상세페이지 */
 .path {max-width:1280px !important;}
-.xans-product-detail {max-width:1280px !important;margin-bottom:80px;}
+.xans-product-detail {max-width:1280px;margin-bottom:80px;}
+.pg-detail .xans-product-detail {max-width: none !important;}
 .xans-product-detail .imgArea {width:calc(100% - 700px);}
 .xans-product-detail .imgArea .listImg {height:auto;padding:0;}
 .xans-product-detail .imgArea .listImg .inner {height:auto;}
@@ -607,32 +608,49 @@
 	width: 100%;
 	margin: 0;
 }
+.pg-detail .xans-product-detail {
+	max-width: none;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
 .pg-detail .xans-product-detail .detailArea {
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
 	gap: 80px;
 	width: 100%;
-	margin: 0;
+	max-width: none;
+	margin: 0 auto;
 	padding: 200px 80px 160px;
 	box-sizing: border-box;
+	font-size: inherit;
+	line-height: inherit;
 }
 .pg-detail .xans-product-detail .imgArea {
+	display: block;
+	float: none;
 	flex: 0 0 787px;
 	width: 787px;
 	max-width: 787px;
+	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	vertical-align: top;
 }
 .pg-detail .xans-product-detail .infoArea {
+	display: block;
+	float: none;
 	flex: 0 0 413px;
 	width: 413px;
 	max-width: 413px;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 	position: sticky;
 	top: 200px;
 	align-self: flex-start;
-	padding: 0;
-	box-sizing: border-box;
+	vertical-align: top;
 }
 .pg-detail .xans-product-detail .infoArea > * {
 	max-width: 100%;

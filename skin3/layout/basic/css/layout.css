@@ -4,6 +4,9 @@
 html { -webkit-text-size-adjust: none; -moz-text-size-adjust: none; -ms-text-size-adjust: none; }
 #wrap { position:relative;width:100%;margin:0 auto;min-height:550px;overflow:hidden;}
 body {min-width:100%;padding:0;margin:0;max-width:1480px;}
+body:has(.pg-home),
+body:has(.pg-search),
+body:has(.pg-detail) { max-width: none; }
 #container {width:100%;zoom:1;position:relative;margin:0 auto;}
 #container #contents {margin:0 auto;float:none;padding:0;}
 .cboth {clear:both;*zoom:1}
