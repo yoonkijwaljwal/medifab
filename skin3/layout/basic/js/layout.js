@@ -2,6 +2,7 @@ window.addEventListener('load', function(){
     handleNav();
     fixedHeader();
 	mfHeaderTone();
+	mfSearchPanel();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -64,10 +65,59 @@ function mfHeaderTone() {
 	}
 }
 
-if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', mfHeaderTone);
-} else {
-	mfHeaderTone();
+function mfSearchPanel() {
+	var root = document.querySelector('#header.mf-hd .mf-hd__search');
+	var openBtns = document.querySelectorAll('[data-search-open]');
+	if (!root || !openBtns.length) return;
+
+	function openPanel() {
+		root.classList.add('is-open');
+		document.body.classList.add('mf-search-open');
+		var input = root.querySelector('#keyword');
+		if (input) {
+			input.setAttribute('placeholder', 'Search');
+			window.setTimeout(function() { input.focus(); }, 280);
+		}
+	}
+
+	function closePanel() {
+		root.classList.remove('is-open');
+		document.body.classList.remove('mf-search-open');
+	}
+
+	openBtns.forEach(function(btn) {
+		btn.addEventListener('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			openPanel();
+		});
+	});
+
+	root.querySelectorAll('[data-search-close]').forEach(function(el) {
+		el.addEventListener('click', function(e) {
+			e.preventDefault();
+			closePanel();
+		});
+	});
+
+	root.addEventListener('click', function(e) {
+		if (e.target === root) closePanel();
+	});
+
+	document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape') closePanel();
+	});
+
+	var keyword = root.querySelector('#keyword');
+	var submitBtn = root.querySelector('.btnSearch');
+	if (keyword && submitBtn) {
+		keyword.addEventListener('keydown', function(e) {
+			if (e.key === 'Enter') {
+				e.preventDefault();
+				submitBtn.click();
+			}
+		});
+	}
 }
 
 function toggleClass(element, handler, className){
