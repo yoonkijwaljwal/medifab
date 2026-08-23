@@ -1,24 +1,19 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="section path">
-    <span>현재 위치</span>
-    <ol>
-        <li><a href="/">홈</a></li>
-        <li title="현재 위치"><strong>회원 가입 완료</strong></li>
-    </ol>
-</div>
-
-<div class="section titleArea">
-    <h2>회원 가입 완료</h2>
-</div>
-
-<div class="section ec-base-step">
-    <ol class="step">
-        <li>1. 약관동의</li>
-        <li>2. 정보입력</li>
-        <li class="selected">3. 가입완료</li>
-    </ol>
-</div>
-
+<div class="pg-gate is-login is-join" data-hd="light">
+	<div class="pg-gate__visual">
+		<img src="/SkinImg/img/medifab/gate_visual.png" alt="">
+		<div class="pg-gate__dim"></div>
+	</div>
+	<header class="pg-gate__hd">
+		<a href="/" class="pg-gate__logo"><img src="/svg/logo.svg" alt="MEDIFAB" width="134" height="32"></a>
+		<a href="https://imedifab.com" class="pg-gate__corp" target="_blank" rel="noopener">CORPORATE SITE <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+	</header>
+	<div class="pg-gate__form">
+		<div class="pg-gate__panel">
+			<div class="pg-gate__copy">
+				<h1 class="pg-gate__title">Apply Now</h1>
+				<p class="pg-gate__sub">회원가입이 완료되었습니다.</p>
+			</div>
 <div module="member_joinComplete" class="memberArea">
     <!--@css(/css/module/member/joincomplete.css)-->
     <div class="joinComplete">
@@ -51,8 +46,8 @@
         </p>
     </div>
     <div class="ec-base-button gBottom">
-        <a href="{$redirect_function}" class="btnNormalFix sizeM">메인으로 이동</a>
-        <a href="/member/login.html" class="btnSubmitFix sizeM {$display_login_chk|display}">로그인</a>
+        <a href="{$redirect_function}" class="btnSubmitFix sizeM">메인으로 이동</a>
+        <a href="/member/login.html" class="btnNormalFix sizeM {$display_login_chk|display}">Login</a>
     </div>
 </div>
 
@@ -76,4 +71,7 @@
             </li>
         </ul>
     </div>
+</div>
+		</div>
+	</div>
 </div>

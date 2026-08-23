@@ -1,21 +1,19 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="section path">
-    <span>현재 위치</span>
-    <ol>
-        <li><a href="/">홈</a></li>
-        <li title="현재 위치"><strong>회원 가입</strong></li>
-    </ol>
-</div>
-<div class="section titleArea">
-    <h2>회원 가입</h2>
-</div>
-<div class="section ec-base-step">
-    <ol class="step">
-        <li class="selected">1. 약관동의</li>
-        <li>2. 정보입력</li>
-        <li>3. 가입완료</li>
-    </ol>
-</div>
+<div class="pg-gate is-login is-join" data-hd="light">
+	<div class="pg-gate__visual">
+		<img src="/SkinImg/img/medifab/gate_visual.png" alt="">
+		<div class="pg-gate__dim"></div>
+	</div>
+	<header class="pg-gate__hd">
+		<a href="/" class="pg-gate__logo"><img src="/svg/logo.svg" alt="MEDIFAB" width="134" height="32"></a>
+		<a href="https://imedifab.com" class="pg-gate__corp" target="_blank" rel="noopener">CORPORATE SITE <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+	</header>
+	<div class="pg-gate__form">
+		<div class="pg-gate__panel">
+			<div class="pg-gate__copy">
+				<h1 class="pg-gate__title">Apply Now</h1>
+				<p class="pg-gate__sub">Please review and agree to the terms to continue.</p>
+			</div>
 <div module="member_join">
     <!--@js(/js/module/member/join_agreement.js)-->
     <!--@css(/css/module/member/join_agreement.css)-->
@@ -31,7 +29,7 @@
         <div class="left">
             <div class="agreeArea terms">
                 <div class="title">
-                    <h3>{$form.agree_service_check}<label for="agree_service_check0" class="check">이용약관 동의 (필수)</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
+                    <h3>{$form.agree_service_check}<label for="agree_service_check0" class="check">[필수] 이용약관에 동의합니다</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
                 </div>
                 <div class="contents">{$service_desc}</div>
             </div>
@@ -39,7 +37,7 @@
         <div class="right">
             <div class="{$display_privacy_agreement|display} agreeArea">
                 <div class="title">
-                    <h3>{$form.agree_privacy_check}<label for="agree_privacy_check0" class="check">개인정보 수집 및 이용 동의 (필수)</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
+                    <h3>{$form.agree_privacy_check}<label for="agree_privacy_check0" class="check">[필수] 개인정보 수집·이용에 동의합니다</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
                 </div>
                 <div class="contents">{$privacy_desc}</div>
             </div>
@@ -165,10 +163,13 @@
                 </div>
             </div>
         </div>
-    </div><!-- //agreeInner -->
+    </div>
 
     <div class="ec-base-button gBottom">
-        <a href="#none" class="btnNormalFix sizeM" onclick="history.go(-1); return false;">취소</a>
-        <button type="button" class="btnSubmitFix sizeM" onclick="checkAgreement('/member/join.html');">다음</button>
+        <button type="button" class="btnSubmitFix sizeM" onclick="checkAgreement('/member/join.html');">Next</button>
+        <a href="#none" class="btnNormalFix sizeM" onclick="history.go(-1); return false;">Cancel</a>
     </div>
+</div>
+		</div>
+	</div>
 </div>

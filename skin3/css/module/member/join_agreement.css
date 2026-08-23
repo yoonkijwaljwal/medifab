@@ -1,11 +1,11 @@
 .xans-member-join .title h3 { font-size:16px; font-weight:normal; }
 .xans-member-join label { display:none; }
 .xans-member-join label.check { display:inline-block; }
-.xans-member-join .contents, 
+.xans-member-join .contents,
 .xans-member-join #foreignerPersonWrap .content { overflow:hidden; overflow-y:auto; height:152px; margin:20px 0 0; padding:20px; color:#6d6d6d; font-size:12px; line-height:20px; border:1px solid #e5e5e5; box-sizing:border-box; }
 .xans-member-join .contents p { margin:0 0 20px; }
 .xans-member-join .ec-base-chk { margin-top:3px; }
-.xans-member-join .agreeAll { margin:0 0 30px; font-size:16px;  }
+.xans-member-join .agreeAll { margin:0 0 30px; font-size:16px; }
 .xans-member-join .agreeAll h3 { margin:0 0 20px; font-size:16px; }
 .xans-member-join .agreeAll label { display:inline-block; width: calc(100% - 41px); }
 .xans-member-join .agreeAll .desc { font-size: 14px; font-weight:normal; color:#939393; margin:4px 0 0 38px; }
@@ -20,12 +20,88 @@
 .agreeArea .contents {display:none;}
 .agreeArea.on .contents {display:block;}
 
-/********************* Mobile / Tablet *********************/
+.pg-gate.is-join .xans-member-join label,
+.pg-gate.is-join .xans-member-join label.check { display:inline; }
+.pg-gate.is-join .xans-member-join { width: 100%; }
+.pg-gate.is-join .xans-member-join .agreeAll {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 12px;
+	padding: 0 0 12px;
+	border-bottom: 1px solid var(--Neutral\/Cool, #e5e2dc);
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+}
+.pg-gate.is-join .xans-member-join .agreeAll h3 { display: none; }
+.pg-gate.is-join .xans-member-join .agreeAll p { margin: 0; }
+.pg-gate.is-join .xans-member-join .agreeAll .desc {
+	width: 100%;
+	margin: 0;
+	font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Wood, #9b9892);
+}
+.pg-gate.is-join .xans-member-join .agreeInner {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+}
+.pg-gate.is-join .xans-member-join .agreeInner .left,
+.pg-gate.is-join .xans-member-join .agreeInner .right {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+	margin: 0;
+	flex: none;
+}
+.pg-gate.is-join .xans-member-join .agreeArea { margin: 0; }
+.pg-gate.is-join .xans-member-join .agreeArea .title h3 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+}
+.pg-gate.is-join .xans-member-join .agreeArea .title .btnToggle {
+	position: static;
+	margin-left: auto;
+}
+.pg-gate.is-join .xans-member-join .agreeArea .title .btnToggle:before { transform: none; }
+.pg-gate.is-join .xans-member-join input[type="checkbox"] {
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	accent-color: var(--Neutral\/Dark, #333);
+	flex: 0 0 16px;
+}
+.pg-gate.is-join .xans-member-join .agreeArea .contents {
+	height: auto;
+	max-height: 160px;
+	margin: 8px 0 0;
+	padding: 12px 0 0;
+	border: 0;
+	border-top: 1px solid var(--Neutral\/Cool, #e5e2dc);
+	font: 400 13px/1.55 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Wood, #9b9892);
+}
+.pg-gate.is-join .xans-member-join .agreeArea .additional {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 8px 0 0;
+	padding: 0;
+}
+.pg-gate.is-join .xans-member-join .agreeArea .additional li { display: block; margin: 0; }
+
 @media all and (max-width:1024px) {
 	.xans-member-join .agreeArea { margin:0 0 30px; }
 }
 
-/********************* PC *********************/
 @media all and (min-width:1025px) {
     .xans-member-join .agreeInner { display:flex; }
 	.xans-member-join .left { display:flex; flex:1; margin-right:40px; }
@@ -33,5 +109,12 @@
     .xans-member-join .agreeArea.terms .contents { min-height:100%; }
     .xans-member-join .agreeArea.terms { margin:0 0 40px; }
     .xans-member-join .agreeArea + .agreeArea { margin:40px 0 0; }
+	.pg-gate.is-join .xans-member-join .agreeInner {
+		display: flex;
+		flex-direction: column;
+	}
+	.pg-gate.is-join .xans-member-join .left,
+	.pg-gate.is-join .xans-member-join .right { margin: 0; }
+	.pg-gate.is-join .xans-member-join .agreeArea.terms,
+	.pg-gate.is-join .xans-member-join .agreeArea + .agreeArea { margin: 0; }
 }
-

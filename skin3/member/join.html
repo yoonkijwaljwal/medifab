@@ -1,21 +1,19 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="section path">
-    <span>현재 위치</span>
-    <ol>
-        <li><a href="/">홈</a></li>
-        <li title="현재 위치"><strong>회원 가입</strong></li>
-    </ol>
-</div>
-<div class="section titleArea">
-    <h2>회원 가입</h2>
-</div>
-<div class="section ec-base-step">
-    <ol class="step">
-        <li>1. 약관동의</li>
-        <li class="selected">2. 정보입력</li>
-        <li>3. 가입완료</li>
-    </ol>
-</div>
+<div class="pg-gate is-login is-join" data-hd="light">
+	<div class="pg-gate__visual">
+		<img src="/SkinImg/img/medifab/gate_visual.png" alt="">
+		<div class="pg-gate__dim"></div>
+	</div>
+	<header class="pg-gate__hd">
+		<a href="/" class="pg-gate__logo"><img src="/svg/logo.svg" alt="MEDIFAB" width="134" height="32"></a>
+		<a href="https://imedifab.com" class="pg-gate__corp" target="_blank" rel="noopener">CORPORATE SITE <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+	</header>
+	<div class="pg-gate__form">
+		<div class="pg-gate__panel">
+			<div class="pg-gate__copy">
+				<h1 class="pg-gate__title">Apply Now</h1>
+				<p class="pg-gate__sub">승인된 의료·에스테틱 전문가만 가입할 수 있습니다.</p>
+			</div>
 <div module="member_join" class="memberArea">
     <!--@css(/css/module/member/join.css)-->
     <!--
@@ -29,6 +27,18 @@
         $foreignerSsn3 = 국제운전면허증번호
         $isRuleBasedAddrForm = T
      -->
+	<div class="join-type" data-join-type>
+		<button type="button" class="join-type__card" data-join-type="p">
+			<span class="join-type__en">KOREAN</span>
+			<strong class="join-type__ko">내국인</strong>
+			<span class="join-type__desc">국내 의료기관·클리닉·에스테틱 사업자를 대상으로 합니다.</span>
+		</button>
+		<button type="button" class="join-type__card" data-join-type="f">
+			<span class="join-type__en">INTERNATIONAL</span>
+			<strong class="join-type__ko">외국인</strong>
+			<span class="join-type__desc">Overseas medical and aesthetic professionals are welcome.</span>
+		</button>
+	</div>
 	<div class="titleArea titleArea--middle {$display_base_column_title|display}">
 		<h3>회원인증</h3>
 	</div>
@@ -40,7 +50,7 @@
 			<col style="width:auto;">
 		</colgroup>
 		<tbody>
-			<tr class="{$display_member_type|display}">
+			<tr class="{$display_member_type|display} join-type-native">
 				<th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">회원구분</th>
 				<td>{$form.member_type}</td>
 			</tr>
@@ -379,9 +389,76 @@
     </div>
 
     <div class="ec-base-button gBottom">
-        <a href="#none" class="btnNormalFix sizeM" onclick="history.go(-1); return false;">취소</a>
-        <a href="#none" class="btnSubmitFix sizeM" onclick="{$action_func_join}">가입하기</a>
+        <a href="#none" class="btnSubmitFix sizeM" onclick="{$action_func_join}">Apply Now</a>
+        <a href="#none" class="btnNormalFix sizeM" onclick="history.go(-1); return false;">Cancel</a>
     </div>
 
     <!--@import(/member/join_confirm.html)-->
 </div>
+		</div>
+	</div>
+</div>
+<script>
+(function() {
+	var root = document.querySelector('.pg-gate.is-join');
+	if (!root) return;
+	var cards = root.querySelectorAll('[data-join-type] .join-type__card');
+	if (!cards.length) return;
+
+	function radios() {
+		return root.querySelectorAll('input[type="radio"][name*="member_type"], .join-type-native input[type="radio"]');
+	}
+
+	function matchRadio(type, radio) {
+		var val = (radio.value || '').toLowerCase();
+		var id = (radio.id || '').toLowerCase();
+		var label = '';
+		if (radio.id) {
+			var lab = root.querySelector('label[for="' + radio.id + '"]');
+			if (lab) label = (lab.textContent || '').toLowerCase();
+		}
+		var blob = val + ' ' + id + ' ' + label;
+		if (type === 'p') return val === 'p' || /개인|내국|person/.test(blob);
+		if (type === 'f') return val === 'f' || /외국|foreign/.test(blob);
+		return val === type;
+	}
+
+	function findRadio(type) {
+		var list = radios();
+		for (var i = 0; i < list.length; i++) {
+			if (matchRadio(type, list[i])) return list[i];
+		}
+		return null;
+	}
+
+	function sync() {
+		var list = radios();
+		for (var i = 0; i < cards.length; i++) {
+			var type = cards[i].getAttribute('data-join-type');
+			var on = false;
+			for (var j = 0; j < list.length; j++) {
+				if (list[j].checked && matchRadio(type, list[j])) on = true;
+			}
+			if (on) cards[i].classList.add('is-on');
+			else cards[i].classList.remove('is-on');
+		}
+	}
+
+	for (var i = 0; i < cards.length; i++) {
+		cards[i].addEventListener('click', function(e) {
+			e.preventDefault();
+			var type = this.getAttribute('data-join-type');
+			var radio = findRadio(type);
+			if (!radio) return;
+			radio.click();
+			sync();
+		});
+	}
+
+	var list = radios();
+	for (var r = 0; r < list.length; r++) {
+		list[r].addEventListener('change', sync);
+	}
+	sync();
+})();
+</script>

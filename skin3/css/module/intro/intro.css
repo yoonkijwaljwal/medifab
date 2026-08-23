@@ -62,6 +62,7 @@ body:has(.pg-gate) #footer.mf-ft,
 body:has(.pg-gate) .footer_margin,
 body:has(.pg-gate) .path,
 body:has(.pg-gate) .titleArea,
+body:has(.pg-gate) .ec-base-step,
 .pg-gate-hide { display: none; }
 body:has(.pg-gate) #container #contents {
 	max-width: none;
@@ -368,6 +369,72 @@ body:has(.pg-gate) #container #contents {
 	text-decoration: none;
 	cursor: pointer;
 }
+.pg-gate.is-join {
+	align-items: flex-start;
+}
+.pg-gate.is-join .pg-gate__visual {
+	position: sticky;
+	top: 0;
+	height: 100vh;
+	min-height: 100vh;
+	align-self: flex-start;
+}
+.pg-gate.is-join .pg-gate__form {
+	justify-content: flex-start;
+	padding: 160px 80px 120px;
+	overflow: visible;
+}
+.pg-gate.is-join .pg-gate__panel {
+	gap: 40px;
+	width: 100%;
+	max-width: 560px;
+}
+.pg-gate.is-join .ec-base-button.gBottom,
+.pg-gate.is-join .ec-base-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.pg-gate.is-join .ec-base-button .btnSubmitFix,
+.pg-gate.is-join .ec-base-button .btnSubmit,
+.pg-gate.is-join .ec-base-button button.btnSubmitFix {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 14px 20px;
+	border: 0;
+	background: var(--Neutral\/Dark, #333);
+	color: #fff;
+	font: 400 16px/1.52 "Noto Sans KR", sans-serif;
+	letter-spacing: -0.01em;
+	box-sizing: border-box;
+	text-decoration: none;
+	cursor: pointer;
+}
+.pg-gate.is-join .ec-base-button .btnNormalFix,
+.pg-gate.is-join .ec-base-button .btnNormal {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--Neutral\/Dark, #333);
+	font: 400 16px/1.52 "Noto Sans KR", sans-serif;
+	letter-spacing: -0.01em;
+	text-decoration: none;
+	cursor: pointer;
+}
 
 @media all and (min-width: 1025px) {
 	.pg-gate .login,
@@ -395,6 +462,12 @@ body:has(.pg-gate) #container #contents {
 		padding: 40px 20px 60px;
 		justify-content: flex-start;
 	}
+	.pg-gate.is-join .pg-gate__visual {
+		position: relative;
+		height: 300px;
+		min-height: 300px;
+	}
+	.pg-gate.is-join .pg-gate__form { padding: 40px 20px 60px; }
 	.pg-gate__hd { padding: 20px; }
 	.pg-gate__logo,
 	.pg-gate__corp { width: auto; }

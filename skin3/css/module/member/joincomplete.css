@@ -30,3 +30,58 @@
     .xans-member-joincomplete .joinComplete { width:472px; padding:75px 212px 70px; }
     .xans-member-joincomplete .joinComplete .memberSpecial ul li { text-align:center; }
 }
+
+.pg-gate.is-join .xans-member-joincomplete {
+	width: 100%;
+	text-align: left;
+	line-height: inherit;
+}
+.pg-gate.is-join .xans-member-joincomplete .joinComplete {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	text-align: left;
+}
+.pg-gate.is-join .xans-member-joincomplete .member_icon { display: none; }
+.pg-gate.is-join .xans-member-joincomplete .joinComplete .desc {
+	margin: 0 0 24px;
+	font: 400 16px/1.52 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+}
+.pg-gate.is-join .xans-member-joincomplete .joinComplete .ec-base-box {
+	margin: 0 0 24px;
+	padding: 16px 0;
+	border: 0;
+	border-top: 1px solid var(--Neutral\/Cool, #e5e2dc);
+	border-bottom: 1px solid var(--Neutral\/Cool, #e5e2dc);
+}
+.pg-gate.is-join .xans-member-joincomplete .ec-base-desc {
+	display: grid;
+	grid-template-columns: 80px 1fr;
+	gap: 8px 16px;
+	margin: 0;
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+}
+.pg-gate.is-join .xans-member-joincomplete .ec-base-desc dt {
+	width: auto;
+	color: var(--Neutral\/Wood, #9b9892);
+}
+.pg-gate.is-join .xans-member-joincomplete .memberSpecial,
+.pg-gate.is-join .xans-member-joincomplete .memberEmail,
+.pg-gate.is-join .xans-member-joincomplete .memberAge {
+	margin: 0 0 16px;
+	padding: 0;
+	text-align: left;
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Wood, #9b9892);
+}
+.pg-gate.is-join .couponSkinArea { margin: 24px 0 0; }
+
+@media all and (min-width:1025px) {
+	.pg-gate.is-join .xans-member-joincomplete .joinComplete {
+		width: 100%;
+		padding: 0;
+	}
+}
