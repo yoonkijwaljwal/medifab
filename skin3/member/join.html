@@ -439,15 +439,75 @@
 		return false;
 	}
 
+	function isForeignMember() {
+		var list = radios();
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].checked && matchRadio('f', list[i])) return true;
+		}
+		return false;
+	}
+
+	function bakAttr(el, key, getter) {
+		var dataKey = 'data-' + key + '-bak';
+		if (!el.getAttribute(dataKey)) el.setAttribute(dataKey, getter(el));
+	}
+
+	function bakFilter(el) {
+		bakAttr(el, 'fw-filter', function (n) { return n.getAttribute('fw-filter') || ''; });
+	}
+
+	function stripIsFill(filter) {
+		return (filter || '').split('&').filter(function (part) {
+			return part && part !== 'isFill';
+		}).join('&');
+	}
+
+	function setFilterOptional(el, optional) {
+		if (!el || el.type === 'hidden') return;
+		bakFilter(el);
+		var bak = el.getAttribute('data-fw-filter-bak') || '';
+		el.setAttribute('fw-filter', optional ? stripIsFill(bak) : bak);
+	}
+
+	function setRowIconsOptional(row, optional) {
+		if (!row) return;
+		var icons = row.querySelectorAll('img.icoRequired, .icoRequired');
+		for (var i = 0; i < icons.length; i++) {
+			var icon = icons[i];
+			bakAttr(icon, 'req', function (n) {
+				return n.classList.contains('displaynone') ? '0' : '1';
+			});
+			if (optional) icon.classList.add('displaynone');
+			else if (icon.getAttribute('data-req-bak') === '1') icon.classList.remove('displaynone');
+			else icon.classList.add('displaynone');
+		}
+	}
+
+	function setHiddenVal(id, optionalVal, useOptional) {
+		var el = document.getElementById(id);
+		if (!el) return;
+		bakAttr(el, 'val', function (n) { return n.value || ''; });
+		el.value = useOptional ? optionalVal : (el.getAttribute('data-val-bak') || el.value);
+	}
+
+	function rowOf(id) {
+		var el = document.getElementById(id);
+		return el ? el.closest('tr') : null;
+	}
+
+	function eachField(row, fn) {
+		if (!row) return;
+		var els = row.querySelectorAll('input:not([type="hidden"]), select, textarea');
+		for (var i = 0; i < els.length; i++) fn(els[i]);
+	}
+
 	function syncBizCert() {
 		var show = isBizMember();
 		var input = document.getElementById('add1');
 		if (!input) return;
 		var tr = input.closest('tr');
 		if (!tr) return;
-		if (!input.getAttribute('data-fw-filter-bak')) {
-			input.setAttribute('data-fw-filter-bak', input.getAttribute('fw-filter') || '');
-		}
+		bakFilter(input);
 		if (show) {
 			tr.classList.remove('displaynone');
 			tr.style.removeProperty('display');
@@ -459,6 +519,58 @@
 			input.setAttribute('fw-filter', '');
 			input.value = '';
 			input.setAttribute('disabled', 'disabled');
+		}
+	}
+
+	/* 외국인: 여권필수 / 주소·일반전화 선택 / 휴대전화필수·인증해제 */
+	function syncForeignerFields() {
+		var foreign = isForeignMember();
+		var addrRow = rowOf('addr1') || rowOf('postcode1');
+		var phoneRow = rowOf('phone1') || rowOf('phone2');
+		var mobileRow = rowOf('mobile1') || rowOf('mobile2');
+		var verifyRow = document.getElementById('confirm_verify_mobile');
+		var verifyBtn = document.getElementById('btn_action_verify_mobile');
+		var fssn = document.getElementById('foreigner_ssn');
+
+		eachField(addrRow, function (el) { setFilterOptional(el, foreign); });
+		eachField(phoneRow, function (el) { setFilterOptional(el, foreign); });
+		setRowIconsOptional(addrRow, foreign);
+		setRowIconsOptional(phoneRow, foreign);
+
+		setHiddenVal('display_required_address', 'F', foreign);
+		setHiddenVal('display_required_address2', 'F', foreign);
+		setHiddenVal('display_required_phone', 'F', foreign);
+
+		/* 휴대전화는 필수 유지 */
+		eachField(mobileRow, function (el) { setFilterOptional(el, false); });
+		setRowIconsOptional(mobileRow, false);
+
+		if (verifyBtn) {
+			bakAttr(verifyBtn, 'cls', function (n) {
+				return n.classList.contains('displaynone') ? '0' : '1';
+			});
+			if (foreign) verifyBtn.classList.add('displaynone');
+			else if (verifyBtn.getAttribute('data-cls-bak') === '1') verifyBtn.classList.remove('displaynone');
+		}
+		if (verifyRow) {
+			if (foreign) verifyRow.classList.add('displaynone');
+		}
+		var verifyInput = document.getElementById('verify_sms_number');
+		if (verifyInput) {
+			bakFilter(verifyInput);
+			verifyInput.setAttribute('fw-filter', foreign ? '' : (verifyInput.getAttribute('data-fw-filter-bak') || ''));
+			if (foreign) verifyInput.value = '';
+		}
+		setHiddenVal('isMobileVerify', 'F', foreign);
+
+		if (fssn) {
+			bakFilter(fssn);
+			if (foreign) {
+				var bak = fssn.getAttribute('data-fw-filter-bak') || '';
+				fssn.setAttribute('fw-filter', bak.indexOf('isFill') >= 0 ? bak : (bak ? bak + '&isFill' : 'isFill'));
+			} else {
+				fssn.setAttribute('fw-filter', fssn.getAttribute('data-fw-filter-bak') || '');
+			}
 		}
 	}
 
@@ -474,6 +586,7 @@
 			else cards[i].classList.remove('is-on');
 		}
 		syncBizCert();
+		syncForeignerFields();
 	}
 
 	for (var i = 0; i < cards.length; i++) {
@@ -505,13 +618,23 @@
 	}
 	sync();
 
-	/* 첨부앱이 DOM을 늦게 그려도 외국인일 때 숨김 유지 */
+	/* 첨부앱·카페24 DOM 갱신 후에도 외국인/사업자 규칙 유지 */
 	[500, 1500, 3000].forEach(function (ms) {
-		setTimeout(syncBizCert, ms);
+		setTimeout(function () {
+			syncBizCert();
+			syncForeignerFields();
+		}, ms);
 	});
 	if (window.MutationObserver) {
 		var area = root.querySelector('.xans-member-join') || root;
-		var mo = new MutationObserver(function () { syncBizCert(); });
+		var moTimer = null;
+		var mo = new MutationObserver(function () {
+			if (moTimer) clearTimeout(moTimer);
+			moTimer = setTimeout(function () {
+				syncBizCert();
+				syncForeignerFields();
+			}, 50);
+		});
 		mo.observe(area, { childList: true, subtree: true });
 	}
 })();
