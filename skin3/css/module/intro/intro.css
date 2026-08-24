@@ -449,28 +449,106 @@ body:has(.pg-gate) #container #contents {
 }
 
 @media (max-width: 1024px) {
-	.pg-gate { flex-direction: column; }
+	/* Figma MO_landing 165:10535 — header → image 300 → form */
+	.pg-gate {
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	.pg-gate__hd {
+		position: relative;
+		top: auto;
+		left: auto;
+		right: auto;
+		order: -2;
+		width: 100%;
+		padding: 20px;
+	}
+	.pg-gate__logo,
+	.pg-gate__corp { width: auto; }
+	.pg-gate__logo img {
+		width: 100.5px;
+		height: 24px;
+	}
+	.pg-gate__corp {
+		gap: 2px;
+		font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+		letter-spacing: -0.01em;
+	}
+	.pg-gate__corp svg {
+		width: 16px;
+		height: 16px;
+		flex: 0 0 16px;
+	}
 	.pg-gate__visual {
+		order: -1;
 		flex: none;
 		width: 100%;
 		min-height: 300px;
 		height: 300px;
 	}
 	.pg-gate__form {
-		flex: none;
+		flex: 1 1 auto;
 		width: 100%;
-		padding: 40px 20px 60px;
+		padding: 40px 20px;
 		justify-content: flex-start;
+		min-height: 0;
+	}
+	.pg-gate__panel,
+	.pg-gate.intro .xans-member-login,
+	.pg-gate .xans-member-login.pg-gate__panel,
+	.pg-gate .xans-element-.xans-member.xans-member-login.pg-gate__panel {
+		max-width: none;
+		width: 100%;
+		align-self: stretch;
+		gap: 40px;
+	}
+	.pg-gate.is-join .pg-gate__panel {
+		max-width: none;
+		width: 100%;
+		align-self: stretch;
+	}
+	.pg-gate[data-view="landing"] .pg-gate__form {
+		display: flex;
+		flex-direction: column;
+	}
+	.pg-gate[data-view="landing"] .pg-gate__panel {
+		flex: 1 1 auto;
+		gap: 8px;
+		min-height: 100%;
+	}
+	.pg-gate[data-view="landing"] .pg-gate__copy { gap: 8px; }
+	.pg-gate[data-view="landing"] .pg-gate__sub {
+		font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+		letter-spacing: -0.01em;
+	}
+	.pg-gate[data-view="landing"] .pg-gate__btns {
+		flex-direction: column;
+		align-items: stretch;
+		width: 100%;
+		gap: 6px;
+		margin-top: auto;
+	}
+	.pg-gate[data-view="landing"] .pg-gate__btn {
+		width: 100%;
+		padding: 7px 12px;
+		font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+		letter-spacing: -0.01em;
+	}
+	.pg-gate[data-view="landing"] .pg-gate__btn--solid { order: -1; }
+	.pg-gate h1.pg-gate__title {
+		font-size: 28px;
+		line-height: 1.25;
+		letter-spacing: -0.005em;
+	}
+	.pg-gate h1.pg-gate__title--xl {
+		font-size: 28px;
+		line-height: 1.25;
 	}
 	.pg-gate.is-join .pg-gate__visual {
 		position: relative;
 		height: 300px;
 		min-height: 300px;
 	}
-	.pg-gate.is-join .pg-gate__form { padding: 40px 20px 60px; }
-	.pg-gate__hd { padding: 20px; }
-	.pg-gate__logo,
-	.pg-gate__corp { width: auto; }
-	.pg-gate h1.pg-gate__title--xl { font-size: 32px; }
+	.pg-gate.is-join .pg-gate__form { padding: 40px 20px; }
 }
 
