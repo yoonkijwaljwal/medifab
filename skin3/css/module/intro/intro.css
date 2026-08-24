@@ -384,14 +384,54 @@ body:has(.pg-gate) #container #contents {
 	padding: 160px 80px 120px;
 	overflow: visible;
 }
+/* 입력 구간: 왼쪽 dim 고정, 오른쪽 폼만 스크롤 (#wrap overflow로 sticky 불가) */
+html:has(.pg-gate.is-join[data-join-step="form"]),
+body:has(.pg-gate.is-join[data-join-step="form"]) {
+	height: 100%;
+	overflow: hidden;
+}
+body:has(.pg-gate.is-join[data-join-step="form"]) #wrap,
+body:has(.pg-gate.is-join[data-join-step="form"]) #container,
+body:has(.pg-gate.is-join[data-join-step="form"]) #contents {
+	height: 100%;
+	min-height: 0;
+	overflow: hidden;
+}
+.pg-gate.is-join[data-join-step="form"] {
+	height: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	overflow: hidden;
+	align-items: stretch;
+}
+.pg-gate.is-join[data-join-step="form"] .pg-gate__visual {
+	position: relative;
+	top: auto;
+	height: 100%;
+	min-height: 0;
+	align-self: stretch;
+}
+.pg-gate.is-join[data-join-step="form"] .pg-gate__form {
+	height: 100%;
+	min-height: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	justify-content: flex-start;
+}
 .pg-gate.is-join .pg-gate__panel {
 	gap: 40px;
 	width: 100%;
 	max-width: 560px;
 }
 .pg-gate.is-join[data-join-step="type"] .pg-gate__panel,
+.pg-gate.is-join[data-join-step="form"] .pg-gate__panel,
 .pg-gate.is-agree .pg-gate__panel {
 	gap: 80px;
+}
+.pg-gate.is-join[data-join-step="form"] .pg-gate__sub {
+	line-height: 1.6;
+	letter-spacing: 0;
 }
 .pg-gate.is-join .ec-base-button.gBottom,
 .pg-gate.is-join .ec-base-button {
@@ -565,5 +605,16 @@ body:has(.pg-gate) #container #contents {
 		min-height: 300px;
 	}
 	.pg-gate.is-join .pg-gate__form { padding: 40px 20px; }
+	.pg-gate.is-join[data-join-step="form"] .pg-gate__visual {
+		flex: 0 0 300px;
+		height: 300px;
+		min-height: 300px;
+	}
+	.pg-gate.is-join[data-join-step="form"] .pg-gate__form {
+		flex: 1 1 auto;
+		height: auto;
+		min-height: 0;
+		overflow-y: auto;
+	}
 }
 

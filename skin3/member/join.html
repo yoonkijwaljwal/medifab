@@ -138,11 +138,11 @@
         </colgroup>
         <tbody>
             <tr class="{$display_use_id|display}">
-                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">아이디</th>
+                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">ID</th>
                 <td>{$form.member_id} <div class="txtInfo">(영문소문자/숫자, 4~16자)</div><p id="{$idMsg_id}" class="txtInfo txtSuccess"></p></td>
             </tr>
             <tr>
-                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">비밀번호</th>
+                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">Password</th>
                 <td>
                     <div class="eTooltip">
                         {$form.passwd}
@@ -161,7 +161,7 @@
                 </td>
             </tr>
             <tr>
-                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">비밀번호 확인</th>
+                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">Password Check</th>
                 <td>{$form.user_passwd_confirm} <p class="txtInfo" id="{$pwConfirmMsg_id}"></p></td>
             </tr>
             <tr class="{$display_hint|display}">
@@ -173,7 +173,7 @@
                 <td>{$form.hint_answer}</td>
             </tr>
             <tr>
-                <th scope="row" id="{$name_title}"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">이름</th>
+                <th scope="row" id="{$name_title}"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">Name</th>
                 <td>
                     <span id="{$name_contents}">{$form.name}</span>
                     <p id="under14Msg" class="txtInfo displaynone">14세 미만 사용자는 법정대리인 동의가 필요합니다.</p>
@@ -188,8 +188,8 @@
                 <td id="ssnContents"></td>
             </tr>
             <tr id="{$companyRow}">
-                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">상호명</th>
-                <td id="companyName">{$form.cname}</td>
+                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">Organization</th>
+                <td id="companyName">{$form.cname}<div class="txtInfo">병원 또는 클리닉명</div></td>
             </tr>
             <tr id="{$companyNoRow}">
                 <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">사업자번호</th>
@@ -212,7 +212,7 @@
                 <td class="formGroup code">{$form.phone}</td>
             </tr>
             <tr class="{$display_mobile|display}">
-                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_cell|display}" alt="필수">휴대전화</th>
+                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_cell|display}" alt="필수">Contact</th>
                 <td class="formGroup code">
                     {$form.mobile}<button type="button" id="{$btn_action_verify_mobile}" class="btnNormal {$display_verify_mobile|display}" onclick="{$action_verify_mobile}">인증번호</button>
                     <p class="txtInfo {$bDisplayMobileVerifyInfoDefault|display} error" id="{$result_send_verify_mobile_fail}"></p>
@@ -233,7 +233,7 @@
                 </td>
             </tr>
             <tr>
-                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">이메일</th>
+                <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">E-mail</th>
                 <td>{$form.email} <p class="txtInfo" id="{$emailMsg_id}"></p></td>
             </tr>
             <tr class="{$display_is_lifetime|display}">
@@ -318,8 +318,8 @@
                 <td><div class="interest">{$form.inter_check}</div></td>
             </tr>
             <tr class="{$display_add1|display}">
-                <th scope="row">{$title_add1} <img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_add1|display}" alt="필수"></th>
-                <td>{$form.add1}</td>
+                <th scope="row">Verification Documents <img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_add1|display}" alt="필수"></th>
+                <td>{$form.add1}<div class="txtInfo">PDF, JPG, PNG, ZIP · 최대 5개 · 합계 10MB</div></td>
             </tr>
             <tr class="{$display_add2|display}">
                 <th scope="row">{$title_add2} <img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_add2|display}" alt="필수"></th>
@@ -651,7 +651,11 @@
 			root.setAttribute('data-join-step', 'form');
 			syncBizCert();
 			syncForeignerFields();
-			try { window.scrollTo(0, 0); } catch (err) {}
+			try {
+				window.scrollTo(0, 0);
+				var formPane = root.querySelector('.pg-gate__form');
+				if (formPane) formPane.scrollTop = 0;
+			} catch (err) {}
 		});
 	}
 
