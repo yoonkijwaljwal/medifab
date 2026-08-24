@@ -892,20 +892,34 @@
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-between;
-	margin: 16px 0 0;
+	margin: 32px 0 0;
 	padding: 0;
 	border: 0;
 	font: var(--mf-b14);
 	color: var(--Neutral\/Wood);
 	background: transparent;
 }
-.pg-detail .totalPrice span,
-.pg-detail .totalPrice strong,
-.pg-detail .totalPrice em {
+.pg-detail .totalPrice > span[class*="total"] {
+	display: flex;
+	align-items: center;
+	gap: 0;
+}
+.pg-detail .totalPrice span strong,
+.pg-detail .totalPrice span em {
 	font: var(--mf-b16);
 	font-style: normal;
 	font-weight: 400;
 	color: var(--Neutral\/Dark);
+}
+/* Cafe24 수량 표기 "(0개)" 숨김 — 피그마는 금액만 */
+.pg-detail .totalPrice > span[class*="total"] {
+	font-size: 0;
+	line-height: 0;
+}
+.pg-detail .totalPrice > span[class*="total"] strong,
+.pg-detail .totalPrice > span[class*="total"] em {
+	font-size: 16px;
+	line-height: 1.52;
 }
 .pg-detail .productAction {
 	margin: 16px 0 0;
@@ -971,12 +985,19 @@
 	color: var(--Neutral\/Dark);
 }
 .pg-detail .xans-product-additional { margin: 0; padding: 0; }
+.pg-detail #prdDetail { display: none; }
+.pg-detail > .pg-detail__long {
+	display: block;
+	width: 100%;
+	margin: 0;
+}
 
 @media (max-width: 1024px) {
 	.pg-detail .xans-product-detail .detailArea {
 		flex-direction: column;
-		padding: 140px 40px 80px;
-		gap: 40px;
+		align-items: stretch;
+		padding: 0;
+		gap: 0;
 	}
 	.pg-detail .xans-product-detail .imgArea,
 	.pg-detail .xans-product-detail .infoArea {
@@ -987,17 +1008,143 @@
 		padding: 0;
 	}
 	.pg-detail .xans-product-detail .infoArea > * { max-width: none; }
-	.pg-detail .pg-detail__tabs,
-	.pg-detail .pg-detail__panels,
-	.pg-detail .productAction,
-	.pg-detail .ec-base-desc.quantity { max-width: none; }
+	.pg-detail .imgArea .RW { display: none; }
+	.pg-detail .imgArea .RTMB { display: block; }
+	.pg-detail .imgArea .prdImg,
+	.pg-detail .imgArea .prdImg .thumbnail,
+	.pg-detail .imgArea .RTMB .prdImg {
+		aspect-ratio: 1 / 1;
+		width: 100%;
+		margin: 0;
+		background: var(--Neutral\/Warm);
+	}
+	.pg-detail .imgArea .RTMB .prdImg img,
+	.pg-detail .imgArea .RTMB .thumbnail img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.pg-detail .headingArea {
+		margin: 0;
+		padding: 16px 20px 0;
+	}
+	.pg-detail .pg-detail__brand {
+		margin: 0 0 6px;
+		font-size: 12px;
+		line-height: 1.36;
+	}
+	.pg-detail .headingArea h1 {
+		font: var(--mf-b16);
+		letter-spacing: -0.01em;
+		line-height: 1.52;
+	}
+	.pg-detail .pg-detail__sub {
+		margin: 4px 0 0;
+		color: var(--Neutral\/Wood);
+	}
+	.pg-detail .xans-product-detaildesign {
+		margin: 0;
+		padding: 16px 20px;
+	}
+	.pg-detail .xans-product-detaildesign > table > tbody > tr:nth-child(2) td,
+	.pg-detail .xans-product-detaildesign > table > tbody > tr:nth-child(2) {
+		font: var(--mf-b14);
+		letter-spacing: -0.01em;
+	}
+	.pg-detail .xans-product-option {
+		margin: 0;
+		padding: 16px 20px 0;
+		box-sizing: border-box;
+	}
+	.pg-detail .xans-product-option tr { margin: 0 0 16px; }
+	.pg-detail .xans-product-option tr:last-child { margin-bottom: 0; }
+	.pg-detail .xans-product-option th,
+	.pg-detail .ec-base-desc.quantity dt {
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+	}
+	.pg-detail .xans-product-option .ec-product-button { gap: 6px; }
+	.pg-detail .ec-base-desc.quantity {
+		margin: 0;
+		max-width: none;
+		padding: 16px 20px;
+		box-sizing: border-box;
+	}
+	.pg-detail .ec-base-qty { gap: 16px; }
+	.pg-detail .ec-base-qty input[type="text"] {
+		width: 16px;
+		height: 16px;
+	}
+	.pg-detail .ec-base-qty .up,
+	.pg-detail .ec-base-qty .down {
+		width: 16px;
+		height: 16px;
+	}
+	.pg-detail .ec-base-qty .down:before,
+	.pg-detail .ec-base-qty .up:before {
+		left: 2.5px;
+		top: 7.5px;
+		width: 11px;
+	}
+	.pg-detail .ec-base-qty .up:after {
+		left: 7.5px;
+		top: 2.5px;
+		height: 11px;
+	}
+	.pg-detail .totalPrice {
+		margin: 0;
+		padding: 0 20px;
+		font: var(--mf-b13);
+		box-sizing: border-box;
+	}
+	.pg-detail .totalPrice > span[class*="total"] strong,
+	.pg-detail .totalPrice > span[class*="total"] em {
+		font-size: 14px;
+		line-height: 1.54;
+	}
+	.pg-detail .productAction {
+		margin: 16px 0 0;
+		padding: 0 20px 32px;
+		max-width: none;
+		box-sizing: border-box;
+	}
+	.pg-detail .action_button .actionCart,
+	.pg-detail .action_button .sub_sold {
+		padding: 7px 12px;
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+		line-height: 1.42;
+	}
+	.pg-detail .pg-detail__tabs {
+		max-width: none;
+		margin: 0;
+		padding: 16px 20px 4px;
+		box-sizing: border-box;
+	}
+	.pg-detail .pg-detail__tabs button {
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+		line-height: 1.42;
+	}
+	.pg-detail .pg-detail__tabs button[data-tab="ret"] { flex: 1 1 0; }
+	.pg-detail .pg-detail__panels {
+		max-width: none;
+		margin: 0;
+		padding: 12px 20px 60px;
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+		line-height: 1.42;
+		box-sizing: border-box;
+	}
+	.pg-detail .pg-detail__long {
+		margin: 0;
+		width: 100%;
+	}
+	.pg-detail #orderFixArea { display: none !important; }
 }
 
 @media (max-width: 768px) {
 	.pg-detail .xans-product-detail .imgArea,
-	.pg-detail .xans-product-detail .infoArea { padding-left: 20px; padding-right: 20px; }
-	.pg-detail .xans-product-detail .imgArea { padding-top: 96px; }
-	.pg-detail .imgArea .RW { display: none; }
-	.pg-detail .imgArea .RTMB { display: block; }
-	.pg-detail #orderFixArea { display: block; }
+	.pg-detail .xans-product-detail .infoArea { padding-left: 0; padding-right: 0; }
+	.pg-detail .xans-product-detail .imgArea { padding-top: 0; }
 }

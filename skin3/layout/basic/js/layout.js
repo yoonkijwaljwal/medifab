@@ -137,11 +137,26 @@ function mfDetailPage() {
 	var page = document.querySelector('.pg-detail');
 	if (!page) return;
 
+	var detailArea = page.querySelector('.detailArea');
 	var imgArea = page.querySelector('.imgArea');
-	var desc = page.querySelector('#prdDetail > div');
-	if (imgArea && desc && !desc.classList.contains('pg-detail__long')) {
+	var desc = page.querySelector('.pg-detail__long') || page.querySelector('#prdDetail > div');
+	if (desc) {
 		desc.classList.add('pg-detail__long');
-		imgArea.appendChild(desc);
+		var placeLong = function () {
+			if (!desc || !detailArea) return;
+			if (window.matchMedia('(max-width: 1024px)').matches) {
+				if (detailArea.parentNode && desc.previousSibling !== detailArea) {
+					detailArea.parentNode.insertBefore(desc, detailArea.nextSibling);
+				}
+			} else if (imgArea && desc.parentNode !== imgArea) {
+				imgArea.appendChild(desc);
+			}
+		};
+		placeLong();
+		if (!page._mfDetailLongBound) {
+			page._mfDetailLongBound = true;
+			window.addEventListener('resize', placeLong);
+		}
 	}
 
 	var brand = page.querySelector('.pg-detail__brand');
