@@ -235,7 +235,7 @@
 .xans-member-join .required {font-size:14px;color:#1a1a1a;}
 .xans-member-join .icoRequired {margin-right:12px;}
 .xans-member-join .ec-base-table {border-top:2px solid #1a1a1a;}
-.xans-member-join .ec-base-table.typeWrite th[scope*="row"] {padding-left:16px;font-weight:400;font-size:14px;color:#1a1a1a;}
+.xans-member-join .ec-base-table.typeWrite th[scope*="row"] {padding-left:0;font-weight:400;font-size:14px;color:#1a1a1a;}
 .xans-member-join .ec-base-table.typeWrite td input[type="text"],
 .xans-member-join .ec-base-table.typeWrite td input[type="password"],
 .xans-member-join .ec-base-table.typeWrite td select,
