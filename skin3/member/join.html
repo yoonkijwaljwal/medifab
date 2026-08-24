@@ -431,6 +431,37 @@
 		return null;
 	}
 
+	function isBizMember() {
+		var list = radios();
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].checked && matchRadio('c', list[i])) return true;
+		}
+		return false;
+	}
+
+	function syncBizCert() {
+		var show = isBizMember();
+		var input = document.getElementById('add1');
+		if (!input) return;
+		var tr = input.closest('tr');
+		if (!tr) return;
+		if (!input.getAttribute('data-fw-filter-bak')) {
+			input.setAttribute('data-fw-filter-bak', input.getAttribute('fw-filter') || '');
+		}
+		if (show) {
+			tr.classList.remove('displaynone');
+			tr.style.removeProperty('display');
+			input.setAttribute('fw-filter', input.getAttribute('data-fw-filter-bak') || '');
+			input.removeAttribute('disabled');
+		} else {
+			/* 숨김 + 필수검증 해제 → 외국인 가입 가능 */
+			tr.classList.add('displaynone');
+			input.setAttribute('fw-filter', '');
+			input.value = '';
+			input.setAttribute('disabled', 'disabled');
+		}
+	}
+
 	function sync() {
 		var list = radios();
 		for (var i = 0; i < cards.length; i++) {
@@ -442,6 +473,7 @@
 			if (on) cards[i].classList.add('is-on');
 			else cards[i].classList.remove('is-on');
 		}
+		syncBizCert();
 	}
 
 	for (var i = 0; i < cards.length; i++) {
@@ -472,6 +504,16 @@
 		if (company) company.click();
 	}
 	sync();
+
+	/* 첨부앱이 DOM을 늦게 그려도 외국인일 때 숨김 유지 */
+	[500, 1500, 3000].forEach(function (ms) {
+		setTimeout(syncBizCert, ms);
+	});
+	if (window.MutationObserver) {
+		var area = root.querySelector('.xans-member-join') || root;
+		var mo = new MutationObserver(function () { syncBizCert(); });
+		mo.observe(area, { childList: true, subtree: true });
+	}
 })();
 </script>
 <script>
