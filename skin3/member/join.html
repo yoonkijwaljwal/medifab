@@ -28,9 +28,9 @@
         $isRuleBasedAddrForm = T
      -->
 	<div class="join-type" data-join-type>
-		<button type="button" class="join-type__card" data-join-type="p">
-			<span class="join-type__en">KOREAN</span>
-			<strong class="join-type__ko">내국인</strong>
+		<button type="button" class="join-type__card" data-join-type="c">
+			<span class="join-type__en">BUSINESS</span>
+			<strong class="join-type__ko">사업자</strong>
 			<span class="join-type__desc">국내 의료기관·클리닉·에스테틱 사업자를 대상으로 합니다.</span>
 		</button>
 		<button type="button" class="join-type__card" data-join-type="f">
@@ -418,7 +418,7 @@
 			if (lab) label = (lab.textContent || '').toLowerCase();
 		}
 		var blob = val + ' ' + id + ' ' + label;
-		if (type === 'p') return val === 'p' || /개인|내국|person/.test(blob);
+		if (type === 'c') return val === 'c' || /사업|법인|company|business/.test(blob);
 		if (type === 'f') return val === 'f' || /외국|foreign/.test(blob);
 		return val === type;
 	}
@@ -459,6 +459,28 @@
 	for (var r = 0; r < list.length; r++) {
 		list[r].addEventListener('change', sync);
 	}
+
+	var matched = false;
+	for (var m = 0; m < cards.length; m++) {
+		var cardType = cards[m].getAttribute('data-join-type');
+		for (var n = 0; n < list.length; n++) {
+			if (list[n].checked && matchRadio(cardType, list[n])) matched = true;
+		}
+	}
+	if (!matched) {
+		var company = findRadio('c');
+		if (company) company.click();
+	}
 	sync();
+})();
+</script>
+<script>
+(function () {
+	/* shop-p 첨부파일 앱: 멀티샵(shop4)에 앱스크립트가 안 붙을 때 강제 로드 */
+	if (document.querySelector('script[src*="attachment-prod-bucket/_media/public/scripttag/"]')) return;
+	var s = document.createElement('script');
+	s.src = 'https://s3.ap-northeast-2.amazonaws.com/attachment-prod-bucket/_media/public/scripttag/resnovae_1966304404543.js?client_id=e0hcKjXUbKWHzpMeianxuN';
+	s.async = true;
+	document.body.appendChild(s);
 })();
 </script>
