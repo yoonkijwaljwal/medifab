@@ -522,7 +522,7 @@
 		}
 	}
 
-	/* 외국인: 여권·주소·일반전화 선택 / 휴대전화필수·인증해제 */
+	/* 외국인: 여권숨김 / 주소·일반전화 선택 / 휴대전화필수·인증해제 */
 	function syncForeignerFields() {
 		var foreign = isForeignMember();
 		var addrRow = rowOf('addr1') || rowOf('postcode1');
@@ -531,7 +531,6 @@
 		var verifyRow = document.getElementById('confirm_verify_mobile');
 		var verifyBtn = document.getElementById('btn_action_verify_mobile');
 		var fssn = document.getElementById('foreigner_ssn');
-		var fssnRow = fssn ? fssn.closest('tr') || fssn.closest('dl') || fssn.parentElement : null;
 
 		eachField(addrRow, function (el) { setFilterOptional(el, foreign); });
 		eachField(phoneRow, function (el) { setFilterOptional(el, foreign); });
@@ -564,9 +563,23 @@
 		}
 		setHiddenVal('isMobileVerify', 'F', foreign);
 
-		/* 여권번호 필수 해제 */
-		if (fssn) setFilterOptional(fssn, foreign);
-		if (fssnRow) setRowIconsOptional(fssnRow, foreign);
+		/* 여권번호(유형 라벨 + 입력 + 중복확인) 숨김 */
+		if (fssn) {
+			setFilterOptional(fssn, true);
+			fssn.value = '';
+			if (foreign) fssn.setAttribute('disabled', 'disabled');
+			else fssn.removeAttribute('disabled');
+			var fssnDd = fssn.closest('dd');
+			var fssnDt = fssnDd ? fssnDd.previousElementSibling : null;
+			if (fssnDd) {
+				if (foreign) fssnDd.classList.add('displaynone');
+				else fssnDd.classList.remove('displaynone');
+			}
+			if (fssnDt && fssnDt.tagName === 'DT') {
+				if (foreign) fssnDt.classList.add('displaynone');
+				else fssnDt.classList.remove('displaynone');
+			}
+		}
 	}
 
 	function sync() {
