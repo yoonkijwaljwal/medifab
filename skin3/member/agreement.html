@@ -1,5 +1,5 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="pg-gate is-login is-join" data-hd="light">
+<div class="pg-gate is-login is-join is-agree" data-hd="light">
 	<div class="pg-gate__visual">
 		<img src="/SkinImg/img/medifab/gate_visual.png" alt="">
 		<div class="pg-gate__dim"></div>
@@ -17,11 +17,12 @@
 <div module="member_join">
     <!--@js(/js/module/member/join_agreement.js)-->
     <!--@css(/css/module/member/join_agreement.css)-->
+    <div class="agreeWrap">
     <div class="agreeAll">
         <h3>전체 동의</h3>
         <p>
             {$sAgreeAllChecked}
-            <label for="sAgreeAllChecked"><strong>{$sAgreeAllMsgTitle}</strong></label>
+            <label for="sAgreeAllChecked"><strong>모든 약관을 확인하고 전체 동의합니다.</strong></label>
             <p class="desc">{$sAgreeAllMsgSubTitle}</p>
         </p>
     </div>
@@ -43,7 +44,7 @@
             </div>
             <div class="{$display_privacy_optional|display} agreeArea">
                 <div class="title">
-                    <h3>{$form.agree_privacy_optional_check}<label for="agree_privacy_optional_check0" class="check">개인정보 수집 및 이용 동의 (선택)</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
+                    <h3>{$form.agree_privacy_optional_check}<label for="agree_privacy_optional_check0" class="check">[선택] 개인정보 수집 및 이용 동의</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
                 </div>
                 <div class="contents">
                     {$privacy_optional_desc}
@@ -51,13 +52,13 @@
             </div>
             <div class="{$display_information|display} agreeArea">
                 <div class="title">
-                    <h3>{$form.agree_information_check}<label for="agree_information_check0" class="check">개인정보 제3자 제공 동의 (선택)</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
+                    <h3>{$form.agree_information_check}<label for="agree_information_check0" class="check">[선택] 개인정보 제3자 제공 동의</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
                 </div>
                 <div class="contents">{$information_desc}</div>
             </div>
             <div class="{$display_consignment|display} agreeArea">
                 <div class="title">
-                    <h3>{$form.agree_consignment_check}<label for="agree_consignment_check0" class="check">개인정보 처리 위탁 동의 (선택)</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
+                    <h3>{$form.agree_consignment_check}<label for="agree_consignment_check0" class="check">[선택] 개인정보 처리 위탁 동의</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
                 </div>
                 <div class="contents">{$consignment_desc}</div>
             </div>
@@ -151,10 +152,10 @@
             </div>
             <div class="agreeArea {$display_marketing|display}">
                 <div class="title">
-                    <h3>{$sMarketingAgreeAllChecked}<label for="sMarketingAgreeAllChecked" class="check">쇼핑정보 수신 동의 (선택)</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
+                    <h3>{$sMarketingAgreeAllChecked}<label for="sMarketingAgreeAllChecked" class="check">[선택] 쇼핑정보 수신 동의</label><i aria-hidden="true" class="icon icoArrowBottom btnToggle"></i></h3>
                     <ul class="additional">
-                        <li class="{$display_is_sms|display}">{$form.is_sms}<label for="is_sms0" class="check">모바일 메시지 수신 동의 (선택)</label></li>
-                        <li class="{$display_is_news_mail|display}">{$form.is_news_mail}<label for="is_news_mail0" class="check">이메일 수신 동의 (선택)</label></li>
+                        <li class="{$display_is_sms|display}">{$form.is_sms}<label for="is_sms0" class="check">[선택] 모바일 메시지 수신 동의</label></li>
+                        <li class="{$display_is_news_mail|display}">{$form.is_news_mail}<label for="is_news_mail0" class="check">[선택] 이메일 수신 동의</label></li>
                     </ul>
                 </div>
                 <div class="contents">
@@ -164,9 +165,10 @@
             </div>
         </div>
     </div>
+    </div>
 
     <div class="ec-base-button gBottom">
-        <button type="button" class="btnSubmitFix sizeM" onclick="checkAgreement('/member/join.html');">Next</button>
+        <button type="button" class="btnSubmitFix sizeM is-disabled" id="agreeNextBtn" onclick="checkAgreement('/member/join.html');">Next</button>
         <a href="#none" class="btnNormalFix sizeM" onclick="history.go(-1); return false;">Cancel</a>
     </div>
 </div>

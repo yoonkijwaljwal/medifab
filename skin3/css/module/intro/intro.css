@@ -230,7 +230,7 @@ body:has(.pg-gate) #container #contents {
 .pg-gate fieldset.form {
 	display: flex;
 	flex-direction: column;
-	gap: 40px;
+	gap: 20px;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -389,6 +389,10 @@ body:has(.pg-gate) #container #contents {
 	width: 100%;
 	max-width: 560px;
 }
+.pg-gate.is-join[data-join-step="type"] .pg-gate__panel,
+.pg-gate.is-agree .pg-gate__panel {
+	gap: 80px;
+}
 .pg-gate.is-join .ec-base-button.gBottom,
 .pg-gate.is-join .ec-base-button {
 	display: flex;
@@ -418,6 +422,17 @@ body:has(.pg-gate) #container #contents {
 	box-sizing: border-box;
 	text-decoration: none;
 	cursor: pointer;
+}
+.pg-gate.is-agree .ec-base-button .btnSubmitFix.is-disabled,
+.pg-gate.is-agree .ec-base-button button.btnSubmitFix.is-disabled,
+.pg-gate.is-agree .ec-base-button .btnSubmitFix[aria-disabled="true"],
+.pg-gate.is-join .ec-base-button .btnSubmitFix.is-disabled,
+.pg-gate.is-join .ec-base-button button.btnSubmitFix.is-disabled,
+.pg-gate.is-join .ec-base-button .btnSubmitFix[aria-disabled="true"] {
+	background: #cacaca;
+	color: #878787;
+	cursor: default;
+	pointer-events: none;
 }
 .pg-gate.is-join .ec-base-button .btnNormalFix,
 .pg-gate.is-join .ec-base-button .btnNormal {

@@ -16,40 +16,67 @@
 .agreeArea .title { position:relative; }
 .agreeArea .title .btnToggle { position:absolute; right:0; cursor: pointer; overflow: visible; }
 .agreeArea .title .btnToggle:before { content:''; display: block; position: absolute; width: 100%; height: 100%; transform: scale(3); }
-.agreeArea.on .title .btnToggle { transform: rotate(135deg); }
+.agreeArea.on .title .btnToggle { transform: rotate(180deg); }
 .agreeArea .contents {display:none;}
 .agreeArea.on .contents {display:block;}
 
-.pg-gate.is-join .xans-member-join label,
-.pg-gate.is-join .xans-member-join label.check { display:inline; }
-.pg-gate.is-join .xans-member-join { width: 100%; }
-.pg-gate.is-join .xans-member-join .agreeAll {
+/* Figma PC_join 167:11610 */
+.pg-gate.is-agree .xans-member-join label,
+.pg-gate.is-agree .xans-member-join label.check { display:inline; }
+.pg-gate.is-agree .xans-member-join {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 10px;
-	margin: 0 0 12px;
-	padding: 0 0 12px;
-	border-bottom: 1px solid var(--Neutral\/Cool, #e5e2dc);
-	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
-	color: var(--Neutral\/Dark, #333);
-}
-.pg-gate.is-join .xans-member-join .agreeAll h3 { display: none; }
-.pg-gate.is-join .xans-member-join .agreeAll p { margin: 0; }
-.pg-gate.is-join .xans-member-join .agreeAll .desc {
+	flex-direction: column;
+	gap: 40px;
 	width: 100%;
-	margin: 0;
-	font: 400 13px/1.42 "Noto Sans KR", sans-serif;
-	color: var(--Neutral\/Wood, #9b9892);
 }
-.pg-gate.is-join .xans-member-join .agreeInner {
+.pg-gate.is-agree .xans-member-join .agreeWrap {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 	width: 100%;
 }
-.pg-gate.is-join .xans-member-join .agreeInner .left,
-.pg-gate.is-join .xans-member-join .agreeInner .right {
+.pg-gate.is-agree .xans-member-join .agreeAll {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	margin: 0;
+	padding: 0 0 12px;
+	border-bottom: 1px solid var(--Neutral\/Cool, #e5e2dc);
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+	letter-spacing: -0.01em;
+}
+.pg-gate.is-agree .xans-member-join .agreeAll h3 { display: none; }
+.pg-gate.is-agree .xans-member-join .agreeAll > p {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	margin: 0;
+}
+.pg-gate.is-agree .xans-member-join .agreeAll label {
+	display: inline;
+	width: auto;
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+	letter-spacing: -0.01em;
+	cursor: pointer;
+}
+.pg-gate.is-agree .xans-member-join .agreeAll label strong {
+	font-weight: 400;
+}
+.pg-gate.is-agree .xans-member-join .agreeAll .desc { display: none; }
+.pg-gate.is-agree .xans-member-join .agreeInner {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+	margin: 0;
+}
+.pg-gate.is-agree .xans-member-join .agreeInner .left,
+.pg-gate.is-agree .xans-member-join .agreeInner .right {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -57,29 +84,58 @@
 	margin: 0;
 	flex: none;
 }
-.pg-gate.is-join .xans-member-join .agreeArea { margin: 0; }
-.pg-gate.is-join .xans-member-join .agreeArea .title h3 {
+.pg-gate.is-agree .xans-member-join .agreeArea { margin: 0; width: 100%; }
+.pg-gate.is-agree .xans-member-join .agreeArea .title h3 {
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
 	color: var(--Neutral\/Dark, #333);
+	letter-spacing: -0.01em;
 }
-.pg-gate.is-join .xans-member-join .agreeArea .title .btnToggle {
+.pg-gate.is-agree .xans-member-join .agreeArea .title .btnToggle {
 	position: static;
+	display: block;
+	width: 20px;
+	height: 20px;
 	margin-left: auto;
+	flex: 0 0 20px;
+	background: none;
 }
-.pg-gate.is-join .xans-member-join .agreeArea .title .btnToggle:before { transform: none; }
-.pg-gate.is-join .xans-member-join input[type="checkbox"] {
+.pg-gate.is-agree .xans-member-join .agreeArea .title .btnToggle:before {
+	content: '';
+	display: block;
+	position: static;
+	width: 20px;
+	height: 20px;
+	transform: none;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23333' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px 20px no-repeat;
+}
+.pg-gate.is-agree .xans-member-join input[type="checkbox"] {
 	width: 16px;
 	height: 16px;
 	margin: 0;
-	accent-color: var(--Neutral\/Dark, #333);
+	padding: 0;
+	border: 1px solid var(--Neutral\/Dark, #333);
+	border-radius: 0;
+	appearance: none;
+	-webkit-appearance: none;
+	background: #fff;
+	box-sizing: border-box;
 	flex: 0 0 16px;
+	cursor: pointer;
+	vertical-align: middle;
 }
-.pg-gate.is-join .xans-member-join .agreeArea .contents {
+.pg-gate.is-agree .xans-member-join input[type="checkbox"]:checked {
+	background: var(--Neutral\/Dark, #333);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6L5 8.5L9.5 3.5' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.pg-gate.is-agree .xans-member-join .agreeArea .contents {
 	height: auto;
 	max-height: 160px;
 	margin: 8px 0 0;
@@ -89,17 +145,35 @@
 	font: 400 13px/1.55 "Noto Sans KR", sans-serif;
 	color: var(--Neutral\/Wood, #9b9892);
 }
-.pg-gate.is-join .xans-member-join .agreeArea .additional {
+.pg-gate.is-agree .xans-member-join .agreeArea .additional {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
-	margin: 8px 0 0;
-	padding: 0;
+	gap: 12px;
+	margin: 12px 0 0;
+	padding: 0 0 0 26px;
 }
-.pg-gate.is-join .xans-member-join .agreeArea .additional li { display: block; margin: 0; }
+.pg-gate.is-agree .xans-member-join .agreeArea .additional li {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+}
+.pg-gate.is-agree .xans-member-join .agreeArea .additional label.check {
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Dark, #333);
+	letter-spacing: -0.01em;
+	cursor: pointer;
+}
+.pg-gate.is-agree .xans-member-join .ec-base-button.gBottom {
+	margin-top: 0;
+}
 
 @media all and (max-width:1024px) {
 	.xans-member-join .agreeArea { margin:0 0 30px; }
+	.pg-gate.is-agree .xans-member-join .agreeArea { margin: 0; }
+	.pg-gate.is-agree .xans-member-join { gap: 32px; }
 }
 
 @media all and (min-width:1025px) {
@@ -109,12 +183,12 @@
     .xans-member-join .agreeArea.terms .contents { min-height:100%; }
     .xans-member-join .agreeArea.terms { margin:0 0 40px; }
     .xans-member-join .agreeArea + .agreeArea { margin:40px 0 0; }
-	.pg-gate.is-join .xans-member-join .agreeInner {
+	.pg-gate.is-agree .xans-member-join .agreeInner {
 		display: flex;
 		flex-direction: column;
 	}
-	.pg-gate.is-join .xans-member-join .left,
-	.pg-gate.is-join .xans-member-join .right { margin: 0; }
-	.pg-gate.is-join .xans-member-join .agreeArea.terms,
-	.pg-gate.is-join .xans-member-join .agreeArea + .agreeArea { margin: 0; }
+	.pg-gate.is-agree .xans-member-join .left,
+	.pg-gate.is-agree .xans-member-join .right { margin: 0; }
+	.pg-gate.is-agree .xans-member-join .agreeArea.terms,
+	.pg-gate.is-agree .xans-member-join .agreeArea + .agreeArea { margin: 0; }
 }

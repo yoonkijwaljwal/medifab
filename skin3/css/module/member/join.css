@@ -64,11 +64,28 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
     .xans-member-join #partner_day { width:86px; }
 }
 
+.pg-gate.is-join[data-join-step="type"] [data-join-copy="form"],
+.pg-gate.is-join[data-join-step="type"] [data-join-panel="form"] {
+	display: none;
+}
+.pg-gate.is-join[data-join-step="form"] [data-join-copy="type"],
+.pg-gate.is-join[data-join-step="form"] [data-join-panel="type"] {
+	display: none;
+}
+.pg-gate.is-join[data-join-step="type"] .join-step--type {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	width: 100%;
+}
 .pg-gate.is-join .join-type {
 	display: flex;
 	gap: 10px;
 	width: 100%;
 	margin: 0 0 40px;
+}
+.pg-gate.is-join[data-join-step="type"] .join-type {
+	margin: 0;
 }
 .pg-gate.is-join .join-type__card {
 	display: flex;

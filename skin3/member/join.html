@@ -1,5 +1,5 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="pg-gate is-login is-join" data-hd="light">
+<div class="pg-gate is-login is-join" data-hd="light" data-join-step="type">
 	<div class="pg-gate__visual">
 		<img src="/SkinImg/img/medifab/gate_visual.png" alt="">
 		<div class="pg-gate__dim"></div>
@@ -10,11 +10,33 @@
 	</header>
 	<div class="pg-gate__form">
 		<div class="pg-gate__panel">
-			<div class="pg-gate__copy">
+			<div class="pg-gate__copy" data-join-copy="type">
+				<h1 class="pg-gate__title">Apply Now</h1>
+				<p class="pg-gate__sub">Please select your membership type.</p>
+			</div>
+			<div class="pg-gate__copy" data-join-copy="form">
 				<h1 class="pg-gate__title">Apply Now</h1>
 				<p class="pg-gate__sub">승인된 의료·에스테틱 전문가만 가입할 수 있습니다.</p>
 			</div>
-<div module="member_join" class="memberArea">
+			<div class="join-step join-step--type" data-join-panel="type">
+				<div class="join-type" data-join-type>
+					<button type="button" class="join-type__card" data-join-type="c">
+						<span class="join-type__en">KOREAN</span>
+						<strong class="join-type__ko">국내 사업자</strong>
+						<span class="join-type__desc">국내 의료기관·클리닉·에스테틱 사업자를 대상으로 합니다.</span>
+					</button>
+					<button type="button" class="join-type__card" data-join-type="f">
+						<span class="join-type__en">INTERNATIONAL</span>
+						<strong class="join-type__ko">외국인</strong>
+						<span class="join-type__desc">Overseas medical and aesthetic professionals are welcome.</span>
+					</button>
+				</div>
+				<div class="ec-base-button gBottom">
+					<button type="button" class="btnSubmitFix sizeM is-disabled" id="joinTypeNext" aria-disabled="true">Next</button>
+					<a href="#none" class="btnNormalFix sizeM" onclick="history.go(-1); return false;">Cancel</a>
+				</div>
+			</div>
+<div module="member_join" class="memberArea join-step join-step--form" data-join-panel="form">
     <!--@css(/css/module/member/join.css)-->
     <!--
         $returnUrl = /member/join_result.html
@@ -27,18 +49,6 @@
         $foreignerSsn3 = 국제운전면허증번호
         $isRuleBasedAddrForm = T
      -->
-	<div class="join-type" data-join-type>
-		<button type="button" class="join-type__card" data-join-type="c">
-			<span class="join-type__en">BUSINESS</span>
-			<strong class="join-type__ko">사업자</strong>
-			<span class="join-type__desc">국내 의료기관·클리닉·에스테틱 사업자를 대상으로 합니다.</span>
-		</button>
-		<button type="button" class="join-type__card" data-join-type="f">
-			<span class="join-type__en">INTERNATIONAL</span>
-			<strong class="join-type__ko">외국인</strong>
-			<span class="join-type__desc">Overseas medical and aesthetic professionals are welcome.</span>
-		</button>
-	</div>
 	<div class="titleArea titleArea--middle {$display_base_column_title|display}">
 		<h3>회원인증</h3>
 	</div>
@@ -582,29 +592,66 @@
 		}
 	}
 
+	var selectedType = null;
+
+	function syncTypeNext() {
+		var next = document.getElementById('joinTypeNext');
+		if (!next) return;
+		if (selectedType) {
+			next.classList.remove('is-disabled');
+			next.setAttribute('aria-disabled', 'false');
+		} else {
+			next.classList.add('is-disabled');
+			next.setAttribute('aria-disabled', 'true');
+		}
+	}
+
 	function sync() {
+		var step = root.getAttribute('data-join-step');
 		var list = radios();
 		for (var i = 0; i < cards.length; i++) {
 			var type = cards[i].getAttribute('data-join-type');
 			var on = false;
-			for (var j = 0; j < list.length; j++) {
-				if (list[j].checked && matchRadio(type, list[j])) on = true;
+			if (step === 'type') {
+				on = selectedType === type;
+			} else {
+				for (var j = 0; j < list.length; j++) {
+					if (list[j].checked && matchRadio(type, list[j])) on = true;
+				}
 			}
 			if (on) cards[i].classList.add('is-on');
 			else cards[i].classList.remove('is-on');
 		}
-		syncBizCert();
-		syncForeignerFields();
+		syncTypeNext();
+		if (step === 'form') {
+			syncBizCert();
+			syncForeignerFields();
+		}
 	}
 
 	for (var i = 0; i < cards.length; i++) {
 		cards[i].addEventListener('click', function(e) {
 			e.preventDefault();
 			var type = this.getAttribute('data-join-type');
+			selectedType = type;
 			var radio = findRadio(type);
-			if (!radio) return;
-			radio.click();
+			if (radio) radio.click();
 			sync();
+		});
+	}
+
+	var typeNext = document.getElementById('joinTypeNext');
+	if (typeNext) {
+		typeNext.addEventListener('click', function(e) {
+			e.preventDefault();
+			if (!selectedType) return;
+			if (this.classList.contains('is-disabled') || this.getAttribute('aria-disabled') === 'true') return;
+			var radio = findRadio(selectedType);
+			if (radio && !radio.checked) radio.click();
+			root.setAttribute('data-join-step', 'form');
+			syncBizCert();
+			syncForeignerFields();
+			try { window.scrollTo(0, 0); } catch (err) {}
 		});
 	}
 
@@ -613,16 +660,25 @@
 		list[r].addEventListener('change', sync);
 	}
 
-	var matched = false;
-	for (var m = 0; m < cards.length; m++) {
-		var cardType = cards[m].getAttribute('data-join-type');
-		for (var n = 0; n < list.length; n++) {
-			if (list[n].checked && matchRadio(cardType, list[n])) matched = true;
+	/* 유형 선택 단계에서는 기본 선택하지 않음 */
+	if (root.getAttribute('data-join-step') !== 'type') {
+		var matched = false;
+		for (var m = 0; m < cards.length; m++) {
+			var cardType = cards[m].getAttribute('data-join-type');
+			for (var n = 0; n < list.length; n++) {
+				if (list[n].checked && matchRadio(cardType, list[n])) {
+					matched = true;
+					selectedType = cardType;
+				}
+			}
 		}
-	}
-	if (!matched) {
-		var company = findRadio('c');
-		if (company) company.click();
+		if (!matched) {
+			var company = findRadio('c');
+			if (company) {
+				company.click();
+				selectedType = 'c';
+			}
+		}
 	}
 	sync();
 
