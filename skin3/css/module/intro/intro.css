@@ -60,9 +60,9 @@ body:has(.pg-gate) #footer,
 body:has(.pg-gate) #header.mf-hd,
 body:has(.pg-gate) #footer.mf-ft,
 body:has(.pg-gate) .footer_margin,
-body:has(.pg-gate) .path,
-body:has(.pg-gate) .titleArea,
-body:has(.pg-gate) .ec-base-step,
+body:has(.pg-gate) .section.path,
+body:has(.pg-gate) .section.titleArea,
+body:has(.pg-gate) .section.ec-base-step,
 .pg-gate-hide { display: none; }
 body:has(.pg-gate) #container #contents {
 	max-width: none;

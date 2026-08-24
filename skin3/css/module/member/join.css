@@ -128,8 +128,7 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	color: var(--Neutral\/Wood, #9b9892);
 	background: none;
 }
-.pg-gate.is-join .xans-member-join .titleArea .required,
-.pg-gate.is-join .xans-member-join .required { display: none; }
+.pg-gate.is-join .xans-member-join .titleArea .required { display: none; }
 .pg-gate.is-join .xans-member-join .ec-base-table,
 .pg-gate.is-join .xans-member-join .ec-base-table table,
 .pg-gate.is-join .xans-member-join .ec-base-table tbody,
@@ -153,6 +152,10 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	padding: 0;
 	border: 0;
 	background: none;
+}
+.pg-gate.is-join .xans-member-join .displaynone,
+.pg-gate.is-join .xans-member-join .ec-base-table tr.displaynone {
+	display: none;
 }
 .pg-gate.is-join .xans-member-join .ec-base-table th,
 .pg-gate.is-join .xans-member-join .ec-base-table td {
