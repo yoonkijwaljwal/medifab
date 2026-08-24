@@ -203,7 +203,7 @@
                 <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired" alt="필수">국적</th>
                 <td>{$form.citizenship}</td>
             </tr>
-            <tr class="{$display_addr|display}">
+            <tr class="{$display_addr|display} join-addr-hide">
                 <th scope="row"><img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_address|display}" alt="필수">주소</th>
                 <td class="formMultiple">{$form.address}</td>
             </tr>
@@ -532,23 +532,33 @@
 		}
 	}
 
-	/* 외국인: 여권숨김 / 주소·일반전화 선택 / 휴대전화필수·인증해제 */
+	function hideJoinAddress() {
+		var addrRow = root.querySelector('tr.join-addr-hide') || rowOf('addr1') || rowOf('postcode1');
+		if (addrRow) {
+			addrRow.classList.add('displaynone');
+			addrRow.style.display = 'none';
+			eachField(addrRow, function (el) {
+				setFilterOptional(el, true);
+				el.value = '';
+			});
+		}
+		setHiddenVal('display_required_address', 'F', true);
+		setHiddenVal('display_required_address2', 'F', true);
+	}
+
+	/* 외국인: 여권숨김 / 일반전화 선택 / 휴대전화필수·인증해제 */
 	function syncForeignerFields() {
 		var foreign = isForeignMember();
-		var addrRow = rowOf('addr1') || rowOf('postcode1');
 		var phoneRow = rowOf('phone1') || rowOf('phone2');
 		var mobileRow = rowOf('mobile1') || rowOf('mobile2');
 		var verifyRow = document.getElementById('confirm_verify_mobile');
 		var verifyBtn = document.getElementById('btn_action_verify_mobile');
 		var fssn = document.getElementById('foreigner_ssn');
 
-		eachField(addrRow, function (el) { setFilterOptional(el, foreign); });
+		hideJoinAddress();
 		eachField(phoneRow, function (el) { setFilterOptional(el, foreign); });
-		setRowIconsOptional(addrRow, foreign);
 		setRowIconsOptional(phoneRow, foreign);
 
-		setHiddenVal('display_required_address', 'F', foreign);
-		setHiddenVal('display_required_address2', 'F', foreign);
 		setHiddenVal('display_required_phone', 'F', foreign);
 
 		/* 휴대전화는 필수 유지 */
@@ -685,12 +695,14 @@
 		}
 	}
 	sync();
+	hideJoinAddress();
 
 	/* 첨부앱·카페24 DOM 갱신 후에도 외국인/사업자 규칙 유지 */
 	[500, 1500, 3000].forEach(function (ms) {
 		setTimeout(function () {
 			syncBizCert();
 			syncForeignerFields();
+			hideJoinAddress();
 		}, ms);
 	});
 	if (window.MutationObserver) {
@@ -701,6 +713,7 @@
 			moTimer = setTimeout(function () {
 				syncBizCert();
 				syncForeignerFields();
+				hideJoinAddress();
 			}, 50);
 		});
 		mo.observe(area, { childList: true, subtree: true });

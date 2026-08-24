@@ -135,6 +135,12 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
+.pg-gate.is-join .join-addr-hide,
+.pg-gate.is-join .xans-member-join tr.join-addr-hide,
+.pg-gate.is-join .xans-member-join tr:has(#addr1),
+.pg-gate.is-join .xans-member-join tr:has(#postcode1) {
+	display: none !important;
+}
 .pg-gate.is-join .xans-member-join .titleArea,
 .pg-gate.is-join .xans-member-join .titleArea h3 {
 	margin: 0 0 12px;
