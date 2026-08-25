@@ -419,6 +419,9 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 .pg-gate.is-join .xans-member-join .verify input {
 	width: 100%;
 }
+.pg-gate.is-join .xans-member-join #company_type0 + label {
+	margin-right: 24px;
+}
 .pg-gate.is-join .xans-member-join .joinConfirm { z-index: 30; }
 .pg-gate.is-join[data-join-step="form"] .xans-member-join .ec-base-button.gBottom {
 	margin-top: 0;
