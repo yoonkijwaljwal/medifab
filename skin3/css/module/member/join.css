@@ -329,10 +329,9 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	flex: 1 1 0;
 	margin: 0;
 }
-/* E-mail: 단일 입력이면 full width, 분할(@)이면 flex */
+/* E-mail: 단일/분할 모두 입력 가능하게 (name*=email 광범위 선택자 제거) */
 .pg-gate.is-join .xans-member-join tr:has(#email1),
-.pg-gate.is-join .xans-member-join tr:has(#email),
-.pg-gate.is-join .xans-member-join tr:has(input[name*="email"]) {
+.pg-gate.is-join .xans-member-join tr:has(#email) {
 	display: flex !important;
 	flex-direction: column;
 	align-items: stretch;
@@ -340,30 +339,52 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 .pg-gate.is-join .xans-member-join #email1,
 .pg-gate.is-join .xans-member-join #email2,
 .pg-gate.is-join .xans-member-join #email3,
-.pg-gate.is-join .xans-member-join #email,
-.pg-gate.is-join .xans-member-join input[name*="email"] {
-	display: block;
+.pg-gate.is-join .xans-member-join #email {
+	display: block !important;
 	width: 100%;
 	max-width: 560px;
 	min-width: 0;
 	box-sizing: border-box;
+	pointer-events: auto;
+	position: relative;
+	z-index: 2;
+	-webkit-user-select: text;
+	user-select: text;
 }
-.pg-gate.is-join .xans-member-join td:has(#email1),
-.pg-gate.is-join .xans-member-join td:has(#email2) {
+.pg-gate.is-join .xans-member-join td:has(> #email1),
+.pg-gate.is-join .xans-member-join td:has(> #email) {
+	display: block;
+	width: 100%;
+}
+.pg-gate.is-join .xans-member-join td:has(#email1) #emailMsg,
+.pg-gate.is-join .xans-member-join td:has(#email1) > .txtInfo {
+	display: block;
+	width: 100%;
+	margin-top: 4px;
+	pointer-events: none;
+}
+/* email1 + domain select 분할일 때만 가로 배치 */
+.pg-gate.is-join .xans-member-join td:has(#email1):has(#email2),
+.pg-gate.is-join .xans-member-join td:has(#email1):has(select) {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: flex-end;
 	gap: 0;
 	width: 100%;
 }
-.pg-gate.is-join .xans-member-join td:has(#email1) #email1,
-.pg-gate.is-join .xans-member-join td:has(#email1) #email2,
-.pg-gate.is-join .xans-member-join td:has(#email1) #email3,
-.pg-gate.is-join .xans-member-join td:has(#email1) select {
+.pg-gate.is-join .xans-member-join td:has(#email1):has(#email2) #email1,
+.pg-gate.is-join .xans-member-join td:has(#email1):has(#email2) #email2,
+.pg-gate.is-join .xans-member-join td:has(#email1):has(#email2) #email3,
+.pg-gate.is-join .xans-member-join td:has(#email1):has(select) #email1,
+.pg-gate.is-join .xans-member-join td:has(#email1):has(select) select {
 	display: block;
 	flex: 1 1 0;
 	min-width: 0;
 	width: auto;
+}
+/* 추가정보 Organization(add2)은 기본정보 cname과 중복 — 숨김 */
+.pg-gate.is-join .xans-member-join tr:has(#add2) {
+	display: none !important;
 }
 .pg-gate.is-join .xans-member-join a.btnNormal,
 .pg-gate.is-join .xans-member-join button.btnNormal,

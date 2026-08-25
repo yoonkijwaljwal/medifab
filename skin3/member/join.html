@@ -532,6 +532,24 @@
 		}
 	}
 
+	/* 추가정보 Organization(add2) ↔ 기본정보 Organization(cname) 중복 정리 */
+	function syncOrgDuplicate() {
+		var add2 = document.getElementById('add2');
+		var cname = document.getElementById('cname');
+		if (!add2) return;
+		bakFilter(add2);
+		add2.setAttribute('fw-filter', '');
+		if (cname) {
+			add2.value = cname.value || '';
+			if (!cname.getAttribute('data-org-sync')) {
+				cname.setAttribute('data-org-sync', '1');
+				cname.addEventListener('input', function () {
+					add2.value = cname.value || '';
+				});
+			}
+		}
+	}
+
 	function hideJoinAddress() {
 		var addrRow = root.querySelector('tr.join-addr-hide');
 		if (!addrRow) {
@@ -743,6 +761,7 @@
 			syncBizCert();
 			syncForeignerFields();
 			syncCorpBasicFields();
+			syncOrgDuplicate();
 		}
 	}
 
@@ -768,7 +787,10 @@
 			root.setAttribute('data-join-step', 'form');
 			syncBizCert();
 			syncForeignerFields();
-			setTimeout(syncCorpBasicFields, 0);
+			setTimeout(function () {
+				syncCorpBasicFields();
+				syncOrgDuplicate();
+			}, 0);
 			try {
 				window.scrollTo(0, 0);
 				var formPane = root.querySelector('.pg-gate__form');
@@ -788,6 +810,7 @@
 		if (!t || t.name !== 'company_type') return;
 		setTimeout(function () {
 			syncCorpBasicFields();
+			syncOrgDuplicate();
 		}, 0);
 	}, true);
 
@@ -796,6 +819,7 @@
 		if (!t || t.name !== 'company_type') return;
 		setTimeout(function () {
 			syncCorpBasicFields();
+			syncOrgDuplicate();
 		}, 0);
 	}, true);
 
