@@ -13,74 +13,76 @@
 		<li class="{$disp_cate_4|display}"><strong><a href="{$link_product_list_4}">{$name_4}</a></strong></li>
 	</ol>
 </div>
-<div class="section titleArea" module="product_headcategory" data-ez-module="product-list-head-title/1">
-    <h2>{$title_text_or_image}</h2>
-    <span class="likeButton {$disp_likecate_class}"><button type="button">{$disp_likecate_icon}<strong>{$disp_likecate_count}</strong></button></span>
-</div>
-<div class="section ec-base-tab typeMenu" data-ez-module="product-list-subcategory/1">
-	<div class="display_tablet_only">
-		<ul class="menuCategory menu">
-			<li module="product_displaysubcategory" style="display:{$display};" class="{$selected}">
-				<a href="{$link_product_list_sub}" class="button">{$category_name}
-					<span class="count {$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
-				<ul module="product_children">
-					<li class="{$selected}">
-						<a href="{$link_product_list_sub}">{$category_name}
-							<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
-						<div class="button">
-							{$children_icon}
-							<ul module="product_children" class="subCategory">
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="{$selected}">
-						<a href="{$link_product_list_sub}">{$category_name}
-							<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
-						<div class="button">
-							{$children_icon}
-							<ul module="product_children" class="subCategory">
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</li>
-		</ul>
+<div class="pg-list__head">
+	<div class="section titleArea" module="product_headcategory" data-ez-module="product-list-head-title/1">
+		<h2>Products</h2>
+		<span class="likeButton {$disp_likecate_class}"><button type="button">{$disp_likecate_icon}<strong>{$disp_likecate_count}</strong></button></span>
 	</div>
-	<div class="display_pc_only">
-		<ul class="menuCategory menu">
-			<li module="product_displaycategory" style="display:{$display};" class="{$selected}">
-				<a href="{$link_product_list_sub}" class="button">{$category_name}
-					<span class="count {$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
-				<ul module="product_children">
-					<li class="{$selected}">
-						<a href="{$link_product_list_sub}">{$category_name}
-							<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
-						<div class="button">
-							{$children_icon}
-							<ul module="product_children" class="subCategory">
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-							</ul>
-						</div>
-					</li>
-					<li class="{$selected}">
-						<a href="{$link_product_list_sub}">{$category_name}
-							<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
-						<div class="button">
-							{$children_icon}
-							<ul module="product_children" class="subCategory">
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-								<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</li>
-		</ul>
+	<div class="section ec-base-tab typeMenu" data-ez-module="product-list-subcategory/1">
+		<div class="display_tablet_only">
+			<ul class="menuCategory menu">
+				<li module="product_displaysubcategory" style="display:{$display};" class="{$selected}">
+					<a href="{$link_product_list_sub}" class="button">{$category_name}
+						<span class="count {$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
+					<ul module="product_children">
+						<li class="{$selected}">
+							<a href="{$link_product_list_sub}">{$category_name}
+								<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
+							<div class="button">
+								{$children_icon}
+								<ul module="product_children" class="subCategory">
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="{$selected}">
+							<a href="{$link_product_list_sub}">{$category_name}
+								<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
+							<div class="button">
+								{$children_icon}
+								<ul module="product_children" class="subCategory">
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="display_pc_only">
+			<ul class="menuCategory menu">
+				<li module="product_displaycategory" style="display:{$display};" class="{$selected}">
+					<a href="{$link_product_list_sub}" class="button">{$category_name}
+						<span class="count {$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
+					<ul module="product_children">
+						<li class="{$selected}">
+							<a href="{$link_product_list_sub}">{$category_name}
+								<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
+							<div class="button">
+								{$children_icon}
+								<ul module="product_children" class="subCategory">
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="{$selected}">
+							<a href="{$link_product_list_sub}">{$category_name}
+								<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a>
+							<div class="button">
+								{$children_icon}
+								<ul module="product_children" class="subCategory">
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+									<li class="{$selected}"><a href="{$link_product_list_sub}">{$category_name}<span class="{$product_count_display|display}">({$product_count})</span></a><a href="#none" class="iconWrap"></a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>
 <div module="product_headcategory" data-ez-module="product-list-categoryimage/1" class="section product_top_image">{$top_image1_tag}{$top_image2_tag}{$top_image3_tag}</div>
