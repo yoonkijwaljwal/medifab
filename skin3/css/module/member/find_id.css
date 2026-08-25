@@ -1,9 +1,12 @@
-/* Find ID / shared gate form — Figma PC_find-id 165:10404 */
+/* Find ID — Figma PC 170:20081 / MO 170:20112 */
 .pg-gate.is-find .ec-base-help,
 .pg-gate.is-find legend,
 .pg-gate.is-find .find-row--type,
 .pg-gate.is-find .ssn_no,
 .pg-gate.is-find .txtInfo { display: none; }
+
+/* PC: no helper sub (MO only in Figma) */
+.pg-gate.is-find .pg-gate__sub { display: none; }
 
 .pg-gate.is-find .ec-base-box,
 .pg-gate.is-find .ec-base-box.typeMember {
@@ -91,6 +94,13 @@
 	min-width: 0;
 }
 
+.pg-gate.is-find .pg-gate__panel {
+	gap: 80px;
+	width: 100%;
+}
+.pg-gate.is-find .pg-gate__panel > .ec-base-box { width: 100%; }
+.pg-gate.is-find .ec-base-box + .ec-base-button { margin-top: 0; }
+
 .pg-gate.is-find .ec-base-button.gBottom,
 .pg-gate.is-find .ec-base-button {
 	display: flex;
@@ -98,7 +108,7 @@
 	align-items: center;
 	gap: 16px;
 	width: 100%;
-	margin: 40px 0 0;
+	margin: 0;
 	padding: 0;
 	border: 0;
 }
@@ -165,11 +175,6 @@
 	flex: 0 0 80px;
 	color: var(--Neutral\/Wood, #9b9892);
 }
-.pg-gate.is-find .pg-gate__panel { gap: 80px; }
-.pg-gate.is-find .ec-base-box + .ec-base-button { margin-top: 0; }
-.pg-gate.is-find .pg-gate__panel > .ec-base-box { width: 100%; }
-
-/* result: buttons side by side on PC when two CTAs */
 .pg-gate.is-find .xans-member-findidresult .ec-base-button.gBottom {
 	flex-direction: column;
 	align-items: stretch;
@@ -180,7 +185,92 @@
 	border: 1px solid var(--Neutral\/Dark, #333);
 }
 
+/* MO — Figma MO_find-id 170:20112 / MO_find-password 170:20126 */
 @media (max-width: 1024px) {
-	.pg-gate.is-find .pg-gate__panel { gap: 40px; }
-	.pg-gate.is-find .ec-base-desc.gVer { gap: 24px; }
+	.pg-gate.is-find {
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	.pg-gate.is-find .pg-gate__visual { display: none; }
+	.pg-gate.is-find .pg-gate__hd {
+		order: 0;
+		position: relative;
+		width: 100%;
+		padding: 20px;
+	}
+	.pg-gate.is-find .pg-gate__form {
+		flex: 1 1 auto;
+		width: 100%;
+		min-height: 0;
+		padding: 40px 20px;
+		justify-content: flex-start;
+		display: flex;
+		flex-direction: column;
+	}
+	.pg-gate.is-find .pg-gate__panel {
+		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 8px;
+		width: 100%;
+		max-width: none;
+		min-height: 100%;
+	}
+	.pg-gate.is-find .pg-gate__copy {
+		gap: 8px;
+		width: 100%;
+	}
+	.pg-gate.is-find .pg-gate__sub {
+		display: block;
+		margin: 0;
+		font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+		letter-spacing: -0.01em;
+		color: var(--Neutral\/Wood, #9b9892);
+	}
+	.pg-gate.is-find .ec-base-box {
+		padding-top: 32px;
+		width: 100%;
+	}
+	.pg-gate.is-find .ec-base-desc.gVer { gap: 16px; }
+	.pg-gate.is-find .ec-base-desc .term,
+	.pg-gate.is-find .find-row .term {
+		font: 400 12px/1.36 "Noto Sans KR", sans-serif;
+		letter-spacing: -0.01em;
+	}
+	.pg-gate.is-find input[type="text"],
+	.pg-gate.is-find input[type="password"],
+	.pg-gate.is-find input[type="email"],
+	.pg-gate.is-find input[type="tel"],
+	.pg-gate.is-find select {
+		height: 44px;
+		padding: 6px 0;
+		font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+	}
+	.pg-gate.is-find .ec-base-button.gBottom,
+	.pg-gate.is-find .ec-base-button {
+		margin-top: auto;
+		padding-top: 24px;
+		gap: 8px;
+		align-items: stretch;
+	}
+	.pg-gate.is-find .ec-base-button .btnSubmitFix,
+	.pg-gate.is-find .ec-base-button .btnSubmit {
+		padding: 7px 12px;
+		font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+		letter-spacing: -0.01em;
+	}
+	.pg-gate.is-find .ec-base-button .btnNormalFix,
+	.pg-gate.is-find .ec-base-button .btnNormal {
+		width: 100%;
+		padding: 7px 12px;
+		border: 1px solid var(--Neutral\/Dark, #333);
+		background: #fff;
+		box-sizing: border-box;
+		font: 400 13px/1.42 "Noto Sans KR", sans-serif;
+		letter-spacing: -0.01em;
+	}
+	.pg-gate.is-find .xans-member-findidresult .ec-base-button .btnNormalFix {
+		padding: 7px 12px;
+	}
 }
