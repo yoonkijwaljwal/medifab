@@ -170,7 +170,6 @@
 .xans-member-findidresult .ec-base-button.gBottom a {flex:1;}
 
 /* 비밀번호찾기 */
-.xans-member-findpasswd {max-width:400px;}
 .xans-member-findpasswd .ec-base-box.typeMember {padding:0;border:0;}
 .xans-member-findpasswd .ec-base-box.typeMember .content {width:100%;}
 .xans-member-findpasswd .ec-base-desc.gVer .desc {margin:5px 0 20px;}

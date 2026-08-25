@@ -173,9 +173,16 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+.pg-gate.is-find .pg-gate__body > .ec-base-box { width: 100%; }
 .pg-gate.is-find .ec-base-button [class^='btn'] + [class^='btn'],
-.pg-gate.is-find .ec-base-button.gBottom [class^='btn'] + [class^='btn'] {
-	margin-left: 0;
+.pg-gate.is-find .ec-base-button.gBottom [class^='btn'] + [class^='btn'],
+.pg-gate.is-find-pw .ec-base-button [class^='btn'] + [class^='btn'],
+.pg-gate.is-find-pw .ec-base-button.gBottom [class^='btn'] + [class^='btn'] {
+	margin-left: 0 !important;
+}
+.pg-gate.is-find-pw .ec-base-button .btnNormalFix,
+.pg-gate.is-find-pw .ec-base-button .btnNormal {
+	margin-left: 0 !important;
 }
 
 .pg-gate.is-find .complete {
