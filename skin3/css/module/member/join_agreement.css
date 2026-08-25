@@ -21,8 +21,9 @@
 .agreeArea.on .contents {display:block;}
 
 /* Figma PC_join 167:11610 */
-.pg-gate.is-agree .xans-member-join label,
-.pg-gate.is-agree .xans-member-join label.check { display:inline; }
+.pg-gate.is-agree .xans-member-join label { display: none; }
+.pg-gate.is-agree .xans-member-join label.check,
+.pg-gate.is-agree .xans-member-join .agreeAll label { display: inline; }
 .pg-gate.is-agree .xans-member-join {
 	display: flex;
 	flex-direction: column;
