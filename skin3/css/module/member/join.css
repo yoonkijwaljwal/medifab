@@ -422,6 +422,27 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 .pg-gate.is-join .xans-member-join #company_type0 + label {
 	margin-right: 24px;
 }
+/* 법인사업자: Cafe24가 hide한 name/cname을 다시 노출 */
+.pg-gate.is-join[data-company-type="c"] #name,
+.pg-gate.is-join[data-company-type="c"] #cname,
+.pg-gate.is-join[data-company-type="c"] #ssnContents input {
+	display: block !important;
+}
+.pg-gate.is-join .xans-member-join #ssnContents,
+.pg-gate.is-join .xans-member-join #ssnContents .formGroup {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-end;
+	gap: 0;
+	width: 100%;
+	max-width: 560px;
+}
+.pg-gate.is-join .xans-member-join #ssnContents input {
+	flex: 1 1 0;
+	min-width: 0;
+	width: auto;
+	max-width: none;
+}
 .pg-gate.is-join .xans-member-join .joinConfirm { z-index: 30; }
 .pg-gate.is-join[data-join-step="form"] .xans-member-join .ec-base-button.gBottom {
 	margin-top: 0;

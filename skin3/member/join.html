@@ -612,6 +612,102 @@
 		}
 	}
 
+	/*
+	 * Cafe24 기본: 법인사업자(company_type=c)면
+	 * - #businessAuth(법인명/법인번호)만 쓰고 기본정보 #name·#cname hide, #ssnContents 비움
+	 * 게이트 UI에서는 그 입력칸이 안 보이므로 기본정보 필드에 복구한다.
+	 */
+	function isCorpCompany() {
+		var el = document.querySelector('input[name="company_type"]:checked');
+		return !!(el && el.value === 'c');
+	}
+
+	function showField(el) {
+		if (!el) return;
+		el.style.removeProperty('display');
+		el.removeAttribute('hidden');
+		if (el.style.display === 'none') el.style.display = '';
+	}
+
+	function syncCorpBasicFields() {
+		var authMember = document.getElementById('authMember');
+		if (!isCorpCompany()) {
+			root.removeAttribute('data-company-type');
+			if (authMember && authMember.getAttribute('data-corp-hide') === '1') {
+				authMember.style.display = '';
+				authMember.removeAttribute('data-corp-hide');
+			}
+			return;
+		}
+		root.setAttribute('data-company-type', 'c');
+
+		var nameContents = document.getElementById('nameContents');
+		var nameEl = document.getElementById('name');
+		if (nameContents) {
+			if (!nameEl) {
+				nameContents.innerHTML = '<input type="text" name="name" id="name" maxlength="20">';
+				nameEl = document.getElementById('name');
+			}
+			showField(nameEl);
+		}
+
+		var companyName = document.getElementById('companyName');
+		var cname = document.getElementById('cname');
+		if (companyName) {
+			if (!cname) {
+				var info = companyName.querySelector('.txtInfo');
+				var infoHtml = info ? info.outerHTML : '<div class="txtInfo">병원 또는 클리닉명</div>';
+				companyName.innerHTML = '<input name="cname" class="inputTypeText" id="cname" type="text" maxlength="20" fw-msg="" fw-label="상호명" fw-filter="isMax[20]" value="">' + infoHtml;
+				cname = document.getElementById('cname');
+			}
+			showField(cname);
+			var companyRow = document.getElementById('companyRow');
+			if (companyRow) companyRow.style.display = '';
+		}
+
+		var ssnTitle = document.getElementById('ssnTitle');
+		var ssnContents = document.getElementById('ssnContents');
+		if (ssnTitle && ssnTitle.parentElement) {
+			ssnTitle.parentElement.style.display = '';
+			if (!String(ssnTitle.textContent || '').trim()) ssnTitle.textContent = '법인번호';
+		}
+		if (ssnContents) {
+			var hasInput = ssnContents.querySelector('input:not([type="hidden"])');
+			if (!hasInput) {
+				var b1 = document.getElementById('bssn1');
+				var b2 = document.getElementById('bssn2');
+				if (b1 && b2) {
+					var span = document.createElement('span');
+					span.className = 'formGroup code';
+					showField(b1);
+					showField(b2);
+					span.appendChild(b1);
+					span.appendChild(document.createTextNode('-'));
+					span.appendChild(b2);
+					ssnContents.innerHTML = '';
+					ssnContents.appendChild(span);
+				} else {
+					ssnContents.innerHTML = '<span class="formGroup code"><input name="bssn1" id="bssn1" type="text" maxlength="6">-<input name="bssn2" id="bssn2" type="text" maxlength="7"></span>';
+				}
+			} else {
+				var inputs = ssnContents.querySelectorAll('input');
+				for (var i = 0; i < inputs.length; i++) showField(inputs[i]);
+			}
+		}
+
+		var bname = document.getElementById('bname');
+		if (nameEl && bname && !nameEl.getAttribute('data-corp-sync')) {
+			nameEl.setAttribute('data-corp-sync', '1');
+			nameEl.addEventListener('input', function () { bname.value = nameEl.value; });
+			if (nameEl.value) bname.value = nameEl.value;
+		}
+
+		if (authMember) {
+			authMember.style.display = 'none';
+			authMember.setAttribute('data-corp-hide', '1');
+		}
+	}
+
 	var selectedType = null;
 
 	function syncTypeNext() {
@@ -646,6 +742,7 @@
 		if (step === 'form') {
 			syncBizCert();
 			syncForeignerFields();
+			syncCorpBasicFields();
 		}
 	}
 
@@ -671,6 +768,7 @@
 			root.setAttribute('data-join-step', 'form');
 			syncBizCert();
 			syncForeignerFields();
+			setTimeout(syncCorpBasicFields, 0);
 			try {
 				window.scrollTo(0, 0);
 				var formPane = root.querySelector('.pg-gate__form');
@@ -683,6 +781,23 @@
 	for (var r = 0; r < list.length; r++) {
 		list[r].addEventListener('change', sync);
 	}
+
+	/* Cafe24 typeCompany() 이후 법인 기본정보 입력칸 복구 */
+	document.addEventListener('click', function (e) {
+		var t = e.target;
+		if (!t || t.name !== 'company_type') return;
+		setTimeout(function () {
+			syncCorpBasicFields();
+		}, 0);
+	}, true);
+
+	document.addEventListener('change', function (e) {
+		var t = e.target;
+		if (!t || t.name !== 'company_type') return;
+		setTimeout(function () {
+			syncCorpBasicFields();
+		}, 0);
+	}, true);
 
 	/* 유형 선택 단계에서는 기본 선택하지 않음 */
 	if (root.getAttribute('data-join-step') !== 'type') {
