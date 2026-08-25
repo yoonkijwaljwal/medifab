@@ -407,20 +407,44 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	box-sizing: border-box;
 	cursor: pointer;
 }
-/* Verification Documents / Upload — 첨부 버튼이 인풋 라인 우측 */
+/* Verification Documents — Figma: underline + Upload 우측 버튼 */
 .pg-gate.is-join .xans-member-join tr:has(#add1) td {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: flex-end;
-	gap: 0 8px;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 8px;
+	width: 100%;
+	max-width: 560px;
 }
-.pg-gate.is-join .xans-member-join #add1 {
-	flex: 1 1 auto;
-	min-width: 0;
-	width: auto;
+.pg-gate.is-join .xans-member-join tr:has(#add1) #add1 {
+	display: block;
+	width: 100%;
+	max-width: none;
+	border: 0 !important;
+	border-bottom: 1px solid var(--Neutral\/Wood, #9b9892) !important;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+}
+.pg-gate.is-join .xans-member-join tr:has(#add1):has(.file-upload-shadow-host) #add1,
+.pg-gate.is-join .xans-member-join tr:has(#add1):has([class*="file-upload-shadow"]) #add1 {
+	display: none !important;
+}
+.pg-gate.is-join .xans-member-join tr:has(#add1) .file-upload-shadow-host,
+.pg-gate.is-join .xans-member-join tr:has(#add1) [class*="file-upload-shadow"] {
+	display: block;
+	width: 100%;
+	order: 1;
 }
 .pg-gate.is-join .xans-member-join tr:has(#add1) .txtInfo {
-	flex: 1 0 100%;
+	order: 2;
+	flex: none;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font: 400 14px/1.54 "Noto Sans KR", sans-serif;
+	letter-spacing: -0.01em;
+	color: var(--Neutral\/Wood, #9b9892);
 }
 .pg-gate.is-join .xans-member-join tr:has(#add1) .btnNormal,
 .pg-gate.is-join .xans-member-join tr:has(#add1) button,
@@ -429,7 +453,7 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 .pg-gate.is-join .xans-member-join [class*="attachment"] a,
 .pg-gate.is-join .xans-member-join [class*="Attachment"] button {
 	flex: 0 0 auto;
-	margin: 0 0 9px;
+	margin: 0;
 }
 .pg-gate.is-join .xans-member-join .verify {
 	display: block;

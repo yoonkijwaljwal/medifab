@@ -319,7 +319,7 @@
             </tr>
             <tr class="{$display_add1|display}">
                 <th scope="row">Verification Documents <img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_add1|display}" alt="필수"></th>
-                <td>{$form.add1}<div class="txtInfo">PDF, JPG, PNG, ZIP · 최대 5개 · 합계 10MB</div></td>
+                <td>{$form.add1}<div class="txtInfo">PDF, JPG, PNG, ZIP - 최대 5개 - 합계 10MB</div></td>
             </tr>
             <tr class="{$display_add2|display}">
                 <th scope="row">{$title_add2} <img src="/SkinImg/img/ico_required.svg" class="icon icoRequired {$display_required_add2|display}" alt="필수"></th>
@@ -846,12 +846,80 @@
 	sync();
 	hideJoinAddress();
 
+	/* 첨부앱 Shadow DOM → Figma Upload 라인 스타일 */
+	var uploadSkinCss = [
+		'.file-upload-container{',
+		'border:0!important;border-radius:0!important;padding:0!important;',
+		'background:transparent!important;text-align:left!important;',
+		'display:flex!important;flex-wrap:wrap!important;align-items:center!important;',
+		'justify-content:flex-end!important;gap:8px!important;',
+		'min-height:50px!important;box-sizing:border-box!important;',
+		'border-bottom:1px solid #9b9892!important;cursor:pointer!important;',
+		'font-family:"Noto Sans KR",sans-serif!important;transition:none!important;',
+		'}',
+		'.file-upload-container:hover{',
+		'border-color:#333!important;background:transparent!important;',
+		'}',
+		'.upload-text{display:none!important;}',
+		'.file-upload-container::after{',
+		'content:"Upload";display:inline-flex;align-items:center;justify-content:center;',
+		'padding:7px 12px;margin:0 0 9px;border:1px solid #333;background:#fff;',
+		'color:#333;font:400 13px/1.42 "Noto Sans KR",sans-serif;letter-spacing:-0.01em;',
+		'box-sizing:border-box;pointer-events:none;',
+		'}',
+		'.file-list-container{',
+		'flex:1 0 100%!important;width:100%!important;margin:8px 0 0!important;',
+		'padding:0!important;border:0!important;background:transparent!important;',
+		'}',
+		'.file-grid{',
+		'display:flex!important;flex-direction:column!important;gap:8px!important;',
+		'margin:0!important;grid-template-columns:none!important;',
+		'}',
+		'.file-item{',
+		'border-radius:0!important;border:1px solid #e5e2dc!important;',
+		'background:#fff!important;overflow:hidden!important;',
+		'}',
+		'.file-item:hover{border-color:#9b9892!important;}',
+		'.file-preview{height:72px!important;}',
+		'.file-name,.file-size,.file-ext{',
+		'font:400 13px/1.4 "Noto Sans KR",sans-serif!important;color:#333!important;',
+		'}',
+		'.delete-btn{border-radius:0!important;}'
+	].join('');
+
+	function styleUploadWidgets() {
+		var td = root.querySelector('tr:has(#add1) td');
+		if (!td) return;
+		var nodes = [td].concat(Array.prototype.slice.call(td.querySelectorAll('*')));
+		for (var i = 0; i < nodes.length; i++) {
+			var el = nodes[i];
+			var sr = el.shadowRoot;
+			if (!sr) continue;
+			if (sr.getElementById('mf-upload-skin')) continue;
+			var style = document.createElement('style');
+			style.id = 'mf-upload-skin';
+			style.textContent = uploadSkinCss;
+			sr.appendChild(style);
+		}
+		/* shadow 미사용 시 light DOM 컨테이너도 동일 스킨 */
+		var lights = td.querySelectorAll('.file-upload-container');
+		for (var j = 0; j < lights.length; j++) {
+			var host = lights[j].parentElement;
+			if (!host || host.querySelector('#mf-upload-skin-light')) continue;
+			var lightStyle = document.createElement('style');
+			lightStyle.id = 'mf-upload-skin-light';
+			lightStyle.textContent = uploadSkinCss;
+			host.insertBefore(lightStyle, host.firstChild);
+		}
+	}
+
 	/* 첨부앱·카페24 DOM 갱신 후에도 외국인/사업자 규칙 유지 */
 	[500, 1500, 3000].forEach(function (ms) {
 		setTimeout(function () {
 			syncBizCert();
 			syncForeignerFields();
 			hideJoinAddress();
+			styleUploadWidgets();
 		}, ms);
 	});
 	if (window.MutationObserver) {
@@ -863,10 +931,12 @@
 				syncBizCert();
 				syncForeignerFields();
 				hideJoinAddress();
+				styleUploadWidgets();
 			}, 50);
 		});
 		mo.observe(area, { childList: true, subtree: true });
 	}
+	styleUploadWidgets();
 })();
 </script>
 <script>
