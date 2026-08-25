@@ -225,7 +225,7 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 .pg-gate.is-join .xans-member-join .eTooltip input {
 	display: block;
 	width: 100%;
-	max-width: none;
+	max-width: 560px;
 	height: 50px;
 	margin: 0;
 	padding: 9px 0;
@@ -241,6 +241,24 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	letter-spacing: -0.01em;
 	color: var(--Neutral\/Dark, #333);
 	box-sizing: border-box;
+}
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite td input[type="text"],
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite td input[type="password"],
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite td select,
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite .ec-address input[type="text"],
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite .ec-address select {
+	width: 100%;
+	max-width: 560px;
+	box-sizing: border-box;
+}
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite td.formGroup input[type="text"],
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite td.formGroup input[type="password"],
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite td.formGroup select,
+.pg-gate.is-join .xans-member-join .ec-base-table.typeWrite .ec-address-zipcode input[type="text"] {
+	width: auto;
+	max-width: none;
+	flex: 1 1 0;
+	min-width: 0;
 }
 .pg-gate.is-join .xans-member-join input::placeholder,
 .pg-gate.is-join .xans-member-join textarea::placeholder {
@@ -326,7 +344,7 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 .pg-gate.is-join .xans-member-join input[name*="email"] {
 	display: block;
 	width: 100%;
-	max-width: none;
+	max-width: 560px;
 	min-width: 0;
 	box-sizing: border-box;
 }
@@ -413,6 +431,7 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	.pg-gate.is-join .xans-member-join #hint,
 	.pg-gate.is-join .xans-member-join #hint_answer {
 		width: 100%;
+		max-width: 560px;
 	}
 }
 

@@ -238,7 +238,7 @@
 .xans-member-join .ec-base-table.typeWrite td input[type="password"],
 .xans-member-join .ec-base-table.typeWrite td select,
 .xans-member-join .ec-base-table.typeWrite .ec-address input[type="text"],
-.xans-member-join .ec-base-table.typeWrite .ec-address select {width:410px;}
+.xans-member-join .ec-base-table.typeWrite .ec-address select {width:100%;max-width:560px;box-sizing:border-box;}
 .xans-member-join .ec-base-table.typeWrite .ec-address .ec-address-zipcode input[type="text"] {width:160px;}
 .xans-member-join .ec-base-table .gFlow {display:block;margin:10px 0 0;}
 .xans-member-join #mobile1,
