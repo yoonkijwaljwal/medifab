@@ -136,9 +136,11 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	border: 0;
 }
 .pg-gate.is-join .join-addr-hide,
-.pg-gate.is-join .xans-member-join tr.join-addr-hide,
-.pg-gate.is-join .xans-member-join tr:has(#addr1),
-.pg-gate.is-join .xans-member-join tr:has(#postcode1) {
+.pg-gate.is-join .xans-member-join tr.join-addr-hide {
+	display: none !important;
+}
+.pg-gate.is-join .xans-member-join tr:has(#addr1):not(:has(#email1)):not(:has(#email)),
+.pg-gate.is-join .xans-member-join tr:has(#postcode1):not(:has(#email1)):not(:has(#email)) {
 	display: none !important;
 }
 .pg-gate.is-join .xans-member-join .titleArea,
@@ -309,25 +311,38 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	flex: 1 1 0;
 	margin: 0;
 }
-/* E-mail: local @ domain */
+/* E-mail: 단일 입력이면 full width, 분할(@)이면 flex */
+.pg-gate.is-join .xans-member-join tr:has(#email1),
+.pg-gate.is-join .xans-member-join tr:has(#email),
+.pg-gate.is-join .xans-member-join tr:has(input[name*="email"]) {
+	display: flex !important;
+	flex-direction: column;
+	align-items: stretch;
+}
 .pg-gate.is-join .xans-member-join #email1,
 .pg-gate.is-join .xans-member-join #email2,
-.pg-gate.is-join .xans-member-join #email3 {
-	display: inline-block;
-	width: auto;
-	flex: 1 1 0;
+.pg-gate.is-join .xans-member-join #email3,
+.pg-gate.is-join .xans-member-join #email,
+.pg-gate.is-join .xans-member-join input[name*="email"] {
+	display: block;
+	width: 100%;
+	max-width: none;
 	min-width: 0;
-	vertical-align: bottom;
+	box-sizing: border-box;
 }
-.pg-gate.is-join .xans-member-join td:has(#email1) {
+.pg-gate.is-join .xans-member-join td:has(#email1),
+.pg-gate.is-join .xans-member-join td:has(#email2) {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	align-items: flex-end;
 	gap: 0;
+	width: 100%;
 }
 .pg-gate.is-join .xans-member-join td:has(#email1) #email1,
 .pg-gate.is-join .xans-member-join td:has(#email1) #email2,
+.pg-gate.is-join .xans-member-join td:has(#email1) #email3,
 .pg-gate.is-join .xans-member-join td:has(#email1) select {
+	display: block;
 	flex: 1 1 0;
 	min-width: 0;
 	width: auto;

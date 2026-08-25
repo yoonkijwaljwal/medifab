@@ -1,31 +1,39 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="section path">
-    <span>현재 위치</span>
-    <ol>
-        <li><a href="/">홈</a></li>
-        <li title="현재 위치"><strong>비밀번호 찾기</strong></li>
-    </ol>
-</div>
-
-<div class="section titleArea">
-    <h2>비밀번호 찾기</h2>
-</div>
-
-<div module="member_findpasswdresult" class="memberArea">
-    <!--@css(/css/module/member/find_passwd_result.css)-->
-    <div class="ec-base-box typeMember">
-        <div class="complete">
-            <div class="headDesc">
-                <p class="{$display_email_method|display}">임시 비밀번호가 고객님의 <br class="RMB">메일로 전송되었습니다.</p>
-                <p class="{$display_mobile_method|display}">임시 비밀번호가 고객님의 <br class="RMB">휴대폰 번호로 전송되었습니다.</p>
-            </div>
-            <p class="description">
-                <span class="{$display_id_method|display}"><strong class="txtEm">{$id}</strong> 회원님, </span>임시 비밀번호를<br />
-                <strong class="txtEm"><span class="{$display_email_method|display}">{$email}</span><span class="{$display_mobile_method|display}">{$mobile}</span></strong>으로 보내드렸습니다.
-            </p>
-        </div>
-    </div>
-    <div class="ec-base-button gBottom">
-        <a href="/member/login.html" class="btnSubmitFix sizeM gFull">로그인</a>
-    </div>
+<!--@css(/css/module/intro/intro.css)-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&family=Noto+Serif:wght@300&display=swap" rel="stylesheet">
+<div class="pg-gate is-login is-find is-find-pw" data-hd="light">
+	<div class="pg-gate__visual">
+		<img src="/SkinImg/img/medifab/gate_visual.png" alt="">
+		<div class="pg-gate__dim"></div>
+	</div>
+	<header class="pg-gate__hd">
+		<a href="/" class="pg-gate__logo"><img src="/svg/logo.svg" alt="MEDIFAB" width="134" height="32"></a>
+		<a href="https://imedifab.com" class="pg-gate__corp" target="_blank" rel="noopener">CORPORATE SITE <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+	</header>
+	<div class="pg-gate__form">
+		<div module="member_findpasswdresult" class="pg-gate__panel memberArea">
+			<!--@css(/css/module/member/find_passwd.css)-->
+			<!--@css(/css/module/member/find_passwd_result.css)-->
+			<div class="pg-gate__copy">
+				<h1 class="pg-gate__title">Find Password</h1>
+			</div>
+			<div class="ec-base-box typeMember">
+				<div class="complete">
+					<div class="headDesc">
+						<p class="{$display_email_method|display}">임시 비밀번호가 고객님의 <br class="RMB">메일로 전송되었습니다.</p>
+						<p class="{$display_mobile_method|display}">임시 비밀번호가 고객님의 <br class="RMB">휴대폰 번호로 전송되었습니다.</p>
+					</div>
+					<p class="description">
+						<span class="{$display_id_method|display}"><strong class="txtEm">{$id}</strong> 회원님, </span>임시 비밀번호를<br />
+						<strong class="txtEm"><span class="{$display_email_method|display}">{$email}</span><span class="{$display_mobile_method|display}">{$mobile}</span></strong>으로 보내드렸습니다.
+					</p>
+				</div>
+			</div>
+			<div class="ec-base-button gBottom">
+				<a href="/member/login.html" class="btnSubmitFix sizeM gFull">Login</a>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,31 +1,41 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="section path">
-    <span>현재 위치</span>
-    <ol>
-        <li><a href="/">홈</a></li>
-        <li title="현재 위치"><strong>비밀번호 찾기</strong></li>
-    </ol>
-</div>
-<div class="section titleArea">
-    <h2>비밀번호 찾기</h2>
-</div>
-<div module="member_findpasswdmethod" class="memberArea">
-    <!--@css(/css/module/member/find_passwd_method.css)-->
-    <!--
-        $nextURL = /member/passwd/find_passwd_result.html
-     -->
-    <div class="ec-base-box typeMember">
-        <fieldset class="content">
-            <legend>임시 비밀번호 전송</legend>
-            <ul class="ec-base-desc gVer">
-                <li><strong class="term">임시 비밀번호</strong><span class="desc">{$form.passwd_method_type}</span></li>
-                <li id="{$passwd_method_email_info}"><strong class="term">이메일</strong><span class="desc"><strong class="txtEm">{$passwd_method_email}</strong></span></li>
-                <li id="{$passwd_method_mobile_info}"><strong class="term">휴대폰 번호</strong><span class="desc"><strong class="txtEm">{$passwd_method_mobile}</strong></span></li>
-            </ul>
-        </fieldset>
-    </div>
-    <div class="ec-base-button gBottom">
-        <a href="#none" class="btnNormalFix sizeM" onclick="{$action_func_find_passwd_cancel}">취소</a>
-        <a href="#none" class="btnSubmitFix sizeM" onclick="{$action_func_find_passwd_send}">임시 비밀번호 전송</a>
-    </div>
+<!--@css(/css/module/intro/intro.css)-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&family=Noto+Serif:wght@300&display=swap" rel="stylesheet">
+<div class="pg-gate is-login is-find is-find-pw" data-hd="light">
+	<div class="pg-gate__visual">
+		<img src="/SkinImg/img/medifab/gate_visual.png" alt="">
+		<div class="pg-gate__dim"></div>
+	</div>
+	<header class="pg-gate__hd">
+		<a href="/" class="pg-gate__logo"><img src="/svg/logo.svg" alt="MEDIFAB" width="134" height="32"></a>
+		<a href="https://imedifab.com" class="pg-gate__corp" target="_blank" rel="noopener">CORPORATE SITE <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+	</header>
+	<div class="pg-gate__form">
+		<div module="member_findpasswdmethod" class="pg-gate__panel memberArea">
+			<!--@css(/css/module/member/find_passwd.css)-->
+			<!--@css(/css/module/member/find_passwd_method.css)-->
+			<!--
+				$nextURL = /member/passwd/find_passwd_result.html
+			 -->
+			<div class="pg-gate__copy">
+				<h1 class="pg-gate__title">Find Password</h1>
+			</div>
+			<div class="ec-base-box typeMember">
+				<fieldset class="content">
+					<legend>임시 비밀번호 전송</legend>
+					<ul class="ec-base-desc gVer">
+						<li><strong class="term">임시 비밀번호</strong><span class="desc">{$form.passwd_method_type}</span></li>
+						<li id="{$passwd_method_email_info}"><strong class="term">E-mail</strong><span class="desc"><strong class="txtEm">{$passwd_method_email}</strong></span></li>
+						<li id="{$passwd_method_mobile_info}"><strong class="term">Mobile</strong><span class="desc"><strong class="txtEm">{$passwd_method_mobile}</strong></span></li>
+					</ul>
+				</fieldset>
+			</div>
+			<div class="ec-base-button gBottom">
+				<a href="#none" class="btnSubmitFix sizeM" onclick="{$action_func_find_passwd_send}">Confirm</a>
+				<a href="#none" class="btnNormalFix sizeM" onclick="{$action_func_find_passwd_cancel}">Cancel</a>
+			</div>
+		</div>
+	</div>
 </div>

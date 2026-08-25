@@ -533,7 +533,17 @@
 	}
 
 	function hideJoinAddress() {
-		var addrRow = root.querySelector('tr.join-addr-hide') || rowOf('addr1') || rowOf('postcode1');
+		var addrRow = root.querySelector('tr.join-addr-hide');
+		if (!addrRow) {
+			var addrEl = document.getElementById('addr1') || document.getElementById('postcode1');
+			if (addrEl) {
+				var row = addrEl.closest('tr');
+				/* 이메일 행은 건드리지 않음 */
+				if (row && !row.querySelector('#email1, #email2, #email, input[name*="email"]')) {
+					addrRow = row;
+				}
+			}
+		}
 		if (addrRow) {
 			addrRow.classList.add('displaynone');
 			addrRow.style.display = 'none';
