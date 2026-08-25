@@ -16,7 +16,8 @@
 			</div>
 			<div class="pg-gate__copy" data-join-copy="form">
 				<h1 class="pg-gate__title">Apply Now</h1>
-				<p class="pg-gate__sub">승인된 의료·에스테틱 전문가만 가입할 수 있습니다.</p>
+				<p class="pg-gate__sub" data-join-sub="ko">승인된 의료·에스테틱 전문가만 가입할 수 있습니다.</p>
+				<p class="pg-gate__sub" data-join-sub="en" hidden>Only approved medical and aesthetic professionals may access this platform.</p>
 			</div>
 			<div class="join-step join-step--type" data-join-panel="type">
 				<div class="join-type" data-join-type>
@@ -532,18 +533,30 @@
 		}
 	}
 
-	/* 추가정보 Organization(add2) ↔ 기본정보 Organization(cname) 중복 정리 */
+	/* 추가정보 Organization(add2) ↔ 기본정보 Organization(cname) 중복 정리
+	 * 외국인: add2 = Clinic or Hospital Name (독립 필드) */
 	function syncOrgDuplicate() {
 		var add2 = document.getElementById('add2');
 		var cname = document.getElementById('cname');
 		if (!add2) return;
 		bakFilter(add2);
+		var add2Tr = add2.closest('tr');
+		if (isForeignMember()) {
+			add2.setAttribute('fw-filter', add2.getAttribute('data-fw-filter-bak') || '');
+			add2.removeAttribute('disabled');
+			if (add2Tr) {
+				add2Tr.classList.remove('displaynone');
+				add2Tr.style.removeProperty('display');
+			}
+			return;
+		}
 		add2.setAttribute('fw-filter', '');
 		if (cname) {
 			add2.value = cname.value || '';
 			if (!cname.getAttribute('data-org-sync')) {
 				cname.setAttribute('data-org-sync', '1');
 				cname.addEventListener('input', function () {
+					if (isForeignMember()) return;
 					add2.value = cname.value || '';
 				});
 			}
@@ -574,24 +587,168 @@
 		setHiddenVal('display_required_address2', 'F', true);
 	}
 
-	/* 외국인: 여권숨김 / 일반전화 선택 / 휴대전화필수·인증해제 */
+	function setLabelText(el, text) {
+		if (!el) return;
+		if (!el.getAttribute('data-label-bak')) {
+			el.setAttribute('data-label-bak', (el.textContent || '').replace(/\s+/g, ' ').trim());
+		}
+		var icon = el.querySelector('img.icon, .icoRequired');
+		if (icon) icon = icon.cloneNode(true);
+		el.textContent = text;
+		if (icon) el.insertBefore(icon, el.firstChild);
+	}
+
+	function restoreLabelText(el) {
+		if (!el) return;
+		var bak = el.getAttribute('data-label-bak');
+		if (bak == null) return;
+		var icon = el.querySelector('img.icon, .icoRequired');
+		if (icon) icon = icon.cloneNode(true);
+		el.textContent = bak;
+		if (icon) el.insertBefore(icon, el.firstChild);
+	}
+
+	function setRowHidden(row, hide) {
+		if (!row) return;
+		if (hide) {
+			row.classList.add('displaynone');
+			row.style.display = 'none';
+			eachField(row, function (el) { setFilterOptional(el, true); });
+		} else {
+			row.classList.remove('displaynone');
+			row.style.removeProperty('display');
+			eachField(row, function (el) { setFilterOptional(el, false); });
+		}
+	}
+
+	function syncForeignerCopy(foreign) {
+		var ko = root.querySelector('[data-join-sub="ko"]');
+		var en = root.querySelector('[data-join-sub="en"]');
+		if (ko) ko.hidden = !!foreign;
+		if (en) en.hidden = !foreign;
+	}
+
+	function syncForeignerLabels(foreign) {
+		var nameTh = document.getElementById('name_title') || (rowOf('name') && rowOf('name').querySelector('th'));
+		var nameEnRow = rowOf('name_en');
+		var nameEnTh = nameEnRow ? nameEnRow.querySelector('th') : null;
+		var cnameTh = rowOf('cname') ? rowOf('cname').querySelector('th') : null;
+		var add2Th = rowOf('add2') ? rowOf('add2').querySelector('th') : null;
+		var nationTh = rowOf('citizenship') ? rowOf('citizenship').querySelector('th') : (document.getElementById('nation') && document.getElementById('nation').querySelector('th'));
+		var passRow = rowOf('passwd');
+		var passInfo = passRow ? passRow.querySelector('.txtInfo') : null;
+		var cnameInfo = document.querySelector('#companyName .txtInfo');
+		var nameEnInfo = nameEnRow ? nameEnRow.querySelector('.txtInfo, span.txtInfo') : null;
+		var idInfo = rowOf('member_id') ? rowOf('member_id').querySelector('.txtInfo') : null;
+		var citizenship = document.getElementById('citizenship');
+
+		if (foreign) {
+			setLabelText(nameTh, 'First Name');
+			setLabelText(nameEnTh, 'Last Name');
+			setLabelText(cnameTh, 'Organization');
+			setLabelText(add2Th, 'Clinic or Hospital Name');
+			setLabelText(nationTh, 'Country');
+			if (passInfo) {
+				if (!passInfo.getAttribute('data-txt-bak')) passInfo.setAttribute('data-txt-bak', passInfo.textContent || '');
+				passInfo.textContent = 'Combination of two or more of English upper and lower case letters/numbers/special characters, 10 to 16 characters';
+			}
+			if (cnameInfo) {
+				if (!cnameInfo.getAttribute('data-txt-bak')) cnameInfo.setAttribute('data-txt-bak', cnameInfo.textContent || '');
+				cnameInfo.textContent = '';
+				cnameInfo.style.display = 'none';
+			}
+			if (nameEnInfo) {
+				if (!nameEnInfo.getAttribute('data-txt-bak')) nameEnInfo.setAttribute('data-txt-bak', nameEnInfo.textContent || '');
+				nameEnInfo.style.display = 'none';
+			}
+			if (idInfo && /영문|4~16/.test(idInfo.textContent || '')) {
+				if (!idInfo.getAttribute('data-txt-bak')) idInfo.setAttribute('data-txt-bak', idInfo.textContent || '');
+				idInfo.style.display = 'none';
+			}
+			if (citizenship) {
+				var opt0 = citizenship.options && citizenship.options[0];
+				if (opt0 && !opt0.getAttribute('data-txt-bak')) {
+					opt0.setAttribute('data-txt-bak', opt0.textContent || '');
+					if (!opt0.value || opt0.value === '' || /선택|국적/.test(opt0.textContent || '')) {
+						opt0.textContent = 'Select Country';
+					}
+				}
+			}
+		} else {
+			restoreLabelText(nameTh);
+			restoreLabelText(nameEnTh);
+			restoreLabelText(cnameTh);
+			restoreLabelText(add2Th);
+			restoreLabelText(nationTh);
+			if (passInfo && passInfo.getAttribute('data-txt-bak') != null) passInfo.textContent = passInfo.getAttribute('data-txt-bak');
+			if (cnameInfo && cnameInfo.getAttribute('data-txt-bak') != null) {
+				cnameInfo.textContent = cnameInfo.getAttribute('data-txt-bak');
+				cnameInfo.style.removeProperty('display');
+			}
+			if (nameEnInfo && nameEnInfo.getAttribute('data-txt-bak') != null) nameEnInfo.style.removeProperty('display');
+			if (idInfo && idInfo.getAttribute('data-txt-bak') != null) idInfo.style.removeProperty('display');
+			if (citizenship && citizenship.options && citizenship.options[0] && citizenship.options[0].getAttribute('data-txt-bak')) {
+				citizenship.options[0].textContent = citizenship.options[0].getAttribute('data-txt-bak');
+			}
+		}
+	}
+
+	function reorderForeignerFields(foreign) {
+		if (!foreign) return;
+		var ids = ['name', 'name_en', 'member_id', 'passwd', 'user_passwd_confirm', 'email1', 'email', 'cname', 'add2', 'citizenship'];
+		var rows = [];
+		var seen = {};
+		for (var i = 0; i < ids.length; i++) {
+			var row = rowOf(ids[i]);
+			if (!row && ids[i] === 'citizenship') {
+				var nation = document.getElementById('nation');
+				if (nation && nation.tagName === 'TR') row = nation;
+			}
+			if (!row || seen[row]) continue;
+			seen[row] = 1;
+			rows.push(row);
+		}
+		if (rows.length < 2) return;
+		var parent = rows[0].parentNode;
+		for (var k = 0; k < rows.length; k++) {
+			if (rows[k].parentNode !== parent) parent.appendChild(rows[k]);
+			else parent.appendChild(rows[k]);
+		}
+	}
+
+	/* 외국인: 시안 필드만 노출 (First/Last/ID/PW/Email/Org/Clinic/Country) */
 	function syncForeignerFields() {
 		var foreign = isForeignMember();
+		if (foreign) root.setAttribute('data-member-type', 'f');
+		else root.removeAttribute('data-member-type');
+
+		syncForeignerCopy(foreign);
+		hideJoinAddress();
+
 		var phoneRow = rowOf('phone1') || rowOf('phone2');
 		var mobileRow = rowOf('mobile1') || rowOf('mobile2');
 		var verifyRow = document.getElementById('confirm_verify_mobile');
 		var verifyBtn = document.getElementById('btn_action_verify_mobile');
 		var fssn = document.getElementById('foreigner_ssn');
+		var companyWrap = document.getElementById('companyWrap');
+		var authMember = document.getElementById('authMember');
+		var companyNo = document.getElementById('companyNoRow') || rowOf('cssn');
+		var ssnRow = document.getElementById('ssnContents') ? document.getElementById('ssnContents').closest('tr') : null;
+		var nameEnRow = rowOf('name_en');
+		var nationRow = document.getElementById('nation') || rowOf('citizenship');
+		var add2Row = rowOf('add2');
 
-		hideJoinAddress();
-		eachField(phoneRow, function (el) { setFilterOptional(el, foreign); });
-		setRowIconsOptional(phoneRow, foreign);
+		setRowHidden(phoneRow, foreign);
+		setRowHidden(mobileRow, foreign);
+		setRowHidden(companyWrap, foreign);
+		setRowHidden(authMember, foreign);
+		setRowHidden(companyNo, foreign);
+		setRowHidden(ssnRow, foreign);
+		if (verifyRow) setRowHidden(verifyRow, foreign);
 
 		setHiddenVal('display_required_phone', 'F', foreign);
-
-		/* 휴대전화는 필수 유지 */
-		eachField(mobileRow, function (el) { setFilterOptional(el, false); });
-		setRowIconsOptional(mobileRow, false);
+		setHiddenVal('display_required_cell', 'F', foreign);
+		setHiddenVal('isMobileVerify', 'F', foreign);
 
 		if (verifyBtn) {
 			bakAttr(verifyBtn, 'cls', function (n) {
@@ -600,16 +757,57 @@
 			if (foreign) verifyBtn.classList.add('displaynone');
 			else if (verifyBtn.getAttribute('data-cls-bak') === '1') verifyBtn.classList.remove('displaynone');
 		}
-		if (verifyRow) {
-			if (foreign) verifyRow.classList.add('displaynone');
-		}
 		var verifyInput = document.getElementById('verify_sms_number');
 		if (verifyInput) {
 			bakFilter(verifyInput);
 			verifyInput.setAttribute('fw-filter', foreign ? '' : (verifyInput.getAttribute('data-fw-filter-bak') || ''));
 			if (foreign) verifyInput.value = '';
 		}
-		setHiddenVal('isMobileVerify', 'F', foreign);
+
+		if (nameEnRow) {
+			if (foreign) {
+				nameEnRow.classList.remove('displaynone');
+				nameEnRow.style.removeProperty('display');
+				eachField(nameEnRow, function (el) {
+					bakFilter(el);
+					var f = el.getAttribute('data-fw-filter-bak') || '';
+					if (f && f.indexOf('isFill') === -1) f = (f ? f + '&' : '') + 'isFill';
+					el.setAttribute('fw-filter', f || 'isFill');
+				});
+			}
+		} else if (foreign) {
+			var nameRow = rowOf('name');
+			if (nameRow && nameRow.parentNode) {
+				var tr = document.createElement('tr');
+				tr.innerHTML = '<th scope="row">Last Name</th><td><input type="text" id="name_en" name="name_en" class="inputTypeText" fw-filter="isFill" fw-label="Last Name" maxlength="100"></td>';
+				if (nameRow.nextSibling) nameRow.parentNode.insertBefore(tr, nameRow.nextSibling);
+				else nameRow.parentNode.appendChild(tr);
+			}
+		}
+		if (nationRow) {
+			if (foreign) {
+				nationRow.classList.remove('displaynone');
+				nationRow.style.removeProperty('display');
+			}
+		}
+		if (add2Row && foreign) {
+			add2Row.classList.remove('displaynone');
+			add2Row.style.removeProperty('display');
+		}
+
+		var companyRow = document.getElementById('companyRow') || rowOf('cname');
+		if (companyRow && foreign) {
+			companyRow.classList.remove('displaynone');
+			companyRow.style.removeProperty('display');
+			var cname = document.getElementById('cname');
+			var companyName = document.getElementById('companyName');
+			if (companyName && !cname) {
+				companyName.innerHTML = '<input name="cname" class="inputTypeText" id="cname" type="text" maxlength="100" fw-label="Organization" fw-filter="isFill" value="">';
+			} else if (cname) {
+				cname.style.removeProperty('display');
+				cname.removeAttribute('hidden');
+			}
+		}
 
 		/* 여권번호(유형 라벨 + 입력 + 중복확인) 숨김 */
 		if (fssn) {
@@ -628,6 +826,21 @@
 				else fssnDt.classList.remove('displaynone');
 			}
 		}
+
+		syncForeignerLabels(foreign);
+		reorderForeignerFields(foreign);
+
+		/* foreigner_name ↔ First Name 동기화 */
+		var nameEl = document.getElementById('name');
+		var fname = document.getElementById('foreigner_name');
+		if (foreign && nameEl && fname && !nameEl.getAttribute('data-fn-sync')) {
+			nameEl.setAttribute('data-fn-sync', '1');
+			nameEl.addEventListener('input', function () {
+				if (!isForeignMember()) return;
+				fname.value = nameEl.value || '';
+			});
+		}
+		if (foreign && nameEl && fname) fname.value = nameEl.value || '';
 	}
 
 	/*

@@ -382,10 +382,42 @@ button#btn_action_verify_mobile { margin:0; padding:0 8px; }
 	min-width: 0;
 	width: auto;
 }
-/* 추가정보 Organization(add2)은 기본정보 cname과 중복 — 숨김 */
-.pg-gate.is-join .xans-member-join tr:has(#add2) {
+/* 추가정보 Organization(add2)은 기본정보 cname과 중복 — 국내만 숨김 */
+.pg-gate.is-join:not([data-member-type="f"]) .xans-member-join tr:has(#add2) {
 	display: none !important;
 }
+/* 외국인 가입: 시안 필드만 */
+.pg-gate.is-join[data-member-type="f"] .xans-member-join #companyWrap,
+.pg-gate.is-join[data-member-type="f"] .xans-member-join #authMember,
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#cssn),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join #companyNoRow,
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#ssnContents),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#phone1),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#mobile1),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join #confirm_verify_mobile,
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#add1),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#hint),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#hint_answer),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#is_lifetime) {
+	display: none !important;
+}
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#name_en),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join #nation,
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#citizenship),
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#add2) {
+	display: flex !important;
+	flex-direction: column;
+	align-items: stretch;
+}
+.pg-gate.is-join[data-member-type="f"] .xans-member-join #companyName .txtInfo,
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#name_en) .txtInfo,
+.pg-gate.is-join[data-member-type="f"] .xans-member-join tr:has(#member_id) > td > .txtInfo:not(.txtSuccess):not(.error) {
+	display: none !important;
+}
+.pg-gate.is-join[data-member-type="f"] [data-join-sub="ko"] { display: none !important; }
+.pg-gate.is-join[data-member-type="f"] [data-join-sub="en"] { display: block !important; }
+.pg-gate.is-join:not([data-member-type="f"]) [data-join-sub="en"] { display: none !important; }
+.pg-gate.is-join:not([data-member-type="f"]) [data-join-sub="ko"] { display: block; }
 .pg-gate.is-join .xans-member-join a.btnNormal,
 .pg-gate.is-join .xans-member-join button.btnNormal,
 .pg-gate.is-join .xans-member-join button#btn_action_verify_mobile {
