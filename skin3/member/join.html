@@ -846,7 +846,7 @@
 	sync();
 	hideJoinAddress();
 
-	/* 첨부앱 Shadow DOM → Figma Upload 라인 스타일 */
+	/* 첨부앱 Shadow DOM → Figma Upload 라인 + 단순 파일 목록 */
 	var uploadSkinCss = [
 		'.file-upload-container{',
 		'border:0!important;border-radius:0!important;padding:0!important;',
@@ -870,21 +870,44 @@
 		'.file-list-container{',
 		'flex:1 0 100%!important;width:100%!important;margin:8px 0 0!important;',
 		'padding:0!important;border:0!important;background:transparent!important;',
+		'display:block!important;',
 		'}',
 		'.file-grid{',
-		'display:flex!important;flex-direction:column!important;gap:8px!important;',
+		'display:flex!important;flex-direction:column!important;gap:6px!important;',
 		'margin:0!important;grid-template-columns:none!important;',
 		'}',
 		'.file-item{',
-		'border-radius:0!important;border:1px solid #e5e2dc!important;',
-		'background:#fff!important;overflow:hidden!important;',
+		'position:relative!important;display:flex!important;align-items:center!important;',
+		'gap:8px!important;min-height:auto!important;padding:4px 28px 4px 0!important;',
+		'border:0!important;border-radius:0!important;background:transparent!important;',
+		'overflow:visible!important;box-shadow:none!important;',
 		'}',
-		'.file-item:hover{border-color:#9b9892!important;}',
-		'.file-preview{height:72px!important;}',
-		'.file-name,.file-size,.file-ext{',
-		'font:400 13px/1.4 "Noto Sans KR",sans-serif!important;color:#333!important;',
+		'.file-item:hover{border-color:transparent!important;background:transparent!important;}',
+		'.file-preview,.file-icon-area,.file-icon,.file-ext,.file-size{',
+		'display:none!important;',
 		'}',
-		'.delete-btn{border-radius:0!important;}'
+		'.info-overlay{',
+		'position:static!important;display:flex!important;align-items:center!important;',
+		'flex:1 1 auto!important;min-width:0!important;width:auto!important;',
+		'margin:0!important;padding:0!important;border:0!important;',
+		'background:transparent!important;color:#333!important;',
+		'font:400 14px/1.54 "Noto Sans KR",sans-serif!important;',
+		'}',
+		'.file-name{',
+		'display:block!important;position:static!important;flex:1 1 auto!important;',
+		'margin:0!important;padding:0!important;border:0!important;background:transparent!important;',
+		'font:400 14px/1.54 "Noto Sans KR",sans-serif!important;font-weight:400!important;color:#333!important;',
+		'letter-spacing:-0.01em!important;white-space:nowrap!important;',
+		'overflow:hidden!important;text-overflow:ellipsis!important;',
+		'}',
+		'.delete-btn{',
+		'position:absolute!important;top:50%!important;right:0!important;',
+		'transform:translateY(-50%)!important;width:20px!important;height:20px!important;',
+		'margin:0!important;padding:0!important;border:0!important;border-radius:0!important;',
+		'background:transparent!important;color:#333!important;font-size:16px!important;',
+		'line-height:20px!important;cursor:pointer!important;box-shadow:none!important;',
+		'}',
+		'.delete-btn:hover{background:transparent!important;color:#000!important;}'
 	].join('');
 
 	function styleUploadWidgets() {
@@ -895,21 +918,25 @@
 			var el = nodes[i];
 			var sr = el.shadowRoot;
 			if (!sr) continue;
-			if (sr.getElementById('mf-upload-skin')) continue;
-			var style = document.createElement('style');
-			style.id = 'mf-upload-skin';
+			var style = sr.getElementById('mf-upload-skin');
+			if (!style) {
+				style = document.createElement('style');
+				style.id = 'mf-upload-skin';
+				sr.appendChild(style);
+			}
 			style.textContent = uploadSkinCss;
-			sr.appendChild(style);
 		}
-		/* shadow 미사용 시 light DOM 컨테이너도 동일 스킨 */
 		var lights = td.querySelectorAll('.file-upload-container');
 		for (var j = 0; j < lights.length; j++) {
 			var host = lights[j].parentElement;
-			if (!host || host.querySelector('#mf-upload-skin-light')) continue;
-			var lightStyle = document.createElement('style');
-			lightStyle.id = 'mf-upload-skin-light';
+			if (!host) continue;
+			var lightStyle = host.querySelector('#mf-upload-skin-light');
+			if (!lightStyle) {
+				lightStyle = document.createElement('style');
+				lightStyle.id = 'mf-upload-skin-light';
+				host.insertBefore(lightStyle, host.firstChild);
+			}
 			lightStyle.textContent = uploadSkinCss;
-			host.insertBefore(lightStyle, host.firstChild);
 		}
 	}
 
