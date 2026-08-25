@@ -20,4 +20,18 @@ $(function(){
         }
     });
 
+    // 개인회원(indi)은 노출하지 않음 — 기본값을 남은 첫 옵션으로
+    var $searchType = $('#searchType');
+    if ($searchType.length) {
+        var wasIndi = $searchType.val() === 'indi';
+        $searchType.find('option[value="indi"]').remove();
+        if (wasIndi || !$searchType.val()) {
+            var first = $searchType.find('option').first().val();
+            if (first) {
+                $searchType.val(first);
+            }
+        }
+        $searchType.trigger('change');
+    }
+
 });
