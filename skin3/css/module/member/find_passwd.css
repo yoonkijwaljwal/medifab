@@ -98,6 +98,13 @@
 	gap: 80px;
 	width: 100%;
 }
+.pg-gate.is-find .pg-gate__body {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 40px;
+	width: 100%;
+}
 .pg-gate.is-find .ec-base-box + .ec-base-button { margin-top: 0; }
 
 .pg-gate.is-find .ec-base-button.gBottom,
@@ -199,6 +206,14 @@
 		width: 100%;
 		max-width: none;
 		min-height: 100%;
+	}
+	.pg-gate.is-find .pg-gate__body {
+		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		min-height: 0;
+		width: 100%;
 	}
 	.pg-gate.is-find .pg-gate__copy {
 		gap: 8px;
