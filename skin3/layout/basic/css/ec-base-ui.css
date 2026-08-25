@@ -101,7 +101,7 @@ input[type="checkbox"]:checked { border:0; background-image:url("//img.echosting
     input[type="checkbox"]:checked::-ms-check { color:transparent; border:0; background-image:url("//img.echosting.cafe24.com/skin/skin/common/bg_checkbox_checked.png"); background-size:15px 15px; background-repeat:no-repeat; }
 label > input[type=radio], label > input[type=checkbox] { margin:0 10px 0 0; vertical-align:middle; }
 label + label { margin-left:15px; }
-input[type=radio] + label, input[type=checkbox] + label { margin:0 15px 0 10px; vertical-align:middle; }
+input[type=radio] + label, input[type=checkbox] + label { margin:0; vertical-align:middle; }
 
 legend { visibility:hidden; position:absolute; left:-9999px; top:-9999px; width:0; height:0; line-height:0; }
 
