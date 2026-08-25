@@ -161,12 +161,26 @@
 	font: 400 13px/1.55 "Noto Sans KR", sans-serif;
 	color: var(--Neutral\/Wood, #9b9892);
 }
+.pg-gate.is-agree .xans-member-join .agreeArea--marketing .contents {
+	display: none;
+	max-height: none;
+	overflow: visible;
+	margin: 12px 0 0;
+	padding: 0;
+	border: 0;
+}
+.pg-gate.is-agree .xans-member-join .agreeArea--marketing.on .contents {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
 .pg-gate.is-agree .xans-member-join .agreeArea .additional {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
-	margin: 12px 0 0;
+	margin: 0;
 	padding: 0;
+	list-style: none;
 }
 .pg-gate.is-agree .xans-member-join .agreeArea .additional li {
 	display: flex;
@@ -181,6 +195,19 @@
 	color: var(--Neutral\/Dark, #333);
 	letter-spacing: -0.01em;
 	cursor: pointer;
+}
+.pg-gate.is-agree .xans-member-join .agreeArea--marketing .agree-desc {
+	margin: 0;
+	padding: 12px 0 0;
+	border-top: 1px solid var(--Neutral\/Cool, #e5e2dc);
+	font: 400 13px/1.55 "Noto Sans KR", sans-serif;
+	color: var(--Neutral\/Wood, #9b9892);
+}
+.pg-gate.is-agree .xans-member-join .agreeArea--marketing .agree-desc p {
+	margin: 0 0 12px;
+}
+.pg-gate.is-agree .xans-member-join .agreeArea--marketing .agree-desc p:last-child {
+	margin-bottom: 0;
 }
 .pg-gate.is-agree .xans-member-join .ec-base-button.gBottom {
 	margin-top: 0;
