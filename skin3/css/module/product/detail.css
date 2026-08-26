@@ -407,7 +407,7 @@
 .xans-product-action .action_button .btnNormal {flex:1;height:66px;padding:23px 0;font-size:16px;font-weight:400;-webkit-transition: all 0.3s;-moz-transition: all 0.3s;-ms-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;}
 .xans-product-action .action_button .btnNormal:hover {border:1px solid #e8d6c4;-webkit-transition: all 0.3s;-moz-transition: all 0.3s;-ms-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;}
 .xans-product-action .action_button .btnSubmit {flex:2;height:66px;padding:23px 0;font-size:16px;font-weight:400;-webkit-transition: all 0.3s;-moz-transition: all 0.3s;-ms-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;}
-.xans-product-action .action_button [class^='btn'] + [class^='btn'] {margin-left:12px;}
+.xans-product-action .action_button [class^='btn'] + [class^='btn'] {margin-left:0;}
 .xans-product-action .action_button .btnSubmit:hover {box-shadow: 0 15px 15px 1px rgb(0 0 0 / 13%);-webkit-box-shadow: 0 15px 15px 1px rgb(0 0 0 / 13%);-webkit-transition: all 0.3s;-moz-transition: all 0.3s;-ms-transition: all 0.3s;-o-transition: all 0.3s;transition: all 0.3s;}
 .xans-product-action .action_button .sub_sold {flex:1;background-color:#d0ac88;color:#fff;font-size:16px;line-height:66px;font-weight:400;text-align:center;}
 .mrt10 {margin-top:10px;}
@@ -896,7 +896,179 @@
 	height: 16px;
 }
 .pg-detail .xans-product-option .xans-product-quantity .ec-base-qty .down:before { background: var(--Neutral\/Gray); }
-.pg-detail #totalProducts { display: none !important; }
+/* Cafe24 수량 UI는 #totalProducts 안에 있음 — 숨기지 말고 Quantity 행처럼 정리 */
+.pg-detail #totalProducts {
+	display: block !important;
+	width: 100%;
+	max-width: 413px;
+	margin: 12px 0 0;
+	padding: 0;
+	border: 0;
+	background: transparent !important;
+	box-sizing: border-box;
+}
+.pg-detail #totalProducts thead { display: none !important; }
+.pg-detail #totalProducts table,
+.pg-detail #totalProducts tbody {
+	display: block;
+	width: 100%;
+	margin: 0;
+	border: 0;
+	background: transparent !important;
+}
+.pg-detail #totalProducts > table > tbody > tr,
+.pg-detail #totalProducts tr.option_product,
+.pg-detail #totalProducts tr.add_product {
+	display: flex !important;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	margin: 0 0 12px;
+	padding: 0;
+	border: 0 !important;
+	background: transparent !important;
+}
+.pg-detail #totalProducts > table > tbody > tr:last-child,
+.pg-detail #totalProducts tr.option_product:last-child { margin-bottom: 0; }
+.pg-detail #totalProducts > table > tbody > tr > td,
+.pg-detail #totalProducts tr.option_product > td,
+.pg-detail #totalProducts tr.add_product > td {
+	display: block;
+	width: auto !important;
+	margin: 0;
+	padding: 0 !important;
+	border: 0 !important;
+	background: transparent !important;
+	font: var(--mf-b14);
+	color: var(--Neutral\/Wood);
+}
+.pg-detail #totalProducts > table > tbody > tr > td:first-child,
+.pg-detail #totalProducts tr.option_product > td:first-child {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.pg-detail #totalProducts > table > tbody > tr::before,
+.pg-detail #totalProducts tr.option_product::before {
+	content: "Quantity";
+	flex: 1 1 auto;
+	font: var(--mf-b14);
+	letter-spacing: -0.01em;
+	line-height: 1.54;
+	color: var(--Neutral\/Wood);
+}
+.pg-detail #totalProducts > table > tbody > tr > td:first-child::before,
+.pg-detail #totalProducts tr.option_product > td:first-child::before {
+	content: none;
+	display: none;
+}
+.pg-detail #totalProducts .product,
+.pg-detail #totalProducts .mileage,
+.pg-detail #totalProducts .delete,
+.pg-detail #totalProducts td.right,
+.pg-detail #totalProducts tr.option_product > td > table tr.option,
+.pg-detail #totalProducts tr.option_product th {
+	display: none !important;
+}
+.pg-detail #totalProducts tr.option_product > td > table,
+.pg-detail #totalProducts tr.option_product > td > table tbody,
+.pg-detail #totalProducts tr.option_product > td > table tr:first-child,
+.pg-detail #totalProducts tr.option_product > td > table tr:first-child td {
+	display: block !important;
+	width: 100%;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	background: transparent !important;
+}
+.pg-detail #totalProducts .quantity,
+.pg-detail #totalProducts table p:not(.product) {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 16px;
+	position: relative;
+	width: auto !important;
+	min-width: 0;
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box;
+	vertical-align: middle;
+}
+.pg-detail #totalProducts .quantity input,
+.pg-detail #totalProducts table p:not(.product) .quantity_opt,
+.pg-detail #totalProducts .quantity_opt {
+	width: 24px !important;
+	height: 24px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	text-align: center;
+	font: var(--mf-b13) !important;
+	letter-spacing: -0.01em;
+	line-height: 24px !important;
+	color: var(--Neutral\/Black);
+	background: transparent !important;
+}
+.pg-detail #totalProducts .quantity img,
+.pg-detail #totalProducts table p:not(.product) img {
+	opacity: 0.00001;
+}
+.pg-detail #totalProducts .quantity a,
+.pg-detail #totalProducts table p:not(.product) a {
+	position: relative !important;
+	left: auto !important;
+	right: auto !important;
+	top: auto !important;
+	display: inline-block;
+	width: 24px !important;
+	height: 24px !important;
+	margin: 0;
+	border: 0 !important;
+	background: transparent !important;
+	overflow: hidden;
+	text-indent: 150%;
+	white-space: nowrap;
+	color: transparent;
+	font-size: 1px;
+	line-height: 1px;
+	box-sizing: border-box;
+}
+.pg-detail #totalProducts .quantity .down,
+.pg-detail #totalProducts table p:not(.product) .down { order: 1; }
+.pg-detail #totalProducts .quantity input,
+.pg-detail #totalProducts table p:not(.product) .quantity_opt { order: 2; }
+.pg-detail #totalProducts .quantity .up,
+.pg-detail #totalProducts table p:not(.product) .up { order: 3; }
+.pg-detail #totalProducts .quantity a:before,
+.pg-detail #totalProducts table p:not(.product) a:before {
+	content: "";
+	position: absolute;
+	left: 4px;
+	top: 11.5px;
+	width: 16px;
+	height: 1px;
+	margin: 0;
+	background: var(--Neutral\/Gray);
+}
+.pg-detail #totalProducts .quantity .up:before,
+.pg-detail #totalProducts table p:not(.product) .up:before {
+	background: var(--Neutral\/Dark);
+}
+.pg-detail #totalProducts .quantity .up:after,
+.pg-detail #totalProducts table p:not(.product) .up:after {
+	content: "";
+	position: absolute;
+	left: 11.5px;
+	top: 4px;
+	width: 1px;
+	height: 16px;
+	margin: 0;
+	background: var(--Neutral\/Dark);
+}
+.pg-detail .ec-base-desc.quantity:not(.displaynone) {
+	display: flex !important;
+}
 .pg-detail .totalPrice {
 	display: flex;
 	align-items: flex-end;
@@ -1097,6 +1269,41 @@
 		max-width: none;
 		padding: 16px 20px;
 		box-sizing: border-box;
+	}
+	.pg-detail #totalProducts {
+		max-width: none;
+		margin: 0;
+		padding: 16px 20px;
+		box-sizing: border-box;
+	}
+	.pg-detail #totalProducts > table > tbody > tr::before,
+	.pg-detail #totalProducts tr.option_product::before {
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+	}
+	.pg-detail #totalProducts .quantity,
+	.pg-detail #totalProducts table p:not(.product) {
+		gap: 16px;
+	}
+	.pg-detail #totalProducts .quantity input,
+	.pg-detail #totalProducts table p:not(.product) .quantity_opt,
+	.pg-detail #totalProducts .quantity_opt,
+	.pg-detail #totalProducts .quantity a,
+	.pg-detail #totalProducts table p:not(.product) a {
+		width: 16px !important;
+		height: 16px !important;
+	}
+	.pg-detail #totalProducts .quantity a:before,
+	.pg-detail #totalProducts table p:not(.product) a:before {
+		left: 2.5px;
+		top: 7.5px;
+		width: 11px;
+	}
+	.pg-detail #totalProducts .quantity .up:after,
+	.pg-detail #totalProducts table p:not(.product) .up:after {
+		left: 7.5px;
+		top: 2.5px;
+		height: 11px;
 	}
 	.pg-detail .ec-base-qty { gap: 16px; }
 	.pg-detail .ec-base-qty input[type="text"] {

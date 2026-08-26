@@ -171,6 +171,40 @@ function mfDetailPage() {
 		if (/사이즈|용량|size/i.test(t)) th.textContent = 'Size';
 	});
 
+	/* Cafe24가 totalPrice를 다시 그리면 Total 라벨·(n개) 정리 */
+	var totalPrice = page.querySelector('.totalPrice');
+	function syncTotalLabel() {
+		if (!totalPrice) return;
+		var label = totalPrice.querySelector('.pg-detail__total-label');
+		if (!label) {
+			label = document.createElement('span');
+			label.className = 'pg-detail__total-label';
+			label.textContent = 'Total';
+			totalPrice.insertBefore(label, totalPrice.firstChild);
+		}
+		var nodes = totalPrice.childNodes;
+		for (var i = 0; i < nodes.length; i++) {
+			var n = nodes[i];
+			if (n.nodeType === 3 && /\d+\s*개/.test(n.nodeValue || '')) {
+				n.nodeValue = (n.nodeValue || '').replace(/\s*\(?\s*\d+\s*개\s*\)?/g, '');
+			}
+		}
+		totalPrice.querySelectorAll('span').forEach(function (span) {
+			if (span.classList.contains('pg-detail__total-label')) return;
+			span.childNodes.forEach(function (cn) {
+				if (cn.nodeType === 3 && /\d+\s*개/.test(cn.nodeValue || '')) {
+					cn.nodeValue = (cn.nodeValue || '').replace(/\s*\(?\s*\d+\s*개\s*\)?/g, '');
+				}
+			});
+		});
+	}
+	syncTotalLabel();
+	if (totalPrice && window.MutationObserver && !totalPrice.getAttribute('data-mf-total-mo')) {
+		totalPrice.setAttribute('data-mf-total-mo', '1');
+		var tmo = new MutationObserver(function () { syncTotalLabel(); });
+		tmo.observe(totalPrice, { childList: true, characterData: true, subtree: true });
+	}
+
 	var tabs = page.querySelector('[data-detail-tabs]');
 	var panels = page.querySelector('[data-detail-panels]');
 	if (!tabs || !panels) return;
