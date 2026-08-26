@@ -165,6 +165,12 @@ function mfDetailPage() {
 		if (cate) brand.textContent = cate.textContent;
 	}
 
+	/* 옵션 라벨 Size 정규화 (관리자 한글명 대비) */
+	page.querySelectorAll('.xans-product-option th').forEach(function (th) {
+		var t = String(th.textContent || '').replace(/\s+/g, ' ').trim();
+		if (/사이즈|용량|size/i.test(t)) th.textContent = 'Size';
+	});
+
 	var tabs = page.querySelector('[data-detail-tabs]');
 	var panels = page.querySelector('[data-detail-panels]');
 	if (!tabs || !panels) return;

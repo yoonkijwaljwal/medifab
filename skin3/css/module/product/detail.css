@@ -614,38 +614,48 @@
 	margin: 0;
 	padding: 0;
 }
+/* Figma 169:11925 — 좌우 1:1, 이미지 max 787 / 정보 max 413 */
 .pg-detail .xans-product-detail .detailArea {
 	display: flex;
 	align-items: flex-start;
-	justify-content: center;
-	gap: 80px;
+	justify-content: stretch;
+	gap: 0;
 	width: 100%;
 	max-width: none;
 	margin: 0 auto;
-	padding: 200px 80px 160px;
+	padding: 200px 0 160px;
 	box-sizing: border-box;
 	font-size: inherit;
 	line-height: inherit;
 }
 .pg-detail .xans-product-detail .imgArea {
-	display: block;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 	float: none;
-	flex: 0 0 787px;
-	width: 787px;
-	max-width: 787px;
+	flex: 1 1 0;
+	width: auto;
+	max-width: none;
+	min-width: 0;
 	margin: 0;
-	padding: 0;
+	padding: 0 80px 0 80px;
 	box-sizing: border-box;
 	vertical-align: top;
+}
+.pg-detail .xans-product-detail .imgArea > .RW,
+.pg-detail .xans-product-detail .imgArea > .pg-detail__long {
+	width: 100%;
+	max-width: 787px;
 }
 .pg-detail .xans-product-detail .infoArea {
 	display: block;
 	float: none;
-	flex: 0 0 413px;
-	width: 413px;
-	max-width: 413px;
+	flex: 1 1 0;
+	width: auto;
+	max-width: 733px;
+	min-width: 0;
 	margin: 0;
-	padding: 0;
+	padding: 0 80px 0 0;
 	box-sizing: border-box;
 	position: sticky;
 	top: 200px;
@@ -653,7 +663,7 @@
 	vertical-align: top;
 }
 .pg-detail .xans-product-detail .infoArea > * {
-	max-width: 100%;
+	max-width: 413px;
 }
 .pg-detail .imgArea .listImg,
 .pg-detail .imgArea .wish,
@@ -886,35 +896,45 @@
 	height: 16px;
 }
 .pg-detail .xans-product-option .xans-product-quantity .ec-base-qty .down:before { background: var(--Neutral\/Gray); }
-.pg-detail #totalProducts thead,
-.pg-detail #totalProducts .mileage { display: none; }
+.pg-detail #totalProducts { display: none !important; }
 .pg-detail .totalPrice {
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-between;
+	gap: 16px;
+	width: 100%;
+	max-width: 413px;
 	margin: 32px 0 0;
 	padding: 0;
 	border: 0;
 	font: var(--mf-b14);
+	letter-spacing: -0.01em;
 	color: var(--Neutral\/Wood);
 	background: transparent;
+	box-sizing: border-box;
+}
+.pg-detail .totalPrice .pg-detail__total-label {
+	flex: 1 1 auto;
+	min-width: 0;
+	color: var(--Neutral\/Wood);
 }
 .pg-detail .totalPrice > span[class*="total"] {
-	display: flex;
-	align-items: center;
-	gap: 0;
+	display: block;
+	flex: 0 0 auto;
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+	line-height: 0;
+	color: var(--Neutral\/Dark);
 }
 .pg-detail .totalPrice span strong,
 .pg-detail .totalPrice span em {
 	font: var(--mf-b16);
 	font-style: normal;
 	font-weight: 400;
+	letter-spacing: -0.01em;
+	line-height: 1.52;
 	color: var(--Neutral\/Dark);
-}
-/* Cafe24 수량 표기 "(0개)" 숨김 — 피그마는 금액만 */
-.pg-detail .totalPrice > span[class*="total"] {
-	font-size: 0;
-	line-height: 0;
 }
 .pg-detail .totalPrice > span[class*="total"] strong,
 .pg-detail .totalPrice > span[class*="total"] em {
@@ -928,6 +948,7 @@
 .pg-detail .action_button {
 	display: block;
 	margin: 0;
+	width: 100%;
 }
 .pg-detail .action_button .actionCart {
 	display: flex;
@@ -938,11 +959,13 @@
 	margin: 0;
 	padding: 14px 20px;
 	border: 0;
+	border-radius: 0;
 	background: var(--Neutral\/Dark);
 	color: var(--Neutral\/White);
 	font: var(--mf-b16);
 	letter-spacing: -0.01em;
 	line-height: 1.52;
+	cursor: pointer;
 }
 .pg-detail .action_button .sub_sold {
 	display: flex;
@@ -1006,6 +1029,11 @@
 		max-width: none;
 		position: static;
 		padding: 0;
+		align-items: stretch;
+	}
+	.pg-detail .xans-product-detail .imgArea > .RW,
+	.pg-detail .xans-product-detail .imgArea > .pg-detail__long {
+		max-width: none;
 	}
 	.pg-detail .xans-product-detail .infoArea > * { max-width: none; }
 	.pg-detail .imgArea .RW { display: none; }
@@ -1093,6 +1121,7 @@
 	}
 	.pg-detail .totalPrice {
 		margin: 0;
+		max-width: none;
 		padding: 0 20px;
 		font: var(--mf-b13);
 		box-sizing: border-box;

@@ -170,7 +170,7 @@
                         <td>{$form.option}<p class="value">{$option_desc}</p></td>
                     </tr>
                     <tr module="product_quantity">
-                        <th scope="row">수량</th>
+                        <th scope="row">Quantity</th>
                         <td>
                             <div class="ec-base-qty">
                                 {$form.quantity}
@@ -197,7 +197,7 @@
             </table>
 
             <dl module="product_quantity" class="ec-base-desc quantity">
-                <dt>수량</dt>
+                <dt>Quantity</dt>
                 <dd>
                     <div class="ec-base-qty">
                         {$form.quantity}
@@ -343,7 +343,7 @@
                     </li>
                 </ul>
                 <dl module="product_quantity" class="ec-base-desc quantity">
-                    <dt>수량</dt>
+                    <dt>Quantity</dt>
                     <dd>
                         <div class="ec-base-qty">
                             {$form.quantity}
@@ -556,7 +556,7 @@
 
             <div id="{$total.total_price_id}" class="totalPrice">
                 <p class="ec-base-help txtWarn txt11 {$exclusive_purchase_olny|display}"> 단독구매상품</p>
-                Total<span class="{$total.total_cnt}"><strong><em>0</em></strong> (0개)</span>
+                <span class="pg-detail__total-label">Total</span><span class="{$total.total_cnt}"><strong><em>0</em></strong></span>
             </div>
             <p class="ec-base-help {$price_warning_class}">할인가가 적용된 최종 결제예정금액은 주문 시 확인할 수 있습니다.</p>
 
