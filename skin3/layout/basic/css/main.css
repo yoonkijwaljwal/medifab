@@ -292,10 +292,19 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	color: var(--Neutral\/Dark);
 	font-family: var(--mf-sans);
 	font-weight: 400;
-	font-size: 16px !important; /* 관리자 listmain별 인라인 사이즈 덮어씀 */
+	font-size: 16px !important;
 	line-height: 1.52;
 	letter-spacing: -0.01em;
 	text-decoration: none;
+}
+/* 관리자 진열(listmain)별 인라인 font-size(12px/16px)가 span에 박힘 → 통일 */
+.pg-home .ec-base-product .prdList .description .name a > span:not(.title),
+.pg-home .ec-base-product .prdList .description .name a > span:not(.title) span {
+	font-size: 16px !important;
+	color: var(--Neutral\/Dark) !important;
+	font-weight: 400 !important;
+	line-height: 1.52;
+	letter-spacing: -0.01em;
 }
 .pg-home .ec-base-product .prdList .description .name .title {
 	color: var(--Neutral\/Wood);
@@ -594,8 +603,11 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 		font: 400 11px/1.42 var(--mf-sans);
 		letter-spacing: 0;
 	}
-	.pg-home .ec-base-product .prdList .description .name a {
+	.pg-home .ec-base-product .prdList .description .name a,
+	.pg-home .ec-base-product .prdList .description .name a > span:not(.title),
+	.pg-home .ec-base-product .prdList .description .name a > span:not(.title) span {
 		font: 400 13px/1.42 var(--mf-sans);
+		font-size: 13px !important;
 		letter-spacing: -0.01em;
 		gap: 0;
 	}
