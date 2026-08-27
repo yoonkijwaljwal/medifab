@@ -596,7 +596,10 @@
 				<button type="button" data-tab="ret">Returns</button>
 			</div>
 			<div class="pg-detail__panels" data-detail-panels>
-				<div data-panel="desc">{$simple_desc}</div>
+				<div class="pg-detail__desc" data-panel="desc">
+					<div class="pg-detail__desc-body {$simple_desc_display|display}">{$simple_desc}</div>
+					<div class="pg-detail__desc-body {$summary_desc_display|display}">{$summary_desc}</div>
+				</div>
 				<div data-panel="pay" hidden></div>
 				<div data-panel="ship" hidden></div>
 				<div data-panel="ret" hidden></div>

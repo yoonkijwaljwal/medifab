@@ -162,7 +162,14 @@ function mfDetailPage() {
 
 	/* brand 정리는 mfProductBrandOnly에서 처리 */
 
-	/* 옵션 라벨 Size 정규화 (관리자 한글명 대비) */
+	/* 옵션 테이블: 실제 옵션이 있으면 displaynone 해제 + Size 라벨 정규화 */
+	page.querySelectorAll('table.xans-product-option').forEach(function (table) {
+		var hasOption = !!(table.querySelector('select, .ec-product-button li, input[type="radio"], input[type="checkbox"]'));
+		if (hasOption) {
+			table.classList.remove('displaynone');
+			table.style.removeProperty('display');
+		}
+	});
 	page.querySelectorAll('.xans-product-option th').forEach(function (th) {
 		var t = String(th.textContent || '').replace(/\s+/g, ' ').trim();
 		if (/사이즈|용량|size/i.test(t)) th.textContent = 'Size';
@@ -205,6 +212,24 @@ function mfDetailPage() {
 	var tabs = page.querySelector('[data-detail-tabs]');
 	var panels = page.querySelector('[data-detail-panels]');
 	if (!tabs || !panels) return;
+
+	/* Description: 간략/요약설명 노출. 타이틀 하단 값만 있으면 패널로 복제 */
+	(function syncDescPanel() {
+		var descPanel = panels.querySelector('[data-panel="desc"]');
+		if (!descPanel) return;
+		var bodies = descPanel.querySelectorAll('.pg-detail__desc-body');
+		var hasText = false;
+		bodies.forEach(function (el) {
+			if ((el.textContent || '').replace(/\s+/g, ' ').trim()) hasText = true;
+		});
+		if (hasText) return;
+		var sub = page.querySelector('.pg-detail__sub');
+		var subText = sub ? (sub.textContent || '').replace(/\s+/g, ' ').trim() : '';
+		if (!subText) return;
+		var slot = bodies[0] || descPanel;
+		slot.textContent = subText;
+		slot.classList.remove('displaynone');
+	})();
 
 	var folds = page.querySelectorAll('#prdInfo .detail_guide .ec-base-fold .contents');
 	var pay = panels.querySelector('[data-panel="pay"]');
