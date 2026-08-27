@@ -654,13 +654,15 @@
 	width: auto;
 	max-width: 733px;
 	min-width: 0;
+	height: fit-content;
 	margin: 0;
 	padding: 0 80px 0 0;
 	box-sizing: border-box;
 	position: sticky;
-	top: 200px;
+	top: 132px;
 	align-self: flex-start;
 	vertical-align: top;
+	z-index: 2;
 }
 .pg-detail .xans-product-detail .infoArea > * {
 	max-width: 413px;

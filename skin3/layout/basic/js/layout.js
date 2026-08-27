@@ -5,6 +5,7 @@ window.addEventListener('load', function(){
 	mfSearchPanel();
 	mfSearchKeyword();
 	mfDetailPage();
+	mfProductBrandOnly();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -159,11 +160,7 @@ function mfDetailPage() {
 		}
 	}
 
-	var brand = page.querySelector('.pg-detail__brand');
-	if (brand && !String(brand.textContent || '').trim()) {
-		var cate = page.querySelector('.path ol li:nth-child(2) a');
-		if (cate) brand.textContent = cate.textContent;
-	}
+	/* brand 정리는 mfProductBrandOnly에서 처리 */
 
 	/* 옵션 라벨 Size 정규화 (관리자 한글명 대비) */
 	page.querySelectorAll('.xans-product-option th').forEach(function (th) {
@@ -230,6 +227,126 @@ function mfDetailPage() {
 				panel.removeAttribute('hidden');
 			} else {
 				panel.setAttribute('hidden', 'hidden');
+			}
+		});
+	});
+}
+
+/* 상품카드/상세 브랜드줄: 브랜드 → 제조사 → 목록표시항목 순 */
+function mfProductBrandOnly() {
+	var roots = document.querySelectorAll('.pg-home, .pg-list, .pg-search, .pg-detail');
+	if (!roots.length) return;
+
+	var hideRe = /^(자체제작|자체브랜드|자체공급|제조사|브랜드|상품명|판매가|기본트렌드)$/i;
+	var brandTitleRe = /제조사|브랜드|brand|manufacturer/i;
+	var priceRe = /[₩￦]|\d{1,3}(,\d{3})+|원\s*$/;
+	var brandByProduct = {};
+
+	function cleanText(v) {
+		return String(v || '').replace(/\s+/g, ' ').trim();
+	}
+
+	function isUsable(text) {
+		return !!(text && !hideRe.test(text) && !priceRe.test(text));
+	}
+
+	function productNoFrom(el) {
+		var li = el.closest('li[id^="anchorBoxId_"]');
+		if (li && li.id) {
+			var m = li.id.match(/anchorBoxId_(\d+)/);
+			if (m) return m[1];
+		}
+		var img = el.querySelector('img[id*="eListPrdImage"]');
+		if (img && img.id) {
+			var m2 = img.id.match(/eListPrdImage(\d+)/);
+			if (m2) return m2[1];
+		}
+		return '';
+	}
+
+	function pickFromBrandEl(brandEl) {
+		var picked = '';
+		brandEl.querySelectorAll('[data-mf-brand-src]').forEach(function (span) {
+			if (picked) return;
+			var t = cleanText(span.textContent);
+			if (isUsable(t)) picked = t;
+		});
+		if (!picked) {
+			brandEl.querySelectorAll('[data-mf-manu]').forEach(function (span) {
+				if (picked) return;
+				var t = cleanText(span.textContent);
+				if (isUsable(t)) picked = t;
+			});
+		}
+		return picked;
+	}
+
+	function applyBrand(brandEl, picked) {
+		brandEl.querySelectorAll('[data-mf-brand-src], [data-mf-manu]').forEach(function (span) {
+			span.textContent = '';
+		});
+		if (picked) {
+			brandEl.textContent = picked;
+			brandEl.style.display = '';
+			brandEl.removeAttribute('hidden');
+		} else {
+			brandEl.textContent = '';
+			brandEl.style.display = 'none';
+		}
+	}
+
+	roots.forEach(function (root) {
+		root.querySelectorAll('[data-mf-brand], .prdList__brand, .pg-detail__brand').forEach(function (brandEl) {
+			var item = brandEl.closest('.prdList__item') || brandEl.closest('.infoArea') || root;
+			var picked = pickFromBrandEl(brandEl);
+
+			if (!picked && item) {
+				item.querySelectorAll('.spec > li').forEach(function (li) {
+					if (picked) return;
+					var titleEl = li.querySelector('.title');
+					var title = cleanText(titleEl ? titleEl.textContent : '');
+					var body = cleanText(li.textContent.replace(title, '').replace(/^:/, ''));
+					if (priceRe.test(body) || li.classList.contains('price') || li.classList.contains('sale')) return;
+					if (brandTitleRe.test(title) && isUsable(body)) picked = body;
+					/* 타이틀 숨김 상태에서도 브랜드값만 있는 경우 */
+					if (!picked && !titleEl && isUsable(body) && !priceRe.test(body)) {
+						/* skip generic - only when title matches */
+					}
+				});
+			}
+
+			/* ListItem 타이틀이 displaynone이어도 본문이 브랜드명인 경우 (판매가 제외) */
+			if (!picked && item) {
+				item.querySelectorAll('.spec > li').forEach(function (li) {
+					if (picked) return;
+					var titleEl = li.querySelector('.title');
+					var title = cleanText(titleEl ? titleEl.textContent.replace(/:/g, '') : '');
+					var body = cleanText(String(li.textContent || '').replace(titleEl ? titleEl.textContent : '', '').replace(/^[\s:]*/, ''));
+					if (priceRe.test(body) || li.classList.contains('price')) return;
+					if (brandTitleRe.test(title) && isUsable(body)) picked = body;
+				});
+			}
+
+			if (!picked && brandEl.classList.contains('pg-detail__brand')) {
+				var cate = root.querySelector('.path ol li:nth-child(2) a');
+				if (cate) {
+					var ct = cleanText(cate.textContent);
+					if (isUsable(ct)) picked = ct;
+				}
+			}
+
+			var pno = productNoFrom(item);
+			if (picked && pno) brandByProduct[pno] = picked;
+			brandEl.setAttribute('data-mf-pno', pno || '');
+			applyBrand(brandEl, picked);
+		});
+
+		/* 같은 상품번호면 New/Best 서로 브랜드 맞춤 */
+		root.querySelectorAll('[data-mf-brand], .prdList__brand').forEach(function (brandEl) {
+			var pno = brandEl.getAttribute('data-mf-pno') || '';
+			var cur = cleanText(brandEl.textContent);
+			if ((!cur || brandEl.style.display === 'none') && pno && brandByProduct[pno]) {
+				applyBrand(brandEl, brandByProduct[pno]);
 			}
 		});
 	});
