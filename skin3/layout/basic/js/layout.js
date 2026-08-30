@@ -825,9 +825,9 @@ function mfAcademyPage() {
 	var tabName = 'market';
 	if (/consult|inquiry/i.test(path)) {
 		tabName = 'contact';
-	} else if (boardNo === '2') {
+	} else if (boardNo === '1002') {
 		tabName = 'academic';
-	} else if (boardNo === '1' || boardNo === '1002' || !boardNo) {
+	} else if (boardNo === '5' || !boardNo) {
 		tabName = 'market';
 	}
 	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
