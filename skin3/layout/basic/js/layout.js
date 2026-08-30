@@ -1004,16 +1004,71 @@ function mfAcademyContact() {
 	}
 
 	var emailWrap = root.querySelector('.pg-acd-ct__email');
-	if (emailWrap && emailWrap.textContent.indexOf('@') === -1) {
-		var e1 = emailWrap.querySelector('#email1');
-		var e2 = emailWrap.querySelector('#email2');
-		if (e1 && e2) {
-			var at = document.createElement('span');
-			at.className = 'pg-acd-ct__at';
-			at.textContent = '@';
-			e1.parentNode.insertBefore(at, e2);
+	if (emailWrap && emailWrap.getAttribute('data-ready') !== '1') {
+		var e1 = emailWrap.querySelector('#email1, input[name="email1"]');
+		var e2 = emailWrap.querySelector('#email2, input[name="email2"]');
+		var e3 = emailWrap.querySelector('#email3, select[name="email3"]');
+		var one = emailWrap.querySelector('#email, input[name="email"]');
+		if (e1 || e3 || one) {
+			emailWrap.setAttribute('data-ready', '1');
+			var left = document.createElement('div');
+			left.className = 'pg-acd-ct__email-local';
+			var mid = document.createElement('span');
+			mid.className = 'pg-acd-ct__at';
+			mid.textContent = '@';
+			var right = document.createElement('div');
+			right.className = 'pg-acd-ct__email-domain';
+			if (e1) {
+				e1.removeAttribute('hidden');
+				e1.style.display = 'block';
+				if (!e1.getAttribute('placeholder')) e1.setAttribute('placeholder', '');
+				left.appendChild(e1);
+			} else if (one) {
+				left.appendChild(one);
+			}
+			if (e2 && e3) {
+				e2.className = (e2.className ? e2.className + ' ' : '') + 'pg-acd-ct__email-sync';
+				right.appendChild(e2);
+				right.appendChild(e3);
+			} else if (e3) {
+				right.appendChild(e3);
+			} else if (e2) {
+				right.appendChild(e2);
+			}
+			emailWrap.innerHTML = '';
+			emailWrap.appendChild(left);
+			emailWrap.appendChild(mid);
+			emailWrap.appendChild(right);
+			if (e3) {
+				e3.addEventListener('change', function () {
+					if (e2 && e3.value && e3.value !== '' && e3.value !== 'etc') {
+						e2.value = e3.value;
+					}
+				});
+			}
 		}
 	}
+
+	function markPh(sel) {
+		if (!sel) return;
+		function sync() {
+			var empty = !sel.value || sel.selectedIndex <= 0 || /선택|전체/.test(sel.options[sel.selectedIndex].text || '');
+			if (empty) sel.classList.add('is-ph');
+			else sel.classList.remove('is-ph');
+		}
+		sel.addEventListener('change', sync);
+		sync();
+	}
+	markPh(root.querySelector('#email3'));
+	var typeSel = root.querySelector('.pg-acd-ct__select select, select[name="board_category"]');
+	if (typeSel && typeSel.options.length && typeSel.options[0].value !== '') {
+		var ph = document.createElement('option');
+		ph.value = '';
+		ph.textContent = '문의 유형 선택';
+		typeSel.insertBefore(ph, typeSel.options[0]);
+		if (!typeSel.value) typeSel.selectedIndex = 0;
+	}
+	markPh(typeSel);
 
 	var upload = root.querySelector('[data-acd-upload]');
 	if (upload) {

@@ -73,6 +73,7 @@ ul.info li { padding: 0 0 0 9px;}
 	align-items: stretch;
 	gap: 4px;
 }
+.pg-acd-ct__control:has(#writer) #acdName { display: none !important; }
 .pg-acd-ct__label {
 	display: flex;
 	align-items: flex-start;
@@ -87,8 +88,11 @@ ul.info li { padding: 0 0 0 9px;}
 }
 .pg-acd-ct__control,
 .pg-acd-ct__upload {
+	display: flex;
+	align-items: center;
 	border-bottom: 1px solid var(--Neutral\/Wood);
 	min-height: 50px;
+	height: 50px;
 	box-sizing: border-box;
 }
 .pg-acd-ct__upload {
@@ -123,9 +127,15 @@ ul.info li { padding: 0 0 0 9px;}
 	box-sizing: border-box;
 }
 .pg-acd-ct .pg-acd-ct__control input::placeholder,
-.pg-acd-ct__input::placeholder {
-	color: #878787;
+.pg-acd-ct__input::placeholder,
+.pg-acd-ct select.is-ph,
+.pg-acd-ct #email3.is-ph {
+	color: #cacaca;
 }
+.pg-acd-ct .pg-acd-ct__control input::-webkit-input-placeholder,
+.pg-acd-ct__input::-webkit-input-placeholder { color: #cacaca; }
+.pg-acd-ct .pg-acd-ct__control input::-moz-placeholder,
+.pg-acd-ct__input::-moz-placeholder { color: #cacaca; }
 .pg-acd-ct__help {
 	margin: 0;
 	padding: 2px 0 0;
@@ -133,24 +143,61 @@ ul.info li { padding: 0 0 0 9px;}
 	font: var(--mf-b13);
 	letter-spacing: -0.01em;
 }
+.pg-acd-ct__field--email .pg-acd-ct__control.pg-acd-ct__email,
 .pg-acd-ct__email {
-	display: flex;
-	align-items: flex-end;
+	display: flex !important;
+	align-items: stretch;
 	gap: 0;
+	height: auto;
+	min-height: 50px;
 	border-bottom: 0;
-	min-height: 0;
+	overflow: visible;
 }
-.pg-acd-ct__email input,
-.pg-acd-ct__email select {
+.pg-acd-ct__email-local,
+.pg-acd-ct__email-domain {
 	flex: 1 1 0;
 	min-width: 0;
+	display: flex;
+	align-items: center;
 	border-bottom: 1px solid var(--Neutral\/Wood);
+	box-sizing: border-box;
 }
-.pg-acd-ct__email select {
-	padding-right: 28px;
+.pg-acd-ct .xans-board-write-9 #email1,
+.pg-acd-ct .xans-board-write-9 #email2,
+.pg-acd-ct .xans-board-write-9 #email3,
+.pg-acd-ct #email1,
+.pg-acd-ct #email2,
+.pg-acd-ct #email3 {
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+	position: static !important;
+	float: none !important;
+	flex: 1 1 auto !important;
+	width: 100% !important;
+	max-width: none !important;
+	min-width: 0 !important;
+	height: 50px !important;
+	margin: 0 !important;
+	padding: 9px 0 !important;
+	border: 0 !important;
+	pointer-events: auto !important;
+	background-color: transparent !important;
+}
+.pg-acd-ct #email2.pg-acd-ct__email-sync {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+.pg-acd-ct__email select,
+.pg-acd-ct #email3 {
+	padding-right: 28px !important;
 	appearance: none;
 	-webkit-appearance: none;
-	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3' d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E") right 0 center / 20px 20px no-repeat;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3' d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E") right 0 center / 20px 20px no-repeat !important;
+	color: var(--Neutral\/Dark);
 }
 .pg-acd-ct__at {
 	display: flex;
@@ -170,7 +217,12 @@ ul.info li { padding: 0 0 0 9px;}
 	-webkit-appearance: none;
 	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3' d='M5 7.5l5 5 5-5'/%3E%3C/svg%3E") right 0 center / 20px 20px no-repeat;
 }
-.pg-acd-ct__field--msg .pg-acd-ct__control { border-bottom: 1px solid var(--Neutral\/Wood); min-height: 180px; }
+.pg-acd-ct__field--msg .pg-acd-ct__control {
+	display: block;
+	height: auto;
+	min-height: 180px;
+	border-bottom: 1px solid var(--Neutral\/Wood);
+}
 .pg-acd-ct__field--msg textarea,
 .pg-acd-ct #content {
 	height: 180px;
@@ -263,7 +315,15 @@ ul.info li { padding: 0 0 0 9px;}
 	.pg-acd-ct__label { font: 400 11px/1.42 var(--mf-sans); }
 	.pg-acd-ct__label i { font-size: 12px; }
 	.pg-acd-ct__control,
-	.pg-acd-ct__upload { min-height: 44px; }
+	.pg-acd-ct__upload { min-height: 44px; height: 44px; }
+	.pg-acd-ct__field--email .pg-acd-ct__control.pg-acd-ct__email,
+	.pg-acd-ct__email { min-height: 44px; height: auto; }
+	.pg-acd-ct .xans-board-write-9 #email1,
+	.pg-acd-ct .xans-board-write-9 #email2,
+	.pg-acd-ct .xans-board-write-9 #email3,
+	.pg-acd-ct #email1,
+	.pg-acd-ct #email2,
+	.pg-acd-ct #email3 { height: 44px !important; padding: 6px 0 !important; }
 	.pg-acd-ct__input,
 	.pg-acd-ct .pg-acd-ct__control input[type="text"],
 	.pg-acd-ct .pg-acd-ct__email input[type="text"],
