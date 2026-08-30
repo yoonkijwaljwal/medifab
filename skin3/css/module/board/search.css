@@ -27,3 +27,30 @@
     
     .xans-board-search .category { margin:0 0 10px 0; }
 }
+
+.pg-acd .xans-board-search,
+.pg-acd.xans-board-search {
+	margin: 0;
+}
+.pg-acd .xans-board-search .form {
+	flex-wrap: nowrap;
+}
+.pg-acd .xans-board-search select,
+.pg-acd .xans-board-search input[type="text"],
+.pg-acd .xans-board-search a {
+	margin: 0;
+	flex: none;
+}
+.pg-acd .xans-board-search input[type="text"],
+.pg-acd .xans-board-search #search {
+	flex: 1 1 auto;
+}
+
+@media all and (max-width:1024px) {
+	.pg-acd .xans-board-search { margin: 0; }
+	.pg-acd .xans-board-search select,
+	.pg-acd .xans-board-search input[type="text"],
+	.pg-acd .xans-board-search a { margin: 0; flex: none; }
+	.pg-acd .xans-board-search input[type="text"],
+	.pg-acd .xans-board-search #search { flex: 1 1 auto; }
+}

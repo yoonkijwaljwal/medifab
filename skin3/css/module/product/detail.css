@@ -46,7 +46,7 @@
 .xans-product-detail .xans-product-option tr,
 .xans-product-detail .xans-product-option td { display:block; }
 .xans-product-detail .xans-product-option tr:first-child th,
-.xans-product-detail .xans-product-option .xans-product-fileoption th { padding-top:14px; }
+.xans-product-detail .xans-product-option .xans-product-fileoption th { padding-top:0; }
 .xans-product-detail .xans-product-option tr:first-child td,
 .xans-product-detail .xans-product-option .xans-product-fileoption td { padding-top:10px;  }
 .xans-product-detail .xans-product-option td.selectButton { text-align:right; }
@@ -354,7 +354,7 @@
 .xans-product-detail .infoArea table .sale_box {position:absolute;top:0px;right:0px;width:60px;height:60px;font-size:20px;font-weight:400;text-align:center;color:#fff;background-color:#d0ac88;line-height:1;border-radius:50%;display:flex;align-content:center;justify-content:center;align-items:center;}
 .xans-product-detail .infoArea select {margin-top:-8px;}
 .xans-product-detail .infoArea .xans-product-addproduct select {margin:0;}
-.xans-product-detail .infoArea #totalProducts {margin:50px 0 0;}
+.xans-product-detail .infoArea #totalProducts {margin:0;}
 .xans-product-detail .infoArea #totalProducts .option_product {background:#faf7f3;}
 .xans-product-detail .infoArea #totalProducts .quantity a {background:#fff;}
 .xans-product-detail .infoArea #totalProducts > table > tbody > tr > td:first-child {width:40%;padding:30px 10px 30px 25px;}
@@ -376,7 +376,7 @@
 .xans-product-detail .xans-product-option td {display:revert;width:100%;}
 .xans-product-detail .xans-product-option tr:first-child td,
 .xans-product-detail .xans-product-option .xans-product-fileoption td {padding:20px 0;}
-.xans-product-detail .xans-product-option tr:first-child th {padding-top:22px;}
+.xans-product-detail .xans-product-option tr:first-child th {padding-top:0;}
 .xans-product-detail .xans-product-option td .xans-product-addoption th,
 .xans-product-detail .xans-product-option td .xans-product-fileoption th {padding-top:0 !important;padding-left:25px !important;}
 .xans-product-detail .xans-product-option tr.xans-product-addoption th {padding-top:28px;}
@@ -739,31 +739,49 @@
 	color: var(--Neutral\/Dark);
 	line-height: 1.5;
 }
+/* 상품 요약설명 — 제품명 바로 아래 */
 .pg-detail .pg-detail__sub {
-	margin: 2px 0 0;
-	font-size: 12px;
-	line-height: 1.36;
+	display: block;
+	margin: 0;
+	font: var(--mf-b14);
 	letter-spacing: -0.01em;
+	line-height: 1.54;
 	color: var(--Neutral\/Dark);
+	word-break: keep-all;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+}
+.pg-detail .pg-detail__sub.displaynone,
+.pg-detail .pg-detail__sub:empty {
+	display: none !important;
+}
+.pg-detail .pg-detail__price {
+	display: none !important;
+	margin: 16px 0 0;
+	padding: 0;
+	font: var(--mf-b16);
+	font-weight: 400;
+	letter-spacing: -0.01em;
+	line-height: 1.52;
+	color: var(--Neutral\/Dark);
+	word-break: keep-all;
+}
+.pg-detail .pg-detail__price.displaynone,
+.pg-detail .pg-detail__price:empty {
+	display: none !important;
 }
 .pg-detail .xans-product-detaildesign {
-	margin: 8px 0 0;
+	/* 상품정보 표시항목(요약/간략 등) 중복 노출 방지 — 가격은 Total 영역 사용 */
+	display: none !important;
+	margin: 0;
+	padding: 0;
 }
 .pg-detail .xans-product-detaildesign table,
 .pg-detail .xans-product-detaildesign tbody,
 .pg-detail .xans-product-detaildesign tr,
 .pg-detail .xans-product-detaildesign td {
-	display: block;
-	width: 100%;
-	border: 0;
-	margin: 0;
-	padding: 0;
-	font: var(--mf-b16);
-	letter-spacing: -0.01em;
-	color: var(--Neutral\/Dark);
+	display: none !important;
 }
-.pg-detail .xans-product-detaildesign > table > tbody > tr { display: none; }
-.pg-detail .xans-product-detaildesign > table > tbody > tr:nth-child(2) { display: block; }
 .pg-detail .xans-product-option {
 	display: block;
 	margin: 32px 0 0;
@@ -882,23 +900,58 @@
 	padding: 2px 6px;
 	text-indent: 0;
 }
-.pg-detail .ec-base-desc.quantity {
-	display: flex;
+/* Quantity — Size와 동일 행 레이아웃, 시작부터 항상 노출 */
+.pg-detail .ec-base-desc.quantity,
+.pg-detail .ec-base-desc.quantity.displaynone {
+	display: flex !important;
 	align-items: center;
 	justify-content: space-between;
-	margin: 0 0 12px;
-	padding: 0;
-	border: 0;
+	gap: 12px;
 	width: 100%;
 	max-width: 413px;
+	margin: 12px 0 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
 }
 .pg-detail .ec-base-desc.quantity dt {
 	width: auto;
+	flex: 1 1 auto;
+	margin: 0;
 	padding: 0;
 	font: var(--mf-b14);
+	letter-spacing: -0.01em;
+	line-height: 1.54;
 	color: var(--Neutral\/Wood);
 }
-.pg-detail .ec-base-desc.quantity dd { margin: 0; }
+.pg-detail .ec-base-desc.quantity dd {
+	flex: 0 0 auto;
+	margin: 0 0 0 auto;
+	padding: 0;
+	text-align: right;
+}
+.pg-detail .xans-product-option tr.xans-product-quantity,
+.pg-detail .xans-product-option tr.xans-product-quantity.displaynone {
+	display: flex !important;
+}
+.pg-detail .xans-product-option tr.xans-product-quantity td {
+	display: flex;
+	justify-content: flex-end;
+	text-align: right;
+}
+.pg-detail .xans-product-option tr.xans-product-quantity .ec-base-qty {
+	margin-left: auto;
+	justify-content: flex-end;
+}
+.pg-detail .ec-base-desc.quantity .ec-base-qty {
+	margin-left: auto;
+	justify-content: flex-end;
+}
+/* 품목 수량(#totalProducts)이 생기면 폼 Quantity는 숨겨 중복 방지 */
+.pg-detail.has-tp-qty .ec-base-desc.quantity,
+.pg-detail.has-tp-qty .xans-product-option tr.xans-product-quantity {
+	display: none !important;
+}
 .pg-detail .ec-base-qty {
 	display: flex;
 	align-items: center;
@@ -954,7 +1007,7 @@
 	display: block !important;
 	width: 100%;
 	max-width: 413px;
-	margin: 12px 0 0;
+	margin: 0;
 	padding: 0;
 	border: 0;
 	background: transparent !important;
@@ -982,6 +1035,12 @@
 	border: 0 !important;
 	background: transparent !important;
 }
+/* 수량 없는 빈 행(Quantity 라벨만 남는 행) 숨김 */
+.pg-detail #totalProducts > table > tbody > tr:not(:has(.quantity)):not(:has(.quantity_opt)),
+.pg-detail #totalProducts tr.option_product:not(:has(.quantity)):not(:has(.quantity_opt)),
+.pg-detail #totalProducts tr.add_product:not(:has(.quantity)):not(:has(.quantity_opt)) {
+	display: none !important;
+}
 .pg-detail #totalProducts > table > tbody > tr:last-child,
 .pg-detail #totalProducts tr.option_product:last-child { margin-bottom: 0; }
 .pg-detail #totalProducts > table > tbody > tr > td,
@@ -998,12 +1057,22 @@
 }
 .pg-detail #totalProducts > table > tbody > tr > td:first-child,
 .pg-detail #totalProducts tr.option_product > td:first-child {
-	flex: 1 1 auto;
+	flex: 0 0 auto;
+	margin-left: auto;
 	min-width: 0;
+	text-align: right;
 }
 .pg-detail #totalProducts > table > tbody > tr::before,
 .pg-detail #totalProducts tr.option_product::before {
+	content: none;
+	display: none;
+}
+.pg-detail #totalProducts > table > tbody > tr:has(.quantity)::before,
+.pg-detail #totalProducts > table > tbody > tr:has(.quantity_opt)::before,
+.pg-detail #totalProducts tr.option_product:has(.quantity)::before,
+.pg-detail #totalProducts tr.option_product:has(.quantity_opt)::before {
 	content: "Quantity";
+	display: block;
 	flex: 1 1 auto;
 	font: var(--mf-b14);
 	letter-spacing: -0.01em;
@@ -1028,11 +1097,23 @@
 .pg-detail #totalProducts tr.option_product > td > table tr:first-child,
 .pg-detail #totalProducts tr.option_product > td > table tr:first-child td {
 	display: block !important;
-	width: 100%;
+	width: auto !important;
 	margin: 0 !important;
 	padding: 0 !important;
 	border: 0 !important;
 	background: transparent !important;
+	margin-left: auto !important;
+}
+.pg-detail #totalProducts tr.option_product > td > table tr:first-child {
+	display: flex !important;
+	align-items: center;
+	justify-content: flex-end;
+	width: auto !important;
+	margin-left: auto !important;
+}
+.pg-detail #totalProducts tr.option_product > td > table tr:first-child td {
+	width: auto !important;
+	flex: 0 0 auto;
 }
 .pg-detail #totalProducts .quantity,
 .pg-detail #totalProducts table p:not(.product) {
@@ -1119,9 +1200,8 @@
 	margin: 0;
 	background: var(--Neutral\/Dark);
 }
-.pg-detail .ec-base-desc.quantity:not(.displaynone) {
-	display: flex !important;
-}
+.pg-detail .infoArea #totalPrice.totalPrice,
+.pg-detail #totalPrice.totalPrice,
 .pg-detail .totalPrice {
 	display: flex;
 	align-items: flex-end;
@@ -1141,9 +1221,17 @@
 .pg-detail .totalPrice .pg-detail__total-label {
 	flex: 1 1 auto;
 	min-width: 0;
+	margin: 0;
+	padding: 0;
+	font: var(--mf-b14);
+	letter-spacing: -0.01em;
+	line-height: 1.54;
 	color: var(--Neutral\/Wood);
+	text-align: left;
+	font-size: 14px !important;
 }
-.pg-detail .totalPrice > span[class*="total"] {
+.pg-detail .totalPrice > span.total,
+.pg-detail .totalPrice > strong.total {
 	display: block;
 	flex: 0 0 auto;
 	margin: 0;
@@ -1151,6 +1239,7 @@
 	font-size: 0;
 	line-height: 0;
 	color: var(--Neutral\/Dark);
+	text-align: right;
 }
 .pg-detail .totalPrice span strong,
 .pg-detail .totalPrice span em {
@@ -1161,8 +1250,9 @@
 	line-height: 1.52;
 	color: var(--Neutral\/Dark);
 }
-.pg-detail .totalPrice > span[class*="total"] strong,
-.pg-detail .totalPrice > span[class*="total"] em {
+.pg-detail .totalPrice > span.total strong,
+.pg-detail .totalPrice > span.total em,
+.pg-detail .totalPrice > strong.total em {
 	font-size: 16px;
 	line-height: 1.52;
 }
@@ -1239,6 +1329,9 @@
 	display: block;
 	width: 100%;
 }
+.pg-detail [data-panel][hidden] {
+	display: none !important;
+}
 .pg-detail .pg-detail__desc-body {
 	display: block;
 	width: 100%;
@@ -1249,12 +1342,9 @@
 	line-height: inherit;
 	white-space: pre-wrap;
 }
-.pg-detail .pg-detail__desc-body + .pg-detail__desc-body:not(.displaynone) {
-	margin-top: 12px;
-}
 .pg-detail .pg-detail__desc-body:empty,
 .pg-detail .pg-detail__desc-body.displaynone {
-	display: none !important;
+	display: none;
 }
 .pg-detail .xans-product-additional { margin: 0; padding: 0; }
 .pg-detail #prdDetail { display: none; }
@@ -1268,7 +1358,8 @@
 	.pg-detail .xans-product-detail .detailArea {
 		flex-direction: column;
 		align-items: stretch;
-		padding: 0;
+		/* MO 고정 헤더: padding 20 + logo 24 + padding 20 */
+		padding: 64px 0 0;
 		gap: 0;
 	}
 	.pg-detail .xans-product-detail .imgArea,
@@ -1316,17 +1407,25 @@
 		line-height: 1.52;
 	}
 	.pg-detail .pg-detail__sub {
-		margin: 4px 0 0;
-		color: var(--Neutral\/Wood);
-	}
-	.pg-detail .xans-product-detaildesign {
 		margin: 0;
-		padding: 16px 20px;
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+		line-height: 1.54;
 	}
-	.pg-detail .xans-product-detaildesign > table > tbody > tr:nth-child(2) td,
-	.pg-detail .xans-product-detaildesign > table > tbody > tr:nth-child(2) {
+	.pg-detail .pg-detail__sub.displaynone,
+	.pg-detail .pg-detail__sub:empty {
+		display: none !important;
+	}
+	.pg-detail .pg-detail__price {
+		margin: 12px 0 0;
 		font: var(--mf-b14);
 		letter-spacing: -0.01em;
+		line-height: 1.54;
+	}
+	.pg-detail .xans-product-detaildesign {
+		display: none !important;
+		margin: 0;
+		padding: 0;
 	}
 	.pg-detail .xans-product-option {
 		margin: 0;
@@ -1336,28 +1435,47 @@
 	}
 	.pg-detail .xans-product-option tr { margin: 0 0 16px; }
 	.pg-detail .xans-product-option tr:last-child { margin-bottom: 0; }
-	.pg-detail .xans-product-option th,
-	.pg-detail .ec-base-desc.quantity dt {
+	.pg-detail .xans-product-option th {
 		font: var(--mf-b13);
 		letter-spacing: -0.01em;
 	}
 	.pg-detail .xans-product-option .ec-product-button { gap: 6px; }
-	.pg-detail .ec-base-desc.quantity {
-		margin: 0;
+	.pg-detail .ec-base-desc.quantity,
+	.pg-detail .ec-base-desc.quantity.displaynone {
 		max-width: none;
-		padding: 16px 20px;
+		margin: 0;
+		padding: 16px 20px 0;
 		box-sizing: border-box;
+	}
+	.pg-detail .ec-base-desc.quantity dt {
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+		line-height: 1.42;
+	}
+	.pg-detail.has-tp-qty .ec-base-desc.quantity,
+	.pg-detail.has-tp-qty .xans-product-option tr.xans-product-quantity {
+		display: none !important;
 	}
 	.pg-detail #totalProducts {
 		max-width: none;
 		margin: 0;
-		padding: 16px 20px;
+		padding: 16px 20px 0;
 		box-sizing: border-box;
+	}
+	.pg-detail #totalProducts > table > tbody > tr,
+	.pg-detail #totalProducts tr.option_product,
+	.pg-detail #totalProducts tr.add_product {
+		margin: 0 0 16px;
+	}
+	.pg-detail #totalProducts > table > tbody > tr:last-child,
+	.pg-detail #totalProducts tr.option_product:last-child {
+		margin-bottom: 0;
 	}
 	.pg-detail #totalProducts > table > tbody > tr::before,
 	.pg-detail #totalProducts tr.option_product::before {
 		font: var(--mf-b13);
 		letter-spacing: -0.01em;
+		line-height: 1.42;
 	}
 	.pg-detail #totalProducts .quantity,
 	.pg-detail #totalProducts table p:not(.product) {
@@ -1404,15 +1522,29 @@
 		top: 2.5px;
 		height: 11px;
 	}
+	.pg-detail .infoArea #totalPrice.totalPrice,
+	.pg-detail #totalPrice.totalPrice,
 	.pg-detail .totalPrice {
 		margin: 0;
 		max-width: none;
-		padding: 0 20px;
+		padding: 16px 20px 0;
 		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+		line-height: 1.42;
+		color: var(--Neutral\/Wood);
 		box-sizing: border-box;
+		align-items: center;
+		justify-content: space-between;
 	}
-	.pg-detail .totalPrice > span[class*="total"] strong,
-	.pg-detail .totalPrice > span[class*="total"] em {
+	.pg-detail .totalPrice .pg-detail__total-label {
+		font: var(--mf-b13);
+		letter-spacing: -0.01em;
+		line-height: 1.42;
+		font-size: 13px !important;
+	}
+	.pg-detail .totalPrice > span.total strong,
+	.pg-detail .totalPrice > span.total em,
+	.pg-detail .totalPrice > strong.total em {
 		font-size: 14px;
 		line-height: 1.54;
 	}

@@ -6,6 +6,7 @@ window.addEventListener('load', function(){
 	mfSearchKeyword();
 	mfDetailPage();
 	mfProductBrandOnly();
+	mfAcademyPage();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -162,6 +163,17 @@ function mfDetailPage() {
 
 	/* brand 정리는 mfProductBrandOnly에서 처리 */
 
+	/* 제목 아래 판매가 숫자만 오면 ₩ 포맷 */
+	(function formatHeadingPrice() {
+		var el = page.querySelector('.pg-detail__price');
+		if (!el) return;
+		var raw = (el.textContent || '').replace(/\s+/g, '').trim();
+		if (!/^\d+$/.test(raw)) return;
+		var n = parseInt(raw, 10);
+		if (!n) return;
+		el.textContent = '\uFFE6' + n.toLocaleString('ko-KR');
+	})();
+
 	/* 옵션 테이블: 실제 옵션이 있으면 displaynone 해제 + Size 라벨 정규화 */
 	page.querySelectorAll('table.xans-product-option').forEach(function (table) {
 		var hasOption = !!(table.querySelector('select, .ec-product-button li, input[type="radio"], input[type="checkbox"]'));
@@ -175,60 +187,309 @@ function mfDetailPage() {
 		if (/사이즈|용량|size/i.test(t)) th.textContent = 'Size';
 	});
 
-	/* Cafe24가 totalPrice를 다시 그리면 Total 라벨·(n개) 정리 */
-	var totalPrice = page.querySelector('.totalPrice');
-	function syncTotalLabel() {
-		if (!totalPrice) return;
-		var label = totalPrice.querySelector('.pg-detail__total-label');
-		if (!label) {
-			label = document.createElement('span');
-			label.className = 'pg-detail__total-label';
-			label.textContent = 'Total';
-			totalPrice.insertBefore(label, totalPrice.firstChild);
-		}
-		var nodes = totalPrice.childNodes;
-		for (var i = 0; i < nodes.length; i++) {
-			var n = nodes[i];
-			if (n.nodeType === 3 && /\d+\s*개/.test(n.nodeValue || '')) {
-				n.nodeValue = (n.nodeValue || '').replace(/\s*\(?\s*\d+\s*개\s*\)?/g, '');
+	/* 시작부터 Quantity 노출 + 15ml 선택 + Total 세팅 */
+	(function initDefaultBuyState() {
+		var totalBox = page.querySelector('#totalProducts');
+		var totalPriceEl = page.querySelector('.totalPrice');
+
+		function readProductPrice() {
+			var info = document.getElementById('ec-product-price-info');
+			if (info) {
+				var n = parseInt(String(info.getAttribute('ec-data-price') || '').replace(/[^\d]/g, ''), 10);
+				if (n > 0) return n;
 			}
+			var hp = page.querySelector('.pg-detail__price');
+			if (hp) {
+				var n2 = parseInt(String(hp.textContent || '').replace(/[^\d]/g, ''), 10);
+				if (n2 > 0) return n2;
+			}
+			return 0;
 		}
-		totalPrice.querySelectorAll('span').forEach(function (span) {
-			if (span.classList.contains('pg-detail__total-label')) return;
-			span.childNodes.forEach(function (cn) {
-				if (cn.nodeType === 3 && /\d+\s*개/.test(cn.nodeValue || '')) {
-					cn.nodeValue = (cn.nodeValue || '').replace(/\s*\(?\s*\d+\s*개\s*\)?/g, '');
+		function hasProductLine() {
+			return !!(totalBox && totalBox.querySelector('tr.option_product, .quantity_opt, .quantity input, input.quantity_opt'));
+		}
+		function showQuantity(forceHide) {
+			var tpQty = !!(totalBox && totalBox.querySelector('.quantity input, input.quantity_opt, .quantity_opt, .quantity'));
+			var hideForm = forceHide === true || tpQty;
+			page.classList.toggle('has-tp-qty', hideForm);
+			page.querySelectorAll('.xans-product-option tr.xans-product-quantity, .ec-base-desc.quantity').forEach(function (el) {
+				if (hideForm) {
+					el.style.setProperty('display', 'none', 'important');
+				} else {
+					el.classList.remove('displaynone');
+					el.style.setProperty('display', 'flex', 'important');
 				}
 			});
+			if (hideForm && totalBox) {
+				totalBox.querySelectorAll('tr.option_product, tr.add_product, #totalProducts > table > tbody > tr').forEach(function (tr) {
+					if (!tr.querySelector('.quantity, .quantity_opt, input.quantity_opt')) return;
+					tr.classList.remove('displaynone');
+					tr.style.setProperty('display', 'flex', 'important');
+				});
+			}
+		}
+		function ensureTotalLabel() {
+			if (!totalPriceEl) return;
+			var label = totalPriceEl.querySelector('.pg-detail__total-label');
+			if (!label) {
+				label = document.createElement('span');
+				label.className = 'pg-detail__total-label';
+				label.textContent = 'Total';
+				var priceSpan = totalPriceEl.querySelector('span.total, strong.total');
+				if (priceSpan) totalPriceEl.insertBefore(label, priceSpan);
+				else totalPriceEl.insertBefore(label, totalPriceEl.firstChild);
+			} else {
+				label.textContent = 'Total';
+			}
+		}
+		function fillTotal() {
+			if (!totalPriceEl) return;
+			ensureTotalLabel();
+			var em = totalPriceEl.querySelector('span.total em, strong.total em, .total em');
+			if (!em) return;
+			var cur = parseInt(String(em.textContent || '').replace(/[^\d]/g, ''), 10) || 0;
+			if (cur > 0) return;
+			var price = readProductPrice();
+			if (price > 0) em.textContent = price.toLocaleString('ko-KR');
+		}
+		function fireClick(node) {
+			if (!node) return;
+			var a = node.tagName === 'A' ? node : (node.querySelector('a') || node);
+			var $ = window.jQuery;
+			try {
+				if ($ && $.fn) {
+					$(a).trigger('click');
+					$(node).trigger('click');
+				} else {
+					a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+				}
+			} catch (err) {}
+		}
+		function syncSelect(li) {
+			var wrap = li.closest('td') || li.closest('table') || page;
+			var label = (li.textContent || '').replace(/\s+/g, ' ').trim();
+			var $ = window.jQuery;
+			wrap.querySelectorAll('select').forEach(function (sel) {
+				for (var i = 0; i < sel.options.length; i++) {
+					var ot = (sel.options[i].text || '').replace(/\s+/g, ' ').trim();
+					if (!ot || /^[-*]|선택/.test(ot)) continue;
+					if (ot === label || ot.indexOf(label) !== -1 || label.indexOf(ot) !== -1) {
+						sel.selectedIndex = i;
+						try {
+							if ($ && $.fn) $(sel).val(sel.options[i].value).trigger('change');
+							else sel.dispatchEvent(new Event('change', { bubbles: true }));
+						} catch (err) {}
+						break;
+					}
+				}
+			});
+		}
+		function pickLi(list) {
+			var items = list.querySelectorAll('li');
+			var fallback = null;
+			for (var i = 0; i < items.length; i++) {
+				var li = items[i];
+				if (li.classList.contains('ec-product-soldout') || li.classList.contains('ec-product-disabled')) continue;
+				var text = (li.textContent || '').replace(/\s+/g, ' ').trim();
+				if (!fallback) fallback = li;
+				if (/^15\s*ml$/i.test(text)) return li;
+			}
+			return fallback;
+		}
+		function pickOther(list, target) {
+			var other = null;
+			list.querySelectorAll('li').forEach(function (item) {
+				if (other || item === target) return;
+				if (item.classList.contains('ec-product-soldout') || item.classList.contains('ec-product-disabled')) return;
+				other = item;
+			});
+			return other;
+		}
+		function clickPushButton() {
+			var btn = page.querySelector('.xans-product-option .selectButton a, [id*="option_push"] a, .selectButton a');
+			if (!btn) return;
+			var row = btn.closest('tr, .selectButton, td');
+			if (row && (row.classList.contains('displaynone') || window.getComputedStyle(row).display === 'none')) return;
+			fireClick(btn);
+		}
+		function selectDefaultOption() {
+			page.querySelectorAll('.xans-product-option .ec-product-button').forEach(function (list) {
+				var target = pickLi(list);
+				if (!target) return;
+				if (target.classList.contains('ec-product-selected') && hasProductLine()) return;
+
+				syncSelect(target);
+				var other = pickOther(list, target);
+				if (other) {
+					fireClick(other);
+					setTimeout(function () {
+						syncSelect(target);
+						fireClick(target);
+						setTimeout(clickPushButton, 60);
+						setTimeout(function () { showQuantity(); fillTotal(); }, 120);
+					}, 100);
+				} else {
+					target.classList.remove('ec-product-selected');
+					fireClick(target);
+					setTimeout(clickPushButton, 60);
+					setTimeout(function () { showQuantity(); fillTotal(); }, 120);
+				}
+			});
+		}
+
+		showQuantity();
+		fillTotal();
+
+		var tries = 0;
+		(function tick() {
+			tries += 1;
+			showQuantity();
+			fillTotal();
+			if (!page.querySelector('.xans-product-option .ec-product-button li')) {
+				if (tries < 40) setTimeout(tick, 100);
+				return;
+			}
+			if (!hasProductLine()) selectDefaultOption();
+			showQuantity();
+			fillTotal();
+			if (!hasProductLine() && tries < 25) setTimeout(tick, 250);
+			else {
+				showQuantity();
+				fillTotal();
+				setTimeout(function () { showQuantity(); fillTotal(); }, 400);
+			}
+		})();
+
+		if (totalBox && window.MutationObserver && !totalBox.getAttribute('data-mf-qty-mo')) {
+			totalBox.setAttribute('data-mf-qty-mo', '1');
+			var t = null;
+			new MutationObserver(function () {
+				if (t) clearTimeout(t);
+				t = setTimeout(function () { showQuantity(); fillTotal(); }, 30);
+			}).observe(totalBox, { childList: true, subtree: true });
+		}
+
+		/* 옵션 클릭 시 폼 Quantity → #totalProducts Quantity 전환 */
+		page.addEventListener('click', function (e) {
+			if (!e.target.closest('.xans-product-option .ec-product-button, .xans-product-option select')) return;
+			showQuantity(true);
+			setTimeout(function () { showQuantity(true); fillTotal(); }, 80);
+			setTimeout(function () { showQuantity(); fillTotal(); }, 300);
 		});
+	})();
+
+	/* Cafe24가 totalPrice를 다시 그리면 Total 라벨 정리 — 가격 노드(em)는 건드리지 않음 */
+	var totalPrice = page.querySelector('.totalPrice');
+	var totalMo = null;
+	var totalSyncing = false;
+	function readProductPrice() {
+		var info = document.getElementById('ec-product-price-info');
+		if (info) {
+			var raw = info.getAttribute('ec-data-price') || '';
+			var n = parseInt(String(raw).replace(/[^\d]/g, ''), 10);
+			if (n > 0) return n;
+		}
+		var hp = page.querySelector('.pg-detail__price');
+		if (hp) {
+			var n2 = parseInt(String(hp.textContent || '').replace(/[^\d]/g, ''), 10);
+			if (n2 > 0) return n2;
+		}
+		return 0;
+	}
+	function fillTotalIfZero() {
+		if (!totalPrice) return;
+		var em = totalPrice.querySelector('span.total em, strong.total em, .total em');
+		if (!em) return;
+		var cur = parseInt(String(em.textContent || '').replace(/[^\d]/g, ''), 10) || 0;
+		if (cur > 0) return;
+		var price = readProductPrice();
+		if (price > 0) em.textContent = price.toLocaleString('ko-KR');
+	}
+	function syncTotalLabel() {
+		if (!totalPrice || totalSyncing) return;
+		totalSyncing = true;
+		if (totalMo) totalMo.disconnect();
+		try {
+			var label = totalPrice.querySelector('.pg-detail__total-label');
+			if (!label) {
+				label = document.createElement('span');
+				label.className = 'pg-detail__total-label';
+				label.textContent = 'Total';
+			} else if (label.textContent !== 'Total') {
+				label.textContent = 'Total';
+			}
+
+			var priceSpan = null;
+			var kids = totalPrice.children;
+			for (var i = 0; i < kids.length; i++) {
+				var el = kids[i];
+				if (!el || el === label) continue;
+				if (el.classList && el.classList.contains('pg-detail__total-label')) continue;
+				var tag = el.tagName;
+				if (tag !== 'SPAN' && tag !== 'STRONG') continue;
+				var cls = el.className || '';
+				if (/(^|\s)total(\s|$)/.test(cls) || el.querySelector('em')) {
+					priceSpan = el;
+					break;
+				}
+			}
+			if (priceSpan) {
+				if (label.parentNode !== totalPrice || label.nextSibling !== priceSpan) {
+					totalPrice.insertBefore(label, priceSpan);
+				}
+			} else if (label.parentNode !== totalPrice) {
+				totalPrice.insertBefore(label, totalPrice.firstChild);
+			}
+			fillTotalIfZero();
+		} finally {
+			totalSyncing = false;
+			if (totalMo && totalPrice) {
+				totalMo.observe(totalPrice, { childList: true });
+			}
+		}
 	}
 	syncTotalLabel();
+	setTimeout(fillTotalIfZero, 700);
+	setTimeout(fillTotalIfZero, 1200);
 	if (totalPrice && window.MutationObserver && !totalPrice.getAttribute('data-mf-total-mo')) {
 		totalPrice.setAttribute('data-mf-total-mo', '1');
-		var tmo = new MutationObserver(function () { syncTotalLabel(); });
-		tmo.observe(totalPrice, { childList: true, characterData: true, subtree: true });
+		var totalMoTimer = null;
+		totalMo = new MutationObserver(function () {
+			if (totalSyncing) return;
+			if (totalMoTimer) clearTimeout(totalMoTimer);
+			totalMoTimer = setTimeout(syncTotalLabel, 50);
+		});
+		totalMo.observe(totalPrice, { childList: true });
 	}
+	page.addEventListener('click', function (e) {
+		if (!e.target.closest('.xans-product-option .ec-product-button, .xans-product-option select')) return;
+		setTimeout(fillTotalIfZero, 80);
+		setTimeout(fillTotalIfZero, 300);
+	});
 
 	var tabs = page.querySelector('[data-detail-tabs]');
 	var panels = page.querySelector('[data-detail-panels]');
 	if (!tabs || !panels) return;
 
-	/* Description: 간략/요약설명 노출. 타이틀 하단 값만 있으면 패널로 복제 */
-	(function syncDescPanel() {
-		var descPanel = panels.querySelector('[data-panel="desc"]');
-		if (!descPanel) return;
-		var bodies = descPanel.querySelectorAll('.pg-detail__desc-body');
-		var hasText = false;
-		bodies.forEach(function (el) {
-			if ((el.textContent || '').replace(/\s+/g, ' ').trim()) hasText = true;
-		});
-		if (hasText) return;
-		var sub = page.querySelector('.pg-detail__sub');
-		var subText = sub ? (sub.textContent || '').replace(/\s+/g, ' ').trim() : '';
-		if (!subText) return;
-		var slot = bodies[0] || descPanel;
-		slot.textContent = subText;
-		slot.classList.remove('displaynone');
+	/* 상품간략설명: 탭이 비면 상품정보표시(detaildesign)에서 보강 */
+	(function fillSimpleDesc() {
+		var slot = panels.querySelector('[data-mf-simple-slot]');
+		if (!slot) return;
+		var text = (slot.textContent || '').replace(/\s+/g, ' ').trim();
+		if (text) return;
+		var rows = page.querySelectorAll('.xans-product-detaildesign tr');
+		for (var i = 0; i < rows.length; i++) {
+			var th = rows[i].querySelector('th');
+			var td = rows[i].querySelector('td');
+			if (!th || !td) continue;
+			var title = (th.textContent || '').replace(/\s+/g, ' ').trim();
+			if (!/간략|simple|brief/i.test(title)) continue;
+			var html = (td.innerHTML || '').trim();
+			var body = (td.textContent || '').replace(/\s+/g, ' ').trim();
+			if (!body) continue;
+			slot.innerHTML = html;
+			return;
+		}
 	})();
 
 	var folds = page.querySelectorAll('#prdInfo .detail_guide .ec-base-fold .contents');
@@ -552,6 +813,107 @@ function bottomScroll(){
         }
         lastScrollTop = nowScrollTop;
     }
+}
+
+function mfAcademyPage() {
+	var root = document.querySelector('.pg-acd');
+	if (!root) return;
+
+	var params = new URLSearchParams(window.location.search);
+	var boardNo = params.get('board_no') || '';
+	var path = window.location.pathname || '';
+	var tabName = 'market';
+	if (/consult|inquiry/i.test(path)) {
+		tabName = 'contact';
+	} else if (boardNo === '2') {
+		tabName = 'academic';
+	} else if (boardNo === '1' || boardNo === '1002' || !boardNo) {
+		tabName = 'market';
+	}
+	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
+		tab.classList.toggle('is-active', tab.getAttribute('data-acd-tab') === tabName);
+	});
+
+	var select = root.querySelector('.pg-acd__sort select');
+	var chipsWrap = root.querySelector('[data-acd-chips]');
+	if (select && chipsWrap && !chipsWrap.getAttribute('data-ready')) {
+		chipsWrap.setAttribute('data-ready', '1');
+		var selected = String(select.value || '');
+		var options = select.options || [];
+		var i;
+		var opt;
+		var value;
+		var label;
+		var btn;
+		if (!options.length) {
+			chipsWrap.style.display = 'none';
+		}
+		for (i = 0; i < options.length; i++) {
+			opt = options[i];
+			value = String(opt.value || '');
+			label = String(opt.text || '').replace(/^\s+|\s+$/g, '');
+			if (!value && (/^전체$|^all$/i.test(label) || !label)) label = 'All';
+			btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className = 'pg-acd__chip' + (value === selected ? ' is-active' : '');
+			btn.setAttribute('data-value', value);
+			btn.textContent = label;
+			chipsWrap.appendChild(btn);
+		}
+		chipsWrap.addEventListener('click', function (e) {
+			var chip = e.target.closest('.pg-acd__chip');
+			if (!chip) return;
+			var next = chip.getAttribute('data-value') || '';
+			if (next && (next.indexOf('list.html') !== -1 || next.charAt(0) === '/' || next.indexOf('http') === 0)) {
+				window.location.href = next;
+				return;
+			}
+			if (select) {
+				select.value = next;
+				if (typeof select.onchange === 'function') {
+					select.onchange();
+					return;
+				}
+				try {
+					select.dispatchEvent(new Event('change', { bubbles: true }));
+				} catch (err) {
+					var ev = document.createEvent('HTMLEvents');
+					ev.initEvent('change', true, false);
+					select.dispatchEvent(ev);
+				}
+			}
+			try {
+				var url = new URL(window.location.href);
+				if (next) {
+					url.searchParams.set('category_no', next);
+				} else {
+					url.searchParams.delete('category_no');
+					url.searchParams.delete('category');
+				}
+				window.location.href = url.toString();
+			} catch (navErr) {}
+		});
+	}
+
+	var searchInput = root.querySelector('.pg-acd__search input[type="text"], .pg-acd__search #search');
+	if (searchInput && !searchInput.getAttribute('placeholder')) {
+		searchInput.setAttribute('placeholder', 'Search');
+	}
+
+	var next = root.querySelector('.pg-acd__pager-next, .pg-acd__pager > a:last-child');
+	var more = root.querySelector('.pg-acd__more');
+	if (more && next) {
+		var href = next.getAttribute('href') || '';
+		var dead = !href || href === '#none' || next.classList.contains('nolink');
+		if (dead) {
+			more.setAttribute('hidden', 'hidden');
+		} else {
+			more.removeAttribute('hidden');
+			more.setAttribute('href', href);
+		}
+	} else if (more) {
+		more.setAttribute('hidden', 'hidden');
+	}
 }
 
 function bottomNav(){

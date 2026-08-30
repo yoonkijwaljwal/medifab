@@ -2,18 +2,22 @@
 body:has(.pg-home),
 body:has(.pg-search),
 body:has(.pg-list),
+body:has(.pg-acd),
 body:has(.pg-detail) { max-width: none; background: var(--Neutral\/White); }
 body:has(.pg-home) #container #contents,
 body:has(.pg-search) #container #contents,
 body:has(.pg-list) #container #contents,
+body:has(.pg-acd) #container #contents,
 body:has(.pg-detail) #container #contents { max-width: none; width: 100%; padding: 0; margin-top: 0; }
 body:has(.pg-home) #header.mf-hd,
 body:has(.pg-search) #header.mf-hd,
 body:has(.pg-list) #header.mf-hd,
+body:has(.pg-acd) #header.mf-hd,
 body:has(.pg-detail) #header.mf-hd { border-bottom: 0; }
 body:has(.pg-home) .footer_margin,
 body:has(.pg-search) .footer_margin,
 body:has(.pg-list) .footer_margin,
+body:has(.pg-acd) .footer_margin,
 body:has(.pg-detail) .footer_margin { display: none; }
 body:has(.pg-detail) #wrap { overflow: visible; }
 

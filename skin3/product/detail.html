@@ -70,7 +70,10 @@
 				<div class="icon">{$soldout_icon} {$stock_icon} {$recommend_icon} {$new_icon} {$product_icons} {$today_arrival_icon} {$pickup_icon} {$benefit_icons} {$regular_delivery_icon} {$cultural_tax_icon}</div>
 				<p class="pg-detail__brand" data-mf-brand><span data-mf-brand-src>{$prd_brand}</span><span data-mf-manu>{$manufacturer}</span></p>
                 <h1>{$name}</h1>
-				<p class="pg-detail__sub">{$simple_desc}</p>
+				<!-- 상품요약설명 → 제품명 아래 -->
+				<p class="pg-detail__sub">{$summary_desc}</p>
+				<!-- 판매가(제품 가격) -->
+				<p class="pg-detail__price {$product_price_display|display}">{$product_price}</p>
                 <span class="delivery {$delvtype_display|display}">(해외배송 가능상품)</span>
             </div>
             <div class="topLogo {$supply_link_display|display}">
@@ -597,8 +600,8 @@
 			</div>
 			<div class="pg-detail__panels" data-detail-panels>
 				<div class="pg-detail__desc" data-panel="desc">
-					<div class="pg-detail__desc-body {$simple_desc_display|display}">{$simple_desc}</div>
-					<div class="pg-detail__desc-body {$summary_desc_display|display}">{$summary_desc}</div>
+					<!-- 상품간략설명: 탭에 직접 치환 (hidden 래퍼는 카페24에서 비는 경우 있음) -->
+					<div class="pg-detail__desc-body" data-mf-simple-slot>{$simple_desc}</div>
 				</div>
 				<div data-panel="pay" hidden></div>
 				<div data-panel="ship" hidden></div>
