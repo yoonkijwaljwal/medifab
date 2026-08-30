@@ -1,7 +1,10 @@
 <!--@layout(/layout/basic/layout.html)-->
+<!--@css(/layout/basic/css/main.css)-->
+<div class="pg-acd pg-acd-ct" data-hd="light">
 <div class="section" module="board_writePackage_9">
+    <!--@css(/css/module/board/listPackage.css)-->
     <!--@css(/css/module/board/writePackage_9.css)-->
-    <div module="board_title_9">
+    <div module="board_title_9" class="pg-acd__title-mod">
         <div class="path">
             <span>현재 위치</span>
             <ol>
@@ -10,81 +13,93 @@
                 <li title="현재 위치"><strong>{$board_name}</strong></li>
             </ol>
         </div>
-
         <div class="titleArea">
             <h2>{$board_title}</h2>
         </div>
     </div>
 
-    <div module="board_write_9">
+    <div class="pg-acd__head">
+        <h1 class="pg-acd__title">Academy</h1>
+        <nav class="pg-acd__tabs" aria-label="Academy">
+            <a href="/board/free/list.html?board_no=5" class="pg-acd__tab" data-acd-tab="market">Marketing Library</a>
+            <a href="/board/free/list.html?board_no=1002" class="pg-acd__tab" data-acd-tab="academic">Academic Library</a>
+            <a href="/board/consult/write.html" class="pg-acd__tab is-active" data-acd-tab="contact">Contact Us</a>
+        </nav>
+    </div>
+
+    <p class="pg-acd-ct__guide">자료 관련 문의는 자유 양식으로 작성하시면 이메일로 접수되며, 담당자 검토 후 영업일 기준 2~3일 내 회신드립니다.</p>
+
+    <div module="board_write_9" class="pg-acd-ct__form">
         <!--
             $write_success_url = /board/consult/list.html
             $login_page_url = /member/login.html
         -->
-        <div class="ec-base-table typeWrite">
-            <table border="1" >
-            <caption>1:1 맞춤상담 글쓰기 폼</caption>
-            <colgroup>
-                <col style="width:190px;" />
-                <col style="width:auto;" />
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th scope="row">제목</th>
-                    <td>{$form.board_category}{$form.subject}<span class="ec-base-label">{$form.notice}</span><span class="ec-base-label">{$form.is_post}</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">이메일</th>
-                    <td>{$form.email} <span class="gBlank5">답변여부를 메일로 받으시겠습니까? {$form.cons_re}</span></td>
-                </tr>
-                <tr>
-                    <th scope="row">본문</th>
-                    <td>
-                        {$form.content}
-                    </td>
-                </tr>
-                <tr class="captcha {$config.use_captcha_write|display}">
-                    <th scope="row">보안문자</th>
-                    <td>
-                        {$captcha_image} {$captcha_refresh} {$form.captcha} <span class="ec-base-help">영문, 숫자 조합을 공백없이 입력하세요(대소문자구분)</span>
-                    </td>
-                </tr>
-            </tbody>
-
-            <tbody class="{$config.use_attach|display}">
-                <tr class="file">
-                    <th scope="row">첨부파일1</th>
-                    <td>{$form.attach_file}</td>
-                </tr>
-                <tr class="file">
-                    <th scope="row">첨부파일2</th>
-                    <td>{$form.attach_file}</td>
-                </tr>
-                <tr class="file">
-                    <th scope="row">첨부파일3</th>
-                    <td>{$form.attach_file}</td>
-                </tr>
-                <tr class="file">
-                    <th scope="row">첨부파일4</th>
-                    <td>{$form.attach_file}</td>
-                </tr>
-                <tr class="file">
-                    <th scope="row">첨부파일5</th>
-                    <td>{$form.attach_file}</td>
-                </tr>
-            </tbody>
-            </table>
+        <div class="pg-acd-ct__hidden">
+            {$form.subject}<span class="ec-base-label">{$form.notice}</span><span class="ec-base-label">{$form.is_post}</span>
+            <span class="pg-acd-ct__re">{$form.cons_re}</span>
         </div>
 
-        <div class="ec-base-button gBottom">
-            <span class="gLeft RW">
-                <span class="{$config.is_admin|display}"><a href="#none" class="btnNormalFix sizeM" onclick="{$action_comment_admin}">관리자 답변보기</a>&nbsp;&nbsp;</span>
+        <div class="pg-acd-ct__fields">
+            <div class="pg-acd-ct__field">
+                <label class="pg-acd-ct__label" for="writer">Name <i>*</i></label>
+                <div class="pg-acd-ct__control">
+                    {$form.writer}
+                    <input type="text" id="acdName" class="pg-acd-ct__input" maxlength="50" placeholder="홍길동" autocomplete="name">
+                </div>
+            </div>
+            <div class="pg-acd-ct__field">
+                <label class="pg-acd-ct__label" for="acdOrg">Organization</label>
+                <div class="pg-acd-ct__control">
+                    <input type="text" id="acdOrg" class="pg-acd-ct__input" maxlength="100" placeholder="메디팹의원" autocomplete="organization">
+                </div>
+                <p class="pg-acd-ct__help">병원 또는 클리닉명</p>
+            </div>
+            <div class="pg-acd-ct__field pg-acd-ct__field--email">
+                <label class="pg-acd-ct__label">E-mail <i>*</i></label>
+                <div class="pg-acd-ct__control pg-acd-ct__email">{$form.email}</div>
+            </div>
+            <div class="pg-acd-ct__field">
+                <label class="pg-acd-ct__label">Inquiry Type <i>*</i></label>
+                <div class="pg-acd-ct__control pg-acd-ct__select">{$form.board_category}</div>
+            </div>
+            <div class="pg-acd-ct__field pg-acd-ct__field--msg">
+                <label class="pg-acd-ct__label">Message <i>*</i></label>
+                <div class="pg-acd-ct__control">{$form.content}</div>
+            </div>
+            <div class="pg-acd-ct__field pg-acd-ct__field--files {$config.use_attach|display}">
+                <span class="pg-acd-ct__label">Documents</span>
+                <div class="pg-acd-ct__upload">
+                    <button type="button" class="pg-acd-ct__upload-btn" data-acd-upload>Upload</button>
+                </div>
+                <div class="pg-acd-ct__file-list">
+                    <div class="file">{$form.attach_file}</div>
+                    <div class="file">{$form.attach_file}</div>
+                    <div class="file">{$form.attach_file}</div>
+                    <div class="file">{$form.attach_file}</div>
+                    <div class="file">{$form.attach_file}</div>
+                </div>
+                <p class="pg-acd-ct__help">PDF, JPG, PNG, ZIP · 최대 5개 · 합계 10MB</p>
+            </div>
+            <div class="pg-acd-ct__field captcha {$config.use_captcha_write|display}">
+                <label class="pg-acd-ct__label">보안문자 <i>*</i></label>
+                <div class="pg-acd-ct__control">{$captcha_image} {$captcha_refresh} {$form.captcha}</div>
+            </div>
+        </div>
+
+        <label class="pg-acd-ct__agree">
+            <input type="checkbox" id="acdAgree">
+            <span>[필수] 개인정보 수집 및 이용에 동의합니다.</span>
+        </label>
+
+        <div class="ec-base-button gBottom pg-acd-ct__actions">
+            <span class="gLeft RW pg-acd-ct__hidden">
+                <span class="{$config.is_admin|display}"><a href="#none" class="btnNormalFix sizeM" onclick="{$action_comment_admin}">관리자 답변보기</a></span>
                 <a href="{$link_board_list}" class="btnNormalFix sizeM">목록</a>
             </span>
-            <span class="gRight">
-                <a href="{$link_board_list}" class="btnNormalFix sizeM">취소</a>
-                <a href="#none" onclick="{$action_write}" class="btnSubmitFix sizeM">등록</a>
-            </span>
+            <a href="{$link_board_list}" class="pg-acd-ct__hidden">취소</a>
+            <a href="#none" class="pg-acd-ct__hidden" data-acd-write onclick="{$action_write}">등록</a>
+            <a href="#none" class="pg-acd-ct__submit" data-acd-submit>Submit</a>
         </div>
     </div>
+</div>
 </div>

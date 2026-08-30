@@ -8,6 +8,7 @@ window.addEventListener('load', function(){
 	mfProductBrandOnly();
 	mfAcademyPage();
 	mfAcademyRead();
+	mfAcademyContact();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -989,6 +990,85 @@ function mfAcademyRead() {
 	}
 	files.innerHTML = '';
 	files.appendChild(frag);
+}
+
+function mfAcademyContact() {
+	var root = document.querySelector('.pg-acd-ct');
+	if (!root) return;
+
+	var writer = root.querySelector('#writer, input[name="writer"]');
+	var nameFb = root.querySelector('#acdName');
+	if (writer && nameFb) {
+		nameFb.style.display = 'none';
+		if (!writer.getAttribute('placeholder')) writer.setAttribute('placeholder', '홍길동');
+	}
+
+	var emailWrap = root.querySelector('.pg-acd-ct__email');
+	if (emailWrap && emailWrap.textContent.indexOf('@') === -1) {
+		var e1 = emailWrap.querySelector('#email1');
+		var e2 = emailWrap.querySelector('#email2');
+		if (e1 && e2) {
+			var at = document.createElement('span');
+			at.className = 'pg-acd-ct__at';
+			at.textContent = '@';
+			e1.parentNode.insertBefore(at, e2);
+		}
+	}
+
+	var upload = root.querySelector('[data-acd-upload]');
+	if (upload) {
+		upload.addEventListener('click', function () {
+			var inputs = root.querySelectorAll('.pg-acd-ct__file-list input[type="file"]');
+			var i;
+			for (i = 0; i < inputs.length; i++) {
+				if (!inputs[i].value) {
+					inputs[i].click();
+					return;
+				}
+			}
+			if (inputs.length) inputs[inputs.length - 1].click();
+		});
+	}
+
+	function fillSubject() {
+		var subject = root.querySelector('#subject, input[name="subject"]');
+		if (!subject) return;
+		var cat = root.querySelector('.pg-acd-ct__select select, select[name="board_category"]');
+		var typeText = '';
+		if (cat && cat.selectedIndex >= 0) {
+			typeText = String(cat.options[cat.selectedIndex].text || '').replace(/^\s+|\s+$/g, '');
+		}
+		if (!typeText || typeText === '선택' || /전체|문의 유형/.test(typeText)) typeText = '문의';
+		var name = '';
+		if (writer && writer.value) name = writer.value;
+		else if (nameFb && nameFb.value) name = nameFb.value;
+		if (writer && !writer.value && name) writer.value = name;
+		var org = root.querySelector('#acdOrg');
+		var orgVal = org ? String(org.value || '').replace(/^\s+|\s+$/g, '') : '';
+		var parts = [typeText];
+		if (name) parts.push(name);
+		if (orgVal) parts.push(orgVal);
+		subject.value = parts.join(' - ');
+	}
+
+	var submit = root.querySelector('[data-acd-submit]');
+	var writeBtn = root.querySelector('[data-acd-write]');
+	if (submit && writeBtn) {
+		submit.addEventListener('click', function (e) {
+			e.preventDefault();
+			var agree = root.querySelector('#acdAgree');
+			if (agree && !agree.checked) {
+				window.alert('개인정보 수집 및 이용에 동의해 주세요.');
+				return;
+			}
+			fillSubject();
+			if (typeof writeBtn.onclick === 'function') {
+				writeBtn.onclick();
+				return;
+			}
+			writeBtn.click();
+		});
+	}
 }
 
 function bottomNav(){
