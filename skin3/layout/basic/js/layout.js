@@ -7,6 +7,7 @@ window.addEventListener('load', function(){
 	mfDetailPage();
 	mfProductBrandOnly();
 	mfAcademyPage();
+	mfAcademyRead();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -914,6 +915,80 @@ function mfAcademyPage() {
 	} else if (more) {
 		more.setAttribute('hidden', 'hidden');
 	}
+}
+
+function mfAcademyRead() {
+	var root = document.querySelector('.pg-acd-read');
+	if (!root) return;
+
+	var media = root.querySelector('.pg-acd-read__media');
+	if (media && !media.querySelector('img, video, iframe, embed, object')) {
+		media.classList.add('is-empty');
+	}
+
+	var cat = root.querySelector('.pg-acd-read__cat');
+	if (cat && !String(cat.textContent || '').replace(/\s+/g, '')) {
+		cat.style.display = 'none';
+	}
+
+	var files = root.querySelector('[data-acd-files]');
+	if (!files || files.getAttribute('data-ready') === '1') return;
+	var links = files.querySelectorAll('a[href]');
+	if (!links.length) {
+		files.classList.add('is-empty');
+		return;
+	}
+	files.setAttribute('data-ready', '1');
+
+	var frag = document.createDocumentFragment();
+	var i;
+	var a;
+	var name;
+	var ext;
+	var meta;
+	var match;
+	var size;
+	var row;
+	var info;
+	var title;
+	var sub;
+	var list = [];
+	for (i = 0; i < links.length; i++) {
+		list.push(links[i]);
+	}
+	for (i = 0; i < list.length; i++) {
+		a = list[i];
+		name = String(a.textContent || '').replace(/^\s+|\s+$/g, '');
+		if (!name) name = a.getAttribute('href') || 'Download';
+		meta = '';
+		match = name.match(/\.([a-z0-9]{2,5})(?:\s|$|\))/i);
+		ext = match ? match[1].toUpperCase() : '';
+		size = '';
+		match = (a.parentNode && a.parentNode.textContent ? a.parentNode.textContent : '').match(/(\d+(?:\.\d+)?\s?(?:KB|MB|GB|bytes|바이트))/i);
+		if (match) size = match[1];
+		if (ext || size) meta = [ext, size].filter(Boolean).join(' · ');
+		row = document.createElement('div');
+		row.className = 'pg-acd-read__file';
+		info = document.createElement('div');
+		info.className = 'pg-acd-read__file-info';
+		title = document.createElement('p');
+		title.className = 'pg-acd-read__file-name';
+		title.textContent = name;
+		info.appendChild(title);
+		if (meta) {
+			sub = document.createElement('p');
+			sub.className = 'pg-acd-read__file-meta';
+			sub.textContent = meta;
+			info.appendChild(sub);
+		}
+		a.className = 'pg-acd-read__dl';
+		a.textContent = 'Download';
+		row.appendChild(info);
+		row.appendChild(a);
+		frag.appendChild(row);
+	}
+	files.innerHTML = '';
+	files.appendChild(frag);
 }
 
 function bottomNav(){

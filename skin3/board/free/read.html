@@ -1,8 +1,10 @@
 <!--@layout(/layout/basic/layout.html)-->
+<!--@css(/layout/basic/css/main.css)-->
+<div class="pg-acd-read" data-hd="light">
 <div class="section" module="board_ReadPackage_1002">
     <!--@css(/css/module/board/readPackage.css)-->
     <!--@js(/js/module/board/readPackage.js)-->
-    <div module="board_title_1002">
+    <div module="board_title_1002" class="pg-acd-read__title-mod">
         <div class="path">
             <span>현재 위치</span>
             <ol>
@@ -18,50 +20,41 @@
         </div>
     </div>
 
-    <div module="board_read_1002" class="{$block_target_class}" {$block_data_attr}>
+    <div module="board_read_1002" class="pg-acd-read__article {$block_target_class}" {$block_data_attr}>
         <!--
             $login_page_url = /member/login.html
             $deny_access_url = /board/free/list.html
         -->
-        <div class="ec-base-table typeWrite">
-            <div class="head">
-                <h3 class="{$block_content_class}">{$subject}</h3>
-                <div class="description">
-                    <span class="name">{$member_icon} {$writer} <span class="{$config.display_ip|display}">(ip:{$ip})</span> {$admin_mileage}</span>
-                    <ul class="etcArea">
-                        <li class="{$config.use_date|display}">
-                            <span class="txtNum">{$write_date}</span>
-                        </li>
-                        <li class="{$config.is_use_recom|display} displaynone">
-                            <span>추천</span>
-                            <span class="txtNum">{$vote_count} <a href="#none" class="btnNormal sizeS" onclick="{$action_vote}">추천하기</a></span>
-                        </li>
-                        <li class="{$config.use_cnt|display}">
-                            <span>조회</span> <span class="txtNum">{$hit_count}</span>
-                        </li>
-                        <li class="{$config.is_use_point|display}">
-                            <img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점">
-                        </li>
-                    </ul>
-                </div>
+        <div class="pg-acd-read__head">
+            <span class="pg-acd-read__cat">{$category_name}</span>
+            <h1 class="pg-acd-read__subj {$block_content_class}">{$subject}</h1>
+            <div class="pg-acd-read__meta">
+                <span class="pg-acd-read__writer">{$writer}</span>
+                <span class="pg-acd-read__sep {$config.use_date|display}"></span>
+                <span class="pg-acd-read__date {$config.use_date|display}">{$write_date}</span>
+                <span class="pg-acd-read__sep {$config.use_cnt|display}"></span>
+                <span class="pg-acd-read__hit {$config.use_cnt|display}">{$hit_count}</span>
             </div>
-
-            <div class="{$delete_button_auth|display} {$config.use_password|display}">{$form.password}
-                <span class="ec-base-help txtInfo">삭제하려면 비밀번호를 입력하세요.</span>
-            </div>
-            <div class="attach {$config.use_attach|display}">{$attach_file}</div>
-			<div class="detail {$block_content_class}">{$content_image}{$content}</div>
-			<div class="ec-base-button report-button">
-				<span class="gRight">
-					<a href="#none" class="btnNormalFix sizeS {$is_report_display|display}" onclick="{$board_report_display}">신고</a>
-					<a href="#none" class="btnNormalFix sizeS {$block_request_btn}" onclick="{$block_action}">차단</a>
-					<a href="#none" class="btnNormalFix sizeS {$unblock_request_btn}" onclick="{$unblock_action}">차단해제</a>
-				</span>
-			</div>
-			<!--@import(/board/report_popup.html)-->
         </div>
 
-        <div class="ec-base-button gBottom gBreak">
+        <div class="pg-acd-read__pass {$delete_button_auth|display} {$config.use_password|display}">{$form.password}
+            <span class="ec-base-help txtInfo">삭제하려면 비밀번호를 입력하세요.</span>
+        </div>
+
+        <div class="pg-acd-read__media {$block_content_class}">{$content_image}</div>
+        <div class="pg-acd-read__content {$block_content_class}">{$content}</div>
+        <div class="pg-acd-read__files attach {$config.use_attach|display}" data-acd-files>{$attach_file}</div>
+
+        <div class="ec-base-button report-button pg-acd-read__report">
+            <span class="gRight">
+                <a href="#none" class="btnNormalFix sizeS {$is_report_display|display}" onclick="{$board_report_display}">신고</a>
+                <a href="#none" class="btnNormalFix sizeS {$block_request_btn}" onclick="{$block_action}">차단</a>
+                <a href="#none" class="btnNormalFix sizeS {$unblock_request_btn}" onclick="{$unblock_action}">차단해제</a>
+            </span>
+        </div>
+        <!--@import(/board/report_popup.html)-->
+
+        <div class="ec-base-button gBottom gBreak pg-acd-read__admin">
             <span class="gLeft">
                 <span class="{$config.is_admin|display}">
                     <a href="#none" onclick="{$action_post}" class="btnNormalFix sizeS admin {$config.is_post|display}">{$admin_publish_message}</a>
@@ -70,17 +63,18 @@
                     <a href="#none" onclick="{$action_spam_cancle}" class="btnNormalFix sizeS {$is_global_display|display}">스팸해제</a>
                 </span>
                 <a href="#none" onclick="{$action_delete}" class="btnNormalFix sizeM {$delete_button_auth|display}">삭제</a>
-                <a href="/board/product/modify.html{$param_modify}" class="btnNormalFix sizeM {$modify_button_auth|display}">수정</a>
+                <a href="/board/free/modify.html{$param_modify}" class="btnNormalFix sizeM {$modify_button_auth|display}">수정</a>
             </span>
             <span class="gRight gBreak">
-                <a href="{$link_board_list}" class="btnNormalFix sizeM">목록</a>
-                <a href="/board/product/reply.html{$param_reply}" class="btnSubmitFix sizeM {$reply_button_auth|display}">답변쓰기</a>
+                <a href="/board/free/reply.html{$param_reply}" class="btnSubmitFix sizeM {$reply_button_auth|display}">답변쓰기</a>
             </span>
         </div>
+
+        <a href="{$link_board_list}" class="pg-acd-read__back">Back to List</a>
     </div>
 </div>
 
-<div class="section" module="board_CommentPackage_1002">
+<div class="section pg-acd-read__comments" module="board_CommentPackage_1002">
     <!--@css(/css/module/board/commentPackage.css)-->
     <div module="board_commentlist_1002">
         <!--
@@ -273,7 +267,7 @@
     </div>
 </div>
 
-<div class="section" module="board_movement_1002">
+<div class="section pg-acd-read__move" module="board_movement_1002">
     <!--@css(/css/module/board/movement.css)-->
     <ul>
         <li class="prev {$prev_display|display}">
@@ -299,4 +293,5 @@
     <span class="ec-base-help">{$board_function_help|replace:*,}</span>
 </div>
 <!-- // Admin only -->
+</div>
 <!--@define(cmc_log)-->

@@ -7,6 +7,7 @@ body {min-width:100%;padding:0;margin:0;max-width:1480px;}
 body:has(.pg-home),
 body:has(.pg-search),
 body:has(.pg-acd),
+body:has(.pg-acd-read),
 body:has(.pg-detail) { max-width: none; }
 #container {width:100%;zoom:1;position:relative;margin:0 auto;}
 #container #contents {margin:0 auto;float:none;padding:0;}
@@ -498,6 +499,11 @@ body:has(.pg-acd) button,
 body:has(.pg-acd) input,
 body:has(.pg-acd) select,
 body:has(.pg-acd) textarea,
+body:has(.pg-acd-read),
+body:has(.pg-acd-read) button,
+body:has(.pg-acd-read) input,
+body:has(.pg-acd-read) select,
+body:has(.pg-acd-read) textarea,
 body:has(.pg-detail),
 body:has(.pg-detail) button,
 body:has(.pg-detail) input,
