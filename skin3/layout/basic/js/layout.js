@@ -10,6 +10,7 @@ window.addEventListener('load', function(){
 	mfAcademyRead();
 	mfAcademyContact();
 	mfAccountPage();
+	mfCartPage();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -1179,6 +1180,159 @@ function mfAcademyContact() {
 			writeBtn.click();
 		});
 	}
+}
+
+function mfCartPage() {
+	var root = document.querySelector('.pg-cart');
+	if (!root) return;
+	var i;
+
+	function cartCount() {
+		var items = root.querySelectorAll('.ec-base-prdInfo.gCheck');
+		var n = 0;
+		for (i = 0; i < items.length; i++) {
+			if (items[i].className.indexOf('displaynone') !== -1) continue;
+			n += 1;
+		}
+		return n;
+	}
+
+	var empty = root.querySelector('.xans-order-empty');
+	if (!empty) empty = root.querySelector('.ec-base-prdEmpty');
+	var n = cartCount();
+	var isEmpty = n === 0;
+	if (empty && empty.className.indexOf('displaynone') === -1) {
+		var emptyHasText = String(empty.textContent || '').replace(/\s+/g, '');
+		if (emptyHasText) isEmpty = true;
+		n = isEmpty ? 0 : n;
+	}
+
+	var title = root.querySelector('.titleArea h2');
+	if (title) title.textContent = 'Cart (' + n + ')';
+
+	if (empty) {
+		var nodes = empty.childNodes;
+		for (i = 0; i < nodes.length; i++) {
+			if (nodes[i].nodeType === 3 && String(nodes[i].textContent || '').replace(/\s+/g, '')) {
+				nodes[i].textContent = 'Your cart is empty.';
+			}
+		}
+	}
+
+	var allBtn = document.getElementById('product_select_all');
+	if (allBtn) allBtn.textContent = 'All (' + n + ')';
+
+	var links = root.querySelectorAll('a');
+	for (i = 0; i < links.length; i++) {
+		var t = String(links[i].textContent || '').replace(/^\s+|\s+$/g, '');
+		if (t === '선택삭제') links[i].textContent = 'Remove Selected';
+		else if (t === '전체상품주문') links[i].textContent = 'Checkout All';
+		else if (t === '선택상품주문') links[i].textContent = 'Checkout Selected';
+		else if (t === '삭제' && links[i].className.indexOf('btnDelete') !== -1) links[i].textContent = 'Remove';
+	}
+
+	var qtyLabels = root.querySelectorAll('.quantity > .label');
+	for (i = 0; i < qtyLabels.length; i++) qtyLabels[i].textContent = 'Quantity';
+
+	var headings = root.querySelectorAll('.totalSummary h4.title, .totalSummary h3.title');
+	for (i = 0; i < headings.length; i++) {
+		var ht = String(headings[i].textContent || '').replace(/^\s+|\s+$/g, '');
+		if (ht === '총 상품금액') headings[i].textContent = 'Subtotal';
+		else if (ht === '총 배송비') headings[i].textContent = 'Shipping';
+		else if (ht === '결제예정금액') headings[i].textContent = 'Total';
+		else if (ht.indexOf('할인') !== -1) {
+			var wrap = headings[i].parentNode;
+			while (wrap && wrap !== root && String(wrap.className || '').indexOf('totalSummary__item') === -1) {
+				wrap = wrap.parentNode;
+			}
+			if (wrap && wrap !== root) wrap.style.display = 'none';
+		}
+	}
+
+	var opts = root.querySelectorAll('.optionGroup .optionStr');
+	for (i = 0; i < opts.length; i++) {
+		var ot = String(opts[i].textContent || '').replace(/^\s+|\s+$/g, '');
+		if (ot && ot.indexOf('Size:') !== 0) opts[i].textContent = 'Size: ' + ot;
+	}
+
+	if (isEmpty && root.className.indexOf('is-empty') === -1) {
+		root.className += ' is-empty';
+	}
+
+	var sel = root.querySelector('.xans-order-selectorder');
+	var titleArea = root.querySelector('.titleArea');
+	if (sel && titleArea && titleArea.parentNode) {
+		titleArea.parentNode.insertBefore(sel, titleArea.nextSibling);
+	}
+
+	function closeCart() {
+		var ref = document.referrer;
+		try {
+			if (ref) {
+				var u = new URL(ref);
+				if (u.origin === location.origin && u.pathname.indexOf('/order/basket') === -1) {
+					location.href = ref;
+					return;
+				}
+			}
+		} catch (err) {}
+		location.href = '/';
+	}
+
+	var closeBtn = root.querySelector('.pg-cart__close');
+	if (closeBtn) {
+		closeBtn.addEventListener('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			closeCart();
+		});
+	}
+	root.addEventListener('click', function(e) {
+		if (e.target === root) closeCart();
+	});
+
+	function syncAllMark() {
+		if (!allBtn) return;
+		var boxes = root.querySelectorAll('input.check');
+		var allOn = boxes.length > 0;
+		var b;
+		for (b = 0; b < boxes.length; b++) {
+			if (!boxes[b].checked) allOn = false;
+		}
+		var cls = allBtn.className.replace(/\s*is-on/g, '');
+		allBtn.className = allOn ? cls + ' is-on' : cls;
+	}
+	syncAllMark();
+	if (allBtn) {
+		allBtn.addEventListener('click', function() { setTimeout(syncAllMark, 0); });
+	}
+	root.addEventListener('change', function(e) {
+		if (e.target && e.target.type === 'checkbox') syncAllMark();
+	});
+
+	root.addEventListener('click', function(e) {
+		var el = e.target;
+		if (!el) return;
+		if (el.tagName === 'IMG' && el.parentNode) el = el.parentNode;
+		var cls = ' ' + String(el.className || '').replace(/\s+/g, ' ') + ' ';
+		if (cls.indexOf(' up ') === -1 && cls.indexOf(' down ') === -1) return;
+		var box = el.parentNode;
+		while (box && box !== root && (!box.className || String(box.className).indexOf('quantity') === -1)) {
+			box = box.parentNode;
+		}
+		if (!box || box === root) return;
+		var mod = null;
+		var as = box.getElementsByTagName('a');
+		var k;
+		for (k = 0; k < as.length; k++) {
+			if (String(as[k].className || '').indexOf('sizeQty') !== -1 || String(as[k].textContent || '').indexOf('변경') !== -1) {
+				mod = as[k];
+				break;
+			}
+		}
+		if (!mod) return;
+		setTimeout(function() { mod.click(); }, 40);
+	});
 }
 
 function mfAccountPage() {
