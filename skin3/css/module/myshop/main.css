@@ -12,6 +12,8 @@
     .xans-myshop-main .menu li a:after { content:""; display:block; position:absolute; top:8px; right:18px; width: 10px; height: 10px; margin: 18px auto 0; border-left: 1px solid #929292; border-bottom: 1px solid #929292; -webkit-transform: rotate(-135deg); transform: rotate(-135deg); }
     .xans-myshop-main .consult { margin:23px 16px 0; }
     .xans-myshop-main .consult .btnNormal { width:100%; }
+    .xans-myshop-main .pg-acc__logout-wrap { margin: 24px 16px 0; }
+    .xans-myshop-main .pg-acc__logout { display:inline-block; color:#6d6d6d; font-size:14px; }
 }
 
 /********************* PC *********************/
@@ -26,4 +28,6 @@
     .xans-myshop-main .menu li { margin:16px 0 0; }
 	.xans-myshop-main .menu li a { display:block; color:#6d6d6d; font-size:14px; text-decoration:none; }
     .xans-myshop-main .consult { margin:45px 0 0; }
+    .xans-myshop-main .pg-acc__logout-wrap { margin: 45px 0 0; }
+    .xans-myshop-main .pg-acc__logout { display:inline-block; color:#6d6d6d; font-size:14px; text-decoration:none; }
 }

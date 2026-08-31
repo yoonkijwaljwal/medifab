@@ -9,6 +9,7 @@ window.addEventListener('load', function(){
 	mfAcademyPage();
 	mfAcademyRead();
 	mfAcademyContact();
+	mfAccountPage();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -1005,45 +1006,100 @@ function mfAcademyContact() {
 
 	var emailWrap = root.querySelector('.pg-acd-ct__email');
 	if (emailWrap && emailWrap.getAttribute('data-ready') !== '1') {
-		var e1 = emailWrap.querySelector('#email1, input[name="email1"]');
-		var e2 = emailWrap.querySelector('#email2, input[name="email2"]');
-		var e3 = emailWrap.querySelector('#email3, select[name="email3"]');
-		var one = emailWrap.querySelector('#email, input[name="email"]');
-		if (e1 || e3 || one) {
+		var formBox = root.querySelector('form') || root;
+		var e1 = formBox.querySelector('#email1, input[name="email1"]');
+		var e2 = formBox.querySelector('#email2, input[name="email2"]');
+		var e3 = formBox.querySelector('#email3, select[name="email3"]');
+		var one = formBox.querySelector('#email, input[name="email"]');
+		function unlockMail(el) {
+			if (!el || !el.tagName || el.tagName !== 'INPUT') return el;
+			if (el.type === 'hidden' || el.type === 'email') {
+				try { el.type = 'text'; } catch (err) {}
+			}
+			el.removeAttribute('readonly');
+			el.removeAttribute('disabled');
+			el.removeAttribute('hidden');
+			el.readOnly = false;
+			el.disabled = false;
+			el.style.display = 'block';
+			el.style.pointerEvents = 'auto';
+			return el;
+		}
+		function ensureText(el, name, id) {
+			if (el) return unlockMail(el);
+			el = document.createElement('input');
+			el.type = 'text';
+			el.name = name;
+			el.id = id;
+			el.className = 'inputTypeText';
+			el.setAttribute('autocomplete', name === 'email1' ? 'username' : 'off');
+			return el;
+		}
+		function setDirectDomain() {
+			if (!e3 || !e3.options) return;
+			var i;
+			for (i = 0; i < e3.options.length; i++) {
+				if (e3.options[i].value === 'etc') {
+					e3.selectedIndex = i;
+					return;
+				}
+			}
+		}
+		if (e1 || e2 || e3 || one) {
 			emailWrap.setAttribute('data-ready', '1');
-			var left = document.createElement('div');
-			left.className = 'pg-acd-ct__email-local';
-			var mid = document.createElement('span');
-			mid.className = 'pg-acd-ct__at';
-			mid.textContent = '@';
-			var right = document.createElement('div');
-			right.className = 'pg-acd-ct__email-domain';
-			if (e1) {
-				e1.removeAttribute('hidden');
-				e1.style.display = 'block';
-				if (!e1.getAttribute('placeholder')) e1.setAttribute('placeholder', '');
+			if (one && !e1 && !e2) {
+				unlockMail(one);
+				if (!one.getAttribute('placeholder')) one.setAttribute('placeholder', 'name@example.com');
+			} else {
+				e1 = ensureText(e1, 'email1', 'email1');
+				e2 = ensureText(e2, 'email2', 'email2');
+				var extras = [];
+				var nodes = emailWrap.querySelectorAll('input, select, textarea');
+				var n;
+				for (n = 0; n < nodes.length; n++) {
+					if (nodes[n] !== e1 && nodes[n] !== e2 && nodes[n] !== e3 && nodes[n] !== one) extras.push(nodes[n]);
+				}
+				var left = document.createElement('div');
+				left.className = 'pg-acd-ct__email-local';
+				var mid = document.createElement('span');
+				mid.className = 'pg-acd-ct__at';
+				mid.textContent = '@';
+				var right = document.createElement('div');
+				right.className = 'pg-acd-ct__email-domain';
 				left.appendChild(e1);
-			} else if (one) {
-				left.appendChild(one);
-			}
-			if (e2 && e3) {
-				e2.className = (e2.className ? e2.className + ' ' : '') + 'pg-acd-ct__email-sync';
 				right.appendChild(e2);
-				right.appendChild(e3);
-			} else if (e3) {
-				right.appendChild(e3);
-			} else if (e2) {
-				right.appendChild(e2);
-			}
-			emailWrap.innerHTML = '';
-			emailWrap.appendChild(left);
-			emailWrap.appendChild(mid);
-			emailWrap.appendChild(right);
-			if (e3) {
-				e3.addEventListener('change', function () {
-					if (e2 && e3.value && e3.value !== '' && e3.value !== 'etc') {
-						e2.value = e3.value;
-					}
+				if (e3) {
+					e3.className = (e3.className ? e3.className + ' ' : '') + 'pg-acd-ct__email-pick';
+					right.appendChild(e3);
+				}
+				emailWrap.innerHTML = '';
+				emailWrap.appendChild(left);
+				emailWrap.appendChild(mid);
+				emailWrap.appendChild(right);
+				for (n = 0; n < extras.length; n++) emailWrap.appendChild(extras[n]);
+				setDirectDomain();
+				unlockMail(e1);
+				unlockMail(e2);
+				e2.addEventListener('input', function () {
+					setDirectDomain();
+					unlockMail(e2);
+				});
+				e2.addEventListener('focus', function () {
+					setDirectDomain();
+					unlockMail(e2);
+				});
+				if (e3) {
+					e3.addEventListener('change', function () {
+						if (e3.value && e3.value !== 'etc') e2.value = e3.value;
+						unlockMail(e2);
+					});
+				}
+				[0, 80, 400].forEach(function (t) {
+					setTimeout(function () {
+						setDirectDomain();
+						unlockMail(e1);
+						unlockMail(e2);
+					}, t);
 				});
 			}
 		}
@@ -1059,7 +1115,6 @@ function mfAcademyContact() {
 		sel.addEventListener('change', sync);
 		sync();
 	}
-	markPh(root.querySelector('#email3'));
 	var typeSel = root.querySelector('.pg-acd-ct__select select, select[name="board_category"]');
 	if (typeSel && typeSel.options.length && typeSel.options[0].value !== '') {
 		var ph = document.createElement('option');
@@ -1123,6 +1178,55 @@ function mfAcademyContact() {
 			}
 			writeBtn.click();
 		});
+	}
+}
+
+function mfAccountPage() {
+	var root = document.querySelector('.pg-acc');
+	if (!root) return;
+
+	var points = root.querySelector('[data-acc-stat="points"]');
+	if (points) {
+		var pt = String(points.textContent || '').replace(/^\s+|\s+$/g, '');
+		pt = pt.replace(/원|점/g, '').replace(/\s+/g, '');
+		if (pt && !/P$/i.test(pt)) points.textContent = pt + ' P';
+	}
+	var coupons = root.querySelector('[data-acc-stat="coupons"]');
+	if (coupons) {
+		coupons.textContent = String(coupons.textContent || '').replace(/개/g, '').replace(/\s+/g, '');
+	}
+
+	var orders = root.querySelectorAll('.xans-myshop-orderhistorylistitem .order');
+	var i;
+	for (i = 0; i < orders.length; i++) {
+		if (i >= 2) orders[i].style.display = 'none';
+		var dateEl = orders[i].querySelector('.date');
+		if (dateEl) {
+			dateEl.textContent = String(dateEl.textContent || '')
+				.replace(/[/-]/g, '.')
+				.replace(/\s+\d{1,2}:\d{2}.*$/, '')
+				.replace(/^\s+|\s+$/g, '');
+		}
+		var numEl = orders[i].querySelector('.number');
+		if (numEl) {
+			var numA = numEl.querySelector('a');
+			var raw = String((numA ? numA.textContent : numEl.textContent) || '').replace(/[()]/g, '').replace(/^\s+|\s+$/g, '');
+			if (raw && raw.indexOf('Order') === -1) {
+				if (numA) numA.textContent = 'Order No. ' + raw;
+				else numEl.textContent = 'Order No. ' + raw;
+			}
+		}
+		var st = orders[i].querySelector('.txtStatus');
+		if (st && /취소|반품|교환/.test(st.textContent || '')) st.classList.add('is-cancel');
+	}
+
+	var path = String(location.pathname || '');
+	var links = root.querySelectorAll('.xans-myshop-main a[href]');
+	for (i = 0; i < links.length; i++) {
+		var href = links[i].getAttribute('href') || '';
+		if (href.charAt(0) === '/' && path.indexOf(href.split('?')[0]) === 0 && href.split('?')[0] !== '/') {
+			links[i].classList.add('is-on');
+		}
 	}
 }
 
