@@ -1759,32 +1759,107 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 .pg-acc--sub .xans-myshop-orderhistorylistitem .deliveryDate { display: none !important; }
 .pg-acc--sub .xans-myshop-orderhistorylistitem .ec-base-button { display: none !important; }
 .pg-acc--sub .xans-myshop-orderhistorypaging,
-.pg-acc--sub .ec-base-paginate {
+.pg-acc--sub .ec-base-paginate,
+.pg-acc--sub .ec-base-paginate.typeList {
 	display: flex !important;
 	align-items: center;
 	justify-content: center;
-	gap: 12px;
-	margin: 40px 0 0;
+	gap: 24px;
+	margin: 80px 0 0;
 	padding: 0;
 	border: 0;
 	background: none;
+	font-size: 0;
+	line-height: 0;
+	text-align: center;
 }
-.pg-acc--sub .ec-base-paginate ol {
+.pg-acc--sub .ec-base-paginate.typeList .first,
+.pg-acc--sub .ec-base-paginate.typeList .last {
+	display: none !important;
+}
+.pg-acc--sub .ec-base-paginate.typeList > a {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 28px !important;
+	height: 28px !important;
+	padding: 7px !important;
+	box-sizing: border-box;
+	border: 0 !important;
+	border-radius: 86px;
+	background: rgba(51, 51, 51, 0.08) !important;
+	background-image: none !important;
+	overflow: hidden;
+	font-size: 0 !important;
+	line-height: 0 !important;
+	color: transparent !important;
+	text-indent: 0;
+	vertical-align: middle;
+}
+.pg-acc--sub .ec-base-paginate.typeList > a::before {
+	content: none !important;
+	display: none !important;
+}
+.pg-acc--sub .ec-base-paginate.typeList > a::after {
+	content: "" !important;
+	display: block !important;
+	width: 7px;
+	height: 7px;
+	margin: 0;
+	border: 0;
+	border-top: 1.5px solid var(--Neutral\/Dark);
+	border-right: 1.5px solid var(--Neutral\/Dark);
+	transform: rotate(45deg);
+	vertical-align: middle;
+}
+.pg-acc--sub .ec-base-paginate.typeList > a.first + a::after {
+	transform: rotate(-135deg);
+}
+.pg-acc--sub .ec-base-paginate.typeList > a.is-off {
+	opacity: 0.4;
+	pointer-events: none;
+}
+.pg-acc--sub .ec-base-paginate.typeList ol {
 	display: flex;
+	align-items: center;
 	gap: 12px;
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	font-size: 14px;
+	line-height: 1.54;
+	vertical-align: middle;
 }
-.pg-acc--sub .ec-base-paginate a {
+.pg-acc--sub .ec-base-paginate.typeList li {
+	display: flex;
+	margin: 0 !important;
+	vertical-align: middle;
+}
+.pg-acc--sub .ec-base-paginate.typeList li a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	min-width: 22px;
+	height: 22px;
+	padding: 0;
+	border: 0 !important;
+	background: none !important;
 	color: var(--Neutral\/Wood);
 	font: var(--mf-b14);
+	letter-spacing: -0.01em;
+	line-height: 1.54;
 	text-decoration: none;
+	box-sizing: border-box;
 }
-.pg-acc--sub .ec-base-paginate a.this,
-.pg-acc--sub .ec-base-paginate li a.this,
-.pg-acc--sub .ec-base-paginate ol li a[class*="this"] {
+.pg-acc--sub .ec-base-paginate.typeList a.this,
+.pg-acc--sub .ec-base-paginate.typeList li a.this,
+.pg-acc--sub .ec-base-paginate.typeList ol li a[class*="this"] {
+	position: static;
+	z-index: auto;
 	color: var(--Neutral\/Dark);
+	border: 0 !important;
+	background: none !important;
 }
 .pg-acc .xans-myshop-orderhistorylistitem .txtStatus.is-progress { background: var(--Neutral\/Wood); color: #fff; }
 .pg-acc .xans-myshop-orderhistorylistitem .txtStatus.is-done { background: var(--Neutral\/Dark); color: #fff; }

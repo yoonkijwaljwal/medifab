@@ -1276,6 +1276,7 @@ function mfAccountPage() {
 		mfAccPointStrip(root);
 		mfAccAddrBadge(root);
 		mfAccInquiryWrite(root);
+		mfAccPaginate(root);
 	}
 
 	var path = String(location.pathname || '');
@@ -1410,6 +1411,32 @@ function mfAccAddrBadge(root) {
 function mfAccInquiryWrite(root) {
 	var btn = root.querySelector('.xans-board-buttonlist-9 .btnSubmitFix, .xans-board-buttonlist-9 a[href*="write"]');
 	if (btn && /글쓰기/.test(btn.textContent || '')) btn.textContent = 'New Inquiry';
+}
+
+function mfAccPaginate(root) {
+	var pagers = root.querySelectorAll('.ec-base-paginate');
+	var p;
+	for (p = 0; p < pagers.length; p++) {
+		var pager = pagers[p];
+		var cur = pager.querySelector('a.this');
+		var curHref = cur ? (cur.getAttribute('href') || '') : '';
+		var arrows = [];
+		var kids = pager.children;
+		var k;
+		for (k = 0; k < kids.length; k++) {
+			var el = kids[k];
+			if (el.tagName !== 'A') continue;
+			var cls = el.className || '';
+			if (cls.indexOf('first') !== -1 || cls.indexOf('last') !== -1) continue;
+			arrows.push(el);
+		}
+		if (arrows[0] && curHref && (arrows[0].getAttribute('href') || '') === curHref) {
+			arrows[0].classList.add('is-off');
+		}
+		if (arrows[1] && curHref && (arrows[1].getAttribute('href') || '') === curHref) {
+			arrows[1].classList.add('is-off');
+		}
+	}
 }
 
 function bottomNav(){
