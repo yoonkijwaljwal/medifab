@@ -1189,11 +1189,17 @@ function mfAccountPage() {
 	if (points) {
 		var pt = String(points.textContent || '').replace(/^\s+|\s+$/g, '');
 		pt = pt.replace(/원|점/g, '').replace(/\s+/g, '');
-		if (pt && !/P$/i.test(pt)) points.textContent = pt + ' P';
+		if (!pt) pt = '0';
+		if (!/P$/i.test(pt)) points.textContent = pt + ' P';
 	}
 	var coupons = root.querySelector('[data-acc-stat="coupons"]');
 	if (coupons) {
-		coupons.textContent = String(coupons.textContent || '').replace(/개/g, '').replace(/\s+/g, '');
+		var cp = String(coupons.textContent || '').replace(/개/g, '').replace(/\s+/g, '');
+		coupons.textContent = cp || '0';
+	}
+	var orderStat = root.querySelector('[data-acc-stat="orders"]');
+	if (orderStat && !String(orderStat.textContent || '').replace(/\s+/g, '')) {
+		orderStat.textContent = '0';
 	}
 
 	var orders = root.querySelectorAll('.xans-myshop-orderhistorylistitem .order');

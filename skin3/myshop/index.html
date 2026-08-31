@@ -15,18 +15,15 @@
 	<!--@import(/myshop/myshop_main.html)-->
 
 	<div class="pg-acc__content">
-		<div module="myshop_asyncbankbook" class="pg-acc__summary">
+		<div class="pg-acc__summary">
 			<div class="pg-acc__greet" module="myshop_asyncbenefit">
 				<div class="pg-acc__who">
 					<p class="pg-acc__name">{$member_name} 님</p>
 					<span class="pg-acc__badge pg-acc__badge--nation">내국인</span>
 				</div>
 				<a href="/member/modify.html" class="pg-acc__txtbtn">Profile</a>
-				<div class="pg-acc__grade {$display_benefit|display}">
-					<p class="{$display_no_benefit|display} {$display_no_benefit_class}"><strong>{$dc_pay} {$dc_min_price}</strong> 구매시 <strong>{$dc_price}{$dc_type}</strong>을 {$use_dc} 받으실 수 있습니다. {$dc_max_percent}</p>
-					<p class="{$display_with_all|display} {$display_with_all_class}"><strong>{$dc_pay} {$dc_min_price_mileage}</strong> 구매시 <strong>{$dc_price_mileage}{$dc_type_mileage}</strong>을 {$use_dc_mileage} 받으실 수 있습니다. {$dc_max_mileage_percent}</p>
-				</div>
 			</div>
+			<div module="myshop_asyncbankbook">
 			<ul class="pg-acc__stats">
 				<li>
 					<a href="/myshop/order/list.html">
@@ -34,7 +31,7 @@
 						<span class="pg-acc__stat-v" data-acc-stat="orders">{$total_order_count}</span>
 					</a>
 				</li>
-				<li class="{$display_coupon|display}">
+				<li>
 					<a href="/myshop/coupon/coupon.html">
 						<span class="pg-acc__stat-l">Coupons</span>
 						<span class="pg-acc__stat-v" data-acc-stat="coupons">{$coupon_cnt}</span>
@@ -47,6 +44,7 @@
 					</a>
 				</li>
 			</ul>
+			</div>
 		</div>
 
 		<section class="pg-acc__orders">
