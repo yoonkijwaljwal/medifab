@@ -1344,7 +1344,7 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	font-weight: 400;
 }
 .pg-acc .xans-myshop-orderhistorypaging,
-.pg-acc .ec-base-paginate { display: none !important; }
+.pg-acc__orders .ec-base-paginate { display: none !important; }
 .pg-acc .xans-myshop-orderhistorylistitem .orderList {
 	display: flex;
 	flex-direction: column;
@@ -1386,13 +1386,13 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	font: var(--mf-b14);
 	text-decoration: none;
 }
-.pg-acc .xans-myshop-orderhistorylistitem .order__number .rentBadge,
-.pg-acc .xans-myshop-orderhistorylistitem .btnDetail,
-.pg-acc .xans-myshop-orderhistorylistitem .ec-base-button,
-.pg-acc .xans-myshop-orderhistorylistitem .payDetail,
-.pg-acc .xans-myshop-orderhistorylistitem .prdFoot .gRight,
-.pg-acc .xans-myshop-orderhistorylistitem .info,
-.pg-acc .xans-myshop-orderhistorylistitem .store { display: none !important; }
+.pg-acc__orders .xans-myshop-orderhistorylistitem .order__number .rentBadge,
+.pg-acc__orders .xans-myshop-orderhistorylistitem .btnDetail,
+.pg-acc__orders .xans-myshop-orderhistorylistitem .ec-base-button,
+.pg-acc__orders .xans-myshop-orderhistorylistitem .payDetail,
+.pg-acc__orders .xans-myshop-orderhistorylistitem .prdFoot .gRight,
+.pg-acc__orders .xans-myshop-orderhistorylistitem .info,
+.pg-acc__orders .xans-myshop-orderhistorylistitem .store { display: none !important; }
 .pg-acc .xans-myshop-orderhistorylistitem .ec-base-prdInfo { padding: 0; }
 .pg-acc .xans-myshop-orderhistorylistitem .prdBox {
 	display: flex;
@@ -1599,5 +1599,480 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	.pg-acc .xans-myshop-orderhistorylistitem .price .qty {
 		font: 400 11px/1.42 var(--mf-sans);
 	}
+	.pg-acc--sub { padding-bottom: 80px; }
+	.pg-acc--sub .pg-acc__content { padding: 0 20px 80px; gap: 32px; }
+	.pg-acc--sub .xans-myshop-orderhistoryhead .period { flex-wrap: wrap; }
+	.pg-acc--sub .xans-myshop-orderhistorylistitem .ec-base-prdInfo { flex-direction: column; }
+	.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot {
+		width: 100%;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding: 0 20px 20px;
+	}
+	.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot .gRight { width: auto; }
+	.pg-acc--sub .xans-myshop-couponlist .ec-base-table tbody tr:nth-child(odd) td {
+		display: block;
+		width: 100%;
+		padding: 4px 0;
+	}
+	.pg-acc--sub .xans-myshop-historylist .item h3 { flex-wrap: wrap; }
+	.pg-acc--sub .xans-board-listpackage-9 .ec-base-table col { width: auto; }
+}
+
+/* Account subpages */
+.pg-acc .xans-myshop-main .menu > li:nth-child(n+8) { display: none !important; }
+.pg-acc--sub .pg-acc__content { gap: 40px; }
+.pg-acc--sub .section.path,
+.pg-acc--sub .path,
+.pg-acc--sub .titleArea--myshop,
+.pg-acc--sub .pg-acc__content > .section.titleArea,
+.pg-acc--sub .xans-board-title-9 .titleArea,
+.pg-acc--sub .ec-base-help,
+.pg-acc--sub .xans-myshop-orderhistorytab,
+.pg-acc--sub .xans-myshop-orderhistoryhead .txtList,
+.pg-acc--sub .xans-myshop-orderhistoryhead .stateSelect,
+.pg-acc--sub .xans-myshop-orderhistoryhead .date,
+.pg-acc--sub .xans-myshop-orderhistoryhead .period a[days="00"],
+.pg-acc--sub .xans-myshop-couponserial,
+.pg-acc--sub .xans-myshop-mileagehistorypackage .ec-base-tab,
+.pg-acc--sub .xans-myshop-asyncbenefit,
+.pg-acc--sub .xans-member-updateeventlogon { display: none !important; }
+
+.pg-acc--sub .xans-myshop-orderhistoryhead fieldset.form {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+.pg-acc--sub .xans-myshop-orderhistoryhead .period {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin: 0 0 12px;
+}
+.pg-acc--sub .xans-myshop-orderhistoryhead .period a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 12px;
+	border: 1px solid var(--Neutral\/Cool);
+	border-radius: 99px;
+	background: #fff;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+	letter-spacing: -0.01em;
+	text-decoration: none;
+	line-height: 1.54;
+}
+.pg-acc--sub .xans-myshop-orderhistoryhead .period a.selected,
+.pg-acc--sub .xans-myshop-orderhistoryhead .period a[class*="selected"] {
+	background: var(--Neutral\/Dark);
+	border-color: var(--Neutral\/Dark);
+	color: #fff;
+}
+.pg-acc--sub .pg-acc__range {
+	margin: 0 0 32px;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+}
+.pg-acc--sub .pg-acc__toolbar {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	margin: 0 0 20px;
+}
+.pg-acc--sub .pg-acc__total {
+	margin: 0;
+	flex: 1;
+	font: var(--mf-b16);
+	color: var(--Neutral\/Dark);
+}
+
+.pg-acc--sub .xans-myshop-orderhistorylistitem .order {
+	position: relative;
+}
+.pg-acc--sub .xans-myshop-orderhistorylistitem .ec-base-prdInfo {
+	display: flex;
+	align-items: stretch;
+	gap: 0;
+}
+.pg-acc--sub .xans-myshop-orderhistorylistitem .prdBox { flex: 1 1 auto; }
+.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot {
+	position: static;
+	width: 140px;
+	flex: 0 0 140px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 20px 20px 20px 0;
+	top: auto;
+	right: auto;
+	bottom: auto;
+}
+.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot .gRight {
+	display: flex !important;
+	flex-direction: column;
+	gap: 6px;
+	width: 100%;
+}
+.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot .gRight a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 7px 12px;
+	border: 1px solid var(--Neutral\/Dark);
+	background: #fff;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b13);
+	letter-spacing: -0.01em;
+	text-decoration: none;
+	line-height: 1.42;
+}
+.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot .gRight a.displaynone,
+.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot .gRight span.displaynone { display: none !important; }
+.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot .gRight .btnSubmit,
+.pg-acc--sub .xans-myshop-orderhistorylistitem [href*="write.html"],
+.pg-acc--sub .xans-myshop-orderhistorylistitem .deliveryDate { display: none !important; }
+.pg-acc--sub .xans-myshop-orderhistorylistitem .ec-base-button { display: none !important; }
+.pg-acc--sub .xans-myshop-orderhistorypaging,
+.pg-acc--sub .ec-base-paginate {
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	margin: 40px 0 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+.pg-acc--sub .ec-base-paginate ol {
+	display: flex;
+	gap: 12px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pg-acc--sub .ec-base-paginate a {
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+	text-decoration: none;
+}
+.pg-acc--sub .ec-base-paginate a.this,
+.pg-acc--sub .ec-base-paginate li a.this,
+.pg-acc--sub .ec-base-paginate ol li a[class*="this"] {
+	color: var(--Neutral\/Dark);
+}
+.pg-acc .xans-myshop-orderhistorylistitem .txtStatus.is-progress { background: var(--Neutral\/Wood); color: #fff; }
+.pg-acc .xans-myshop-orderhistorylistitem .txtStatus.is-done { background: var(--Neutral\/Dark); color: #fff; }
+.pg-acc .xans-myshop-orderhistorylistitem .txtStatus.is-pending {
+	background: #fff;
+	border: 1px solid var(--Neutral\/Cool);
+	color: var(--Neutral\/Wood);
+}
+.pg-acc .ec-base-prdEmpty svg { display: none; }
+
+/* order detail / cancel kv */
+.pg-acc--sub .xans-myshop-orderhistorydetail .ec-base-fold,
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel .ec-base-fold {
+	margin: 0 0 40px;
+	border: 0;
+	background: none;
+}
+.pg-acc--sub .xans-myshop-orderhistorydetail .title h3,
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel h3,
+.pg-acc--sub .xans-member-edit .titleArea h3 {
+	margin: 0 0 20px;
+	font: var(--mf-h20);
+	letter-spacing: -0.005em;
+	color: var(--Neutral\/Dark);
+}
+.pg-acc--sub .xans-myshop-orderhistorydetail .ec-base-table table,
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel .ec-base-table table,
+.pg-acc--sub .xans-member-edit .ec-base-table table {
+	width: 100%;
+	border: 0;
+}
+.pg-acc--sub .xans-myshop-orderhistorydetail .ec-base-table th,
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel .ec-base-table th,
+.pg-acc--sub .xans-member-edit .ec-base-table th {
+	width: 160px;
+	padding: 8px 0;
+	border: 0;
+	border-bottom: 0;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+	font-weight: 400;
+	text-align: left;
+	background: none;
+	vertical-align: middle;
+}
+.pg-acc--sub .xans-myshop-orderhistorydetail .ec-base-table td,
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel .ec-base-table td,
+.pg-acc--sub .xans-member-edit .ec-base-table td {
+	padding: 8px 0;
+	border: 0;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b16);
+	text-align: right;
+	background: none;
+}
+.pg-acc--sub .xans-member-edit .ec-base-table td { text-align: left; }
+.pg-acc--sub .xans-member-edit input[type="text"],
+.pg-acc--sub .xans-member-edit input[type="password"],
+.pg-acc--sub .xans-member-edit input[type="email"],
+.pg-acc--sub .xans-member-edit input[type="tel"],
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel select,
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel textarea,
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel input[type="text"] {
+	width: 100%;
+	height: 50px;
+	padding: 9px 0;
+	border: 0;
+	border-bottom: 1px solid var(--Neutral\/Wood);
+	border-radius: 0;
+	background: transparent;
+	font: var(--mf-b16);
+	box-sizing: border-box;
+}
+.pg-acc--sub .xans-myshop-orderhistoryapplycancel textarea { height: 180px; }
+.pg-acc--sub .ec-base-button.gBottom {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	max-width: 420px;
+	margin: 40px auto 0;
+	border: 0;
+	background: none;
+}
+.pg-acc--sub .ec-base-button.gBottom .btnSubmitFix,
+.pg-acc--sub .xans-member-edit .ec-base-button .btnSubmitFix {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	max-width: 420px;
+	padding: 14px 20px;
+	border: 0;
+	background: var(--Neutral\/Dark);
+	color: #fff;
+	font: var(--mf-b16);
+	text-decoration: none;
+}
+.pg-acc--sub .ec-base-button.gBottom .btnNormalFix,
+.pg-acc--sub .xans-member-edit .ec-base-button .btnNormalFix {
+	background: none;
+	border: 0;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b16);
+	text-decoration: none;
+}
+
+.pg-acc--cs-type {
+	display: flex;
+	gap: 14px;
+	flex-wrap: wrap;
+	margin: 0 0 40px;
+}
+.pg-acc--cs-type a {
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b16);
+	text-decoration: none;
+}
+.pg-acc--cs-type a.is-on { color: var(--Neutral\/Dark); }
+
+/* coupons */
+.pg-acc--sub .pg-acc__strip {
+	display: flex;
+	width: 100%;
+	padding: 32px 0;
+	background: var(--Neutral\/Warm);
+	text-align: center;
+}
+.pg-acc--sub .pg-acc__strip-l {
+	display: block;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b13);
+}
+.pg-acc--sub .pg-acc__strip-v {
+	display: block;
+	margin-top: 8px;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-h24);
+	letter-spacing: -0.01em;
+}
+.pg-acc--sub .xans-myshop-couponlist .ec-base-table table { border: 0; }
+.pg-acc--sub .xans-myshop-couponlist thead,
+.pg-acc--sub .xans-myshop-couponlist .RW,
+.pg-acc--sub .xans-myshop-couponlist .layer,
+.pg-acc--sub .xans-myshop-couponlist tbody tr:nth-child(even) { display: none !important; }
+.pg-acc--sub .xans-myshop-couponlist tbody tr:nth-child(odd) {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	padding: 20px;
+	margin: 0 0 12px;
+	border: 1px solid var(--Neutral\/Cool);
+	background: #fff;
+}
+.pg-acc--sub .xans-myshop-couponlist tbody tr:nth-child(odd) td {
+	display: block;
+	padding: 0;
+	border: 0;
+	background: none;
+	text-align: left;
+}
+.pg-acc--sub .xans-myshop-couponlist tbody tr:nth-child(odd) td:nth-child(3) {
+	flex: 0 0 180px;
+	font: var(--mf-b16);
+	order: -1;
+}
+.pg-acc--sub .xans-myshop-couponlist .coupon_name { flex: 1; font: var(--mf-b14); }
+
+/* address */
+.pg-acc--sub .xans-myshop-addrlist thead { display: none; }
+.pg-acc--sub .xans-myshop-addrlist table { border: 0; width: 100%; }
+.pg-acc--sub .xans-myshop-addrlist tbody.center tr {
+	display: block;
+	padding: 20px;
+	margin: 0 0 12px;
+	border: 1px solid var(--Neutral\/Cool);
+	background: #fff;
+}
+.pg-acc--sub .xans-myshop-addrlist tbody.center td {
+	display: inline;
+	padding: 0;
+	border: 0;
+	background: none;
+	text-align: left;
+}
+.pg-acc--sub .xans-myshop-addrlist tbody.center td:first-child { display: none; }
+.pg-acc--sub .xans-myshop-addrlist .ec-base-button .btnSubmitFix {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 7px 12px;
+	border: 1px solid var(--Neutral\/Dark);
+	background: #fff;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b13);
+	text-decoration: none;
+}
+.pg-acc--sub .pg-acc__badge--default {
+	display: inline-flex;
+	margin-left: 8px;
+	padding: 4px 8px;
+	background: var(--Accent\/Gold, #A1865D);
+	color: #fff;
+	font: 400 12px/1.36 var(--mf-sans);
+}
+
+/* points */
+.pg-acc--sub .xans-myshop-summary {
+	display: flex !important;
+	justify-content: center;
+	padding: 32px 0;
+	margin: 0 0 20px;
+	border: 0;
+	background: var(--Neutral\/Warm);
+}
+.pg-acc--sub .xans-myshop-summary ul:nth-child(n+2),
+.pg-acc--sub .xans-myshop-summary li:nth-child(n+2) { display: none; }
+.pg-acc--sub .xans-myshop-summary li {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+}
+.pg-acc--sub .xans-myshop-summary .title { color: var(--Neutral\/Wood); font: var(--mf-b13); font-weight: 400; }
+.pg-acc--sub .xans-myshop-summary .data { color: var(--Neutral\/Dark); font: var(--mf-h24); }
+.pg-acc--sub .xans-myshop-historylist .item {
+	display: flex;
+	gap: 20px;
+	align-items: flex-start;
+	padding: 20px 0;
+	margin: 0;
+	border: 0;
+	border-bottom: 1px solid var(--Neutral\/Cool);
+	background: none;
+}
+.pg-acc--sub .xans-myshop-historylist .item h3 {
+	flex: 0 0 120px;
+	margin: 0;
+	font: var(--mf-b14);
+	color: var(--Neutral\/Wood);
+	font-weight: 400;
+}
+.pg-acc--sub .xans-myshop-historylist .item .ec-base-table { flex: 1; border: 0; }
+.pg-acc--sub .xans-myshop-historylist .item table,
+.pg-acc--sub .xans-myshop-historylist .item th,
+.pg-acc--sub .xans-myshop-historylist .item td {
+	border: 0;
+	background: none;
+	text-align: left;
+	padding: 0 8px 0 0;
+}
+
+/* boards */
+.pg-acc--sub .xans-myshop-boardpackage .ec-base-table,
+.pg-acc--sub .xans-board-listpackage-9 .ec-base-table {
+	border: 0;
+}
+.pg-acc--sub .xans-myshop-boardpackage table,
+.pg-acc--sub .xans-board-listpackage-9 table { border: 0; width: 100%; }
+.pg-acc--sub .xans-myshop-boardpackage th,
+.pg-acc--sub .xans-board-listpackage-9 th {
+	padding: 14px 10px;
+	border: 0;
+	border-top: 1px solid var(--Neutral\/Dark);
+	border-bottom: 1px solid var(--Neutral\/Cool);
+	color: #878787;
+	font: var(--mf-b13);
+	font-weight: 400;
+	background: none;
+}
+.pg-acc--sub .xans-myshop-boardpackage td,
+.pg-acc--sub .xans-board-listpackage-9 td {
+	padding: 20px 10px;
+	border: 0;
+	border-bottom: 1px solid var(--Neutral\/Cool);
+	background: none;
+	font: var(--mf-b16);
+}
+.pg-acc--sub .xans-board-listpackage-9 .boardSort,
+.pg-acc--sub .xans-myshop-boardlisthead,
+.pg-acc--sub .xans-board-title-9 .imgArea,
+.pg-acc--sub .xans-board-title-9 p { display: none !important; }
+.pg-acc--sub .xans-board-listpackage-9 .btnSubmitFix {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 7px 12px;
+	border: 1px solid var(--Neutral\/Dark);
+	background: #fff;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b13);
+	text-decoration: none;
+}
+.pg-acc--sub .xans-board-read-9 .ec-base-table th {
+	width: 160px;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+	font-weight: 400;
+	text-align: left;
+	background: none;
+	border: 0;
+}
+.pg-acc--sub .xans-board-read-9 .ec-base-table td {
+	border: 0;
+	background: none;
+	text-align: right;
+	font: var(--mf-b16);
 }
 

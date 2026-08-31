@@ -1,13 +1,17 @@
 <!--@layout(/layout/basic/layout.html)-->
-<div class="section path">
-    <span>현재 위치</span>
-    <ol>
-        <li><a href="/">홈</a></li>
-        <li><a href="/myshop/index.html">마이쇼핑</a></li>
-        <li title="현재 위치"><strong>주문조회</strong></li>
-    </ol>
+<!--@css(/layout/basic/css/main.css)-->
+<div class="pg-acc pg-acc--sub" data-hd="light">
+<div module="layout_logincheck">
+<!--
+    $url = /member/login.html
+-->
 </div>
-
+<div class="pg-acc__head">
+	<h1 class="pg-acc__title">Account</h1>
+</div>
+<div class="pg-acc__body">
+	<!--@import(/myshop/myshop_main.html)-->
+	<div class="pg-acc__content">
 <div class="myshopArea">
     <div class="titleArea titleArea--myshop">
         <h2>주문조회</h2>
@@ -29,9 +33,10 @@
             </div>
             <span class="period">
                 <a href="#none" class="btnNormal sizeM {$now_style}" days="00">오늘</a>
-                <a href="#none" class="btnNormal sizeM {$month_style}" days="30">1개월</a>
-                <a href="#none" class="btnNormal sizeM {$three_style}" days="90">3개월</a>
-                <a href="#none" class="btnNormal sizeM {$six_style}" days="180">6개월</a>
+                <a href="#none" class="btnNormal sizeM {$month_style}" days="30">1 Month</a>
+                <a href="#none" class="btnNormal sizeM {$three_style}" days="90">3 Month</a>
+                <a href="#none" class="btnNormal sizeM {$six_style}" days="180">6 Month</a>
+                <a href="#none" class="btnNormal sizeM" days="365">1 Year</a>
             </span>
             <div class="date">
                 <span class="datepicker">{$form.start_date} ~ {$form.end_date}</span>
@@ -49,6 +54,7 @@
 
     <!--@import(/myshop/order/history_list_item.html)-->
 
-    <!--@import(/myshop/myshop_main.html)-->
-
+</div>
+	</div>
+</div>
 </div>

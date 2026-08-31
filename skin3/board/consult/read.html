@@ -1,4 +1,17 @@
 <!--@layout(/layout/basic/layout.html)-->
+<!--@css(/layout/basic/css/main.css)-->
+<div class="pg-acc pg-acc--sub" data-hd="light">
+<div module="layout_logincheck">
+<!--
+    $url = /member/login.html
+-->
+</div>
+<div class="pg-acc__head">
+	<h1 class="pg-acc__title">Account</h1>
+</div>
+<div class="pg-acc__body">
+	<!--@import(/myshop/myshop_main.html)-->
+	<div class="pg-acc__content">
 <div class="section" module="board_ReadPackage_9">
     <!--@css(/css/module/board/readPackage_9.css)-->
     <div module="board_title_9">
@@ -98,4 +111,7 @@
 			<span class="gRight gBreak {$config.is_admin|display}"><a href="/board/consult/reply.html{$param_reply}" class="btnSubmitFix sizeM {$reply_button_auth|display}">답변</a></span>
 		</div>
     </div>
+</div>
+	</div>
+</div>
 </div>

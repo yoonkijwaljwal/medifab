@@ -1,4 +1,17 @@
 <!--@layout(/layout/basic/layout.html)-->
+<!--@css(/layout/basic/css/main.css)-->
+<div class="pg-acc pg-acc--sub" data-hd="light">
+<div module="layout_logincheck">
+<!--
+    $url = /member/login.html
+-->
+</div>
+<div class="pg-acc__head">
+	<h1 class="pg-acc__title">Account</h1>
+</div>
+<div class="pg-acc__body">
+	<!--@import(/myshop/myshop_main.html)-->
+	<div class="pg-acc__content">
 <div class="section" module="Board_ListPackage_9">
     <!--@css(/css/module/board/listPackage.css)-->
     <div module="board_title_9">
@@ -91,4 +104,7 @@
         <legend>게시물 검색</legend>
         <div class="form">{$form.consult} {$form.search_date} {$form.search_key} {$form.search} <a href="#none" class="btnNormal" onclick="{$action_search}">찾기</a></div>
     </fieldset>
+</div>
+	</div>
+</div>
 </div>

@@ -1184,6 +1184,8 @@ function mfAcademyContact() {
 function mfAccountPage() {
 	var root = document.querySelector('.pg-acc');
 	if (!root) return;
+	var isSub = root.className.indexOf('pg-acc--sub') !== -1;
+	var i;
 
 	var points = root.querySelector('[data-acc-stat="points"]');
 	if (points) {
@@ -1202,10 +1204,19 @@ function mfAccountPage() {
 		orderStat.textContent = '0';
 	}
 
+	var empty = root.querySelector('.ec-base-prdEmpty');
+	if (empty) {
+		var emptyTxt = empty.childNodes;
+		for (i = 0; i < emptyTxt.length; i++) {
+			if (emptyTxt[i].nodeType === 3 && String(emptyTxt[i].textContent || '').replace(/\s+/g, '')) {
+				emptyTxt[i].textContent = '아직 주문 내역이 없습니다.';
+			}
+		}
+	}
+
 	var orders = root.querySelectorAll('.xans-myshop-orderhistorylistitem .order');
-	var i;
 	for (i = 0; i < orders.length; i++) {
-		if (i >= 2) orders[i].style.display = 'none';
+		if (!isSub && i >= 2) orders[i].style.display = 'none';
 		var dateEl = orders[i].querySelector('.date');
 		if (dateEl) {
 			dateEl.textContent = String(dateEl.textContent || '')
@@ -1223,17 +1234,182 @@ function mfAccountPage() {
 			}
 		}
 		var st = orders[i].querySelector('.txtStatus');
-		if (st && /취소|반품|교환/.test(st.textContent || '')) st.classList.add('is-cancel');
+		if (st) {
+			var stt = st.textContent || '';
+			st.classList.remove('is-cancel', 'is-progress', 'is-done', 'is-pending');
+			if (/취소|반품|교환/.test(stt)) st.classList.add('is-cancel');
+			else if (/배송중|배송준비|출고/.test(stt)) st.classList.add('is-progress');
+			else if (/배송완료|구매확정/.test(stt)) st.classList.add('is-done');
+			else if (/입금|결제대기/.test(stt)) st.classList.add('is-pending');
+		}
+		if (isSub) {
+			var gRight = orders[i].querySelector('.prdFoot .gRight');
+			var csBtns = orders[i].querySelector('.ec-base-button');
+			if (gRight && csBtns) {
+				var csLinks = csBtns.querySelectorAll('a');
+				var c;
+				for (c = 0; c < csLinks.length; c++) {
+					if (csLinks[c].className.indexOf('displaynone') !== -1) continue;
+					csLinks[c].textContent = 'Cancel or Return';
+					gRight.appendChild(csLinks[c]);
+				}
+			}
+			if (gRight) {
+				var tr = gRight.querySelectorAll('a');
+				var t;
+				for (t = 0; t < tr.length; t++) {
+					var label = String(tr[t].textContent || '');
+					if (/후기|철회|확정/.test(label)) {
+						tr[t].style.display = 'none';
+						continue;
+					}
+					if (label.indexOf('배송조회') !== -1) tr[t].textContent = 'Track';
+				}
+			}
+		}
+	}
+
+	if (isSub) {
+		mfAccOrderListChrome(root);
+		mfAccCsType(root);
+		mfAccCouponStrip(root);
+		mfAccPointStrip(root);
+		mfAccAddrBadge(root);
+		mfAccInquiryWrite(root);
 	}
 
 	var path = String(location.pathname || '');
 	var links = root.querySelectorAll('.xans-myshop-main a[href]');
 	for (i = 0; i < links.length; i++) {
 		var href = links[i].getAttribute('href') || '';
-		if (href.charAt(0) === '/' && path.indexOf(href.split('?')[0]) === 0 && href.split('?')[0] !== '/') {
-			links[i].classList.add('is-on');
+		var base = href.split('?')[0];
+		if (!base || base === '/') continue;
+		var on = false;
+		if (path.indexOf('/myshop/order/') === 0 && base.indexOf('/myshop/order/') === 0) on = true;
+		else if (path.indexOf('/myshop/addr/') === 0 && base.indexOf('/myshop/addr/') === 0) on = true;
+		else if (path.indexOf('/myshop/coupon/') === 0 && base.indexOf('/myshop/coupon/') === 0) on = true;
+		else if (path.indexOf('/myshop/mileage/') === 0 && base.indexOf('/myshop/mileage/') === 0) on = true;
+		else if (path.indexOf('/board/consult/') === 0 && base.indexOf('/board/consult/') === 0) on = true;
+		else if (path === base || (base !== '/myshop/index.html' && path.indexOf(base) === 0)) on = true;
+		if (on) links[i].classList.add('is-on');
+	}
+}
+
+function mfAccFmtDate(v) {
+	return String(v || '').replace(/[/-]/g, '.').replace(/\s+\d{1,2}:\d{2}.*$/, '').replace(/^\s+|\s+$/g, '');
+}
+
+function mfAccOrderListChrome(root) {
+	var head = root.querySelector('.xans-myshop-orderhistoryhead');
+	if (!head) return;
+	if (!head.querySelector('.pg-acc__range')) {
+		var start = head.querySelector('input[name="start_date"], #start_date, input.fText[id*="start"]');
+		var end = head.querySelector('input[name="end_date"], #end_date, input.fText[id*="end"]');
+		var inputs = head.querySelectorAll('.datepicker input[type="text"]');
+		var s = start ? start.value : (inputs[0] ? inputs[0].value : '');
+		var e = end ? end.value : (inputs[1] ? inputs[1].value : '');
+		if (s && e) {
+			var p = document.createElement('p');
+			p.className = 'pg-acc__range';
+			p.textContent = mfAccFmtDate(s) + ' ~ ' + mfAccFmtDate(e);
+			head.appendChild(p);
 		}
 	}
+	var listMod = root.querySelector('.xans-myshop-orderhistorylistitem');
+	if (listMod && !root.querySelector('.pg-acc__toolbar')) {
+		var n = root.querySelectorAll('.xans-myshop-orderhistorylistitem .order').length;
+		if (root.querySelector('.ec-base-prdEmpty')) n = 0;
+		var bar = document.createElement('div');
+		bar.className = 'pg-acc__toolbar';
+		var tot = document.createElement('p');
+		tot.className = 'pg-acc__total';
+		tot.textContent = 'Total ' + n;
+		bar.appendChild(tot);
+		if (listMod.parentNode) listMod.parentNode.insertBefore(bar, listMod);
+	}
+	var year = head.querySelector('.period a[days="365"]');
+	if (year && typeof window.jQuery === 'function') {
+		window.jQuery(year).off('click.mfAccYear').on('click.mfAccYear', function (ev) {
+			ev.preventDefault();
+			var $ = window.jQuery;
+			var days = 365;
+			var end = new Date();
+			var start = new Date();
+			start.setDate(start.getDate() - days);
+			function pad(n) { return n < 10 ? '0' + n : '' + n; }
+			function fmt(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+			var $s = $('input[name="start_date"]');
+			var $e = $('input[name="end_date"]');
+			if ($s.length) $s.val(fmt(start));
+			if ($e.length) $e.val(fmt(end));
+			var sub = head.querySelector('input[type="submit"], .btnSubmit input, .btnSubmit a, button[type="submit"]');
+			if (sub) sub.click();
+		});
+	}
+}
+
+function mfAccCsType(root) {
+	if (!root.querySelector('.xans-myshop-orderhistoryapplycancel, .xans-myshop-orderhistoryapplyreturn, .xans-myshop-orderhistoryapplyexchange')) return;
+	if (root.querySelector('.pg-acc--cs-type')) return;
+	var q = String(location.search || '');
+	var wrap = document.createElement('div');
+	wrap.className = 'pg-acc--cs-type';
+	var items = [
+		{ href: '/myshop/order/cancel.html' + q, label: '주문 취소', key: 'cancel' },
+		{ href: '/myshop/order/return.html' + q, label: '반품 신청', key: 'return' },
+		{ href: '/myshop/order/exchange.html' + q, label: '교환 신청', key: 'exchange' }
+	];
+	var path = String(location.pathname || '');
+	var i;
+	for (i = 0; i < items.length; i++) {
+		var a = document.createElement('a');
+		a.href = items[i].href;
+		a.textContent = items[i].label;
+		if (path.indexOf(items[i].key + '.html') !== -1) a.className = 'is-on';
+		wrap.appendChild(a);
+	}
+	var content = root.querySelector('.pg-acc__content');
+	if (content && content.firstChild) content.insertBefore(wrap, content.firstChild);
+}
+
+function mfAccCouponStrip(root) {
+	var list = root.querySelector('.xans-myshop-couponlist');
+	if (!list || root.querySelector('.pg-acc__strip')) return;
+	var rows = list.querySelectorAll('.ec-base-table tbody tr:nth-child(odd)');
+	var n = 0;
+	var r;
+	for (r = 0; r < rows.length; r++) {
+		if (rows[r].querySelector('.coupon_name')) n++;
+	}
+	var strip = document.createElement('div');
+	strip.className = 'pg-acc__strip';
+	strip.innerHTML = '<div class="pg-acc__strip-cell"><span class="pg-acc__strip-l">Coupons</span><span class="pg-acc__strip-v">' + n + '</span></div>';
+	if (list.parentNode) list.parentNode.insertBefore(strip, list);
+}
+
+function mfAccPointStrip(root) {
+	var data = root.querySelector('.xans-myshop-summary .data');
+	if (!data) return;
+	var v = String(data.textContent || '').replace(/원|점/g, '').replace(/\s+/g, '');
+	if (v && !/P$/i.test(v)) data.textContent = v + ' P';
+}
+
+function mfAccAddrBadge(root) {
+	var cells = root.querySelectorAll('.xans-myshop-addrlist tbody.center tr td');
+	var i;
+	for (i = 0; i < cells.length; i++) {
+		if (cells[i].querySelector('img[alt="기본"]') && !cells[i].querySelector('.pg-acc__badge--default')) {
+			var b = document.createElement('span');
+			b.className = 'pg-acc__badge--default';
+			b.textContent = '기본 배송지';
+			cells[i].appendChild(b);
+		}
+	}
+}
+
+function mfAccInquiryWrite(root) {
+	var btn = root.querySelector('.xans-board-buttonlist-9 .btnSubmitFix, .xans-board-buttonlist-9 a[href*="write"]');
+	if (btn && /글쓰기/.test(btn.textContent || '')) btn.textContent = 'New Inquiry';
 }
 
 function bottomNav(){
