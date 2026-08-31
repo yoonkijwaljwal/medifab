@@ -1147,10 +1147,15 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	padding: 0 80px;
 	box-sizing: border-box;
 }
-.pg-acc .myshopArea {
-	margin: 0;
-	padding: 0;
-	position: static;
+.pg-acc .myshopArea,
+.pg-acc .myshopArea.section_full {
+	width: 100% !important;
+	max-width: none !important;
+	min-height: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	position: static !important;
+	box-sizing: border-box;
 }
 .pg-acc #myshopMain.xans-myshop-main,
 .pg-acc .xans-myshop-main {
@@ -1519,6 +1524,14 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 		padding: 0;
 	}
 	.pg-acc .xans-myshop-main { display: none !important; }
+	.pg-acc .myshopArea,
+	.pg-acc .myshopArea.section_full {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		min-height: 0 !important;
+	}
 	.pg-acc__content { gap: 0; }
 	.pg-acc__summary {
 		gap: 12px;
@@ -1622,7 +1635,13 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 
 /* Account subpages */
 .pg-acc .xans-myshop-main .menu > li:nth-child(n+8) { display: none !important; }
-.pg-acc--sub .pg-acc__content { gap: 40px; }
+.pg-acc--sub .pg-acc__content {
+	width: 100%;
+	max-width: none;
+	min-width: 0;
+	gap: 40px;
+	box-sizing: border-box;
+}
 .pg-acc--sub .section.path,
 .pg-acc--sub .path,
 .pg-acc--sub .titleArea--myshop,
@@ -2074,5 +2093,67 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	background: none;
 	text-align: right;
 	font: var(--mf-b16);
+}
+
+@media all and (max-width: 1024px) {
+	.pg-acc .myshopArea,
+	.pg-acc .myshopArea.section_full {
+		width: 100% !important;
+		max-width: none !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		min-height: 0 !important;
+	}
+	.pg-acc--sub .pg-acc__content {
+		width: 100%;
+		max-width: none;
+		padding: 0 20px 80px;
+		gap: 32px;
+	}
+	.pg-acc--sub .xans-myshop-orderhistorylistitem .ec-base-prdInfo {
+		flex-direction: column;
+	}
+	.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot {
+		width: 100%;
+		flex: none;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding: 0 0 20px;
+	}
+	.pg-acc--sub .xans-myshop-orderhistorylistitem .prdFoot .gRight { width: auto; }
+	.pg-acc--sub .xans-myshop-couponlist tbody tr:nth-child(odd) {
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.pg-acc--sub .xans-myshop-couponlist tbody tr:nth-child(odd) td:nth-child(3) {
+		flex: 1 1 100%;
+		width: auto;
+	}
+	.pg-acc--sub .xans-myshop-historylist .item { flex-direction: column; gap: 8px; }
+	.pg-acc--sub .xans-myshop-historylist .item h3 { flex: none; width: auto; }
+	.pg-acc--sub .xans-myshop-boardpackage .ec-base-table,
+	.pg-acc--sub .xans-board-listpackage-9 .ec-base-table {
+		width: 100%;
+		overflow-x: auto;
+	}
+	.pg-acc--sub .xans-myshop-orderhistorydetail .ec-base-table th,
+	.pg-acc--sub .xans-myshop-orderhistorydetail .ec-base-table td,
+	.pg-acc--sub .xans-myshop-orderhistoryapplycancel .ec-base-table th,
+	.pg-acc--sub .xans-myshop-orderhistoryapplycancel .ec-base-table td,
+	.pg-acc--sub .xans-member-edit .ec-base-table th,
+	.pg-acc--sub .xans-member-edit .ec-base-table td,
+	.pg-acc--sub .xans-board-read-9 .ec-base-table th,
+	.pg-acc--sub .xans-board-read-9 .ec-base-table td {
+		display: block;
+		width: 100%;
+		text-align: left;
+	}
+	.pg-acc--sub .ec-base-button.gBottom,
+	.pg-acc--sub .ec-base-button.gBottom .btnSubmitFix,
+	.pg-acc--sub .xans-member-edit .ec-base-button .btnSubmitFix {
+		max-width: none;
+		width: 100%;
+	}
 }
 
