@@ -379,12 +379,12 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	max-width: 630px;
 }
 .pg-home .home-acd__list,
-.pg-home .xans-board-listpackage,
-.pg-home .xans-board-list {
+.pg-home .home-acd__feed {
 	display: flex;
 	flex-direction: column;
 	gap: 32px;
 }
+.pg-home .home-acd__src { display: none !important; }
 .home-acd__item {
 	display: flex;
 	flex-direction: column;
@@ -675,8 +675,7 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 	}
 	.home-acd__list { max-width: none; width: 100%; }
 	.pg-home .home-acd__list,
-	.pg-home .xans-board-listpackage,
-	.pg-home .xans-board-list { gap: 0; }
+	.pg-home .home-acd__feed { gap: 0; }
 	.home-acd__item {
 		gap: 8px;
 		padding: 20px 0;

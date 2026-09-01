@@ -162,30 +162,59 @@
 				<p class="home-acd__desc">Please select your interested by type.</p>
 				<a href="/board/free/list.html?board_no=5" class="home-link">View All</a>
 			</div>
-			<div class="home-acd__list" module="board_listpackage_1">
-				<div module="board_list_1">
-					<!--
-						$count = 4
-						$main_list = yes
-						$subject_cut = 40
-						$main_list_reply_view = no
-					-->
-					<a href="{$link_board_detail}" class="home-acd__item {$block_target_class}" {$block_data_attr}>
-						<span class="home-acd__cat {$category_display|display}">{$category_name}</span>
-						<strong class="home-acd__subj">{$subject}</strong>
-						<span class="home-acd__meta">
-							<time>{$write_date}</time>
-							<span class="home-acd__file">{$icon_file}</span>
-						</span>
-					</a>
-					<a href="{$link_board_detail}" class="home-acd__item {$block_target_class}" {$block_data_attr}>
-						<span class="home-acd__cat {$category_display|display}">{$category_name}</span>
-						<strong class="home-acd__subj">{$subject}</strong>
-						<span class="home-acd__meta">
-							<time>{$write_date}</time>
-							<span class="home-acd__file">{$icon_file}</span>
-						</span>
-					</a>
+			<div class="home-acd__list" data-home-acd>
+				<div class="home-acd__feed" data-home-acd-feed></div>
+				<div class="home-acd__src" module="board_listpackage_5">
+					<div module="board_list_5">
+						<!--
+							$count = 4
+							$main_list = yes
+							$subject_cut = 40
+							$main_list_reply_view = no
+						-->
+						<a href="{$link_board_detail}" class="home-acd__item {$block_target_class}" {$block_data_attr}>
+							<span class="home-acd__cat {$category_display|display}">{$category_name}</span>
+							<strong class="home-acd__subj">{$subject}</strong>
+							<span class="home-acd__meta">
+								<time>{$write_date}</time>
+								<span class="home-acd__file">{$icon_file}</span>
+							</span>
+						</a>
+						<a href="{$link_board_detail}" class="home-acd__item {$block_target_class}" {$block_data_attr}>
+							<span class="home-acd__cat {$category_display|display}">{$category_name}</span>
+							<strong class="home-acd__subj">{$subject}</strong>
+							<span class="home-acd__meta">
+								<time>{$write_date}</time>
+								<span class="home-acd__file">{$icon_file}</span>
+							</span>
+						</a>
+					</div>
+				</div>
+				<div class="home-acd__src" module="board_listpackage_1002">
+					<div module="board_list_1002">
+						<!--
+							$count = 4
+							$main_list = yes
+							$subject_cut = 40
+							$main_list_reply_view = no
+						-->
+						<a href="{$link_board_detail}" class="home-acd__item {$block_target_class}" {$block_data_attr}>
+							<span class="home-acd__cat {$category_display|display}">{$category_name}</span>
+							<strong class="home-acd__subj">{$subject}</strong>
+							<span class="home-acd__meta">
+								<time>{$write_date}</time>
+								<span class="home-acd__file">{$icon_file}</span>
+							</span>
+						</a>
+						<a href="{$link_board_detail}" class="home-acd__item {$block_target_class}" {$block_data_attr}>
+							<span class="home-acd__cat {$category_display|display}">{$category_name}</span>
+							<strong class="home-acd__subj">{$subject}</strong>
+							<span class="home-acd__meta">
+								<time>{$write_date}</time>
+								<span class="home-acd__file">{$icon_file}</span>
+							</span>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>

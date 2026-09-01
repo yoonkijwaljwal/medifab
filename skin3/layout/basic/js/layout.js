@@ -15,6 +15,7 @@ window.addEventListener('load', function(){
 	mfAcademyPage();
 	mfAcademyRead();
 	mfAcademyContact();
+	mfHomeAcademy();
 	mfAccountPage();
 	mfCartLayer();
 	mfCartPage();
@@ -824,6 +825,41 @@ function bottomScroll(){
         }
         lastScrollTop = nowScrollTop;
     }
+}
+
+function mfHomeAcademy() {
+	var wrap = document.querySelector('[data-home-acd]');
+	if (!wrap) return;
+	var feed = wrap.querySelector('[data-home-acd-feed]');
+	if (!feed) return;
+
+	function acdTime(el) {
+		var t = el.querySelector('time');
+		var s = t ? String(t.textContent || '') : '';
+		s = s.replace(/^\s+|\s+$/g, '');
+		var m = s.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})(?:\D+(\d{1,2}))?(?:\D+(\d{1,2}))?/);
+		if (m) {
+			return new Date(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0)).getTime();
+		}
+		var n = Date.parse(s);
+		return isNaN(n) ? 0 : n;
+	}
+
+	var items = wrap.querySelectorAll('.home-acd__item');
+	var list = [];
+	var i;
+	for (i = 0; i < items.length; i++) {
+		if (items[i].className.indexOf('displaynone') !== -1) continue;
+		var href = items[i].getAttribute('href') || '';
+		if (!href || href === '#' || href.indexOf('{$') !== -1) continue;
+		list.push(items[i]);
+	}
+	list.sort(function(a, b) {
+		return acdTime(b) - acdTime(a);
+	});
+	for (i = 0; i < list.length; i++) {
+		feed.appendChild(list[i]);
+	}
 }
 
 function mfAcademyPage() {
