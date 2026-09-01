@@ -624,6 +624,39 @@ body:has(.pg-detail) textarea,
 }
 body.mf-search-open { overflow: hidden; }
 body.mf-search-open #header.mf-hd { z-index: 2000; }
+
+.mf-cart-layer {
+	display: none;
+	position: fixed;
+	inset: 0;
+	z-index: 2100;
+	background: transparent;
+}
+.mf-cart-layer.is-open { display: block; }
+.mf-cart-layer iframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	background: transparent;
+}
+body.mf-cart-open { overflow: hidden; }
+html.mf-cart-embed,
+html.mf-cart-embed body,
+html.mf-cart-embed #wrap,
+html.mf-cart-embed #container,
+html.mf-cart-embed #contents {
+	background: transparent !important;
+}
+html.mf-cart-embed body { overflow: hidden; }
+html.mf-cart-embed #skipNavigation,
+html.mf-cart-embed #header,
+html.mf-cart-embed #footer,
+html.mf-cart-embed #quick,
+html.mf-cart-embed #right_quick,
+html.mf-cart-embed .bottom-nav,
+html.mf-cart-embed .footer_margin,
+html.mf-cart-embed #sidebar { display: none !important; }
 #header.mf-hd .mf-hd__search,
 #header.mf-hd .xans-layout-searchheader.mf-hd__search {
 	display: flex;

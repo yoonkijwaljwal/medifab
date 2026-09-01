@@ -1,3 +1,9 @@
+try {
+	if (window.self !== window.top) {
+		document.documentElement.className += (document.documentElement.className ? ' ' : '') + 'mf-cart-embed';
+	}
+} catch (err) {}
+
 window.addEventListener('load', function(){
     handleNav();
     fixedHeader();
@@ -10,6 +16,7 @@ window.addEventListener('load', function(){
 	mfAcademyRead();
 	mfAcademyContact();
 	mfAccountPage();
+	mfCartLayer();
 	mfCartPage();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
@@ -1182,6 +1189,74 @@ function mfAcademyContact() {
 	}
 }
 
+function mfCartLayer() {
+	var layer = document.getElementById('mfCartLayer');
+	if (!layer) return;
+	if (window.self !== window.top) return;
+	if (/\/order\/basket\.html/i.test(location.pathname)) return;
+
+	var iframe = layer.getElementsByTagName('iframe')[0];
+	if (!iframe) return;
+	var openHref = '';
+
+	function closeLayer() {
+		layer.className = layer.className.replace(/\s*is-open/g, '');
+		layer.setAttribute('aria-hidden', 'true');
+		document.body.className = document.body.className.replace(/\s*mf-cart-open/g, '');
+		openHref = '';
+		try { iframe.src = 'about:blank'; } catch (err) {}
+	}
+
+	function openLayer(href) {
+		var url = href || '/order/basket.html';
+		layer.className += (layer.className.indexOf('is-open') === -1 ? ' is-open' : '');
+		layer.setAttribute('aria-hidden', 'false');
+		if (document.body.className.indexOf('mf-cart-open') === -1) {
+			document.body.className += ' mf-cart-open';
+		}
+		openHref = url;
+		iframe.src = url;
+	}
+
+	document.addEventListener('click', function(e) {
+		if (e.defaultPrevented) return;
+		if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+		var el = e.target;
+		var a = null;
+		while (el && el !== document) {
+			if (el.tagName === 'A') { a = el; break; }
+			el = el.parentNode;
+		}
+		if (!a) return;
+		var href = a.getAttribute('href') || '';
+		if (!/\/order\/basket\.html/i.test(href)) return;
+		if (a.getAttribute('target') === '_blank') return;
+		e.preventDefault();
+		openLayer(a.href);
+	});
+
+	iframe.addEventListener('load', function() {
+		if (!openHref) return;
+		try {
+			var href = iframe.contentWindow.location.href;
+			if (!href || href.indexOf('about:blank') !== -1) return;
+			if (/\/order\/basket\.html/i.test(iframe.contentWindow.location.pathname)) return;
+			closeLayer();
+			location.href = href;
+		} catch (err) {}
+	});
+
+	window.addEventListener('message', function(e) {
+		if (e.origin !== location.origin) return;
+		if (!e.data || e.data.type !== 'mf-cart-close') return;
+		closeLayer();
+	});
+
+	document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape' && layer.className.indexOf('is-open') !== -1) closeLayer();
+	});
+}
+
 function mfCartPage() {
 	var root = document.querySelector('.pg-cart');
 	if (!root) return;
@@ -1266,6 +1341,12 @@ function mfCartPage() {
 	}
 
 	function closeCart() {
+		try {
+			if (window.self !== window.top) {
+				window.parent.postMessage({ type: 'mf-cart-close' }, location.origin);
+				return;
+			}
+		} catch (err) {}
 		var ref = document.referrer;
 		try {
 			if (ref) {
