@@ -1545,6 +1545,7 @@ function mfAccountPage() {
 		mfAccCsType(root);
 		mfAccCouponStrip(root);
 		mfAccPointStrip(root);
+		mfAccPointHistory(root);
 		mfAccAddrBadge(root);
 		mfAccInquiryWrite(root);
 		mfAccPaginate(root);
@@ -1660,10 +1661,80 @@ function mfAccCouponStrip(root) {
 }
 
 function mfAccPointStrip(root) {
-	var data = root.querySelector('.xans-myshop-summary .data');
-	if (!data) return;
-	var v = String(data.textContent || '').replace(/원|점/g, '').replace(/\s+/g, '');
-	if (v && !/P$/i.test(v)) data.textContent = v + ' P';
+	var box = root.querySelector('.xans-myshop-summary');
+	if (!box) return;
+	var title = box.querySelector('li .title');
+	if (title) title.textContent = 'Points';
+	var span = box.querySelector('#xans_myshop_summary_total_mileage');
+	if (!span) {
+		var data = box.querySelector('.data');
+		span = data ? data.querySelector('span') || data : null;
+	}
+	if (!span) return;
+	var v = String(span.textContent || '').replace(/원|점/g, '').replace(/\s+/g, '');
+	if (!v) v = '0';
+	if (!/P$/i.test(v)) span.textContent = v + ' P';
+}
+
+function mfAccPointHistory(root) {
+	var list = root.querySelector('.xans-myshop-historylist');
+	if (!list) return;
+	if (!list.querySelector('.pg-acc__pt-head')) {
+		var head = document.createElement('div');
+		head.className = 'pg-acc__pt-head';
+		var s1 = document.createElement('span');
+		s1.textContent = 'Date';
+		var s2 = document.createElement('span');
+		s2.textContent = 'Detail';
+		var s3 = document.createElement('span');
+		s3.textContent = 'Amount';
+		head.appendChild(s1);
+		head.appendChild(s2);
+		head.appendChild(s3);
+		var first = list.querySelector('.item');
+		if (first && first.parentNode) first.parentNode.insertBefore(head, first);
+		else list.insertBefore(head, list.firstChild);
+	}
+	var items = list.querySelectorAll('.item');
+	var i;
+	for (i = 0; i < items.length; i++) {
+		var item = items[i];
+		if (item.className.indexOf('is-pt') === -1) item.className += ' is-pt';
+		var dateEl = item.querySelector('.date');
+		if (dateEl) {
+			dateEl.textContent = String(dateEl.textContent || '')
+				.replace(/[/-]/g, '.')
+				.replace(/\s+\d{1,2}:\d{2}.*$/, '')
+				.replace(/^\s+|\s+$/g, '');
+		}
+		var numEl = item.querySelector('.number');
+		var numTxt = '';
+		if (numEl) {
+			numTxt = String(numEl.textContent || '').replace(/[()]/g, '').replace(/^\s+|\s+$/g, '');
+		}
+		var rows = item.querySelectorAll('tr');
+		var moneyTd = rows.length ? rows[0].querySelector('td') : null;
+		var typeTd = rows.length > 1 ? rows[1].querySelector('td') : null;
+		if (moneyTd) {
+			var m = String(moneyTd.textContent || '').replace(/^\s+|\s+$/g, '');
+			if (m && m.charAt(0) !== '+' && m.charAt(0) !== '-' && m.charAt(0) !== '−' && !/^0/.test(m.replace(/[^\d]/g, ''))) {
+				moneyTd.textContent = '+' + m;
+			}
+		}
+		if (typeTd && numTxt && String(typeTd.textContent || '').indexOf(numTxt) === -1) {
+			typeTd.textContent = String(typeTd.textContent || '').replace(/^\s+|\s+$/g, '') + ' (' + numTxt + ')';
+		}
+	}
+	var empty = list.querySelector('.ec-base-prdEmpty');
+	if (empty) {
+		var nodes = empty.childNodes;
+		var n;
+		for (n = 0; n < nodes.length; n++) {
+			if (nodes[n].nodeType === 3 && String(nodes[n].textContent || '').replace(/\s+/g, '')) {
+				nodes[n].textContent = '아직 포인트 내역이 없습니다.';
+			}
+		}
+	}
 }
 
 function mfAccAddrBadge(root) {

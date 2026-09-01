@@ -2072,51 +2072,142 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 }
 
 /* points */
-.pg-acc--sub .xans-myshop-summary {
+.pg-acc--sub .xans-myshop-summary,
+.pg-acc--sub .xans-myshop-summary.ec-base-box,
+.pg-acc--sub .xans-myshop-summary.ec-base-box.gHalf {
 	display: flex !important;
 	justify-content: center;
-	padding: 32px 0;
-	margin: 0 0 20px;
-	border: 0;
-	background: var(--Neutral\/Warm);
+	align-items: center;
+	float: none;
+	width: 100%;
+	padding: 32px 0 !important;
+	margin: 0 0 20px !important;
+	border: 0 !important;
+	background: var(--Neutral\/Warm) !important;
+	box-sizing: border-box;
+}
+.pg-acc--sub .xans-myshop-summary.ec-base-box.gHalf:before,
+.pg-acc--sub .xans-myshop-summary.ec-base-box.gHalf::before {
+	display: none !important;
+	content: none !important;
+}
+.pg-acc--sub .xans-myshop-summary ul {
+	float: none !important;
+	width: 100% !important;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 .pg-acc--sub .xans-myshop-summary ul:nth-child(n+2),
-.pg-acc--sub .xans-myshop-summary li:nth-child(n+2) { display: none; }
+.pg-acc--sub .xans-myshop-summary li:nth-child(n+2) { display: none !important; }
 .pg-acc--sub .xans-myshop-summary li {
-	display: flex;
+	display: flex !important;
 	flex-direction: column;
 	align-items: center;
 	gap: 8px;
-	width: 100%;
+	float: none;
+	width: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	overflow: visible;
+	box-sizing: border-box;
 }
-.pg-acc--sub .xans-myshop-summary .title { color: var(--Neutral\/Wood); font: var(--mf-b13); font-weight: 400; }
-.pg-acc--sub .xans-myshop-summary .data { color: var(--Neutral\/Dark); font: var(--mf-h24); }
-.pg-acc--sub .xans-myshop-historylist .item {
+.pg-acc--sub .xans-myshop-summary .title,
+.pg-acc--sub .xans-myshop-summary .data {
+	float: none !important;
+	width: auto !important;
+	text-align: center;
+}
+.pg-acc--sub .xans-myshop-summary .title {
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b13);
+	font-weight: 400;
+}
+.pg-acc--sub .xans-myshop-summary .data,
+.pg-acc--sub .xans-myshop-summary .data span {
+	color: var(--Neutral\/Dark);
+	font: var(--mf-h24);
+	font-weight: 400;
+	letter-spacing: -0.01em;
+}
+.pg-acc--sub .xans-myshop-historylist .pg-acc__pt-head {
+	display: flex;
+	gap: 20px;
+	align-items: flex-start;
+	padding: 14px 0;
+	border-top: 1px solid var(--Neutral\/Dark);
+	border-bottom: 1px solid var(--Neutral\/Cool);
+	color: #878787;
+	font: var(--mf-b13);
+}
+.pg-acc--sub .xans-myshop-historylist .pg-acc__pt-head span:first-child {
+	flex: none;
+	width: 120px;
+}
+.pg-acc--sub .xans-myshop-historylist .pg-acc__pt-head span:nth-child(2) { flex: 1; min-width: 0; }
+.pg-acc--sub .xans-myshop-historylist .pg-acc__pt-head span:last-child {
+	flex: none;
+	width: 140px;
+	text-align: right;
+}
+.pg-acc--sub .xans-myshop-historylist .item,
+.pg-acc--sub .xans-myshop-historylist .item.is-pt {
 	display: flex;
 	gap: 20px;
 	align-items: flex-start;
 	padding: 20px 0;
-	margin: 0;
+	margin: 0 !important;
 	border: 0;
 	border-bottom: 1px solid var(--Neutral\/Cool);
 	background: none;
 }
 .pg-acc--sub .xans-myshop-historylist .item h3 {
-	flex: 0 0 120px;
+	flex: none;
+	width: 120px;
 	margin: 0;
+	padding: 0 !important;
 	font: var(--mf-b14);
 	color: var(--Neutral\/Wood);
 	font-weight: 400;
+	background: none !important;
+	line-height: 1.54;
 }
-.pg-acc--sub .xans-myshop-historylist .item .ec-base-table { flex: 1; border: 0; }
-.pg-acc--sub .xans-myshop-historylist .item table,
-.pg-acc--sub .xans-myshop-historylist .item th,
+.pg-acc--sub .xans-myshop-historylist .item h3 .number { display: none; }
+.pg-acc--sub .xans-myshop-historylist .item .ec-base-table { flex: 1; min-width: 0; border: 0; }
+.pg-acc--sub .xans-myshop-historylist .item table {
+	display: flex;
+	width: 100%;
+	border: 0;
+	background: none;
+}
+.pg-acc--sub .xans-myshop-historylist .item tbody {
+	display: flex;
+	width: 100%;
+	gap: 20px;
+}
+.pg-acc--sub .xans-myshop-historylist .item tr { display: block; }
+.pg-acc--sub .xans-myshop-historylist .item tr:first-child {
+	order: 2;
+	flex: none;
+	width: 140px;
+}
+.pg-acc--sub .xans-myshop-historylist .item tr:last-child {
+	order: 1;
+	flex: 1;
+	min-width: 0;
+}
+.pg-acc--sub .xans-myshop-historylist .item th { display: none; }
 .pg-acc--sub .xans-myshop-historylist .item td {
+	display: block;
+	padding: 0;
 	border: 0;
 	background: none;
 	text-align: left;
-	padding: 0 8px 0 0;
+	font: var(--mf-b16);
+	color: var(--Neutral\/Dark);
 }
+.pg-acc--sub .xans-myshop-historylist .item tr:first-child td { text-align: right; }
 
 /* boards */
 .pg-acc--sub .xans-myshop-boardpackage .ec-base-table,
@@ -2210,8 +2301,59 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 		flex: 1 1 100%;
 		width: auto;
 	}
-	.pg-acc--sub .xans-myshop-historylist .item { flex-direction: column; gap: 8px; }
-	.pg-acc--sub .xans-myshop-historylist .item h3 { flex: none; width: auto; }
+	.pg-acc--sub .xans-myshop-summary.ec-base-box.gHalf {
+		padding: 20px !important;
+		justify-content: stretch;
+	}
+	.pg-acc--sub .xans-myshop-summary li {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.pg-acc--sub .xans-myshop-summary .title,
+	.pg-acc--sub .xans-myshop-summary .data { text-align: left; }
+	.pg-acc--sub .xans-myshop-summary .title {
+		font: 400 12px/1.36 var(--mf-sans);
+	}
+	.pg-acc--sub .xans-myshop-summary .data,
+	.pg-acc--sub .xans-myshop-summary .data span {
+		font: 400 18px/1.55 var(--mf-sans);
+	}
+	.pg-acc--sub .xans-myshop-historylist .pg-acc__pt-head { display: none; }
+	.pg-acc--sub .xans-myshop-historylist .item,
+	.pg-acc--sub .xans-myshop-historylist .item.is-pt {
+		position: relative;
+		flex-direction: column;
+		gap: 12px;
+		padding: 20px 0;
+	}
+	.pg-acc--sub .xans-myshop-historylist .item h3 {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.pg-acc--sub .xans-myshop-historylist .item tbody {
+		flex-direction: column;
+		gap: 4px;
+	}
+	.pg-acc--sub .xans-myshop-historylist .item tr:first-child,
+	.pg-acc--sub .xans-myshop-historylist .item tr:last-child {
+		order: 0;
+		width: auto;
+		flex: none;
+	}
+	.pg-acc--sub .xans-myshop-historylist .item tr:first-child {
+		position: absolute;
+		right: 0;
+		top: 20px;
+		width: auto;
+	}
+	.pg-acc--sub .xans-myshop-historylist .item td { font: var(--mf-b13); }
+	.pg-acc--sub .xans-myshop-historylist .item tr:first-child td {
+		text-align: right;
+		font: var(--mf-b14);
+	}
 	.pg-acc--sub .xans-myshop-boardpackage .ec-base-table,
 	.pg-acc--sub .xans-board-listpackage-9 .ec-base-table {
 		width: 100%;
