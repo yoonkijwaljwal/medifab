@@ -86,13 +86,9 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 .home-hero__bg video,
 .home-hero__bg iframe,
 .home-hero__pc,
-.home-hero__mo,
 .home-hero__pc img,
 .home-hero__pc video,
-.home-hero__pc iframe,
-.home-hero__mo img,
-.home-hero__mo video,
-.home-hero__mo iframe {
+.home-hero__pc iframe {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -102,16 +98,12 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 .home-hero__bg iframe,
 .home-hero__pc img,
 .home-hero__pc video,
-.home-hero__pc iframe,
-.home-hero__mo img,
-.home-hero__mo video,
-.home-hero__mo iframe {
+.home-hero__pc iframe {
 	object-fit: cover;
 	object-position: center;
 	border: 0;
 }
 .home-hero__pc { display: block; height: 100%; }
-.home-hero__mo { display: none; height: 100%; }
 .home-hero:not(.is-ready) .home-hero__con,
 .home-hero:not(.is-ready) .home-hero__pager { opacity: 0; }
 .home-hero__title,
@@ -515,9 +507,6 @@ body:has(.pg-detail) #wrap { overflow: visible; }
 		object-position: center;
 	}
 	.home-hero__pc { display: block; }
-	.home-hero__mo { display: none; }
-	.home-hero__slide.has-mo .home-hero__pc { display: none; }
-	.home-hero__slide.has-mo .home-hero__mo { display: block; }
 	.home-hero__pc img,
 	.home-hero__pc video,
 	.home-hero__pc iframe {

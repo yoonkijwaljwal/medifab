@@ -36,13 +36,6 @@ jQuery(document).ready(function() {
 			}
 
 			function tidySlide(slide) {
-				var mo = slide.querySelector('.home-hero__mo');
-				if (mo && hasMedia(mo)) {
-					slide.classList.add('has-mo');
-				} else {
-					slide.classList.remove('has-mo');
-					if (mo) mo.style.display = 'none';
-				}
 				var brand = slide.querySelector('.home-hero__brand');
 				if (brand && tokenEmpty(brand.textContent)) brand.style.display = 'none';
 				var title = slide.querySelector('.home-hero__title');
