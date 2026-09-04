@@ -2521,7 +2521,7 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	color: var(--Neutral\/Dark);
 	font: var(--mf-h20);
 	font-weight: 400;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.005em;
 }
 .pg-cart .xans-order-basketpackage {
 	display: flex;
@@ -2568,10 +2568,13 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	border: 0;
 	background: none;
 	box-shadow: none;
-	color: var(--Neutral\/Wood);
-	font: var(--mf-b16);
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b14);
 	letter-spacing: -0.01em;
 	text-decoration: none;
+}
+.pg-cart .xans-order-selectorder .gLeft a[href="#none"]:last-child {
+	font: var(--mf-b16);
 }
 .pg-cart .xans-order-selectorder #product_select_all:before {
 	content: "";
@@ -2669,11 +2672,12 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	margin: 0;
 	padding: 0;
 	border: 0;
+	border-bottom: 1px solid var(--Neutral\/Wood);
 	overflow: visible !important;
 	background: none;
 	color: var(--Neutral\/Wood) !important;
-	font: var(--mf-b14) !important;
-	line-height: 1.58 !important;
+	font: var(--mf-b16) !important;
+	line-height: 1.52 !important;
 	letter-spacing: -0.01em;
 	text-decoration: none;
 	text-indent: 0;
@@ -2685,11 +2689,12 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 .pg-cart .ec-base-prdInfo .btnDelete:after { display: none; }
 .pg-cart .ec-base-prdInfo .thumbnail {
 	flex: none;
-	width: 120px;
-	height: 120px;
+	width: 178px;
+	height: 224px;
 	margin: 0;
 	border: 0;
 	overflow: hidden;
+	background: var(--Neutral\/Warm);
 }
 .pg-cart .ec-base-prdInfo .thumbnail a,
 .pg-cart .ec-base-prdInfo .thumbnail img {
@@ -2699,7 +2704,7 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	object-fit: cover;
 }
 .pg-cart .ec-base-prdInfo .description {
-	flex: 1 1 calc(100% - 136px);
+	flex: 1 1 calc(100% - 194px);
 	width: auto;
 	margin: 0 !important;
 	padding: 0;
@@ -2708,18 +2713,18 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	display: block;
 	margin: 0 0 8px;
 	color: var(--Neutral\/Dark);
-	font: var(--mf-h20);
+	font: var(--mf-b16);
 	font-weight: 400;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
 }
 .pg-cart .ec-base-prdInfo .description .prdName a {
 	color: inherit;
 	text-decoration: none;
 }
 .pg-cart .ec-base-prdInfo .optionGroup {
-	flex: 1 1 calc(100% - 136px);
+	flex: 1 1 calc(100% - 194px);
 	width: auto;
-	margin: -8px 0 0 136px !important;
+	margin: -8px 0 0 194px !important;
 	padding: 0 !important;
 	background: none !important;
 	font: var(--mf-b14);
@@ -2733,9 +2738,10 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 .pg-cart .ec-base-prdInfo .quantity {
 	display: flex !important;
 	align-items: center;
-	justify-content: space-between;
-	width: calc(100% - 136px) !important;
-	margin: 12px 0 0 136px !important;
+	justify-content: flex-start;
+	gap: 40px;
+	width: calc(100% - 194px) !important;
+	margin: 12px 0 0 194px !important;
 	padding: 0 !important;
 }
 .pg-cart .ec-base-prdInfo .quantity .label {
@@ -2744,28 +2750,28 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	font: var(--mf-b14);
 }
 .pg-cart .ec-base-prdInfo .quantity .ec-base-qty {
-	width: 120px;
-	padding: 0 32px;
+	width: 86px;
+	padding: 0 24px;
 }
 .pg-cart .ec-base-prdInfo .quantity .ec-base-qty input[type="text"] {
 	width: 100%;
-	height: 32px;
+	height: 24px;
 	border: 0;
 	background: none;
-	color: var(--Neutral\/Dark);
-	font: var(--mf-b16);
+	color: var(--Neutral\/Black);
+	font: var(--mf-b13);
 	text-align: center;
 }
 .pg-cart .ec-base-prdInfo .quantity .ec-base-qty a {
-	width: 32px;
-	height: 32px;
-	border: 1px solid var(--Neutral\/Cool);
-	border-radius: 99px;
+	width: 24px;
+	height: 24px;
+	border: 0;
+	border-radius: 0;
 }
 .pg-cart .ec-base-prdInfo .sumPrice {
 	display: block !important;
-	width: calc(100% - 136px) !important;
-	margin: 12px 0 0 136px !important;
+	width: calc(100% - 194px) !important;
+	margin: auto 0 0 194px !important;
 	padding: 0 !important;
 	border: 0 !important;
 	color: var(--Neutral\/Dark);
@@ -2792,14 +2798,14 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 .pg-cart .totalSummary__item .title,
 .pg-cart .totalSummary .total .title {
 	margin: 0;
-	color: var(--Neutral\/Wood);
-	font: var(--mf-b16);
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b14);
 	font-weight: 400;
 }
 .pg-cart .totalSummary__item .data,
 .pg-cart .totalSummary .paymentPrice {
 	color: var(--Neutral\/Dark);
-	font: var(--mf-b16);
+	font: var(--mf-b14);
 	text-align: right;
 }
 .pg-cart .totalSummary .total {
@@ -2808,12 +2814,12 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	justify-content: space-between;
 	margin: 12px 0 0;
 	padding: 12px 0 0;
-	border-top: 1px solid var(--Neutral\/Cool);
+	border-top: 1px solid var(--Neutral\/Dark);
 }
 .pg-cart .totalSummary .total .title,
 .pg-cart .totalSummary .paymentPrice strong {
 	color: var(--Neutral\/Dark);
-	font: var(--mf-h20);
+	font: var(--mf-b18);
 	font-weight: 400;
 }
 .pg-cart #orderFixItem {
@@ -2833,9 +2839,9 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: 56px;
+	height: 52px;
 	margin: 0;
-	padding: 0;
+	padding: 14px 20px;
 	border-radius: 0;
 	font: var(--mf-b16);
 	letter-spacing: -0.01em;
@@ -2855,26 +2861,44 @@ body:has(.pg-cart) #wrap { min-width: 0; }
 
 @media all and (max-width: 1024px) {
 	.pg-cart__panel {
-		width: 100%;
-		padding: 72px 20px 24px;
+		width: calc(100% - 40px);
+		max-width: 335px;
+		padding: 20px 20px 24px;
 	}
 	.pg-cart__close {
 		top: 16px;
-		left: 16px;
+		left: 8px;
 		right: auto;
+		width: 40px;
+		height: 40px;
+		padding: 8px;
 		transform: none;
 		background: rgba(51, 51, 51, 0.08);
 	}
-	.pg-cart .ec-base-prdInfo .thumbnail {
-		width: 88px;
-		height: 88px;
+	.pg-cart .titleArea {
+		padding: 0 0 16px;
 	}
-	.pg-cart .ec-base-prdInfo .description { flex: 1 1 calc(100% - 104px); }
+	.pg-cart .titleArea h2 {
+		font: var(--mf-h24);
+		letter-spacing: -0.01em;
+	}
+	.pg-cart .ec-base-prdInfo .thumbnail {
+		width: 80px;
+		height: 100px;
+	}
+	.pg-cart .ec-base-prdInfo .description { flex: 1 1 calc(100% - 96px); }
 	.pg-cart .ec-base-prdInfo .optionGroup,
 	.pg-cart .ec-base-prdInfo .quantity,
 	.pg-cart .ec-base-prdInfo .sumPrice {
-		width: calc(100% - 104px) !important;
-		margin-left: 104px !important;
+		width: calc(100% - 96px) !important;
+		margin-left: 96px !important;
+	}
+	.pg-cart #orderFixItem .ec-base-button a,
+	.pg-cart #orderFixItem .btnSubmit,
+	.pg-cart #orderFixItem .btnNormal {
+		height: 32px;
+		padding: 7px 12px;
+		font: var(--mf-b13);
 	}
 }
 

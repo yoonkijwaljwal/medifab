@@ -43,7 +43,9 @@ jQuery(document).ready(function() {
 				var desc = slide.querySelector('.home-hero__desc');
 				if (desc && tokenEmpty(desc.textContent)) desc.style.display = 'none';
 				var link = slide.querySelector('.home-link');
-				if (link && tokenEmpty(link.getAttribute('href'))) link.style.display = 'none';
+				if (link && (tokenEmpty(link.getAttribute('href')) || tokenEmpty(link.textContent))) {
+					link.style.display = 'none';
+				}
 			}
 
 			function collectSlides() {

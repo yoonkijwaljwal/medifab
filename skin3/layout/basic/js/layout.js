@@ -19,6 +19,7 @@ window.addEventListener('load', function(){
 	mfAccountPage();
 	mfCartLayer();
 	mfCartPage();
+	mfCheckoutPage();
 	bottomNav();
     //quickGoTop(); 사용안함 210805 서정환 수정
     //searchLayer(); 사용안함 210804 서정환 수정
@@ -1450,6 +1451,93 @@ function mfCartPage() {
 		if (!mod) return;
 		setTimeout(function() { mod.click(); }, 40);
 	});
+}
+
+function mfCheckoutPage() {
+	var root = document.querySelector('.pg-chk');
+	if (!root) return;
+	var order = document.getElementById('mCafe24Order');
+	if (!order) return;
+
+	function setText(el, value) {
+		if (!el) return;
+		var nodes = el.childNodes;
+		var i;
+		var hasElement = false;
+		for (i = 0; i < nodes.length; i++) {
+			if (nodes[i].nodeType === 1) { hasElement = true; break; }
+		}
+		if (!hasElement && nodes.length) {
+			el.textContent = value;
+			return;
+		}
+		for (i = 0; i < nodes.length; i++) {
+			if (nodes[i].nodeType === 3 && String(nodes[i].textContent || '').replace(/\s+/g, '')) {
+				nodes[i].textContent = value;
+				return;
+			}
+		}
+		if (!hasElement) el.textContent = value;
+	}
+
+	if (root.className.indexOf('pg-chk--done') !== -1) {
+		var dateVal = root.querySelector('.chk-meta__val');
+		if (dateVal) {
+			var dv = String(dateVal.textContent || '').replace(/\s+/g, '');
+			if (!dv || dv.indexOf('{') !== -1) {
+				var row = dateVal.parentNode;
+				if (row) row.style.display = 'none';
+			}
+		}
+		return;
+	}
+
+	var titles = order.querySelectorAll('h2, h3, .title h2, .headingArea h2');
+	var i;
+	for (i = 0; i < titles.length; i++) {
+		var ht = String(titles[i].textContent || '').replace(/\s+/g, '');
+		if (ht.indexOf('주문자') !== -1) titles[i].textContent = 'Customer';
+		else if (ht.indexOf('배송지') !== -1 || ht.indexOf('배송정보') !== -1) titles[i].textContent = 'Shipping';
+		else if (ht.indexOf('쿠폰') !== -1) titles[i].textContent = 'Coupon';
+		else if (ht.indexOf('적립금') !== -1 || ht.indexOf('마일리지') !== -1) titles[i].textContent = 'Points';
+		else if (ht.indexOf('결제수단') !== -1 || ht.indexOf('결제방법') !== -1) titles[i].textContent = 'Payment';
+		else if (ht.indexOf('결제정보') !== -1 || ht.indexOf('결제예정') !== -1 || ht.indexOf('주문상품') !== -1) titles[i].textContent = 'Order Summary';
+		else if (ht.indexOf('할인') !== -1) titles[i].textContent = 'Coupon';
+	}
+
+	var ths = order.querySelectorAll('th, label, .ec-base-label, .heading');
+	for (i = 0; i < ths.length; i++) {
+		var t = String(ths[i].textContent || '').replace(/^\s+|\s+$/g, '');
+		if (t === '이름' || t === '성명') setText(ths[i], 'Name');
+		else if (t === '이메일' || t === 'E-mail') setText(ths[i], 'E-mail');
+		else if (t.indexOf('휴대전화') !== -1 || t === '연락처' || t === '전화') setText(ths[i], 'Contact');
+		else if (t.indexOf('회사명') !== -1 || t.indexOf('상호') !== -1 || t === '병원명') setText(ths[i], 'Organization');
+		else if (t.indexOf('우편번호') !== -1) setText(ths[i], 'Zipcode');
+		else if (t === '주소') setText(ths[i], 'Address');
+		else if (t.indexOf('배송메시지') !== -1 || t.indexOf('배송메모') !== -1 || t.indexOf('배송 메시지') !== -1) setText(ths[i], 'Message');
+		else if (t.indexOf('쿠폰') !== -1) setText(ths[i], 'Coupon');
+		else if (t.indexOf('적립금') !== -1 || t.indexOf('포인트') !== -1) setText(ths[i], 'Points');
+		else if (t.indexOf('총 상품') !== -1 || t === '상품금액') setText(ths[i], 'Subtotal');
+		else if (t.indexOf('배송비') !== -1) setText(ths[i], 'Shipping');
+		else if (t.indexOf('할인') !== -1) setText(ths[i], 'Discount');
+		else if (t.indexOf('결제금액') !== -1 || t.indexOf('결제예정') !== -1) setText(ths[i], 'Total');
+	}
+
+	var zipBtns = order.querySelectorAll('a, button');
+	for (i = 0; i < zipBtns.length; i++) {
+		var bt = String(zipBtns[i].textContent || '').replace(/\s+/g, '');
+		if (bt === '우편번호' || bt === '주소검색' || bt === '우편번호검색') zipBtns[i].textContent = 'Search';
+		else if (bt === '전액사용' || bt === '모두사용') zipBtns[i].textContent = 'Use All';
+	}
+
+	var payBtn = document.getElementById('orderFixItem');
+	if (payBtn) {
+		var spans = payBtn.getElementsByTagName('span');
+		for (i = 0; i < spans.length; i++) {
+			var st = String(spans[i].textContent || '').replace(/\s+/g, '');
+			if (st === '결제하기') spans[i].textContent = 'Checkout Now';
+		}
+	}
 }
 
 function mfAccountPage() {
