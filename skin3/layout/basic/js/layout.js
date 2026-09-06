@@ -1501,7 +1501,8 @@ function mfCheckoutPage() {
 		else if (ht.indexOf('쿠폰') !== -1) titles[i].textContent = 'Coupon';
 		else if (ht.indexOf('적립금') !== -1 || ht.indexOf('마일리지') !== -1) titles[i].textContent = 'Points';
 		else if (ht.indexOf('결제수단') !== -1 || ht.indexOf('결제방법') !== -1) titles[i].textContent = 'Payment';
-		else if (ht.indexOf('할인') !== -1 && ht.indexOf('결제') === -1) titles[i].textContent = 'Coupon';
+		else if (ht.indexOf('결제정보') !== -1 || ht.indexOf('결제예정') !== -1 || ht.indexOf('주문상품') !== -1) titles[i].textContent = 'Order Summary';
+		else if (ht.indexOf('할인') !== -1) titles[i].textContent = 'Coupon';
 	}
 
 	var ths = order.querySelectorAll('th, label, .ec-base-label, .heading');
@@ -1529,44 +1530,12 @@ function mfCheckoutPage() {
 		else if (bt === '전액사용' || bt === '모두사용') zipBtns[i].textContent = 'Use All';
 	}
 
-	function markEmailRow() {
-		var local = order.querySelector('[id$="email1"], [id$="oemail1"], [id$="remail1"]');
-		if (!local) return;
-		var node = local.parentNode;
-		var hop = 0;
-		while (node && node !== order && hop < 8) {
-			if (node.nodeType === 1) {
-				var hasDomain = node.querySelector('[id$="email2"], [id$="email3"], [id$="oemail2"], [id$="oemail3"], [id$="remail2"], [id$="remail3"], [class*="directInput"]');
-				if (hasDomain && node.contains(local)) {
-					if (String(node.className || '').indexOf('chk-split-email') === -1) {
-						node.className += (node.className ? ' ' : '') + 'chk-split-email';
-					}
-					return;
-				}
-			}
-			node = node.parentNode;
-			hop++;
-		}
-	}
-	markEmailRow();
-
 	var payBtn = document.getElementById('orderFixItem');
 	if (payBtn) {
-		var submit = payBtn.querySelector('.btnSubmit') || payBtn;
-		var spans = submit.getElementsByTagName('span');
+		var spans = payBtn.getElementsByTagName('span');
 		for (i = 0; i < spans.length; i++) {
 			var st = String(spans[i].textContent || '').replace(/\s+/g, '');
 			if (st === '결제하기') spans[i].textContent = 'Checkout Now';
-			else if (st.indexOf('정기배송') !== -1) continue;
-			else {
-				spans[i].className += (spans[i].className ? ' ' : '') + 'chk-btn-price';
-			}
-		}
-		var nodes = submit.childNodes;
-		for (i = 0; i < nodes.length; i++) {
-			if (nodes[i].nodeType === 3 && String(nodes[i].textContent || '').replace(/\s+/g, '')) {
-				nodes[i].textContent = ' ';
-			}
 		}
 	}
 }
