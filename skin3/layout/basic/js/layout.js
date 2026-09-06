@@ -1501,8 +1501,7 @@ function mfCheckoutPage() {
 		else if (ht.indexOf('쿠폰') !== -1) titles[i].textContent = 'Coupon';
 		else if (ht.indexOf('적립금') !== -1 || ht.indexOf('마일리지') !== -1) titles[i].textContent = 'Points';
 		else if (ht.indexOf('결제수단') !== -1 || ht.indexOf('결제방법') !== -1) titles[i].textContent = 'Payment';
-		else if (ht.indexOf('결제정보') !== -1 || ht.indexOf('결제예정') !== -1 || ht.indexOf('주문상품') !== -1) titles[i].textContent = 'Order Summary';
-		else if (ht.indexOf('할인') !== -1) titles[i].textContent = 'Coupon';
+		else if (ht.indexOf('할인') !== -1 && ht.indexOf('결제') === -1) titles[i].textContent = 'Coupon';
 	}
 
 	var ths = order.querySelectorAll('th, label, .ec-base-label, .heading');
@@ -1532,10 +1531,21 @@ function mfCheckoutPage() {
 
 	var payBtn = document.getElementById('orderFixItem');
 	if (payBtn) {
-		var spans = payBtn.getElementsByTagName('span');
+		var submit = payBtn.querySelector('.btnSubmit') || payBtn;
+		var spans = submit.getElementsByTagName('span');
 		for (i = 0; i < spans.length; i++) {
 			var st = String(spans[i].textContent || '').replace(/\s+/g, '');
 			if (st === '결제하기') spans[i].textContent = 'Checkout Now';
+			else if (st.indexOf('정기배송') !== -1) continue;
+			else {
+				spans[i].className += (spans[i].className ? ' ' : '') + 'chk-btn-price';
+			}
+		}
+		var nodes = submit.childNodes;
+		for (i = 0; i < nodes.length; i++) {
+			if (nodes[i].nodeType === 3 && String(nodes[i].textContent || '').replace(/\s+/g, '')) {
+				nodes[i].textContent = ' ';
+			}
 		}
 	}
 }

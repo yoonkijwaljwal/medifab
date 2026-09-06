@@ -17,6 +17,8 @@ body:has(.pg-chk) .footer_margin { display: none; }
 body:has(.pg-chk) #wrap { min-width: 0; }
 
 .pg-chk {
+	max-width: 1440px;
+	margin: 0 auto;
 	padding: 200px 80px 160px;
 	box-sizing: border-box;
 }
@@ -32,37 +34,46 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 }
 
 #userStyle #mCafe24Order {
-	display: flex;
+	display: flex !important;
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: 80px;
-	max-width: 1280px;
+	max-width: none;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	background: none;
+	overflow: visible;
 }
+#userStyle #mCafe24Order:after { display: none !important; content: none !important; }
 #userStyle #mCafe24Order .leftGroup {
 	flex: 1 1 0;
 	min-width: 0;
 	max-width: 787px;
-	float: none;
-	width: auto;
-	padding: 0;
-	margin: 0;
-}
-#userStyle #mCafe24Order .rightGroup {
-	flex: none;
-	width: 413px;
-	max-width: 100%;
-	float: none;
+	float: none !important;
+	width: auto !important;
 	padding: 0;
 	margin: 0;
 	background: none;
 	border: 0;
 }
+#userStyle #mCafe24Order .rightGroup {
+	flex: none;
+	width: 413px;
+	max-width: 413px;
+	float: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	background: none !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
 #userStyle #mCafe24Order .rightGroup .stickyTop {
 	position: sticky;
 	top: 160px;
+	display: flex;
+	flex-direction: column;
+	gap: 60px;
 }
 #userStyle #mCafe24Order .txtEm,
 #userStyle #mCafe24Order .txtStrong { color: var(--Neutral\/Dark); }
@@ -70,12 +81,19 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order .ec-base-fold,
 #userStyle #mCafe24Order .segment,
 #userStyle #mCafe24Order .ec-order-billnship,
-#userStyle #mCafe24Order .billingNshipping {
+#userStyle #mCafe24Order .billingNshipping,
+#userStyle #mCafe24Order .ec-base-box,
+#userStyle #mCafe24Order .leftGroup .ec-base-table {
 	margin: 0 0 80px;
-	padding: 0;
-	border: 0;
-	background: none;
-	box-shadow: none;
+	padding: 0 !important;
+	border: 0 !important;
+	background: none !important;
+	box-shadow: none !important;
+}
+#userStyle #mCafe24Order .rightGroup .ec-base-fold,
+#userStyle #mCafe24Order .rightGroup .segment,
+#userStyle #mCafe24Order .rightGroup .ec-base-box {
+	margin: 0;
 }
 #userStyle #mCafe24Order .ec-base-fold > .title,
 #userStyle #mCafe24Order .segment > .title,
@@ -111,11 +129,11 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	background: none;
 }
 
-#userStyle #mCafe24Order table,
-#userStyle #mCafe24Order tbody,
-#userStyle #mCafe24Order tr,
-#userStyle #mCafe24Order th,
-#userStyle #mCafe24Order td {
+#userStyle #mCafe24Order .leftGroup table,
+#userStyle #mCafe24Order .leftGroup tbody,
+#userStyle #mCafe24Order .leftGroup tr,
+#userStyle #mCafe24Order .leftGroup th,
+#userStyle #mCafe24Order .leftGroup td {
 	display: block;
 	width: 100%;
 	margin: 0;
@@ -126,14 +144,48 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 }
 #userStyle #mCafe24Order caption,
 #userStyle #mCafe24Order colgroup { display: none; }
-#userStyle #mCafe24Order th {
+#userStyle #mCafe24Order .leftGroup th {
 	margin: 0 0 4px;
 	color: var(--Neutral\/Wood);
 	font: var(--mf-b14);
 	font-weight: 400;
 	letter-spacing: -0.01em;
 }
-#userStyle #mCafe24Order td { margin: 0 0 32px; }
+#userStyle #mCafe24Order .leftGroup td { margin: 0 0 32px; }
+
+#userStyle #mCafe24Order .rightGroup table {
+	display: table;
+	width: 100%;
+	border: 0;
+	background: none;
+}
+#userStyle #mCafe24Order .rightGroup tbody,
+#userStyle #mCafe24Order .rightGroup thead,
+#userStyle #mCafe24Order .rightGroup tfoot { display: table-row-group; }
+#userStyle #mCafe24Order .rightGroup tr {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	width: 100%;
+	margin: 0 0 4px;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+#userStyle #mCafe24Order .rightGroup th,
+#userStyle #mCafe24Order .rightGroup td {
+	display: block;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b14);
+	font-weight: 400;
+	letter-spacing: -0.01em;
+}
+#userStyle #mCafe24Order .rightGroup td { text-align: right; }
 #userStyle #mCafe24Order img.icoRequired,
 #userStyle #mCafe24Order .icoRequired { display: none; }
 
@@ -144,9 +196,10 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order input[type="email"],
 #userStyle #mCafe24Order select,
 #userStyle #mCafe24Order textarea {
-	display: block;
-	width: 100%;
-	max-width: none;
+	display: inline-block;
+	width: auto;
+	max-width: 100%;
+	min-width: 72px;
 	height: 50px;
 	margin: 0;
 	padding: 9px 0;
@@ -162,6 +215,41 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	font: var(--mf-b16);
 	letter-spacing: -0.01em;
 	box-sizing: border-box;
+	vertical-align: middle;
+}
+#userStyle #mCafe24Order textarea,
+#userStyle #mCafe24Order input[id*="name"],
+#userStyle #mCafe24Order input[id*="Name"],
+#userStyle #mCafe24Order input[id*="addr"],
+#userStyle #mCafe24Order input[id*="Addr"],
+#userStyle #mCafe24Order input[id*="zipcode" i],
+#userStyle #mCafe24Order input[id*="company"],
+#userStyle #mCafe24Order input[id*="Company"] {
+	display: block;
+	width: 100%;
+}
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="phone"]),
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="Phone"]),
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="mobile"]),
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="email"]),
+#userStyle #mCafe24Order .leftGroup td:has(select[id*="email"]) {
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: wrap;
+	gap: 0 12px;
+}
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="phone"]) input,
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="Phone"]) input,
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="mobile"]) input,
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="phone"]) select,
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="email"]) input,
+#userStyle #mCafe24Order .leftGroup td:has(input[id*="email"]) select,
+#userStyle #mCafe24Order .leftGroup td:has(select[id*="email"]) input,
+#userStyle #mCafe24Order .leftGroup td:has(select[id*="email"]) select {
+	flex: 1 1 0;
+	width: auto;
+	min-width: 0;
+	display: block;
 }
 #userStyle #mCafe24Order select {
 	padding-right: 28px;
@@ -178,11 +266,17 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 }
 #userStyle #mCafe24Order input[type="checkbox"],
 #userStyle #mCafe24Order input[type="radio"] {
-	width: 16px;
-	height: 16px;
+	display: inline-block;
+	width: 16px !important;
+	height: 16px !important;
+	min-width: 16px;
 	margin: 0 8px 0 0;
 	padding: 0;
+	border: 1px solid var(--Neutral\/Dark);
+	background: var(--Neutral\/White);
 	accent-color: var(--Neutral\/Dark);
+	appearance: auto;
+	-webkit-appearance: auto;
 	vertical-align: middle;
 }
 
@@ -248,16 +342,19 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	border: 0;
 	background: none;
 	color: var(--Neutral\/Dark);
-	font: var(--mf-b16);
+	font: var(--mf-b14);
 }
 
-#userStyle #mCafe24Order .ec-base-prdInfo {
+#userStyle #mCafe24Order .ec-base-prdInfo,
+#userStyle #mCafe24Order .ec-base-prdInfo .prdBox {
 	display: flex;
+	align-items: center;
 	gap: 16px;
 	margin: 0 0 12px;
-	padding: 0 0 12px;
+	padding: 0;
 	border: 0;
 	background: none;
+	position: relative;
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .thumbnail {
 	flex: none;
@@ -280,6 +377,7 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	align-self: stretch;
 	padding: 10px 0 0;
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .prdName,
@@ -289,38 +387,131 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	text-decoration: none;
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .info,
+#userStyle #mCafe24Order .ec-base-prdInfo .option,
+#userStyle #mCafe24Order .ec-base-prdInfo .quantity {
+	margin: 16px 0 0;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+}
 #userStyle #mCafe24Order .ec-base-prdInfo .price,
-#userStyle #mCafe24Order .ec-base-prdInfo .option { color: var(--Neutral\/Wood); font: var(--mf-b14); }
+#userStyle #mCafe24Order .ec-base-prdInfo .price li,
+#userStyle #mCafe24Order .ec-base-prdInfo .price span {
+	margin-top: auto;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b16);
+}
+#userStyle #mCafe24Order .ec-base-prdInfo .btnDelete,
+#userStyle #mCafe24Order .ec-base-prdInfo .delete,
+#userStyle #mCafe24Order .ec-base-prdInfo a[class*="delete"],
+#userStyle #mCafe24Order .ec-base-prdInfo .btnIcon,
+#userStyle #mCafe24Order .ec-base-prdInfo .btnClose {
+	display: none !important;
+}
 
-#userStyle #mCafe24Order .totalPay,
-#userStyle #mCafe24Order .paymentArea,
-#userStyle #mCafe24Order .ec-base-table.total {
-	margin: 20px 0 0;
+#userStyle #mCafe24Order .ec-base-tab,
+#userStyle #mCafe24Order .ec-base-tab .menu {
+	margin: 0 0 24px;
 	padding: 0;
 	border: 0;
 	background: none;
 }
+#userStyle #mCafe24Order .ec-base-tab ul {
+	display: flex;
+	gap: 24px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-bottom: 1px solid var(--Neutral\/Wood);
+}
+#userStyle #mCafe24Order .ec-base-tab li {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+#userStyle #mCafe24Order .ec-base-tab li a {
+	display: block;
+	padding: 0 0 8px;
+	border: 0;
+	background: none;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+	text-decoration: none;
+}
+#userStyle #mCafe24Order .ec-base-tab li.selected a,
+#userStyle #mCafe24Order .ec-base-tab li a.selected {
+	color: var(--Neutral\/Dark);
+	border-bottom: 1px solid var(--Neutral\/Dark);
+}
+
+#userStyle #mCafe24Order .rightGroup .ec-base-fold > .title,
+#userStyle #mCafe24Order .rightGroup .segment > .title,
+#userStyle #mCafe24Order .rightGroup h2,
+#userStyle #mCafe24Order .rightGroup .headingArea {
+	display: none !important;
+}
+
+#userStyle #mCafe24Order .totalPay,
+#userStyle #mCafe24Order .paymentArea,
+#userStyle #mCafe24Order .ec-base-table.total,
+#userStyle #mCafe24Order .rightGroup dl,
+#userStyle #mCafe24Order .rightGroup .totalPrice {
+	margin: 48px 0 0;
+	padding: 0;
+	border: 0;
+	background: none !important;
+}
+#userStyle #mCafe24Order [class*="orderProduct"] .ec-base-help,
+#userStyle #mCafe24Order [class*="orderProduct"] .total,
+#userStyle #mCafe24Order .ec-order-product .total,
+#userStyle #mCafe24Order .rightGroup .deliveryFee,
+#userStyle #mCafe24Order .rightGroup .delvPrice {
+	display: none !important;
+}
+#userStyle #mCafe24Order .rightGroup dl {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+#userStyle #mCafe24Order .rightGroup dt,
+#userStyle #mCafe24Order .rightGroup dd,
 #userStyle #mCafe24Order .totalPay .heading,
 #userStyle #mCafe24Order .paymentArea th,
-#userStyle #mCafe24Order .paymentArea td {
+#userStyle #mCafe24Order .paymentArea td,
+#userStyle #mCafe24Order .rightGroup .ec-base-help,
+#userStyle #mCafe24Order .rightGroup li.total {
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	justify-content: space-between;
-	margin: 0 0 8px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
 	color: var(--Neutral\/Dark);
-	font: var(--mf-b16);
+	font: var(--mf-b14);
+	font-weight: 400;
+	letter-spacing: -0.01em;
+	box-sizing: border-box;
+}
+#userStyle #mCafe24Order .rightGroup .discount,
+#userStyle #mCafe24Order .rightGroup .txtEm,
+#userStyle #mCafe24Order .rightGroup [class*="discount"] {
+	color: var(--Neutral\/Wood);
 }
 #userStyle #mCafe24Order .totalPay .txtStrong,
-#userStyle #mCafe24Order .paymentPrice strong {
+#userStyle #mCafe24Order .paymentPrice strong,
+#userStyle #mCafe24Order .rightGroup .total strong,
+#userStyle #mCafe24Order .rightGroup .paymentPrice {
 	display: flex;
+	align-items: flex-end;
 	justify-content: space-between;
 	width: 100%;
 	margin: 12px 0 0;
 	padding: 12px 0 0;
 	border-top: 1px solid var(--Neutral\/Dark);
 	color: var(--Neutral\/Dark);
-	font: var(--mf-h20);
+	font: var(--mf-b18);
 	font-weight: 400;
+	letter-spacing: -0.01em;
 }
 
 #userStyle #mCafe24Order #orderFixItem,
@@ -328,11 +519,13 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	margin: 20px 0 0;
 	padding: 0;
 	border: 0;
+	background: none;
 }
 #userStyle #mCafe24Order #orderFixItem .btnSubmit {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 	width: 100%;
 	height: 52px;
 	margin: 0;
@@ -344,8 +537,19 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	font: var(--mf-b16);
 	letter-spacing: -0.01em;
 	box-sizing: border-box;
+	gap: 0;
 }
 #userStyle #mCafe24Order #orderFixItem .btnSubmit span { color: inherit; }
+#userStyle #mCafe24Order #orderFixItem .btnSubmit .chk-btn-price {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	border: 0 !important;
+}
 
 #userStyle #mCafe24Order .agree-msg,
 #userStyle #mCafe24Order .agreement,
@@ -357,6 +561,7 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	color: var(--Neutral\/Wood);
 	font: var(--mf-b13);
 }
+#userStyle #mCafe24Order .agree-msg { display: none; }
 
 .pg-chk--done .chk-title {
 	margin: 0 0 12px;
@@ -440,9 +645,10 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	}
 	#userStyle #mCafe24Order .leftGroup,
 	#userStyle #mCafe24Order .rightGroup {
-		width: 100%;
+		width: 100% !important;
 		max-width: none;
 	}
+	#userStyle #mCafe24Order .rightGroup .stickyTop { gap: 40px; }
 	#userStyle #mCafe24Order .rightGroup .stickyTop { position: static; }
 	#userStyle #mCafe24Order .ec-base-fold,
 	#userStyle #mCafe24Order .segment { margin: 0 0 40px; }
