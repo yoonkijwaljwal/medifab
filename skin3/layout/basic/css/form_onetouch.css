@@ -68,12 +68,15 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	border: 0 !important;
 	box-shadow: none !important;
 }
-#userStyle #mCafe24Order .rightGroup .stickyTop {
+#userStyle #mCafe24Order .rightGroup .stickyTop,
+.v2 #mCafe24Order .rightGroup .stickyTop {
 	position: sticky;
 	top: 160px;
 	display: flex;
 	flex-direction: column;
 	gap: 60px;
+	background: none !important;
+	background-color: transparent !important;
 }
 #userStyle #mCafe24Order .txtEm,
 #userStyle #mCafe24Order .txtStrong { color: var(--Neutral\/Dark); }
