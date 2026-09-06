@@ -50,17 +50,6 @@
                         -->
 
                         <div class="leftGroup">
-                            <!-- [바로구매 주문상품] -->
-                            <!--@import(/order/ec_orderform/product_detail.html)-->
-
-                            <!-- [주문상품] -->
-                            <!--@import(/order/ec_orderform/orderProduct_v2.html)-->
-
-                            <!-- [사은품] -->
-                            <div id="{$gift_orderform_id}">
-                                <!--@import(/order/ec_orderform/gift.html)-->
-                            </div>
-
                             <!-- [주문배송정보] 주문자정보, 배송지정보, 배송정보 -->
                             <!--@import(/order/ec_orderform/billingNshipping_v2.html)-->
 
@@ -77,6 +66,17 @@
 
                         <div class="rightGroup">
                             <div class="stickyTop">
+                                <!-- [바로구매 주문상품] -->
+                                <!--@import(/order/ec_orderform/product_detail.html)-->
+
+                                <!-- [주문상품] -->
+                                <!--@import(/order/ec_orderform/orderProduct_v2.html)-->
+
+                                <!-- [사은품] -->
+                                <div id="{$gift_orderform_id}">
+                                    <!--@import(/order/ec_orderform/gift.html)-->
+                                </div>
+
                                 <!-- [결제정보] -->
                                 <!--@import(/order/ec_orderform/payment_v2.html)-->
 
