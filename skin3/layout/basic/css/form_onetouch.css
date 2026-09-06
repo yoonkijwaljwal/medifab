@@ -231,44 +231,46 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	display: block;
 	width: 100%;
 }
-#userStyle #mCafe24Order .chk-split-phone,
-#userStyle #mCafe24Order .chk-split-email,
-#userStyle #mCafe24Order .formGroup.code,
-#userStyle #mCafe24Order [class*="mailAddr"],
-#userStyle #mCafe24Order [class*="directInput"] {
+#userStyle #mCafe24Order .chk-split-email {
 	display: flex !important;
 	align-items: flex-end;
 	flex-wrap: nowrap;
-	gap: 0;
 	width: 100%;
-	position: static !important;
 }
-#userStyle #mCafe24Order .chk-split-phone input,
-#userStyle #mCafe24Order .chk-split-phone select,
-#userStyle #mCafe24Order .chk-split-email input,
-#userStyle #mCafe24Order .chk-split-email select,
-#userStyle #mCafe24Order [id*="phone" i],
-#userStyle #mCafe24Order [id*="oemail"],
-#userStyle #mCafe24Order [id*="remail"],
-#userStyle #mCafe24Order select[id*="email" i] {
+#userStyle #mCafe24Order .chk-split-email > input,
+#userStyle #mCafe24Order [id$="email1"],
+#userStyle #mCafe24Order [id$="oemail1"],
+#userStyle #mCafe24Order [id$="remail1"] {
 	flex: 1 1 0;
 	width: auto !important;
-	min-width: 0;
-	max-width: none;
-	position: static !important;
-	float: none !important;
-	left: auto !important;
-	top: auto !important;
+	min-width: 80px;
 }
-#userStyle #mCafe24Order .chk-split-phone > span,
-#userStyle #mCafe24Order .chk-split-email > span {
+#userStyle #mCafe24Order .chk-split-email > span,
+#userStyle #mCafe24Order .chk-split-email > em {
 	flex: none;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	height: 50px;
-	padding: 0 20px;
+	padding: 0 16px;
 	box-sizing: border-box;
+}
+#userStyle #mCafe24Order [class*="directInput"] {
+	flex: 1 1 0;
+	position: relative !important;
+	display: block !important;
+	min-width: 80px;
+	height: 50px;
+}
+#userStyle #mCafe24Order [class*="directInput"] input,
+#userStyle #mCafe24Order [class*="directInput"] select {
+	width: 100% !important;
+	min-width: 0;
+	position: absolute !important;
+	left: 0;
+	right: 0;
+	top: 0;
+	float: none !important;
 }
 #userStyle #mCafe24Order input.displaynone,
 #userStyle #mCafe24Order select.displaynone,

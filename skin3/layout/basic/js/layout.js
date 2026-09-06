@@ -1529,42 +1529,26 @@ function mfCheckoutPage() {
 		else if (bt === '전액사용' || bt === '모두사용') zipBtns[i].textContent = 'Use All';
 	}
 
-	function markSplit(kind, pattern) {
-		var els = order.querySelectorAll('input, select');
-		var n;
-		for (n = 0; n < els.length; n++) {
-			var el = els[n];
-			var typ = String(el.getAttribute('type') || '').toLowerCase();
-			if (typ === 'hidden' || typ === 'checkbox' || typ === 'radio') continue;
-			var key = String(el.id || el.name || '').toLowerCase();
-			if (!pattern.test(key)) continue;
-			var node = el.parentNode;
-			var hop = 0;
-			while (node && node !== order && hop < 8) {
-				if (node.nodeType === 1) {
-					var kids = node.querySelectorAll('input, select');
-					var cnt = 0;
-					var k;
-					for (k = 0; k < kids.length; k++) {
-						var kt = String(kids[k].getAttribute('type') || '').toLowerCase();
-						if (kt === 'hidden' || kt === 'checkbox' || kt === 'radio') continue;
-						var kk = String(kids[k].id || kids[k].name || '').toLowerCase();
-						if (pattern.test(kk)) cnt++;
+	function markEmailRow() {
+		var local = order.querySelector('[id$="email1"], [id$="oemail1"], [id$="remail1"]');
+		if (!local) return;
+		var node = local.parentNode;
+		var hop = 0;
+		while (node && node !== order && hop < 8) {
+			if (node.nodeType === 1) {
+				var hasDomain = node.querySelector('[id$="email2"], [id$="email3"], [id$="oemail2"], [id$="oemail3"], [id$="remail2"], [id$="remail3"], [class*="directInput"]');
+				if (hasDomain && node.contains(local)) {
+					if (String(node.className || '').indexOf('chk-split-email') === -1) {
+						node.className += (node.className ? ' ' : '') + 'chk-split-email';
 					}
-					if (cnt >= 2) {
-						if (String(node.className || '').indexOf('chk-split-' + kind) === -1) {
-							node.className += (node.className ? ' ' : '') + 'chk-split-' + kind;
-						}
-						break;
-					}
+					return;
 				}
-				node = node.parentNode;
-				hop++;
 			}
+			node = node.parentNode;
+			hop++;
 		}
 	}
-	markSplit('phone', /phone|mobile/);
-	markSplit('email', /email|mail/);
+	markEmailRow();
 
 	var payBtn = document.getElementById('orderFixItem');
 	if (payBtn) {
