@@ -231,28 +231,50 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	display: block;
 	width: 100%;
 }
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="phone"]),
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="Phone"]),
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="mobile"]),
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="email"]),
-#userStyle #mCafe24Order .leftGroup td:has(select[id*="email"]) {
-	display: flex;
+#userStyle #mCafe24Order .chk-split-phone,
+#userStyle #mCafe24Order .chk-split-email,
+#userStyle #mCafe24Order .formGroup.code,
+#userStyle #mCafe24Order [class*="mailAddr"],
+#userStyle #mCafe24Order [class*="directInput"] {
+	display: flex !important;
 	align-items: flex-end;
-	flex-wrap: wrap;
-	gap: 0 12px;
+	flex-wrap: nowrap;
+	gap: 0;
+	width: 100%;
+	position: static !important;
 }
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="phone"]) input,
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="Phone"]) input,
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="mobile"]) input,
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="phone"]) select,
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="email"]) input,
-#userStyle #mCafe24Order .leftGroup td:has(input[id*="email"]) select,
-#userStyle #mCafe24Order .leftGroup td:has(select[id*="email"]) input,
-#userStyle #mCafe24Order .leftGroup td:has(select[id*="email"]) select {
+#userStyle #mCafe24Order .chk-split-phone input,
+#userStyle #mCafe24Order .chk-split-phone select,
+#userStyle #mCafe24Order .chk-split-email input,
+#userStyle #mCafe24Order .chk-split-email select,
+#userStyle #mCafe24Order [id*="phone" i],
+#userStyle #mCafe24Order [id*="oemail"],
+#userStyle #mCafe24Order [id*="remail"],
+#userStyle #mCafe24Order select[id*="email" i] {
 	flex: 1 1 0;
-	width: auto;
+	width: auto !important;
 	min-width: 0;
-	display: block;
+	max-width: none;
+	position: static !important;
+	float: none !important;
+	left: auto !important;
+	top: auto !important;
+}
+#userStyle #mCafe24Order .chk-split-phone > span,
+#userStyle #mCafe24Order .chk-split-email > span {
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	padding: 0 20px;
+	box-sizing: border-box;
+}
+#userStyle #mCafe24Order input.displaynone,
+#userStyle #mCafe24Order select.displaynone,
+#userStyle #mCafe24Order .displaynone input,
+#userStyle #mCafe24Order .displaynone select {
+	display: none !important;
 }
 #userStyle #mCafe24Order select {
 	padding-right: 28px;
@@ -356,8 +378,7 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order .ec-base-prdInfo .prdBox,
 #userStyle #mCafe24Order .ec-base-prdInfo .description,
 #userStyle #mCafe24Order .ec-base-prdInfo .info,
-#userStyle #mCafe24Order .ec-base-prdInfo .proPrice,
-#userStyle #mCafe24Order .ec-base-prdInfo .thumbnail {
+#userStyle #mCafe24Order .ec-base-prdInfo .proPrice {
 	background: none !important;
 	background-color: transparent !important;
 }
@@ -378,6 +399,7 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	margin: 0;
 	border: 0;
 	overflow: hidden;
+	background: var(--Neutral\/Warm);
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .thumbnail img {
 	display: block;
