@@ -1,4 +1,45 @@
 <!--@layout(/layout/basic/intro.html)-->
+<div module="Layout_stateLogon" id="pgGateLogon" style="position:absolute;width:0;height:0;overflow:hidden;" aria-hidden="true"></div>
+<script>
+(function() {
+	function isLoggedIn() {
+		try {
+			if (typeof EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA !== 'undefined'
+				&& EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA
+				&& EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA.common_member_id_crypt) {
+				return true;
+			}
+		} catch (e) {}
+		try {
+			if (typeof CAPP_ASYNC_METHODS !== 'undefined'
+				&& CAPP_ASYNC_METHODS.AppCommon
+				&& typeof CAPP_ASYNC_METHODS.AppCommon.getMemberInfo === 'function') {
+				var info = CAPP_ASYNC_METHODS.AppCommon.getMemberInfo();
+				if (info && info.member_id) return true;
+			}
+		} catch (e) {}
+		var logon = document.getElementById('pgGateLogon');
+		if (logon) {
+			var cls = ' ' + logon.className + ' ';
+			if (cls.indexOf(' xans-layout-statelogon ') !== -1 && cls.indexOf(' displaynone ') === -1) {
+				return true;
+			}
+		}
+		return false;
+	}
+	function returnUrl() {
+		var url = '/index.html';
+		try {
+			var match = location.search.match(/[?&]returnUrl=([^&]*)/);
+			if (match && match[1]) url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+		} catch (e) {}
+		if (!url || url.charAt(0) !== '/' || url.indexOf('//') === 0) url = '/index.html';
+		if (/\/intro\/member\.html/i.test(url) || /\/member\/login\.html/i.test(url)) url = '/index.html';
+		return url;
+	}
+	if (isLoggedIn()) location.replace(returnUrl());
+})();
+</script>
 <div module="Intro_memberPackage" class="pg-gate intro membership" data-gate data-view="landing">
 	<!--@css(/css/module/intro/intro.css)-->
 	<div class="pg-gate__visual">
@@ -69,6 +110,46 @@
 </div>
 <script>
 (function() {
+	function isLoggedIn() {
+		try {
+			if (typeof EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA !== 'undefined'
+				&& EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA
+				&& EC_FRONT_EXTERNAL_SCRIPT_VARIABLE_DATA.common_member_id_crypt) {
+				return true;
+			}
+		} catch (e) {}
+		try {
+			if (typeof CAPP_ASYNC_METHODS !== 'undefined'
+				&& CAPP_ASYNC_METHODS.AppCommon
+				&& typeof CAPP_ASYNC_METHODS.AppCommon.getMemberInfo === 'function') {
+				var info = CAPP_ASYNC_METHODS.AppCommon.getMemberInfo();
+				if (info && info.member_id) return true;
+			}
+		} catch (e) {}
+		var logon = document.getElementById('pgGateLogon');
+		if (logon) {
+			var cls = ' ' + logon.className + ' ';
+			if (cls.indexOf(' xans-layout-statelogon ') !== -1 && cls.indexOf(' displaynone ') === -1) {
+				return true;
+			}
+		}
+		return false;
+	}
+	function returnUrl() {
+		var url = '/index.html';
+		try {
+			var match = location.search.match(/[?&]returnUrl=([^&]*)/);
+			if (match && match[1]) url = decodeURIComponent(match[1].replace(/\+/g, ' '));
+		} catch (e) {}
+		if (!url || url.charAt(0) !== '/' || url.indexOf('//') === 0) url = '/index.html';
+		if (/\/intro\/member\.html/i.test(url) || /\/member\/login\.html/i.test(url)) url = '/index.html';
+		return url;
+	}
+	if (isLoggedIn()) {
+		location.replace(returnUrl());
+		return;
+	}
+
 	var root = document.querySelector('[data-gate]');
 	if (!root) return;
 	function show(name) {
