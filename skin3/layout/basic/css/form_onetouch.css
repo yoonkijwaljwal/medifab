@@ -345,6 +345,19 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	font: var(--mf-b14);
 }
 
+#userStyle #mCafe24Order .xans-order-normallist,
+#userStyle #mCafe24Order [class*="normallist"],
+#userStyle #mCafe24Order [class*="orderProduct"],
+#userStyle #mCafe24Order [class*="Orderproduct"],
+#userStyle #mCafe24Order .ec-base-prdInfo,
+#userStyle #mCafe24Order .ec-base-prdInfo .prdBox,
+#userStyle #mCafe24Order .ec-base-prdInfo .description,
+#userStyle #mCafe24Order .ec-base-prdInfo .info,
+#userStyle #mCafe24Order .ec-base-prdInfo .proPrice,
+#userStyle #mCafe24Order .ec-base-prdInfo .thumbnail {
+	background: none !important;
+	background-color: transparent !important;
+}
 #userStyle #mCafe24Order .ec-base-prdInfo,
 #userStyle #mCafe24Order .ec-base-prdInfo .prdBox {
 	display: flex;
@@ -353,7 +366,6 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	margin: 0 0 12px;
 	padding: 0;
 	border: 0;
-	background: none;
 	position: relative;
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .thumbnail {
@@ -363,7 +375,6 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	margin: 0;
 	border: 0;
 	overflow: hidden;
-	background: var(--Neutral\/Warm);
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .thumbnail img {
 	display: block;
