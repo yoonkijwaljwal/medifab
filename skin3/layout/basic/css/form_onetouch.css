@@ -281,11 +281,25 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	width: auto;
 	min-width: 0;
 }
+#userStyle #mCafe24Order .ec-base-mail {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+#userStyle #mCafe24Order .gridSet.gFull {
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: nowrap;
+	gap: 10px;
+	width: 100%;
+	box-sizing: border-box;
+}
 #userStyle #mCafe24Order .chk-split-email {
 	display: flex !important;
 	align-items: flex-end;
 	flex-wrap: nowrap;
-	gap: 8px;
+	gap: 10px;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -459,20 +473,29 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	background: none !important;
 	background-color: transparent !important;
 }
-#userStyle #mCafe24Order .ec-base-prdInfo,
-#userStyle #mCafe24Order .ec-base-prdInfo .prdBox {
-	display: flex;
-	align-items: center;
-	gap: 16px;
-	margin: 0 0 12px;
+#userStyle #mCafe24Order .ec-base-prdInfo {
+	display: block;
+	margin: 0 0 24px;
 	padding: 0;
 	border: 0;
 	position: relative;
 }
+#userStyle #mCafe24Order .ec-base-prdInfo .prdBox {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	position: relative;
+	box-sizing: border-box;
+}
 #userStyle #mCafe24Order .ec-base-prdInfo .thumbnail {
 	flex: none;
-	width: 134px;
-	height: 168px;
+	width: 90px;
+	height: 90px;
 	margin: 0;
 	border: 0;
 	overflow: hidden;
@@ -482,36 +505,66 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	display: block;
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .description {
 	flex: 1 1 auto;
 	min-width: 0;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-self: stretch;
-	padding: 10px 0 0;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .prdName,
 #userStyle #mCafe24Order .ec-base-prdInfo .prdName a {
+	display: block;
+	margin: 0;
 	color: var(--Neutral\/Dark);
 	font: var(--mf-b16);
 	text-decoration: none;
 }
-#userStyle #mCafe24Order .ec-base-prdInfo .info,
+#userStyle #mCafe24Order .ec-base-prdInfo .info {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: 12px 0 0;
+	padding: 0;
+	list-style: none;
+}
 #userStyle #mCafe24Order .ec-base-prdInfo .option,
-#userStyle #mCafe24Order .ec-base-prdInfo .quantity {
-	margin: 16px 0 0;
+#userStyle #mCafe24Order .ec-base-prdInfo .quantity,
+#userStyle #mCafe24Order .ec-base-prdInfo .info li.option,
+#userStyle #mCafe24Order .ec-base-prdInfo .info li.quantity {
+	display: grid;
+	grid-template-columns: 72px 1fr;
+	align-items: start;
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	width: auto;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b14);
+}
+#userStyle #mCafe24Order .ec-base-prdInfo .chk-prd-k {
 	color: var(--Neutral\/Wood);
+	font: var(--mf-b14);
+}
+#userStyle #mCafe24Order .ec-base-prdInfo .chk-prd-v {
+	color: var(--Neutral\/Dark);
 	font: var(--mf-b14);
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .price,
 #userStyle #mCafe24Order .ec-base-prdInfo .price li,
-#userStyle #mCafe24Order .ec-base-prdInfo .price span {
-	margin-top: auto;
+#userStyle #mCafe24Order .ec-base-prdInfo .price span,
+#userStyle #mCafe24Order .ec-base-prdInfo .sumPrice {
+	margin: 16px 0 0;
+	padding: 0;
 	color: var(--Neutral\/Dark);
 	font: var(--mf-b16);
+	font-weight: 500;
+	text-align: left;
 }
 #userStyle #mCafe24Order .ec-base-prdInfo .btnDelete,
 #userStyle #mCafe24Order .ec-base-prdInfo .delete,
@@ -787,8 +840,8 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	#userStyle #mCafe24Order .payMethod li,
 	#userStyle #mCafe24Order [class*="paymethod"] li { font: var(--mf-b13); }
 	#userStyle #mCafe24Order .ec-base-prdInfo .thumbnail {
-		width: 80px;
-		height: 100px;
+		width: 72px;
+		height: 72px;
 	}
 	#userStyle #mCafe24Order #orderFixItem .btnSubmit {
 		height: 32px;

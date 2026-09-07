@@ -1568,6 +1568,36 @@ function mfCheckoutPage() {
 	markEmailRow();
 	setTimeout(markEmailRow, 400);
 
+	function splitPrdMeta(el, label) {
+		if (!el || el.getAttribute('data-chk-meta') === '1') return;
+		var kids = el.childNodes;
+		var n;
+		for (n = 0; n < kids.length; n++) {
+			if (kids[n].nodeType === 1) return;
+		}
+		var raw = String(el.textContent || '').replace(/^\s+|\s+$/g, '');
+		if (!raw) return;
+		var val = raw
+			.replace(/^\[?\s*(옵션|사이즈|수량|개수)\s*[:：\]]*\s*/i, '')
+			.replace(/^\[?\s*(Size|Quantity)\s*[:：\]]*\s*/i, '')
+			.replace(/\]\s*$/, '')
+			.replace(/^\s+|\s+$/g, '');
+		el.textContent = '';
+		var k = document.createElement('span');
+		k.className = 'chk-prd-k';
+		k.textContent = label;
+		var v = document.createElement('span');
+		v.className = 'chk-prd-v';
+		v.textContent = val || raw;
+		el.appendChild(k);
+		el.appendChild(v);
+		el.setAttribute('data-chk-meta', '1');
+	}
+	var prdOpts = order.querySelectorAll('.prdBox .option, .prdBox .info .option, .ec-base-prdInfo .option');
+	for (i = 0; i < prdOpts.length; i++) splitPrdMeta(prdOpts[i], 'Size');
+	var prdQtys = order.querySelectorAll('.prdBox .quantity, .prdBox .info .quantity, .ec-base-prdInfo .quantity');
+	for (i = 0; i < prdQtys.length; i++) splitPrdMeta(prdQtys[i], 'Quantity');
+
 	var payBtn = document.getElementById('orderFixItem');
 	if (payBtn) {
 		var submit = payBtn.querySelector('.btnSubmit') || payBtn;
