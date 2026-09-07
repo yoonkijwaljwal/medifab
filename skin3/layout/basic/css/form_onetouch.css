@@ -685,6 +685,54 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	font-weight: 400;
 	letter-spacing: -0.01em;
 }
+#userStyle #mCafe24Order .totalPay,
+#userStyle #mCafe24Order .chk-total-row {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	margin: 12px 0 0;
+	padding: 12px 0 0;
+	border-top: 1px solid var(--Neutral\/Dark);
+	box-sizing: border-box;
+}
+#userStyle #mCafe24Order .totalPay .heading,
+#userStyle #mCafe24Order .totalPay h2,
+#userStyle #mCafe24Order .totalPay h3,
+#userStyle #mCafe24Order .chk-total-row .heading,
+#userStyle #mCafe24Order .chk-total-row > h2,
+#userStyle #mCafe24Order .chk-total-row > h3 {
+	display: block !important;
+	flex: 1 1 auto;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b14);
+	font-weight: 400;
+}
+#userStyle #mCafe24Order .totalPay .txtStrong,
+#userStyle #mCafe24Order .totalPay strong,
+#userStyle #mCafe24Order .chk-total-row .txtStrong,
+#userStyle #mCafe24Order .chk-total-row strong,
+#userStyle #mCafe24Order .totalPay .notranslate,
+#userStyle #mCafe24Order .chk-total-row .notranslate {
+	display: inline-flex !important;
+	flex: none;
+	align-items: baseline;
+	justify-content: flex-end;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b18);
+	font-weight: 400;
+}
 
 #userStyle #mCafe24Order #orderFixItem,
 #userStyle #mCafe24Order .ec-base-button.gFull {
@@ -739,9 +787,7 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order [class*="agreement"] .boxTitle {
 	display: none !important;
 }
-#userStyle #mCafe24Order [class*="agreement"] .contents,
-#userStyle #mCafe24Order [class*="agreement"] .inner,
-#userStyle #mCafe24Order [class*="agreement"] table {
+#userStyle #mCafe24Order .chk-agree-src {
 	position: absolute !important;
 	width: 1px !important;
 	height: 1px !important;
@@ -752,8 +798,32 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	border: 0 !important;
 }
 #userStyle #mCafe24Order .agree-msg {
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	text-align: center;
+}
+#userStyle #mCafe24Order .chk-agree {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin: 0;
+	cursor: pointer;
+	color: var(--Neutral\/Wood);
+	font: var(--mf-b13);
+}
+#userStyle #mCafe24Order .chk-agree p {
+	margin: 0;
+}
+#userStyle #mCafe24Order .chk-agree input[type="checkbox"] {
+	display: inline-block !important;
+	position: static !important;
+	width: 16px !important;
+	height: 16px !important;
+	margin: 0 !important;
+	clip: auto !important;
+	overflow: visible !important;
 }
 
 .pg-chk--done .chk-title {

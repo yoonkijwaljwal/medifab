@@ -1568,10 +1568,60 @@ function mfCheckoutPage() {
 	markEmailRow();
 	setTimeout(markEmailRow, 400);
 
-	var agrees = order.querySelectorAll('[class*="agreement"] input[type="checkbox"]');
-	for (i = 0; i < agrees.length; i++) {
-		if (!agrees[i].disabled) agrees[i].checked = true;
+	function hideShipBars() {
+		var els = order.querySelectorAll('.rightGroup h3, .rightGroup h4, .rightGroup .title, .rightGroup .ec-base-box, .rightGroup .ec-base-help, .rightGroup p, .rightGroup strong, .rightGroup .heading');
+		var n;
+		for (n = 0; n < els.length; n++) {
+			var el = els[n];
+			if (el.closest('.totalPay, .paymentArea, .paymentPrice, .totalPrice, .prdBox, .ec-base-prdInfo, .agree-msg, .chk-agree')) continue;
+			var t = String(el.textContent || '').replace(/\s+/g, '');
+			if (t !== '배송비') continue;
+			var hide = el;
+			if (el.parentNode && el.parentNode !== order && String(el.parentNode.textContent || '').replace(/\s+/g, '') === '배송비') {
+				hide = el.parentNode;
+			}
+			hide.style.display = 'none';
+		}
 	}
+	hideShipBars();
+	setTimeout(hideShipBars, 400);
+
+	function placeTotalNtx() {
+		var box = order.querySelector('.rightGroup .totalPay, .rightGroup .paymentPrice, .rightGroup [class*="totalPay"]');
+		if (!box) return;
+		var amount = box.querySelector('.txtStrong') || box.querySelector('.notranslate');
+		if (!amount) return;
+		if (String(box.className || '').indexOf('chk-total-row') === -1) {
+			box.className += (box.className ? ' ' : '') + 'chk-total-row';
+		}
+	}
+	placeTotalNtx();
+	setTimeout(placeTotalNtx, 400);
+
+	function bindAgree() {
+		var msg = document.getElementById('agreeMsg');
+		if (!msg || msg.getAttribute('data-chk-agree') === '1') return;
+		var chk = order.querySelector('[class*="agreement"] input[type="checkbox"]') || order.querySelector('#chk_purchase_agreement, input[name="chk_purchase_agreement"], #all_checked');
+		if (!chk) return;
+		var wrap = chk.closest('[class*="agreement"]') || chk.closest('.ec-base-fold');
+		var p = msg.querySelector('p');
+		var label = document.createElement('label');
+		label.className = 'chk-agree';
+		if (chk.id) label.setAttribute('for', chk.id);
+		label.appendChild(chk);
+		if (p) label.appendChild(p);
+		else label.appendChild(document.createTextNode(String(msg.textContent || '').replace(/^\s+|\s+$/g, '')));
+		msg.innerHTML = '';
+		msg.appendChild(label);
+		msg.setAttribute('data-chk-agree', '1');
+		if (wrap && wrap !== msg && wrap !== order) {
+			if (String(wrap.className || '').indexOf('chk-agree-src') === -1) {
+				wrap.className += (wrap.className ? ' ' : '') + 'chk-agree-src';
+			}
+		}
+	}
+	bindAgree();
+	setTimeout(bindAgree, 400);
 
 	function splitPrdMeta(el, label) {
 		if (!el || el.getAttribute('data-chk-meta') === '1') return;
