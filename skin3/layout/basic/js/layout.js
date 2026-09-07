@@ -1568,23 +1568,34 @@ function mfCheckoutPage() {
 	markEmailRow();
 	setTimeout(markEmailRow, 400);
 
-	function hideShipBars() {
-		var els = order.querySelectorAll('.rightGroup h3, .rightGroup h4, .rightGroup .title, .rightGroup .ec-base-box, .rightGroup .ec-base-help, .rightGroup p, .rightGroup strong, .rightGroup .heading');
+	function hideUnusedChrome() {
+		var els = order.querySelectorAll('.rightGroup h2, .rightGroup h3, .rightGroup h4, .rightGroup .title, .rightGroup .ec-base-box, .rightGroup .ec-base-fold, .rightGroup .segment, .rightGroup .ec-base-help, .rightGroup p, .rightGroup strong, .rightGroup .heading, .rightGroup li, .rightGroup div');
 		var n;
 		for (n = 0; n < els.length; n++) {
 			var el = els[n];
-			if (el.closest('.totalPay, .paymentArea, .paymentPrice, .totalPrice, .prdBox, .ec-base-prdInfo, .agree-msg, .chk-agree')) continue;
+			if (el.closest('#agreeMsg, .agree-msg, .chk-agree, .prdBox, .ec-base-prdInfo, .totalPay, .paymentArea, .paymentPrice, .totalPrice, #orderFixItem')) continue;
 			var t = String(el.textContent || '').replace(/\s+/g, '');
-			if (t !== '배송비') continue;
-			var hide = el;
-			if (el.parentNode && el.parentNode !== order && String(el.parentNode.textContent || '').replace(/\s+/g, '') === '배송비') {
-				hide = el.parentNode;
+			if (!t) continue;
+			if (t.indexOf('구매조건') !== -1) {
+				var fold = el.closest('.ec-base-fold, .ec-base-box, [class*="agreement"], .segment') || el;
+				fold.style.setProperty('display', 'none', 'important');
+				continue;
 			}
-			hide.style.display = 'none';
+			if (t.indexOf('배송비') === -1 && t !== 'Shipping') continue;
+			if (/\d/.test(t)) continue;
+			if (t !== '배송비' && t !== 'Shipping' && t.indexOf('배송비') !== 0) continue;
+			var hide = el;
+			var parent = el.parentNode;
+			if (parent && parent !== order && parent.nodeType === 1) {
+				var pt = String(parent.textContent || '').replace(/\s+/g, '');
+				if (pt === t || pt === '배송비' || pt === 'Shipping') hide = parent;
+			}
+			hide.style.setProperty('display', 'none', 'important');
 		}
 	}
-	hideShipBars();
-	setTimeout(hideShipBars, 400);
+	hideUnusedChrome();
+	setTimeout(hideUnusedChrome, 400);
+	setTimeout(hideUnusedChrome, 1200);
 
 	function placeTotalNtx() {
 		var box = order.querySelector('.rightGroup .totalPay, .rightGroup .paymentPrice, .rightGroup [class*="totalPay"]');

@@ -787,31 +787,34 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order [class*="agreement"] .boxTitle {
 	display: none !important;
 }
-#userStyle #mCafe24Order .chk-agree-src {
-	position: absolute !important;
-	width: 1px !important;
-	height: 1px !important;
-	padding: 0 !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	clip: rect(0, 0, 0, 0) !important;
-	border: 0 !important;
+#userStyle #mCafe24Order .chk-agree-src,
+#userStyle #mCafe24Order .rightGroup [class*="agreement"]:not(#agreeMsg):not(.agree-msg):not(.chk-agree) {
+	display: none !important;
 }
 #userStyle #mCafe24Order .agree-msg {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	text-align: center;
+	justify-content: flex-start;
+	width: 100%;
+	max-width: none;
+	margin: 16px 0 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: left;
 }
 #userStyle #mCafe24Order .chk-agree {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	gap: 8px;
+	width: 100%;
 	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 	cursor: pointer;
 	color: var(--Neutral\/Wood);
 	font: var(--mf-b13);
+	text-align: left;
 }
 #userStyle #mCafe24Order .chk-agree p {
 	margin: 0;
