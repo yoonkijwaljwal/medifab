@@ -1568,6 +1568,11 @@ function mfCheckoutPage() {
 	markEmailRow();
 	setTimeout(markEmailRow, 400);
 
+	var agrees = order.querySelectorAll('[class*="agreement"] input[type="checkbox"]');
+	for (i = 0; i < agrees.length; i++) {
+		if (!agrees[i].disabled) agrees[i].checked = true;
+	}
+
 	function splitPrdMeta(el, label) {
 		if (!el || el.getAttribute('data-chk-meta') === '1') return;
 		var kids = el.childNodes;

@@ -629,9 +629,13 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 }
 #userStyle #mCafe24Order [class*="orderProduct"] .ec-base-help,
 #userStyle #mCafe24Order [class*="orderProduct"] .total,
+#userStyle #mCafe24Order [class*="Orderproduct"] .ec-base-help,
+#userStyle #mCafe24Order [class*="Orderproduct"] .total,
 #userStyle #mCafe24Order .ec-order-product .total,
 #userStyle #mCafe24Order .rightGroup .deliveryFee,
-#userStyle #mCafe24Order .rightGroup .delvPrice {
+#userStyle #mCafe24Order .rightGroup .delvPrice,
+#userStyle #mCafe24Order .rightGroup [class*="orderProduct"] li.total,
+#userStyle #mCafe24Order .rightGroup [class*="Orderproduct"] li.total {
 	display: none !important;
 }
 #userStyle #mCafe24Order .rightGroup dl {
@@ -644,8 +648,10 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order .totalPay .heading,
 #userStyle #mCafe24Order .paymentArea th,
 #userStyle #mCafe24Order .paymentArea td,
-#userStyle #mCafe24Order .rightGroup .ec-base-help,
-#userStyle #mCafe24Order .rightGroup li.total {
+#userStyle #mCafe24Order .rightGroup .totalPay .ec-base-help,
+#userStyle #mCafe24Order .rightGroup .paymentArea .ec-base-help,
+#userStyle #mCafe24Order .rightGroup .totalPay li.total,
+#userStyle #mCafe24Order .rightGroup .paymentArea li.total {
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-between;
@@ -723,11 +729,32 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	margin: 16px 0 0;
 	padding: 0;
 	border: 0;
-	background: none;
+	background: none !important;
 	color: var(--Neutral\/Wood);
 	font: var(--mf-b13);
 }
-#userStyle #mCafe24Order .agree-msg { display: none; }
+#userStyle #mCafe24Order [class*="agreement"] .title,
+#userStyle #mCafe24Order [class*="agreement"] h2,
+#userStyle #mCafe24Order [class*="agreement"] h3,
+#userStyle #mCafe24Order [class*="agreement"] .boxTitle {
+	display: none !important;
+}
+#userStyle #mCafe24Order [class*="agreement"] .contents,
+#userStyle #mCafe24Order [class*="agreement"] .inner,
+#userStyle #mCafe24Order [class*="agreement"] table {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	border: 0 !important;
+}
+#userStyle #mCafe24Order .agree-msg {
+	display: block;
+	text-align: center;
+}
 
 .pg-chk--done .chk-title {
 	margin: 0 0 12px;
