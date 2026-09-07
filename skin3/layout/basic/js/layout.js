@@ -1529,6 +1529,19 @@ function mfCheckoutPage() {
 		else if (bt === '전액사용' || bt === '모두사용') zipBtns[i].textContent = 'Use All';
 	}
 
+	function wrapEmailAt(node) {
+		if (!node) return;
+		var kids = node.childNodes;
+		var i;
+		for (i = 0; i < kids.length; i++) {
+			if (kids[i].nodeType !== 3) continue;
+			if (!/@/.test(String(kids[i].textContent || ''))) continue;
+			var span = document.createElement('span');
+			span.className = 'chk-at';
+			span.textContent = '@';
+			node.replaceChild(span, kids[i]);
+		}
+	}
 	function markEmailRow() {
 		var local = order.querySelector('[id$="email1"], [id$="oemail1"], [id$="remail1"]');
 		if (!local) return;
@@ -1536,12 +1549,16 @@ function mfCheckoutPage() {
 		var hop = 0;
 		while (node && node !== order && hop < 8) {
 			if (node.nodeType === 1) {
-				var hasDomain = node.querySelector('[id$="email2"], [id$="email3"], [id$="oemail2"], [id$="oemail3"], [id$="remail2"], [id$="remail3"], [class*="directInput"]');
-				if (hasDomain && node.contains(local)) {
-					if (String(node.className || '').indexOf('chk-split-email') === -1) {
-						node.className += (node.className ? ' ' : '') + 'chk-split-email';
+				var tag = String(node.tagName || '').toUpperCase();
+				if (tag !== 'TABLE' && tag !== 'TBODY' && tag !== 'THEAD' && tag !== 'TR') {
+					var hasDomain = node.querySelector('[id$="email2"], [id$="email3"], [id$="oemail2"], [id$="oemail3"], [id$="remail2"], [id$="remail3"], [class*="directInput"]');
+					if (hasDomain && node.contains(local)) {
+						if (String(node.className || '').indexOf('chk-split-email') === -1) {
+							node.className += (node.className ? ' ' : '') + 'chk-split-email';
+						}
+						wrapEmailAt(node);
+						return;
 					}
-					return;
 				}
 			}
 			node = node.parentNode;
@@ -1549,6 +1566,7 @@ function mfCheckoutPage() {
 		}
 	}
 	markEmailRow();
+	setTimeout(markEmailRow, 400);
 
 	var payBtn = document.getElementById('orderFixItem');
 	if (payBtn) {

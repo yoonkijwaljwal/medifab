@@ -44,8 +44,22 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	padding: 0;
 	background: none;
 	overflow: visible;
+	position: relative;
 }
 #userStyle #mCafe24Order:after { display: none !important; content: none !important; }
+#userStyle #mCafe24Order > iframe,
+#userStyle #mCafe24Order > label {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 0 !important;
+	height: 0 !important;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+	flex: none;
+}
 #userStyle #mCafe24Order .leftGroup {
 	flex: 1 1 0;
 	min-width: 0;
@@ -87,11 +101,23 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order .billingNshipping,
 #userStyle #mCafe24Order .ec-base-box,
 #userStyle #mCafe24Order .leftGroup .ec-base-table {
-	margin: 0 0 80px;
+	margin: 0;
 	padding: 0 !important;
 	border: 0 !important;
 	background: none !important;
 	box-shadow: none !important;
+}
+#userStyle #mCafe24Order .leftGroup > .ec-base-fold,
+#userStyle #mCafe24Order .leftGroup > .segment,
+#userStyle #mCafe24Order .leftGroup > [class*="Discount"],
+#userStyle #mCafe24Order .leftGroup > [class*="discount"],
+#userStyle #mCafe24Order .leftGroup > [class*="Paymethod"],
+#userStyle #mCafe24Order .leftGroup > [class*="paymethod"],
+#userStyle #mCafe24Order .billingNshipping > .segment,
+#userStyle #mCafe24Order .billingNshipping > .ec-base-fold,
+#userStyle #mCafe24Order .ec-order-billnship > .segment,
+#userStyle #mCafe24Order .ec-order-billnship > .ec-base-fold {
+	margin: 0 0 80px;
 }
 #userStyle #mCafe24Order .rightGroup .ec-base-fold,
 #userStyle #mCafe24Order .rightGroup .segment,
@@ -154,7 +180,9 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	font-weight: 400;
 	letter-spacing: -0.01em;
 }
-#userStyle #mCafe24Order .leftGroup td { margin: 0 0 32px; }
+#userStyle #mCafe24Order .leftGroup tr > td { margin: 0 0 32px; }
+#userStyle #mCafe24Order .leftGroup table table td,
+#userStyle #mCafe24Order .leftGroup td td { margin: 0; }
 
 #userStyle #mCafe24Order .rightGroup table {
 	display: table;
@@ -166,6 +194,12 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order .rightGroup thead,
 #userStyle #mCafe24Order .rightGroup tfoot { display: table-row-group; }
 #userStyle #mCafe24Order .rightGroup tr {
+	display: table-row;
+}
+#userStyle #mCafe24Order .rightGroup .totalPay tr,
+#userStyle #mCafe24Order .rightGroup .paymentArea tr,
+#userStyle #mCafe24Order .rightGroup .ec-base-table.total tr,
+#userStyle #mCafe24Order .rightGroup .totalPrice tr {
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-between;
@@ -177,9 +211,6 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 }
 #userStyle #mCafe24Order .rightGroup th,
 #userStyle #mCafe24Order .rightGroup td {
-	display: block;
-	width: auto;
-	margin: 0;
 	padding: 0;
 	border: 0;
 	background: none;
@@ -187,6 +218,18 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	font: var(--mf-b14);
 	font-weight: 400;
 	letter-spacing: -0.01em;
+}
+#userStyle #mCafe24Order .rightGroup .totalPay th,
+#userStyle #mCafe24Order .rightGroup .totalPay td,
+#userStyle #mCafe24Order .rightGroup .paymentArea th,
+#userStyle #mCafe24Order .rightGroup .paymentArea td,
+#userStyle #mCafe24Order .rightGroup .ec-base-table.total th,
+#userStyle #mCafe24Order .rightGroup .ec-base-table.total td,
+#userStyle #mCafe24Order .rightGroup .totalPrice th,
+#userStyle #mCafe24Order .rightGroup .totalPrice td {
+	display: block;
+	width: auto;
+	margin: 0;
 }
 #userStyle #mCafe24Order .rightGroup td { text-align: right; }
 #userStyle #mCafe24Order img.icoRequired,
@@ -199,10 +242,10 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order input[type="email"],
 #userStyle #mCafe24Order select,
 #userStyle #mCafe24Order textarea {
-	display: inline-block;
-	width: auto;
+	display: block;
+	width: 100%;
 	max-width: 100%;
-	min-width: 72px;
+	min-width: 0;
 	height: 50px;
 	margin: 0;
 	padding: 9px 0;
@@ -220,60 +263,81 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	box-sizing: border-box;
 	vertical-align: middle;
 }
-#userStyle #mCafe24Order textarea,
-#userStyle #mCafe24Order input[id*="name"],
-#userStyle #mCafe24Order input[id*="Name"],
-#userStyle #mCafe24Order input[id*="addr"],
-#userStyle #mCafe24Order input[id*="Addr"],
-#userStyle #mCafe24Order input[id*="zipcode" i],
-#userStyle #mCafe24Order input[id*="company"],
-#userStyle #mCafe24Order input[id*="Company"] {
-	display: block;
+#userStyle #mCafe24Order .leftGroup tr > td:has(input + a),
+#userStyle #mCafe24Order .leftGroup tr > td:has(input + button),
+#userStyle #mCafe24Order .leftGroup tr > td:has(input[id*="phone"]),
+#userStyle #mCafe24Order .leftGroup tr > td:has(input[id*="Phone"]) {
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: nowrap;
+	gap: 8px;
 	width: 100%;
+}
+#userStyle #mCafe24Order .leftGroup tr > td:has(input + a) > input,
+#userStyle #mCafe24Order .leftGroup tr > td:has(input + button) > input,
+#userStyle #mCafe24Order .leftGroup input[id*="phone"],
+#userStyle #mCafe24Order .leftGroup input[id*="Phone"] {
+	flex: 1 1 0;
+	width: auto;
+	min-width: 0;
 }
 #userStyle #mCafe24Order .chk-split-email {
 	display: flex !important;
 	align-items: flex-end;
 	flex-wrap: nowrap;
+	gap: 8px;
 	width: 100%;
+	box-sizing: border-box;
 }
 #userStyle #mCafe24Order .chk-split-email > input,
-#userStyle #mCafe24Order [id$="email1"],
-#userStyle #mCafe24Order [id$="oemail1"],
-#userStyle #mCafe24Order [id$="remail1"] {
+#userStyle #mCafe24Order .chk-split-email > select,
+#userStyle #mCafe24Order .chk-split-email [id$="email1"],
+#userStyle #mCafe24Order .chk-split-email [id$="oemail1"],
+#userStyle #mCafe24Order .chk-split-email [id$="remail1"] {
 	flex: 1 1 0;
 	width: auto !important;
-	min-width: 80px;
+	min-width: 0;
+	position: static !important;
+	float: none !important;
 }
-#userStyle #mCafe24Order .chk-split-email > span,
-#userStyle #mCafe24Order .chk-split-email > em {
+#userStyle #mCafe24Order .chk-split-email > span:has(input),
+#userStyle #mCafe24Order .chk-split-email > span:has(select) {
+	flex: 1 1 0;
+	display: block;
+	min-width: 0;
+	height: auto;
+	padding: 0;
+}
+#userStyle #mCafe24Order .chk-split-email > span:not(:has(input)):not(:has(select)),
+#userStyle #mCafe24Order .chk-split-email > em,
+#userStyle #mCafe24Order .chk-split-email .chk-at {
 	flex: none;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	height: 50px;
-	padding: 0 16px;
+	padding: 0 4px;
 	box-sizing: border-box;
+	color: var(--Neutral\/Dark);
+	font: var(--mf-b16);
 }
-#userStyle #mCafe24Order [class*="directInput"] {
+#userStyle #mCafe24Order .chk-split-email [class*="directInput"] {
 	flex: 1 1 0;
-	position: relative !important;
-	display: block !important;
-	min-width: 80px;
+	position: relative;
+	min-width: 0;
 	height: 50px;
 }
-#userStyle #mCafe24Order [class*="directInput"] input,
-#userStyle #mCafe24Order [class*="directInput"] select {
+#userStyle #mCafe24Order .chk-split-email [class*="directInput"] input,
+#userStyle #mCafe24Order .chk-split-email [class*="directInput"] select {
+	display: block;
 	width: 100% !important;
 	min-width: 0;
-	position: absolute !important;
-	left: 0;
-	right: 0;
-	top: 0;
+	position: static !important;
 	float: none !important;
 }
 #userStyle #mCafe24Order input.displaynone,
 #userStyle #mCafe24Order select.displaynone,
+#userStyle #mCafe24Order [class*="directInput"].displaynone,
 #userStyle #mCafe24Order .displaynone input,
 #userStyle #mCafe24Order .displaynone select {
 	display: none !important;
@@ -307,11 +371,23 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	vertical-align: middle;
 }
 
-#userStyle #mCafe24Order .ec-address,
-#userStyle #mCafe24Order .ec-address > li {
+#userStyle #mCafe24Order .ec-address {
 	display: block;
 	width: 100%;
+	margin: 0;
+}
+#userStyle #mCafe24Order .ec-address > li {
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: nowrap;
+	gap: 8px;
+	width: 100%;
 	margin: 0 0 8px;
+}
+#userStyle #mCafe24Order .ec-address > li input {
+	flex: 1 1 0;
+	width: auto;
+	min-width: 0;
 }
 #userStyle #mCafe24Order a.btnBasic,
 #userStyle #mCafe24Order a.btnNormal,
@@ -348,7 +424,6 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order #ec-jigsaw-area-benefit { display: none; }
 
 #userStyle #mCafe24Order .payMethod,
-#userStyle #mCafe24Order .payMethod li,
 #userStyle #mCafe24Order .ec-paymethod,
 #userStyle #mCafe24Order [class*="paymethod"] ul {
 	display: flex;
@@ -678,18 +753,22 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 		letter-spacing: -0.005em;
 	}
 	#userStyle #mCafe24Order {
-		display: block;
+		display: block !important;
 		gap: 0;
 	}
 	#userStyle #mCafe24Order .leftGroup,
 	#userStyle #mCafe24Order .rightGroup {
 		width: 100% !important;
-		max-width: none;
+		max-width: none !important;
 	}
 	#userStyle #mCafe24Order .rightGroup .stickyTop { gap: 40px; }
 	#userStyle #mCafe24Order .rightGroup .stickyTop { position: static; }
-	#userStyle #mCafe24Order .ec-base-fold,
-	#userStyle #mCafe24Order .segment { margin: 0 0 40px; }
+	#userStyle #mCafe24Order .leftGroup > .ec-base-fold,
+	#userStyle #mCafe24Order .leftGroup > .segment,
+	#userStyle #mCafe24Order .billingNshipping > .segment,
+	#userStyle #mCafe24Order .billingNshipping > .ec-base-fold,
+	#userStyle #mCafe24Order .ec-order-billnship > .segment,
+	#userStyle #mCafe24Order .ec-order-billnship > .ec-base-fold { margin: 0 0 40px; }
 	#userStyle #mCafe24Order input[type="text"],
 	#userStyle #mCafe24Order input[type="tel"],
 	#userStyle #mCafe24Order input[type="password"],
