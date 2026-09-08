@@ -1153,20 +1153,96 @@ function mfAcademyContact() {
 	function markPh(sel) {
 		if (!sel) return;
 		function sync() {
-			var empty = !sel.value || sel.selectedIndex <= 0 || /선택|전체/.test(sel.options[sel.selectedIndex].text || '');
+			var empty = !sel.value || sel.selectedIndex <= 0 || /선택|전체|문의 유형/.test(sel.options[sel.selectedIndex].text || '');
 			if (empty) sel.classList.add('is-ph');
 			else sel.classList.remove('is-ph');
 		}
 		sel.addEventListener('change', sync);
 		sync();
 	}
-	var typeSel = root.querySelector('.pg-acd-ct__select select, select[name="board_category"]');
-	if (typeSel && typeSel.options.length && typeSel.options[0].value !== '') {
-		var ph = document.createElement('option');
-		ph.value = '';
-		ph.textContent = '문의 유형 선택';
-		typeSel.insertBefore(ph, typeSel.options[0]);
-		if (!typeSel.value) typeSel.selectedIndex = 0;
+
+	/* 문의 유형: 오픈 페이지(imedifab.com) contact와 동일 옵션 사용.
+	   Cafe24 board_category가 비어 있거나 동작하지 않을 때 커스텀 select로 처리. */
+	var typeWrap = root.querySelector('.pg-acd-ct__select');
+	var cafeCat = typeWrap
+		? typeWrap.querySelector('select[name="board_category"], select#board_category, select:not(#acdInquiryType)')
+		: null;
+	var typeSel = root.querySelector('#acdInquiryType');
+	function countRealOptions(sel) {
+		if (!sel || !sel.options) return 0;
+		var n = 0;
+		var i;
+		for (i = 0; i < sel.options.length; i++) {
+			var v = String(sel.options[i].value || '').replace(/^\s+|\s+$/g, '');
+			var t = String(sel.options[i].text || '').replace(/^\s+|\s+$/g, '');
+			if (v && !/선택|전체|문의 유형/.test(t)) n++;
+		}
+		return n;
+	}
+	function hideCafeCat(sel) {
+		if (!sel) return;
+		sel.removeAttribute('required');
+		sel.setAttribute('aria-hidden', 'true');
+		sel.tabIndex = -1;
+		sel.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none;';
+	}
+	function syncCafeCatFromType() {
+		if (!cafeCat || !typeSel || cafeCat === typeSel) return;
+		var text = String(typeSel.value || '').replace(/^\s+|\s+$/g, '');
+		if (!text || !cafeCat.options) return;
+		var i;
+		for (i = 0; i < cafeCat.options.length; i++) {
+			var t = String(cafeCat.options[i].text || '').replace(/^\s+|\s+$/g, '');
+			if (t === text || cafeCat.options[i].value === text) {
+				cafeCat.selectedIndex = i;
+				return;
+			}
+		}
+	}
+	if (typeSel) {
+		if (cafeCat && cafeCat !== typeSel && countRealOptions(cafeCat) > 0) {
+			/* 관리자에 카테고리가 있으면 동일 라벨만 맞추고 Cafe24 select를 사용 */
+			if (typeWrap) typeWrap.classList.add('is-cafe-cat');
+			typeSel.style.display = 'none';
+			typeSel.removeAttribute('required');
+			typeSel = cafeCat;
+			if (typeSel.options.length && typeSel.options[0].value !== '') {
+				var ph = document.createElement('option');
+				ph.value = '';
+				ph.textContent = '문의 유형 선택';
+				typeSel.insertBefore(ph, typeSel.options[0]);
+				if (!typeSel.value) typeSel.selectedIndex = 0;
+			}
+		} else {
+			if (typeWrap) typeWrap.classList.remove('is-cafe-cat');
+			hideCafeCat(cafeCat);
+			typeSel.style.display = 'block';
+			typeSel.addEventListener('change', syncCafeCatFromType);
+		}
+	} else if (cafeCat) {
+		if (typeWrap) typeWrap.classList.add('is-cafe-cat');
+		typeSel = cafeCat;
+		if (countRealOptions(typeSel) === 0) {
+			/* 옵션이 비어 있으면 오픈 페이지 항목으로 채움 */
+			while (typeSel.options.length) typeSel.remove(0);
+			var openTypes = ['제품 구매 문의', '파트너십 문의', '제품 수출입 문의', 'ODM 협의', '기타'];
+			var ph2 = document.createElement('option');
+			ph2.value = '';
+			ph2.textContent = '문의 유형 선택';
+			typeSel.appendChild(ph2);
+			openTypes.forEach(function (label) {
+				var opt = document.createElement('option');
+				opt.value = label;
+				opt.textContent = label;
+				typeSel.appendChild(opt);
+			});
+		} else if (typeSel.options.length && typeSel.options[0].value !== '') {
+			var ph3 = document.createElement('option');
+			ph3.value = '';
+			ph3.textContent = '문의 유형 선택';
+			typeSel.insertBefore(ph3, typeSel.options[0]);
+			if (!typeSel.value) typeSel.selectedIndex = 0;
+		}
 	}
 	markPh(typeSel);
 
@@ -1185,14 +1261,17 @@ function mfAcademyContact() {
 		});
 	}
 
+	function getTypeText() {
+		var cat = typeSel || root.querySelector('#acdInquiryType, .pg-acd-ct__select select, select[name="board_category"]');
+		if (!cat || cat.selectedIndex < 0) return '';
+		return String(cat.options[cat.selectedIndex].text || cat.value || '').replace(/^\s+|\s+$/g, '');
+	}
+
 	function fillSubject() {
 		var subject = root.querySelector('#subject, input[name="subject"]');
 		if (!subject) return;
-		var cat = root.querySelector('.pg-acd-ct__select select, select[name="board_category"]');
-		var typeText = '';
-		if (cat && cat.selectedIndex >= 0) {
-			typeText = String(cat.options[cat.selectedIndex].text || '').replace(/^\s+|\s+$/g, '');
-		}
+		syncCafeCatFromType();
+		var typeText = getTypeText();
 		if (!typeText || typeText === '선택' || /전체|문의 유형/.test(typeText)) typeText = '문의';
 		var name = '';
 		if (writer && writer.value) name = writer.value;
@@ -1214,6 +1293,12 @@ function mfAcademyContact() {
 			var agree = root.querySelector('#acdAgree');
 			if (agree && !agree.checked) {
 				window.alert('개인정보 수집 및 이용에 동의해 주세요.');
+				return;
+			}
+			var typeText = getTypeText();
+			if (!typeText || typeText === '선택' || /전체|문의 유형/.test(typeText)) {
+				window.alert('문의 유형을 선택해 주세요.');
+				if (typeSel) typeSel.focus();
 				return;
 			}
 			fillSubject();

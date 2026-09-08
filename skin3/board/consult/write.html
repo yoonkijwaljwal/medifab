@@ -41,29 +41,38 @@
 
         <div class="pg-acd-ct__fields">
             <div class="pg-acd-ct__field">
-                <label class="pg-acd-ct__label" for="writer">Name <i>*</i></label>
+                <label class="pg-acd-ct__label" for="writer">이름 <i>*</i></label>
                 <div class="pg-acd-ct__control">
                     {$form.writer}
                     <input type="text" id="acdName" class="pg-acd-ct__input" maxlength="50" placeholder="홍길동" autocomplete="name">
                 </div>
             </div>
             <div class="pg-acd-ct__field">
-                <label class="pg-acd-ct__label" for="acdOrg">Organization</label>
+                <label class="pg-acd-ct__label" for="acdOrg">업체명</label>
                 <div class="pg-acd-ct__control">
-                    <input type="text" id="acdOrg" class="pg-acd-ct__input" maxlength="100" placeholder="메디팹의원" autocomplete="organization">
+                    <input type="text" id="acdOrg" class="pg-acd-ct__input" maxlength="100" placeholder="업체명을 입력해 주세요" autocomplete="organization">
                 </div>
-                <p class="pg-acd-ct__help">병원 또는 클리닉명</p>
             </div>
             <div class="pg-acd-ct__field pg-acd-ct__field--email">
-                <label class="pg-acd-ct__label">E-mail <i>*</i></label>
+                <label class="pg-acd-ct__label">이메일 <i>*</i></label>
                 <div class="pg-acd-ct__control pg-acd-ct__email">{$form.email}</div>
             </div>
             <div class="pg-acd-ct__field">
-                <label class="pg-acd-ct__label">Inquiry Type <i>*</i></label>
-                <div class="pg-acd-ct__control pg-acd-ct__select">{$form.board_category}</div>
+                <label class="pg-acd-ct__label" for="acdInquiryType">문의 유형 <i>*</i></label>
+                <div class="pg-acd-ct__control pg-acd-ct__select">
+                    {$form.board_category}
+                    <select id="acdInquiryType" class="pg-acd-ct__type" aria-label="문의 유형" required>
+                        <option value="">문의 유형 선택</option>
+                        <option value="제품 구매 문의">제품 구매 문의</option>
+                        <option value="파트너십 문의">파트너십 문의</option>
+                        <option value="제품 수출입 문의">제품 수출입 문의</option>
+                        <option value="ODM 협의">ODM 협의</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
             </div>
             <div class="pg-acd-ct__field pg-acd-ct__field--msg">
-                <label class="pg-acd-ct__label">Message <i>*</i></label>
+                <label class="pg-acd-ct__label">메시지 <i>*</i></label>
                 <div class="pg-acd-ct__control">{$form.content}</div>
             </div>
             <div class="pg-acd-ct__field pg-acd-ct__field--files {$config.use_attach|display}">
