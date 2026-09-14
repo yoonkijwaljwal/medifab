@@ -873,6 +873,8 @@ function mfAcademyPage() {
 	var tabName = 'market';
 	if (/consult|inquiry/i.test(path)) {
 		tabName = 'contact';
+	} else if (boardNo === '3001') {
+		tabName = 'board3001';
 	} else if (boardNo === '1002') {
 		tabName = 'academic';
 	} else if (boardNo === '5' || !boardNo) {
@@ -880,6 +882,13 @@ function mfAcademyPage() {
 	}
 	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
 		tab.classList.toggle('is-active', tab.getAttribute('data-acd-tab') === tabName);
+	});
+	root.querySelectorAll('.pg-acd__tab[data-board-no]').forEach(function (tab) {
+		var no = tab.getAttribute('data-board-no') || '';
+		if (!no) return;
+		var src = root.querySelector('.pg-acd__tabs-src a[href*="board_no=' + no + '"]');
+		var label = src ? String(src.textContent || '').replace(/^\s+|\s+$/g, '') : '';
+		if (label) tab.textContent = label;
 	});
 
 	var select = root.querySelector('.pg-acd__sort select');
