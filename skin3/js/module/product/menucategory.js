@@ -1,4 +1,23 @@
 $(function(){
+    var listCats = document.querySelector('.pg-list [data-list-cats]');
+    if (listCats) {
+        var cate = '';
+        var q = /[?&]cate_no=(\d+)/.exec(window.location.search || '');
+        var p = /\/(\d+)\/?$/.exec(window.location.pathname || '');
+        if (q) cate = q[1];
+        else if (p) cate = p[1];
+        var items = listCats.querySelectorAll('li[data-cate]');
+        var i;
+        for (i = 0; i < items.length; i++) {
+            if (items[i].getAttribute('data-cate') === cate) {
+                items[i].classList.add('selected');
+            } else {
+                items[i].classList.remove('selected');
+            }
+        }
+        return;
+    }
+
     if($(".menuCategory > li").length==0){
         $(".ec-base-tab.typeMenu").hide();	//중분류 없으면 영역 숨김 - 정환
     }else {
