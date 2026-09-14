@@ -28,8 +28,6 @@ input[type="checkbox"]:checked::-ms-check {background:url('/SkinImg/img/checkbox
 /* Table */
 .ec-base-table {border-top:2px solid #1a1a1a;}
 .ec-base-table th {font-weight:400;}
-.ec-base-paginate.typeList li a {font-size:14px;}
-
 /* tab */
 .ec-base-tab.typeNav .menu {border-bottom:1px solid #1a1a1a;}
 .ec-base-tab.typeNav .menu li a {background:#fff;border:0;color:#8a8a8a;min-width:170px;}

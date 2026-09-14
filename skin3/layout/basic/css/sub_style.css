@@ -644,15 +644,7 @@ div.ec-base-help ul {margin:0;}
 .xans-board-inquiryhead .information .price {font-weight:400;color:#111;}
 .xans-board-inquiryview .ec-base-table th {padding:14px 27px;}
 
-/* 페이징 */
-.ec-base-paginate.typeList {margin:60px 0 0;}
-.ec-base-paginate.typeList > a::after,
-.ec-base-paginate.typeList > a::before {display:none !important;}
-.ec-base-paginate.typeList > a {background:url('/SkinImg/img/btn_page_next.png') no-repeat center center;background-size:40px;height:40px;vertical-align:top;}
-.ec-base-paginate.typeList > a:first-child,
-.ec-base-paginate.typeList > a:first-child + a {background:url('/SkinImg/img/btn_page_prev.png') no-repeat center center;background-size:40px;}
-.ec-base-paginate.typeList > a.first {background:url('/SkinImg/img/btn_page_first.png') no-repeat center center;background-size:40px;}
-.ec-base-paginate.typeList > a.last {background:url('/SkinImg/img/btn_page_last.png') no-repeat center center;background-size:40px;}
+/* 페이징 — 스타일은 ec-base-paginate.css (Figma 297:6506) */
 
 /* 페이지경로 */
 .path {margin:0 auto;padding:20px 0 0 0;}
