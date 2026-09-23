@@ -879,6 +879,15 @@ function mfAcademyPage() {
 		return raw.replace(/^\[|\]$/g, '');
 	}
 
+	function isShopAdmin() {
+		var el = root.querySelector('[data-mf-is-admin]');
+		if (!el) return false;
+		var cls = ' ' + String(el.className || '') + ' ';
+		if (cls.indexOf('{$') !== -1) return false;
+		if (cls.indexOf(' displaynone ') !== -1) return false;
+		return true;
+	}
+
 	function isAdminGroup(name) {
 		return /관리자|운영자|admin/i.test(name || '');
 	}
@@ -892,7 +901,7 @@ function mfAcademyPage() {
 		var need = trimText(tab.getAttribute('data-acd-member-group') || '');
 		var enOnly = audience === 'en' || need === '외국인회원';
 		var koOnly = audience === 'ko';
-		if (isAdminGroup(groupName)) return true;
+		if (isShopAdmin() || isAdminGroup(groupName)) return true;
 		if (enOnly) return isForeignGroup(groupName);
 		if (koOnly) return !isForeignGroup(groupName);
 		return true;
@@ -909,7 +918,9 @@ function mfAcademyPage() {
 	}
 
 	var groupName = memberGroupName();
+	var shopAdmin = isShopAdmin();
 	root.setAttribute('data-mf-group', groupName || 'guest');
+	root.setAttribute('data-mf-admin', shopAdmin ? '1' : '0');
 	var params = new URLSearchParams(window.location.search);
 	var boardNo = params.get('board_no') || '';
 	var path = window.location.pathname || '';
