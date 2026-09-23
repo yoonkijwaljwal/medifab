@@ -880,13 +880,19 @@ function mfAcademyPage() {
 		return /관리자|운영자|admin/i.test(name || '');
 	}
 
-	function canSeeMemberGroupTab(tab, groupName) {
+	function isForeignGroup(name) {
+		return trimText(name) === '외국인회원';
+	}
+
+	function canSeeTab(tab, groupName) {
+		var audience = trimText(tab.getAttribute('data-acd-audience') || '');
 		var need = trimText(tab.getAttribute('data-acd-member-group') || '');
-		if (!need) return true;
-		if (!groupName) return false;
-		if (groupName === need) return true;
+		var enOnly = audience === 'en' || need === '외국인회원';
+		var koOnly = audience === 'ko';
 		if (isAdminGroup(groupName)) return true;
-		return false;
+		if (enOnly) return isForeignGroup(groupName);
+		if (koOnly) return !isForeignGroup(groupName);
+		return true;
 	}
 
 	var groupName = memberGroupName();
@@ -906,22 +912,35 @@ function mfAcademyPage() {
 		tabName = 'market';
 	}
 
-	root.querySelectorAll('.pg-acd__tab[data-board-no]').forEach(function (tab) {
+	var firstVisible = null;
+	var currentAllowed = true;
+	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
 		var no = tab.getAttribute('data-board-no') || '';
-		if (!no) return;
-		var src = root.querySelector('.pg-acd__tabs-src a[href*="board_no=' + no + '"]');
-		var label = src ? trimText(src.textContent) : '';
-		if (label) tab.textContent = label;
-		var allow = canSeeMemberGroupTab(tab, groupName);
+		if (no) {
+			var src = root.querySelector('.pg-acd__tabs-src a[href*="board_no=' + no + '"]');
+			var label = src ? trimText(src.textContent) : '';
+			if (label) tab.textContent = label;
+		}
+		var allow = canSeeTab(tab, groupName);
 		if (allow) {
 			tab.removeAttribute('hidden');
+			if (!firstVisible) firstVisible = tab;
 		} else {
 			tab.setAttribute('hidden', '');
 			if (tab.getAttribute('data-acd-tab') === tabName) {
-				tabName = 'market';
+				currentAllowed = false;
 			}
 		}
 	});
+
+	if (!currentAllowed && firstVisible) {
+		var nextHref = firstVisible.getAttribute('href') || '';
+		if (nextHref && nextHref.indexOf('#') !== 0) {
+			window.location.replace(nextHref);
+			return;
+		}
+		tabName = firstVisible.getAttribute('data-acd-tab') || tabName;
+	}
 
 	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
 		tab.classList.toggle('is-active', tab.getAttribute('data-acd-tab') === tabName);
