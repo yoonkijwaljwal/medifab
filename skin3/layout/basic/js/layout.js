@@ -898,6 +898,8 @@ function mfAcademyPage() {
 		tabName = 'contact';
 	} else if (boardNo === '3001') {
 		tabName = 'board3001';
+	} else if (boardNo === '7') {
+		tabName = 'board7';
 	} else if (boardNo === '1002') {
 		tabName = 'academic';
 	} else if (boardNo === '5' || !boardNo) {
