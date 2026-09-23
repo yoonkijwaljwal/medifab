@@ -889,7 +889,10 @@ function mfAcademyPage() {
 	}
 
 	function isAdminGroup(name) {
-		return /관리자|운영자|admin/i.test(name || '');
+		var g = trimText(name);
+		if (!g) return false;
+		if (g === 'Admin') return true;
+		return /관리자|운영자|admin/i.test(g);
 	}
 
 	function isForeignGroup(name) {
