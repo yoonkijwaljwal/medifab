@@ -873,7 +873,10 @@ function mfAcademyPage() {
 
 	function memberGroupName() {
 		var el = root.querySelector('[data-mf-group-name]');
-		return el ? trimText(el.textContent) : '';
+		if (!el) return '';
+		var raw = trimText(el.textContent);
+		if (!raw || raw.indexOf('{$') !== -1) return '';
+		return raw.replace(/^\[|\]$/g, '');
 	}
 
 	function isAdminGroup(name) {
@@ -895,7 +898,18 @@ function mfAcademyPage() {
 		return true;
 	}
 
+	function setTabVisible(tab, allow) {
+		if (allow) {
+			tab.removeAttribute('hidden');
+			tab.classList.remove('is-off');
+		} else {
+			tab.setAttribute('hidden', '');
+			tab.classList.add('is-off');
+		}
+	}
+
 	var groupName = memberGroupName();
+	root.setAttribute('data-mf-group', groupName || 'guest');
 	var params = new URLSearchParams(window.location.search);
 	var boardNo = params.get('board_no') || '';
 	var path = window.location.pathname || '';
@@ -922,14 +936,11 @@ function mfAcademyPage() {
 			if (label) tab.textContent = label;
 		}
 		var allow = canSeeTab(tab, groupName);
+		setTabVisible(tab, allow);
 		if (allow) {
-			tab.removeAttribute('hidden');
 			if (!firstVisible) firstVisible = tab;
-		} else {
-			tab.setAttribute('hidden', '');
-			if (tab.getAttribute('data-acd-tab') === tabName) {
-				currentAllowed = false;
-			}
+		} else if (tab.getAttribute('data-acd-tab') === tabName) {
+			currentAllowed = false;
 		}
 	});
 
