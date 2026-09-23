@@ -867,6 +867,29 @@ function mfAcademyPage() {
 	var root = document.querySelector('.pg-acd');
 	if (!root) return;
 
+	function trimText(val) {
+		return String(val || '').replace(/^\s+|\s+$/g, '');
+	}
+
+	function memberGroupName() {
+		var el = root.querySelector('[data-mf-group-name]');
+		return el ? trimText(el.textContent) : '';
+	}
+
+	function isAdminGroup(name) {
+		return /관리자|운영자|admin/i.test(name || '');
+	}
+
+	function canSeeMemberGroupTab(tab, groupName) {
+		var need = trimText(tab.getAttribute('data-acd-member-group') || '');
+		if (!need) return true;
+		if (!groupName) return false;
+		if (groupName === need) return true;
+		if (isAdminGroup(groupName)) return true;
+		return false;
+	}
+
+	var groupName = memberGroupName();
 	var params = new URLSearchParams(window.location.search);
 	var boardNo = params.get('board_no') || '';
 	var path = window.location.pathname || '';
@@ -880,15 +903,26 @@ function mfAcademyPage() {
 	} else if (boardNo === '5' || !boardNo) {
 		tabName = 'market';
 	}
-	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
-		tab.classList.toggle('is-active', tab.getAttribute('data-acd-tab') === tabName);
-	});
+
 	root.querySelectorAll('.pg-acd__tab[data-board-no]').forEach(function (tab) {
 		var no = tab.getAttribute('data-board-no') || '';
 		if (!no) return;
 		var src = root.querySelector('.pg-acd__tabs-src a[href*="board_no=' + no + '"]');
-		var label = src ? String(src.textContent || '').replace(/^\s+|\s+$/g, '') : '';
+		var label = src ? trimText(src.textContent) : '';
 		if (label) tab.textContent = label;
+		var allow = canSeeMemberGroupTab(tab, groupName);
+		if (allow) {
+			tab.removeAttribute('hidden');
+		} else {
+			tab.setAttribute('hidden', '');
+			if (tab.getAttribute('data-acd-tab') === tabName) {
+				tabName = 'market';
+			}
+		}
+	});
+
+	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
+		tab.classList.toggle('is-active', tab.getAttribute('data-acd-tab') === tabName);
 	});
 
 	var select = root.querySelector('.pg-acd__sort select');
