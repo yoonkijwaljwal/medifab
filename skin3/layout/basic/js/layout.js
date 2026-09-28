@@ -716,49 +716,19 @@ function handleNav() {
 
     if (!aside || !aside.classList.contains('mf-mo')) return;
 
-    aside.addEventListener('click', function(e) {
-        var btn = e.target.closest('.mf-mo__btn');
-        if (btn) {
-            var item = btn.closest('.mf-mo__item');
-            var sub = item ? item.querySelector('.mf-mo__sub') : null;
-            if (!item || !sub) return;
-            var isOpen = item.classList.contains('is-open');
-            aside.querySelectorAll('.mf-mo__item.is-open').forEach(function(el) {
-                el.classList.remove('is-open');
-                var b = el.querySelector('.mf-mo__btn');
-                var s = el.querySelector('.mf-mo__sub');
-                if (b) b.setAttribute('aria-expanded', 'false');
-                if (s) s.hidden = true;
-            });
-            if (!isOpen) {
-                item.classList.add('is-open');
-                btn.setAttribute('aria-expanded', 'true');
-                sub.hidden = false;
-            }
-            return;
-        }
+    aside.querySelectorAll('[data-search-open]').forEach(function(searchBtn) {
+        searchBtn.addEventListener('click', closeNav);
+    });
 
+    aside.addEventListener('click', function(e) {
         var link = e.target.closest('a[href]');
         if (link && link.getAttribute('href') && link.getAttribute('href') !== '#') {
             closeNav();
         }
     });
 
-    aside.querySelectorAll('.mf-mo__lang-btn').forEach(function(langBtn) {
-        langBtn.addEventListener('click', function() {
-            aside.querySelectorAll('.mf-mo__lang-btn').forEach(function(b) {
-                b.classList.remove('is-active');
-            });
-            langBtn.classList.add('is-active');
-            var lang = langBtn.getAttribute('data-lang');
-            var combo = document.querySelector('.goog-te-combo');
-            if (combo && lang) {
-                combo.value = lang;
-                if (typeof combo.dispatchEvent === 'function') {
-                    combo.dispatchEvent(new Event('change'));
-                }
-            }
-        });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && document.body.classList.contains('expand')) closeNav();
     });
 }
 
