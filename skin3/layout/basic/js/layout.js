@@ -841,12 +841,29 @@ function mfAcademyPage() {
 		return String(val || '').replace(/^\s+|\s+$/g, '');
 	}
 
-	function memberGroupName() {
-		var el = root.querySelector('[data-mf-group-name]');
-		if (!el) return '';
-		var raw = trimText(el.textContent);
+	function cleanToken(val) {
+		var raw = trimText(val);
 		if (!raw || raw.indexOf('{$') !== -1) return '';
-		return raw.replace(/^\[|\]$/g, '');
+		return raw.replace(/^\[+|\]+$/g, '');
+	}
+
+	function firstDataText(sel) {
+		var nodes = root.querySelectorAll(sel);
+		var i;
+		var text;
+		for (i = 0; i < nodes.length; i++) {
+			text = cleanToken(nodes[i].textContent);
+			if (text) return text;
+		}
+		return '';
+	}
+
+	function memberGroupName() {
+		return firstDataText('[data-mf-group-name]');
+	}
+
+	function memberId() {
+		return firstDataText('[data-mf-member-id]').toLowerCase();
 	}
 
 	function isShopAdmin() {
@@ -861,8 +878,15 @@ function mfAcademyPage() {
 	function isAdminGroup(name) {
 		var g = trimText(name);
 		if (!g) return false;
-		if (g === 'Admin') return true;
+		if (/^admin$/i.test(g)) return true;
 		return /관리자|운영자|admin/i.test(g);
+	}
+
+	function isAdminMember() {
+		if (isShopAdmin()) return true;
+		if (isAdminGroup(memberGroupName())) return true;
+		if (memberId() === 'medifab') return true;
+		return false;
 	}
 
 	function isForeignGroup(name) {
@@ -874,7 +898,7 @@ function mfAcademyPage() {
 		var need = trimText(tab.getAttribute('data-acd-member-group') || '');
 		var enOnly = audience === 'en' || need === '외국인회원';
 		var koOnly = audience === 'ko';
-		if (isShopAdmin() || isAdminGroup(groupName)) return true;
+		if (isAdminMember()) return true;
 		if (enOnly) return isForeignGroup(groupName);
 		if (koOnly) return !isForeignGroup(groupName);
 		return true;
@@ -891,9 +915,9 @@ function mfAcademyPage() {
 	}
 
 	var groupName = memberGroupName();
-	var shopAdmin = isShopAdmin();
+	var adminMember = isAdminMember();
 	root.setAttribute('data-mf-group', groupName || 'guest');
-	root.setAttribute('data-mf-admin', shopAdmin ? '1' : '0');
+	root.setAttribute('data-mf-admin', adminMember ? '1' : '0');
 	var params = new URLSearchParams(window.location.search);
 	var boardNo = params.get('board_no') || '';
 	var path = window.location.pathname || '';
@@ -910,6 +934,10 @@ function mfAcademyPage() {
 		tabName = 'market';
 	}
 
+	var defaultEnLabel = {
+		'3001': 'Product Kit (EN)',
+		'7': 'Academic Library (EN)'
+	};
 	var firstVisible = null;
 	var currentAllowed = true;
 	root.querySelectorAll('.pg-acd__tab').forEach(function (tab) {
@@ -917,6 +945,7 @@ function mfAcademyPage() {
 		if (no) {
 			var src = root.querySelector('.pg-acd__tabs-src a[href*="board_no=' + no + '"]');
 			var label = src ? trimText(src.textContent) : '';
+			if (!label) label = defaultEnLabel[no] || '';
 			if (label) tab.textContent = label;
 		}
 		var allow = canSeeTab(tab, groupName);
@@ -1714,14 +1743,17 @@ function mfCheckoutPage() {
 
 	function hideUnusedChrome() {
 		var els = order.querySelectorAll('.rightGroup h2, .rightGroup h3, .rightGroup h4, .rightGroup .title, .rightGroup .ec-base-box, .rightGroup .ec-base-fold, .rightGroup .segment, .rightGroup .ec-base-help, .rightGroup p, .rightGroup strong, .rightGroup .heading, .rightGroup li, .rightGroup div');
+		var keep = '#ec-jigsaw-area-agreement, .agreeArea, .prdBox, .ec-base-prdInfo, .totalPay, .paymentArea, .paymentPrice, .totalPrice, #orderFixItem, .stickyTop';
 		var n;
 		for (n = 0; n < els.length; n++) {
 			var el = els[n];
-			if (el.closest('#agreeMsg, .agree-msg, .chk-agree, .prdBox, .ec-base-prdInfo, .totalPay, .paymentArea, .paymentPrice, .totalPrice, #orderFixItem')) continue;
+			if (el.closest('#ec-jigsaw-area-agreement, .agreeArea, .prdBox, .ec-base-prdInfo, .totalPay, .paymentArea, .paymentPrice, .totalPrice, #orderFixItem')) continue;
+			if (el.matches(keep) || el.querySelector(keep)) continue;
 			var t = String(el.textContent || '').replace(/\s+/g, '');
 			if (!t) continue;
 			if (t.indexOf('구매조건') !== -1) {
 				var fold = el.closest('.ec-base-fold, .ec-base-box, [class*="agreement"], .segment') || el;
+				if (fold.matches(keep) || fold.querySelector(keep)) continue;
 				fold.style.setProperty('display', 'none', 'important');
 				continue;
 			}
@@ -1752,31 +1784,6 @@ function mfCheckoutPage() {
 	}
 	placeTotalNtx();
 	setTimeout(placeTotalNtx, 400);
-
-	function bindAgree() {
-		var msg = document.getElementById('agreeMsg');
-		if (!msg || msg.getAttribute('data-chk-agree') === '1') return;
-		var chk = order.querySelector('[class*="agreement"] input[type="checkbox"]') || order.querySelector('#chk_purchase_agreement, input[name="chk_purchase_agreement"], #all_checked');
-		if (!chk) return;
-		var wrap = chk.closest('[class*="agreement"]') || chk.closest('.ec-base-fold');
-		var p = msg.querySelector('p');
-		var label = document.createElement('label');
-		label.className = 'chk-agree';
-		if (chk.id) label.setAttribute('for', chk.id);
-		label.appendChild(chk);
-		if (p) label.appendChild(p);
-		else label.appendChild(document.createTextNode(String(msg.textContent || '').replace(/^\s+|\s+$/g, '')));
-		msg.innerHTML = '';
-		msg.appendChild(label);
-		msg.setAttribute('data-chk-agree', '1');
-		if (wrap && wrap !== msg && wrap !== order) {
-			if (String(wrap.className || '').indexOf('chk-agree-src') === -1) {
-				wrap.className += (wrap.className ? ' ' : '') + 'chk-agree-src';
-			}
-		}
-	}
-	bindAgree();
-	setTimeout(bindAgree, 400);
 
 	function splitPrdMeta(el, label) {
 		if (!el || el.getAttribute('data-chk-meta') === '1') return;

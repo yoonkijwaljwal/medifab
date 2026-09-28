@@ -382,6 +382,7 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	accent-color: var(--Neutral\/Dark);
 	appearance: auto;
 	-webkit-appearance: auto;
+	filter: none;
 	vertical-align: middle;
 }
 
@@ -771,7 +772,6 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	border: 0 !important;
 }
 
-#userStyle #mCafe24Order .agree-msg,
 #userStyle #mCafe24Order .agreement,
 #userStyle #mCafe24Order [class*="agreement"] {
 	margin: 16px 0 0;
@@ -787,48 +787,6 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 #userStyle #mCafe24Order [class*="agreement"] .boxTitle {
 	display: none !important;
 }
-#userStyle #mCafe24Order .chk-agree-src,
-#userStyle #mCafe24Order .rightGroup [class*="agreement"]:not(#agreeMsg):not(.agree-msg):not(.chk-agree) {
-	display: none !important;
-}
-#userStyle #mCafe24Order .agree-msg {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	width: 100%;
-	max-width: none;
-	margin: 16px 0 0;
-	padding: 0;
-	box-sizing: border-box;
-	text-align: left;
-}
-#userStyle #mCafe24Order .chk-agree {
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 8px;
-	width: 100%;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	cursor: pointer;
-	color: var(--Neutral\/Wood);
-	font: var(--mf-b13);
-	text-align: left;
-}
-#userStyle #mCafe24Order .chk-agree p {
-	margin: 0;
-}
-#userStyle #mCafe24Order .chk-agree input[type="checkbox"] {
-	display: inline-block !important;
-	position: static !important;
-	width: 16px !important;
-	height: 16px !important;
-	margin: 0 !important;
-	clip: auto !important;
-	overflow: visible !important;
-}
-
 .pg-chk--done .chk-title {
 	margin: 0 0 12px;
 }
