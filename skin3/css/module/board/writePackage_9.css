@@ -331,9 +331,9 @@ ul.info li { padding: 0 0 0 9px;}
 
 @media all and (max-width: 1024px) {
 	.pg-acd-ct { padding-bottom: 80px; }
-	.pg-acd-ct .pg-acd__head { gap: 16px; }
+	.pg-acd-ct .pg-acd__head { gap: 32px; padding-bottom: 16px; }
 	.pg-acd-ct__guide {
-		margin: 0 auto 32px;
+		margin: 0 20px 32px;
 		padding: 20px;
 		text-align: left;
 		font: 400 12px/1.36 var(--mf-sans);
@@ -381,7 +381,8 @@ ul.info li { padding: 0 0 0 9px;}
 		padding: 20px 0;
 		font: var(--mf-b13);
 	}
-	.pg-acd-ct__actions { margin-top: 40px; }
+	.pg-acd-ct__actions,
+	.pg-acd-ct .ec-base-button.pg-acd-ct__actions { margin-top: 40px; }
 	.pg-acd-ct__submit {
 		width: 100%;
 		padding: 7px 12px;

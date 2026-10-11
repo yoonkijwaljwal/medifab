@@ -933,6 +933,19 @@ function mfAcademyPage() {
 	} else if (boardNo === '5' || !boardNo) {
 		tabName = 'market';
 	}
+	var isNotice = boardNo === '1' && !/consult|inquiry/i.test(path);
+	if (isNotice) {
+		root.classList.add('pg-acd--notice');
+		var noticeTitle = root.querySelector('.pg-acd__title');
+		if (noticeTitle) noticeTitle.textContent = 'Notices';
+		root.querySelectorAll('.xans-board-notice-1002 .pg-acd__row').forEach(function (row) {
+			row.classList.add('is-notice');
+			var cat = row.querySelector('.pg-acd__cat');
+			if (!cat) return;
+			cat.textContent = 'Notice';
+			cat.classList.remove('displaynone');
+		});
+	}
 
 	var defaultEnLabel = {
 		'3001': 'Product Kit (EN)',
@@ -957,7 +970,7 @@ function mfAcademyPage() {
 		}
 	});
 
-	if (!currentAllowed && firstVisible) {
+	if (!isNotice && !currentAllowed && firstVisible) {
 		var nextHref = firstVisible.getAttribute('href') || '';
 		if (nextHref && nextHref.indexOf('#') !== 0) {
 			window.location.replace(nextHref);
@@ -1031,6 +1044,23 @@ function mfAcademyPage() {
 		});
 	}
 
+	root.querySelectorAll('.pg-acd__date').forEach(function (el) {
+		var m = String(el.textContent || '').match(/(\d{4})[-./]\s*(\d{1,2})[-./]\s*(\d{1,2})/);
+		var sep = isNotice ? '.' : '. ';
+		if (m) el.textContent = m[1] + sep + ('0' + m[2]).slice(-2) + sep + ('0' + m[3]).slice(-2);
+	});
+
+	root.addEventListener('click', function (e) {
+		var item = e.target && e.target.closest ? e.target.closest('.pg-acd__item') : null;
+		if (!item) return;
+		var itemCat = item.querySelector('.pg-acd__cat');
+		var itemNo = String(item.getAttribute('href') || '').match(/\/(\d+)\/?(?:[?#]|$)/);
+		if (!itemNo) itemNo = String(item.getAttribute('href') || '').match(/[?&]no=(\d+)/);
+		if (!itemCat || !itemNo || itemCat.classList.contains('displaynone')) return;
+		var catText = trimText(itemCat.textContent);
+		try { if (catText) sessionStorage.setItem('mfAcdCat' + itemNo[1], catText); } catch (err) {}
+	});
+
 	var searchInput = root.querySelector('.pg-acd__search input[type="text"], .pg-acd__search #search');
 	if (searchInput && !searchInput.getAttribute('placeholder')) {
 		searchInput.setAttribute('placeholder', 'Search');
@@ -1052,9 +1082,40 @@ function mfAcademyPage() {
 	}
 }
 
+function mfBoardNo() {
+	var m = String(location.search || '').match(/[?&]board_no=(\d+)/);
+	if (m) return m[1];
+	var path = String(location.pathname || '');
+	try { path = decodeURIComponent(path); } catch (e) {}
+	m = path.match(/\/article\/[^\/]+\/(\d+)\//);
+	return m ? m[1] : '';
+}
+
 function mfAcademyRead() {
 	var root = document.querySelector('.pg-acd-read');
 	if (!root) return;
+
+	var dateEl = root.querySelector('.pg-acd-read__date');
+	if (dateEl) {
+		var dm = String(dateEl.textContent || '').match(/(\d{4})[-.\/]\s*(\d{1,2})[-.\/]\s*(\d{1,2})/);
+		if (dm) dateEl.textContent = dm[1] + '. ' + ('0' + dm[2]).slice(-2) + '. ' + ('0' + dm[3]).slice(-2);
+	}
+
+	if (mfBoardNo() === '1') {
+		root.classList.add('pg-acd-read--notice');
+		var ncat = root.querySelector('.pg-acd-read__cat');
+		if (ncat && !String(ncat.textContent || '').replace(/\s+/g, '')) ncat.textContent = 'Notice';
+		var move = root.querySelector('.pg-acd-read__move');
+		var back = root.querySelector('.pg-acd-read__back');
+		if (move && back && back.parentNode) {
+			var labels = { prev: 'Previous', next: 'Next' };
+			Object.keys(labels).forEach(function (key) {
+				var s = move.querySelector('li.' + key + ' strong');
+				if (s) s.textContent = labels[key];
+			});
+			back.parentNode.insertBefore(move, back);
+		}
+	}
 
 	var media = root.querySelector('.pg-acd-read__media');
 	if (media && !media.querySelector('img, video, iframe, embed, object')) {
@@ -1063,7 +1124,28 @@ function mfAcademyRead() {
 
 	var cat = root.querySelector('.pg-acd-read__cat');
 	if (cat && !String(cat.textContent || '').replace(/\s+/g, '')) {
-		cat.style.display = 'none';
+		var artNo = String(location.pathname || '').match(/\/article\/[^\/]+\/\d+\/(\d+)/);
+		if (!artNo) artNo = String(location.search || '').match(/[?&]no=(\d+)/);
+		var saved = '';
+		try { saved = artNo ? (sessionStorage.getItem('mfAcdCat' + artNo[1]) || '') : ''; } catch (err) {}
+		if (saved) cat.textContent = saved;
+		else cat.style.display = 'none';
+	}
+
+	var adminBox = root.querySelector('.pg-acd-read__admin');
+	var adminBtns = root.querySelectorAll('.pg-acd-read__admin a');
+	var ab;
+	var adminVisible = false;
+	for (ab = 0; ab < adminBtns.length; ab++) {
+		var hiddenBy = adminBtns[ab].closest ? adminBtns[ab].closest('.displaynone') : null;
+		if (!hiddenBy || !adminBox.contains(hiddenBy)) adminVisible = true;
+	}
+	if (adminBox && !adminVisible) adminBox.classList.add('displaynone');
+	for (ab = 0; ab < adminBtns.length; ab++) {
+		var abt = String(adminBtns[ab].textContent || '').replace(/\s+/g, '');
+		if (abt === '답변쓰기') adminBtns[ab].textContent = 'Reply';
+		else if (abt === '삭제') adminBtns[ab].textContent = 'Delete';
+		else if (abt === '수정') adminBtns[ab].textContent = 'Edit';
 	}
 
 	var files = root.querySelector('[data-acd-files]');
@@ -1679,8 +1761,11 @@ function mfCheckoutPage() {
 
 	var ths = order.querySelectorAll('th, label, .ec-base-label, .heading');
 	for (i = 0; i < ths.length; i++) {
-		var t = String(ths[i].textContent || '').replace(/^\s+|\s+$/g, '');
-		if (t === '이름' || t === '성명') setText(ths[i], 'Name');
+		var t = String(ths[i].textContent || '').replace(/필수\s*$/, '').replace(/^\s+|\s+$/g, '');
+		if (t === '이름' || t === '성명' || t === '받는사람' || t === '주문자') setText(ths[i], 'Name');
+		else if (t === '배송 요청사항' || t === '배송요청사항') setText(ths[i], 'Message');
+		else if (t === '입금은행') setText(ths[i], 'Bank');
+		else if (t === '입금자명') setText(ths[i], 'Depositor');
 		else if (t === '이메일' || t === 'E-mail') setText(ths[i], 'E-mail');
 		else if (t.indexOf('휴대전화') !== -1 || t === '연락처' || t === '전화') setText(ths[i], 'Contact');
 		else if (t.indexOf('회사명') !== -1 || t.indexOf('상호') !== -1 || t === '병원명') setText(ths[i], 'Organization');
@@ -1695,12 +1780,24 @@ function mfCheckoutPage() {
 		else if (t.indexOf('결제금액') !== -1 || t.indexOf('결제예정') !== -1) setText(ths[i], 'Total');
 	}
 
-	var zipBtns = order.querySelectorAll('a, button');
-	for (i = 0; i < zipBtns.length; i++) {
-		var bt = String(zipBtns[i].textContent || '').replace(/\s+/g, '');
-		if (bt === '우편번호' || bt === '주소검색' || bt === '우편번호검색') zipBtns[i].textContent = 'Search';
-		else if (bt === '전액사용' || bt === '모두사용') zipBtns[i].textContent = 'Use All';
+	function relabelBtns() {
+		var btns = order.querySelectorAll('a, button');
+		for (var k = 0; k < btns.length; k++) {
+			var bt = String(btns[k].textContent || '').replace(/\s+/g, '');
+			if (bt === '우편번호' || bt === '주소검색' || bt === '우편번호검색') btns[k].textContent = 'Search';
+			else if (bt === '전액사용' || bt === '모두사용') btns[k].textContent = 'Use All';
+			else if (bt === '배송지목록' && btns[k].id === 'ec-shippingInfo-showRecentAddressList') btns[k].textContent = 'Change';
+			else if (bt === '닫기' && btns[k].id === 'ec-shippingInfo-closeRecentAddressList') btns[k].textContent = 'Close';
+			else if (bt === '수정' && /recentAddressList-choice-modify/.test(btns[k].id || '')) btns[k].textContent = 'Edit';
+		}
+		var tabA = order.querySelector('#ec-jigsaw-tab-shippingInfo-recentAddress > a');
+		var tabB = order.querySelector('#ec-jigsaw-tab-shippingInfo-newAddress > a');
+		if (tabA && /최근/.test(tabA.textContent || '')) tabA.textContent = 'Recent';
+		if (tabB && /직접/.test(tabB.textContent || '')) tabB.textContent = 'New Address';
 	}
+	relabelBtns();
+	setTimeout(relabelBtns, 400);
+	setTimeout(relabelBtns, 1500);
 
 	function wrapEmailAt(node) {
 		if (!node) return;
@@ -1740,6 +1837,14 @@ function mfCheckoutPage() {
 	}
 	markEmailRow();
 	setTimeout(markEmailRow, 400);
+
+	var sumArea = document.getElementById('ec-jigsaw-area-orderProduct');
+	if (sumArea && sumArea.parentNode && !order.querySelector('.chk-sum-title')) {
+		var sumTitle = document.createElement('p');
+		sumTitle.className = 'chk-sum-title';
+		sumTitle.textContent = 'Order Summary';
+		sumArea.parentNode.insertBefore(sumTitle, sumArea);
+	}
 
 	function hideUnusedChrome() {
 		var els = order.querySelectorAll('.rightGroup h2, .rightGroup h3, .rightGroup h4, .rightGroup .title, .rightGroup .ec-base-box, .rightGroup .ec-base-fold, .rightGroup .segment, .rightGroup .ec-base-help, .rightGroup p, .rightGroup strong, .rightGroup .heading, .rightGroup li, .rightGroup div');
@@ -1842,24 +1947,17 @@ function mfAccountPage() {
 	var isSub = root.className.indexOf('pg-acc--sub') !== -1;
 	var i;
 
-	var points = root.querySelector('[data-acc-stat="points"]');
-	if (points) {
-		var pt = String(points.textContent || '').replace(/^\s+|\s+$/g, '');
-		pt = pt.replace(/원|점/g, '').replace(/\s+/g, '');
-		if (!pt) pt = '0';
-		if (!/P$/i.test(pt)) points.textContent = pt + ' P';
-	}
-	var coupons = root.querySelector('[data-acc-stat="coupons"]');
-	if (coupons) {
-		var cp = String(coupons.textContent || '').replace(/개/g, '').replace(/\s+/g, '');
-		coupons.textContent = cp || '0';
-	}
-	var orderStat = root.querySelector('[data-acc-stat="orders"]');
-	if (orderStat && !String(orderStat.textContent || '').replace(/\s+/g, '')) {
-		orderStat.textContent = '0';
-	}
+	mfAccWatch(root.querySelector('[data-acc-stat="points"]'), function (raw) {
+		return (raw.replace(/원|점|P$/gi, '').replace(/\s+/g, '') || '0') + ' P';
+	});
+	mfAccWatch(root.querySelector('[data-acc-stat="coupons"]'), function (raw) {
+		return raw.replace(/개/g, '').replace(/\s+/g, '') || '0';
+	});
+	mfAccWatch(root.querySelector('[data-acc-stat="orders"]'), function (raw) {
+		return raw.replace(/\s+/g, '') || '0';
+	});
 
-	var empty = root.querySelector('.ec-base-prdEmpty');
+	var empty = root.querySelector('.xans-myshop-orderhistorylistitem .ec-base-prdEmpty');
 	if (empty) {
 		var emptyTxt = empty.childNodes;
 		for (i = 0; i < emptyTxt.length; i++) {
@@ -1925,6 +2023,7 @@ function mfAccountPage() {
 	}
 
 	if (isSub) {
+		mfAccOrderGroup(root);
 		mfAccOrderListChrome(root);
 		mfAccCsType(root);
 		mfAccCouponStrip(root);
@@ -1932,6 +2031,7 @@ function mfAccountPage() {
 		mfAccPointHistory(root);
 		mfAccAddrBadge(root);
 		mfAccInquiryWrite(root);
+		mfAccSupportRead(root);
 		mfAccPaginate(root);
 	}
 
@@ -1956,6 +2056,64 @@ function mfAccFmtDate(v) {
 	return String(v || '').replace(/[/-]/g, '.').replace(/\s+\d{1,2}:\d{2}.*$/, '').replace(/^\s+|\s+$/g, '');
 }
 
+function mfAccOrderGroup(root) {
+	var orders = root.querySelectorAll('.xans-myshop-orderhistorylistitem .order');
+	if (!orders.length) return;
+	function isShown(a) {
+		if (a.style.display === 'none' || a.classList.contains('displaynone')) return false;
+		var p = a.parentNode;
+		if (p && p.tagName === 'SPAN' && p.classList.contains('displaynone')) return false;
+		return true;
+	}
+	function visibleLinks(order) {
+		var out = [];
+		var gRight = order.querySelector('.prdFoot .gRight');
+		if (!gRight) return out;
+		var links = gRight.querySelectorAll('a');
+		var k;
+		for (k = 0; k < links.length; k++) {
+			if (isShown(links[k])) out.push(links[k]);
+		}
+		return out;
+	}
+	var groups = [];
+	var i;
+	for (i = 0; i < orders.length; i++) {
+		var num = orders[i].querySelector('.order__number');
+		var cont = num && num.classList.contains('displaynone') && groups.length;
+		if (cont) {
+			orders[i].classList.add('is-cont');
+			groups[groups.length - 1].push(orders[i]);
+		} else {
+			groups.push([orders[i]]);
+		}
+	}
+	var g;
+	for (g = 0; g < groups.length; g++) {
+		var list = groups[g];
+		var last = list[list.length - 1];
+		var lastRight = last.querySelector('.prdFoot .gRight');
+		var seen = {};
+		var j;
+		var mine = visibleLinks(last);
+		for (j = 0; j < mine.length; j++) seen[String(mine[j].textContent || '').replace(/\s+/g, '')] = true;
+		for (j = 0; j < list.length - 1; j++) {
+			var links = visibleLinks(list[j]);
+			var k;
+			for (k = 0; k < links.length; k++) {
+				var key = String(links[k].textContent || '').replace(/\s+/g, '');
+				if (seen[key] || !lastRight) continue;
+				seen[key] = true;
+				lastRight.appendChild(links[k]);
+			}
+		}
+		for (j = 0; j < list.length; j++) {
+			var foot = list[j].querySelector('.prdFoot');
+			if (foot && !visibleLinks(list[j]).length) foot.classList.add('is-noact');
+		}
+	}
+}
+
 function mfAccOrderListChrome(root) {
 	var head = root.querySelector('.xans-myshop-orderhistoryhead');
 	if (!head) return;
@@ -1974,8 +2132,9 @@ function mfAccOrderListChrome(root) {
 	}
 	var listMod = root.querySelector('.xans-myshop-orderhistorylistitem');
 	if (listMod && !root.querySelector('.pg-acc__toolbar')) {
-		var n = root.querySelectorAll('.xans-myshop-orderhistorylistitem .order').length;
-		if (root.querySelector('.ec-base-prdEmpty')) n = 0;
+		var n = root.querySelectorAll('.xans-myshop-orderhistorylistitem .order:not(.is-cont)').length;
+		var noOrder = root.querySelector('.xans-myshop-orderhistorylistitem .ec-base-prdEmpty');
+		if (noOrder && noOrder.className.indexOf('displaynone') === -1) n = 0;
 		var bar = document.createElement('div');
 		bar.className = 'pg-acc__toolbar';
 		var tot = document.createElement('p');
@@ -2006,8 +2165,11 @@ function mfAccOrderListChrome(root) {
 }
 
 function mfAccCsType(root) {
-	if (!root.querySelector('.xans-myshop-orderhistoryapplycancel, .xans-myshop-orderhistoryapplyreturn, .xans-myshop-orderhistoryapplyexchange')) return;
+	var mod = root.querySelector('.xans-myshop-orderhistoryapplycancel, .xans-myshop-orderhistoryapplyreturn, .xans-myshop-orderhistoryapplyexchange');
+	if (!mod) return;
 	if (root.querySelector('.pg-acc--cs-type')) return;
+	root.classList.add('pg-acc--cs');
+	mfAccCsForm(mod);
 	var q = String(location.search || '');
 	var wrap = document.createElement('div');
 	wrap.className = 'pg-acc--cs-type';
@@ -2025,23 +2187,180 @@ function mfAccCsType(root) {
 		if (path.indexOf(items[i].key + '.html') !== -1) a.className = 'is-on';
 		wrap.appendChild(a);
 	}
+	var sec = document.createElement('div');
+	sec.className = 'pg-acc__cs-sec';
+	var h = document.createElement('h3');
+	h.className = 'pg-acc__cs-h';
+	h.textContent = 'Request Type';
+	sec.appendChild(h);
+	sec.appendChild(wrap);
 	var content = root.querySelector('.pg-acc__content');
-	if (content && content.firstChild) content.insertBefore(wrap, content.firstChild);
+	if (content && content.firstChild) content.insertBefore(sec, content.firstChild);
+}
+
+function mfAccCsForm(mod) {
+	function txt(el) {
+		return el ? String(el.textContent || '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, '') : '';
+	}
+	var heads = { '취소사유': 'Reason', '반품사유': 'Reason', '교환사유': 'Reason', '환불 정보': 'Refund' };
+	var labels = {
+		'사유선택': 'Select Reason',
+		'상세사유': 'Details',
+		'환불예정금액': 'Estimated Refund',
+		'배송비 안내': 'Shipping',
+		'환불계좌': 'Refund Account',
+		'취소 수수료': 'Cancellation Fee'
+	};
+	var i;
+	var h3s = mod.querySelectorAll('.titleArea--middle h3');
+	for (i = 0; i < h3s.length; i++) {
+		var ht = txt(h3s[i]);
+		if (heads[ht]) h3s[i].textContent = heads[ht];
+	}
+	var tables = mod.querySelectorAll('.ec-base-table');
+	for (i = 0; i < tables.length; i++) {
+		tables[i].classList.add(tables[i].querySelector('select, textarea, input[type="text"]') ? 'pg-acc__cs-form' : 'pg-acc__cs-kv');
+	}
+	var ths = mod.querySelectorAll('.ec-base-table th');
+	for (i = 0; i < ths.length; i++) {
+		var lt = txt(ths[i]);
+		if (!labels[lt]) continue;
+		ths[i].textContent = labels[lt];
+		if (lt === '사유선택') {
+			var star = document.createElement('i');
+			star.className = 'pg-acc__cs-req';
+			star.textContent = '*';
+			ths[i].appendChild(star);
+		}
+	}
+	var notes = mod.querySelectorAll('p.ec-base-help');
+	for (i = 0; i < notes.length; i++) {
+		if (notes[i].className.indexOf('displaynone') === -1) notes[i].classList.add('pg-acc__cs-note');
+	}
+	var back = mod.querySelector('.ec-base-button.gBottom .btnNormalFix');
+	var submit = mod.querySelector('.ec-base-button.gBottom .btnSubmitFix');
+	if (back) back.textContent = 'Cancel';
+	if (submit) submit.textContent = 'Submit';
+
+	var order = mod.querySelector('.order');
+	if (!order || !order.parentNode) return;
+	var head = document.createElement('div');
+	head.className = 'pg-acc__cs-items-head';
+	var ih = document.createElement('h3');
+	ih.className = 'pg-acc__cs-h';
+	ih.textContent = 'Select Items';
+	head.appendChild(ih);
+	var boxes = order.querySelectorAll('.check input[type="checkbox"]');
+	if (boxes.length > 1) {
+		var lab = document.createElement('label');
+		lab.className = 'pg-acc__cs-all';
+		var all = document.createElement('input');
+		all.type = 'checkbox';
+		var span = document.createElement('span');
+		span.textContent = 'Select All';
+		lab.appendChild(all);
+		lab.appendChild(span);
+		head.appendChild(lab);
+		var sync = function () {
+			var on = true;
+			for (var k = 0; k < boxes.length; k++) {
+				if (!boxes[k].disabled && !boxes[k].checked) on = false;
+			}
+			all.checked = on;
+		};
+		all.addEventListener('change', function () {
+			var want = all.checked;
+			for (var k = 0; k < boxes.length; k++) {
+				if (!boxes[k].disabled && boxes[k].checked !== want) boxes[k].click();
+			}
+			sync();
+		});
+		for (i = 0; i < boxes.length; i++) boxes[i].addEventListener('change', sync);
+		sync();
+	}
+	order.parentNode.insertBefore(head, order);
 }
 
 function mfAccCouponStrip(root) {
 	var list = root.querySelector('.xans-myshop-couponlist');
 	if (!list || root.querySelector('.pg-acc__strip')) return;
-	var rows = list.querySelectorAll('.ec-base-table tbody tr:nth-child(odd)');
+	var table = list.querySelector('.ec-base-table');
+	var shown = table && table.className.indexOf('displaynone') === -1;
+	var bodies = shown ? table.querySelectorAll('tbody') : [];
+	var cards = document.createElement('div');
+	cards.className = 'pg-acc__cpns';
 	var n = 0;
-	var r;
-	for (r = 0; r < rows.length; r++) {
-		if (rows[r].querySelector('.coupon_name')) n++;
+	var b;
+	function txt(el) {
+		return el ? String(el.textContent || '').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, '') : '';
+	}
+	function liText(body, label) {
+		var lis = body.querySelectorAll('.contents li');
+		var k;
+		for (k = 0; k < lis.length; k++) {
+			if (txt(lis[k].querySelector('strong')) === label) return lis[k];
+		}
+		return null;
+	}
+	function el(tag, cls, text) {
+		var e = document.createElement(tag);
+		e.className = cls;
+		if (text) e.textContent = text;
+		return e;
+	}
+	for (b = 0; b < bodies.length; b++) {
+		var nameTd = bodies[b].querySelector('.coupon_name');
+		if (!nameTd) continue;
+		var nameCopy = nameTd.cloneNode(true);
+		var hideTag = nameCopy.querySelector('.display_tablet_only');
+		if (hideTag) hideTag.parentNode.removeChild(hideTag);
+		var name = txt(nameCopy);
+		if (!name) continue;
+		n++;
+		var benefitLi = liText(bodies[b], '쿠폰혜택');
+		var benefitVal = benefitLi ? benefitLi.querySelector('.content') : null;
+		var maxEl = benefitVal ? benefitVal.querySelector('span') : null;
+		var maxTxt = txt(maxEl);
+		var benefit = txt(benefitVal);
+		if (maxTxt) benefit = benefit.replace(maxTxt, '').replace(/^\s+|\s+$/g, '');
+		var price = txt(liText(bodies[b], '구매금액') ? liText(bodies[b], '구매금액').querySelector('.content') : null);
+		var period = txt(liText(bodies[b], '사용가능 기간') ? liText(bodies[b], '사용가능 기간').querySelector('.content') : null);
+		var ends = period.match(/(\d{4})[-.\/](\d{1,2})[-.\/](\d{1,2})[^~]*$/);
+		var expiry = period;
+		var soon = false;
+		if (ends) {
+			expiry = ends[1] + '.' + ('0' + ends[2]).slice(-2) + '.' + ('0' + ends[3]).slice(-2) + '까지';
+			var endDate = new Date(+ends[1], +ends[2] - 1, +ends[3], 23, 59, 59);
+			var left = (endDate.getTime() - Date.now()) / 86400000;
+			soon = left >= 0 && left <= 7;
+		}
+		var card = el('div', 'pg-acc__cpn');
+		var top = el('div', 'pg-acc__cpn-top');
+		top.appendChild(el('p', 'pg-acc__cpn-benefit', benefit || name));
+		var exp = el('div', 'pg-acc__cpn-exp' + (soon ? ' is-soon' : ''));
+		if (expiry) exp.appendChild(el('span', 'pg-acc__cpn-date', expiry));
+		if (soon) exp.appendChild(el('span', 'pg-acc__cpn-soon', '만료 임박'));
+		top.appendChild(exp);
+		card.appendChild(top);
+		var info = el('div', 'pg-acc__cpn-info');
+		info.appendChild(el('p', 'pg-acc__cpn-name', name));
+		var cond = price;
+		if (maxTxt) cond = (cond ? cond + ' · ' : '') + maxTxt.replace(/[()]/g, '');
+		if (cond) info.appendChild(el('p', 'pg-acc__cpn-cond', cond));
+		var prdLink = liText(bodies[b], '쿠폰적용상품');
+		var prdA = prdLink ? prdLink.querySelector('.content a') : null;
+		if (prdA) info.appendChild(prdA);
+		card.appendChild(info);
+		cards.appendChild(card);
 	}
 	var strip = document.createElement('div');
 	strip.className = 'pg-acc__strip';
 	strip.innerHTML = '<div class="pg-acc__strip-cell"><span class="pg-acc__strip-l">Coupons</span><span class="pg-acc__strip-v">' + n + '</span></div>';
 	if (list.parentNode) list.parentNode.insertBefore(strip, list);
+	if (n && table) {
+		table.parentNode.insertBefore(cards, table);
+		list.classList.add('has-cards');
+	}
 }
 
 function mfAccPointStrip(root) {
@@ -2054,10 +2373,23 @@ function mfAccPointStrip(root) {
 		var data = box.querySelector('.data');
 		span = data ? data.querySelector('span') || data : null;
 	}
-	if (!span) return;
-	var v = String(span.textContent || '').replace(/원|점/g, '').replace(/\s+/g, '');
-	if (!v) v = '0';
-	if (!/P$/i.test(v)) span.textContent = v + ' P';
+	mfAccWatch(span, function (raw) {
+		return (raw.replace(/원|점|P$/gi, '').replace(/\s+/g, '') || '0') + ' P';
+	});
+}
+
+function mfAccWatch(el, format) {
+	if (!el) return;
+	var fix = function () {
+		var raw = String(el.textContent || '');
+		var v = format(raw);
+		if (raw !== v) el.textContent = v;
+	};
+	fix();
+	if (window.MutationObserver && !el.getAttribute('data-acc-watch')) {
+		el.setAttribute('data-acc-watch', '1');
+		new MutationObserver(fix).observe(el, { childList: true, characterData: true, subtree: true });
+	}
 }
 
 function mfAccPointHistory(root) {
@@ -2122,14 +2454,75 @@ function mfAccPointHistory(root) {
 }
 
 function mfAccAddrBadge(root) {
-	var cells = root.querySelectorAll('.xans-myshop-addrlist tbody.center tr td');
+	if (/[?&]mf_default=1/.test(location.search || '')) {
+		var flag = root.querySelector('input[name="ma_main_flag"]');
+		if (flag && !flag.checked) flag.click();
+	}
+	var list = root.querySelector('.xans-myshop-addrlist');
+	if (!list) return;
+	var rows = list.querySelectorAll('tbody.center tr');
+	var delBtn = list.querySelector('.ec-base-button .btnNormalFix');
+	var addBtn = list.querySelector('.ec-base-button a[href*="register.html"]');
+	var body = list.querySelector('tbody.center');
+	var n = body && body.className.indexOf('displaynone') === -1 ? rows.length : 0;
+	if (!list.querySelector('.pg-acc__addr-head')) {
+		var head = document.createElement('div');
+		head.className = 'pg-acc__addr-head';
+		var cnt = document.createElement('p');
+		cnt.className = 'pg-acc__addr-count';
+		cnt.textContent = n + (n === 1 ? ' Address' : ' Addresses');
+		head.appendChild(cnt);
+		var add = document.createElement('a');
+		add.className = 'pg-acc__addr-add';
+		add.href = addBtn ? addBtn.getAttribute('href') : '/myshop/addr/register.html';
+		add.textContent = 'Add Address';
+		head.appendChild(add);
+		list.insertBefore(head, list.firstChild);
+	}
 	var i;
-	for (i = 0; i < cells.length; i++) {
-		if (cells[i].querySelector('img[alt="기본"]') && !cells[i].querySelector('.pg-acc__badge--default')) {
+	for (i = 0; i < n; i++) {
+		var tr = rows[i];
+		if (tr.getAttribute('data-addr-card')) continue;
+		tr.setAttribute('data-addr-card', '1');
+		var cells = tr.children;
+		var img = tr.querySelector('img[alt="기본"]');
+		var isDefault = img && img.className.indexOf('displaynone') === -1;
+		if (isDefault) {
+			tr.classList.add('is-default');
 			var b = document.createElement('span');
 			b.className = 'pg-acc__badge--default';
 			b.textContent = '기본 배송지';
-			cells[i].appendChild(b);
+			if (cells[2]) cells[2].appendChild(b);
+		}
+		var edit = cells[7] ? cells[7].querySelector('a') : null;
+		if (edit) {
+			edit.textContent = 'Edit';
+			edit.className = 'pg-acc__addr-link' + (edit.className.indexOf('displaynone') !== -1 ? ' displaynone' : '');
+		}
+		var chk = cells[0] ? cells[0].querySelector('input[type="checkbox"]') : null;
+		if (!isDefault && chk && delBtn && cells[7]) {
+			var del = document.createElement('a');
+			del.href = '#none';
+			del.className = 'pg-acc__addr-link';
+			del.textContent = 'Delete';
+			del.addEventListener('click', (function (box) {
+				return function (ev) {
+					ev.preventDefault();
+					var all = list.querySelectorAll('tbody.center input[type="checkbox"]');
+					var k;
+					for (k = 0; k < all.length; k++) all[k].checked = false;
+					box.checked = true;
+					delBtn.click();
+				};
+			})(chk));
+			cells[7].appendChild(del);
+		}
+		if (!isDefault && edit && cells[6]) {
+			var def = document.createElement('a');
+			def.href = edit.getAttribute('href') + '&mf_default=1';
+			def.className = 'pg-acc__addr-default';
+			def.textContent = 'Set as Default';
+			cells[6].appendChild(def);
 		}
 	}
 }
@@ -2137,6 +2530,149 @@ function mfAccAddrBadge(root) {
 function mfAccInquiryWrite(root) {
 	var btn = root.querySelector('.xans-board-buttonlist-9 .btnSubmitFix, .xans-board-buttonlist-9 a[href*="write"]');
 	if (btn && /글쓰기/.test(btn.textContent || '')) btn.textContent = 'New Inquiry';
+	mfAccSupportList(root, btn);
+}
+
+function mfAccSupportRead(root) {
+	var mod = root.querySelector('.xans-board-read-9');
+	if (!mod || mod.querySelector('.pg-acc__sr')) return;
+	var tables = mod.querySelectorAll('.ec-base-table');
+	var qTable = tables[0];
+	if (!qTable) return;
+	var rows = qTable.querySelectorAll('tbody > tr');
+	if (rows.length < 4) return;
+	function cellOf(tr, idx) {
+		var tds = tr ? tr.querySelectorAll('td') : [];
+		return tds[idx] || null;
+	}
+	function dotDate(v, spaced, withTime) {
+		var m = String(v || '').match(/(\d{4})[-./]\s*(\d{1,2})[-./]\s*(\d{1,2})(?:\s+(\d{1,2}):(\d{2}))?/);
+		if (!m) return String(v || '').replace(/^\s+|\s+$/g, '');
+		var sep = spaced ? '. ' : '.';
+		var out = m[1] + sep + ('0' + m[2]).slice(-2) + sep + ('0' + m[3]).slice(-2);
+		if (withTime && m[4]) out += ' ' + ('0' + m[4]).slice(-2) + ':' + m[5];
+		return out;
+	}
+	var subjTd = cellOf(rows[0], 0);
+	var writerTd = cellOf(rows[1], 0);
+	var dateTd = cellOf(rows[2], 0);
+	var bodyDetail = rows[3].querySelector('.detail');
+	var attachTr = qTable.querySelector('tr.attach');
+
+	var wrap = document.createElement('div');
+	wrap.className = 'pg-acc__sr';
+	var head = document.createElement('div');
+	head.className = 'pg-acc__sr-head';
+	var subj = document.createElement('p');
+	subj.className = 'pg-acc__sr-subj';
+	while (subjTd && subjTd.firstChild) subj.appendChild(subjTd.firstChild);
+	head.appendChild(subj);
+	var info = document.createElement('div');
+	info.className = 'pg-acc__sr-info';
+	var writer = document.createElement('span');
+	writer.textContent = writerTd ? String(writerTd.firstChild && writerTd.firstChild.nodeType === 3 ? writerTd.firstChild.textContent : writerTd.textContent).replace(/^\s+|\s+$/g, '') : '';
+	info.appendChild(writer);
+	if (dateTd && !rows[2].classList.contains('displaynone')) {
+		var dv = document.createElement('i');
+		dv.className = 'pg-acc__sr-div';
+		info.appendChild(dv);
+		var date = document.createElement('span');
+		date.textContent = dotDate(dateTd.textContent, true, false);
+		info.appendChild(date);
+	}
+	head.appendChild(info);
+	wrap.appendChild(head);
+
+	var q = document.createElement('div');
+	q.className = 'pg-acc__sr-q';
+	if (bodyDetail) q.appendChild(bodyDetail);
+	if (attachTr && !attachTr.classList.contains('displaynone')) {
+		var files = document.createElement('div');
+		files.className = 'pg-acc__sr-files';
+		var attTd = cellOf(attachTr, 0);
+		while (attTd && attTd.firstChild) files.appendChild(attTd.firstChild);
+		q.appendChild(files);
+	}
+	wrap.appendChild(q);
+
+	var aTable = tables[1];
+	var aBox = aTable ? aTable.parentNode : null;
+	if (aTable && aBox && !aBox.classList.contains('displaynone')) {
+		var aRows = aTable.querySelectorAll('tbody > tr');
+		var ans = document.createElement('div');
+		ans.className = 'pg-acc__sr-a';
+		var aHead = document.createElement('div');
+		aHead.className = 'pg-acc__sr-a-head';
+		var aName = document.createElement('p');
+		aName.className = 'pg-acc__sr-a-name';
+		var nameTd = cellOf(aRows[0], 0);
+		aName.textContent = nameTd ? String(nameTd.textContent || '').replace(/^\s+|\s+$/g, '') : '';
+		var aDate = document.createElement('p');
+		aDate.className = 'pg-acc__sr-a-date';
+		var aDateTd = cellOf(aRows[1], 0);
+		aDate.textContent = aDateTd ? dotDate(aDateTd.textContent, false, true) : '';
+		aHead.appendChild(aName);
+		aHead.appendChild(aDate);
+		ans.appendChild(aHead);
+		var aDetail = aRows[2] ? aRows[2].querySelector('.detail') : null;
+		if (aDetail) ans.appendChild(aDetail);
+		wrap.appendChild(ans);
+		aBox.classList.add('pg-acc__sr-src');
+	}
+	qTable.classList.add('pg-acc__sr-src');
+	mod.insertBefore(wrap, qTable);
+	mod.classList.add('pg-acc__sr-mod');
+
+	var btns = mod.querySelectorAll('.ec-base-button a');
+	var b;
+	for (b = 0; b < btns.length; b++) {
+		var t = String(btns[b].textContent || '').replace(/\s+/g, '');
+		if (t === '목록') {
+			btns[b].textContent = 'Back to List';
+			btns[b].classList.add('pg-acc__sr-back');
+		} else if (t === '삭제') btns[b].textContent = 'Delete';
+		else if (t === '수정') btns[b].textContent = 'Edit';
+		else if (t === '답변') btns[b].textContent = 'Reply';
+	}
+}
+
+function mfAccSupportList(root, btn) {
+	var pkg = root.querySelector('.xans-board-listpackage-9');
+	if (!pkg || root.querySelector('.pg-acc__sup-head')) return;
+	var table = pkg.querySelector('.ec-base-table');
+	if (!table) return;
+	var rows = table.querySelectorAll('tbody.center > tr');
+	var n = 0;
+	var i;
+	for (i = 0; i < rows.length; i++) {
+		var cells = rows[i].children;
+		if (cells.length < 6) continue;
+		n++;
+		rows[i].classList.add('pg-acc__sup-row');
+		var date = cells[4];
+		if (date) date.textContent = mfAccFmtDate(date.textContent);
+		var st = cells[5];
+		var raw = String(st.textContent || '').replace(/\s+/g, '');
+		var done = /^(O|Y|T)$|완료/.test(raw);
+		var badge = document.createElement('span');
+		badge.className = 'pg-acc__sup-badge' + (done ? ' is-done' : '');
+		badge.textContent = done ? '답변 완료' : '답변 대기';
+		st.textContent = '';
+		st.appendChild(badge);
+	}
+	table.classList.add('pg-acc__sup-list');
+	var head = document.createElement('div');
+	head.className = 'pg-acc__sup-head';
+	var total = document.createElement('p');
+	total.className = 'pg-acc__sup-total';
+	total.textContent = 'Total ' + n;
+	head.appendChild(total);
+	if (btn && btn.className.indexOf('displaynone') === -1) {
+		var box = btn.closest ? btn.closest('.xans-board-buttonlist-9') : null;
+		head.appendChild(btn);
+		if (box) box.classList.add('is-empty');
+	}
+	table.parentNode.insertBefore(head, table);
 }
 
 function mfAccPaginate(root) {

@@ -284,7 +284,7 @@
 }
 .pg-acd__cat {
 	display: block;
-	margin: 0 0 2px;
+	margin: 0 0 -10px;
 	color: var(--Accent\/Gold);
 	font: 400 12px/1.36 var(--mf-sans);
 	letter-spacing: -0.01em;
@@ -345,6 +345,11 @@
 	text-decoration: none;
 }
 .pg-acd__more[hidden] { display: none !important; }
+.pg-acd--notice .pg-acd__nav,
+.pg-acd--notice .pg-acd__writer,
+.pg-acd--notice .pg-acd__sep,
+.pg-acd--notice .pg-acd__hit,
+.pg-acd--notice .pg-acd__row:not(.is-notice) .pg-acd__cat { display: none; }
 
 @media all and (max-width: 1024px) {
 	.pg-acd { padding-bottom: 80px; }
@@ -394,11 +399,14 @@
 	.pg-acd__write { margin: 24px 40px 0; }
 	.pg-acd__pager.ec-base-paginate.typeList { display: none; }
 	.pg-acd__more { display: block; }
+	.pg-acd--notice .pg-acd__head { display: none; }
+	.pg-acd--notice .pg-acd__list { padding-top: 200px; }
 }
 
 @media all and (max-width: 768px) {
-	.pg-acd__head { padding: 108px 20px 16px; }
+	.pg-acd__head { padding: 104px 20px 32px; gap: 32px; }
 	.pg-acd__list { padding: 0 20px; }
+	.pg-acd--notice .pg-acd__list { padding-top: 144px; }
 	.pg-acd__write { margin-left: 20px; margin-right: 20px; }
 	.pg-acd__chips {
 		width: calc(100% + 20px);
