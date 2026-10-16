@@ -406,6 +406,33 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	color: var(--Neutral\/Wood);
 	font: 400 12px/1.5 var(--mf-sans);
 }
+/* Cafe24 기본 결제수단 선택 파란 테두리·배경 제거 */
+#userStyle #mCafe24Order .payMethod > li.selected > .inner,
+#userStyle #mCafe24Order .payMethod > li .inner > .ec-base-label > input:checked ~ label {
+	border: 0;
+	border-color: transparent;
+	color: inherit;
+	background: none;
+	font-weight: 400;
+	box-shadow: none;
+}
+#userStyle #mCafe24Order .ec-paymethod-input-detail #payment_input_cash,
+#userStyle #mCafe24Order .ec-paymethod-input-detail #payment_input_tcash,
+#userStyle #mCafe24Order .ec-paymethod-input-detail #payment_input_icash,
+#userStyle #mCafe24Order .ec-paymethod-input-detail #payment_input_direct_card,
+#userStyle #mCafe24Order .receiptWrap .receiptArea,
+#userStyle #mCafe24Order .helpArea,
+#userStyle #mCafe24Order .ec-order-payment-card {
+	background: none;
+	background-color: transparent;
+	border: 0;
+}
+#userStyle #mCafe24Order #ec-jigsaw-area-paymethod .inner::before { display: none; }
+#userStyle #mCafe24Order #ec-jigsaw-area-paymethod .column > div > div:has(> .ec-base-label input[name="addr_paymethod"]:checked) {
+	border: 0;
+	background: none;
+	box-shadow: none;
+}
 
 #userStyle #mCafe24Order .ec-address {
 	display: block;
