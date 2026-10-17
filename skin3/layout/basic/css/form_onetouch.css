@@ -428,8 +428,13 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	border: 0;
 }
 #userStyle #mCafe24Order #ec-jigsaw-area-paymethod .inner::before { display: none; }
-#userStyle #mCafe24Order #ec-jigsaw-area-paymethod .column > div > div:has(> .ec-base-label input[name="addr_paymethod"]:checked) {
+/* Cafe24 v2 결제수단 선택 파란 박스 — :not(#wrappingOriginal) id 우선순위 대응 */
+#userStyle #mCafe24Order #ec-jigsaw-area-paymethod .column > div > div:not(#wrappingOriginal),
+#userStyle #mCafe24Order #ec-jigsaw-area-paymethod .column > div > div:not(#wrappingOriginal):has(> .ec-base-label input[type="radio"]:checked) {
+	padding: 0;
 	border: 0;
+	border-color: transparent;
+	border-radius: 0;
 	background: none;
 	box-shadow: none;
 }
@@ -864,7 +869,22 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	font: var(--mf-b16);
 	letter-spacing: -0.01em;
 }
-.pg-chk--done .resultArea {
+/* Cafe24 .v2.orderResult #mCafe24Order .resultArea { padding:40px 16px } 덮어쓰기 */
+#userStyle.orderResult #mCafe24Order,
+.pg-chk--done #mCafe24Order {
+	display: block;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	gap: 0;
+	max-width: none;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: none;
+}
+#userStyle.orderResult #mCafe24Order .resultArea,
+.pg-chk--done #mCafe24Order .resultArea {
 	max-width: 787px;
 	margin: 0;
 	padding: 0;
@@ -873,12 +893,14 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 	text-align: left;
 }
 .pg-chk--done .resultArea > .message { display: none; }
-.pg-chk--done .resultInfo {
+.pg-chk--done .resultInfo,
+#userStyle.orderResult #mCafe24Order .resultArea .resultInfo {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	margin: 0 0 80px;
 	padding: 20px;
+	border: 0;
 	background: var(--Neutral\/Warm);
 }
 .pg-chk--done .resultInfo .chk-meta {
@@ -1213,7 +1235,8 @@ body:has(.pg-chk) #wrap { min-width: 0; }
 		font: var(--mf-b13);
 		line-height: 1.42;
 	}
-	.pg-chk--done .resultInfo {
+	.pg-chk--done .resultInfo,
+	#userStyle.orderResult #mCafe24Order .resultArea .resultInfo {
 		gap: 12px;
 		margin: 0 0 40px;
 	}
